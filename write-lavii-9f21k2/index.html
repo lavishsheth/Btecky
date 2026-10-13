@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Write | B Tecky</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#101a3a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/additions.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+</head>
+<body>
+
+<!-- Passphrase gate -->
+<div class="write-gate" id="gate">
+  <div class="panel">
+    <h2>B Tecky — Write</h2>
+    <p class="muted">This page isn't linked anywhere on the site. Enter your passphrase to continue.</p>
+    <input type="password" id="gate-key" placeholder="Passphrase" autocomplete="off">
+    <button class="btn btn-blue" style="width:100%" id="gate-go">Continue</button>
+    <p class="write-status err" id="gate-msg"></p>
+  </div>
+</div>
+
+<!-- Editor (hidden until passphrase verified) -->
+<div class="write-wrap" id="editor" hidden>
+  <div class="write-head">
+    <div>
+      <h1 style="font-size:1.8rem">Write a post</h1>
+      <p class="muted" style="margin:4px 0 0">Publishes straight to /blog — no redeploy needed.</p>
+    </div>
+    <a class="btn btn-line" href="/blog" target="_blank" rel="noopener">View blog ↗</a>
+  </div>
+
+  <div class="write-grid">
+    <div class="write-form">
+      <input type="hidden" id="f-original-slug" value="">
+
+      <label for="f-title">Title</label>
+      <input type="text" id="f-title" placeholder="How I finally beat the Kafka milestone">
+
+      <label for="f-slug">URL slug (auto-filled from title, editable)</label>
+      <input type="text" id="f-slug" placeholder="how-i-beat-the-kafka-milestone">
+
+      <label for="f-category">Category</label>
+      <select id="f-category">
+        <option>Arcade</option>
+        <option>Google Cloud</option>
+        <option>AI</option>
+        <option>Learning</option>
+        <option>B Tecky</option>
+        <option>Channel</option>
+        <option>Tools</option>
+      </select>
+
+      <label for="f-excerpt">Excerpt (shows on the blog card, ~1-2 sentences)</label>
+      <textarea id="f-excerpt" rows="2"></textarea>
+
+      <label for="f-body">Body (Markdown — headings, lists, links, code blocks all work)</label>
+      <textarea id="f-body" placeholder="## Start with a heading&#10;&#10;Write your post here in Markdown..."></textarea>
+
+      <div class="write-actions">
+        <button class="btn btn-line" id="btn-draft">Save as draft</button>
+        <button class="btn btn-blue" id="btn-publish">Publish</button>
+        <button class="btn btn-line" id="btn-new" type="button">New post</button>
+      </div>
+      <p class="write-status" id="form-msg"></p>
+    </div>
+
+    <div>
+      <label style="font-weight:700;font-size:.92rem;display:block;margin-bottom:6px">Live preview</label>
+      <div class="write-preview prose" id="preview"></div>
+    </div>
+  </div>
+
+  <div class="write-list">
+    <h2 style="font-size:1.3rem">Existing posts</h2>
+    <div id="post-list"><p class="muted">Loading…</p></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var KEY_STORAGE = "btecky-write-key";
+  var gate = document.getElementById("gate");
+  var editor = document.getElementById("editor");
+  var gateKey = document.getElementById("gate-key");
+  var gateMsg = document.getElementById("gate-msg");
+
+  function apiKey() { return sessionStorage.getItem(KEY_STORAGE) || ""; }
+
+  function headers() {
+    return { "Content-Type": "application/json", "x-btecky-key": apiKey() };
+  }
+
+  function showEditor() {
+    gate.hidden = true;
+    editor.hidden = false;
+    loadPosts();
+  }
+
+  document.getElementById("gate-go").addEventListener("click", function () {
+    var k = gateKey.value.trim();
+    if (!k) return;
+    // Verify by calling the admin list endpoint — wrong passphrase = 401.
+    fetch("/.netlify/functions/list-posts-admin", { headers: { "x-btecky-key": k } })
+      .then(function (r) {
+        if (r.status === 401) { gateMsg.textContent = "Wrong passphrase."; return null; }
+        if (!r.ok) { gateMsg.textContent = "Something went wrong — try again."; return null; }
+        return r.json();
+      })
+      .then(function (posts) {
+        if (posts === null) return;
+        sessionStorage.setItem(KEY_STORAGE, k);
+        gateMsg.textContent = "";
+        showEditor();
+        renderPostList(posts);
+      })
+      .catch(function () { gateMsg.textContent = "Couldn't reach the server — try again."; });
+  });
+
+  if (apiKey()) {
+    // already unlocked earlier this session
+    showEditor();
+  }
+
+  /* ---- slug auto-fill ---- */
+  var titleEl = document.getElementById("f-title");
+  var slugEl = document.getElementById("f-slug");
+  var slugTouched = false;
+  slugEl.addEventListener("input", function () { slugTouched = true; });
+  titleEl.addEventListener("input", function () {
+    if (slugTouched) return;
+    slugEl.value = titleEl.value
+      .toLowerCase().trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "")
+      .slice(0, 80);
+  });
+
+  /* ---- live markdown preview ---- */
+  var bodyEl = document.getElementById("f-body");
+  var preview = document.getElementById("preview");
+  function renderPreview() {
+    preview.innerHTML = window.marked ? marked.parse(bodyEl.value || "") : bodyEl.value;
+  }
+  bodyEl.addEventListener("input", renderPreview);
+  renderPreview();
+
+  /* ---- new post ---- */
+  document.getElementById("btn-new").addEventListener("click", function () {
+    document.getElementById("f-original-slug").value = "";
+    titleEl.value = "";
+    slugEl.value = "";
+    slugTouched = false;
+    document.getElementById("f-excerpt").value = "";
+    bodyEl.value = "";
+    document.getElementById("form-msg").textContent = "";
+    renderPreview();
+  });
+
+  /* ---- save (draft or publish) ---- */
+  function save(status) {
+    var msg = document.getElementById("form-msg");
+    var payload = {
+      slug: slugEl.value.trim() || document.getElementById("f-original-slug").value,
+      title: titleEl.value.trim(),
+      category: document.getElementById("f-category").value,
+      excerpt: document.getElementById("f-excerpt").value.trim(),
+      body: bodyEl.value,
+      status: status
+    };
+    if (!payload.title || !payload.body) {
+      msg.className = "write-status err";
+      msg.textContent = "Title and body are required.";
+      return;
+    }
+    msg.className = "write-status";
+    msg.textContent = "Saving…";
+    fetch("/.netlify/functions/publish-post", {
+      method: "POST",
+      headers: headers(),
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (res) {
+        if (!res.ok) {
+          msg.className = "write-status err";
+          msg.textContent = res.j.error || "Failed to save.";
+          return;
+        }
+        msg.className = "write-status ok";
+        msg.textContent = status === "draft" ? "Draft saved." : "Published — live on /blog now.";
+        document.getElementById("f-original-slug").value = res.j.post.slug;
+        loadPosts();
+      })
+      .catch(function () {
+        msg.className = "write-status err";
+        msg.textContent = "Couldn't reach the server.";
+      });
+  }
+  document.getElementById("btn-draft").addEventListener("click", function () { save("draft"); });
+  document.getElementById("btn-publish").addEventListener("click", function () { save("published"); });
+
+  /* ---- existing posts list ---- */
+  function loadPosts() {
+    fetch("/.netlify/functions/list-posts-admin", { headers: headers() })
+      .then(function (r) { return r.json(); })
+      .then(renderPostList)
+      .catch(function () {
+        document.getElementById("post-list").innerHTML = '<p class="write-status err">Couldn\'t load posts.</p>';
+      });
+  }
+
+  function renderPostList(posts) {
+    var box = document.getElementById("post-list");
+    if (!posts || !posts.length) {
+      box.innerHTML = '<p class="muted">No posts yet — write your first one above.</p>';
+      return;
+    }
+    box.innerHTML = "";
+    posts.forEach(function (p) {
+      var row = document.createElement("div");
+      row.className = "write-post-row";
+      row.innerHTML =
+        '<div class="t"><b>' + p.title + (p.status === "draft" ? '<span class="draft-tag">Draft</span>' : "") +
+        "</b><span>" + p.category + " · " + p.date + "</span></div>";
+      var editBtn = document.createElement("button");
+      editBtn.className = "btn btn-line";
+      editBtn.textContent = "Edit";
+      editBtn.addEventListener("click", function () { editPost(p.slug); });
+      var delBtn = document.createElement("button");
+      delBtn.className = "btn btn-line";
+      delBtn.textContent = "Delete";
+      delBtn.addEventListener("click", function () { deletePost(p.slug); });
+      row.appendChild(editBtn);
+      row.appendChild(delBtn);
+      box.appendChild(row);
+    });
+  }
+
+  function editPost(slug) {
+    fetch("/.netlify/functions/get-post?slug=" + encodeURIComponent(slug), { headers: headers() })
+      .then(function (r) { return r.json(); })
+      .then(function (p) {
+        document.getElementById("f-original-slug").value = p.slug;
+        titleEl.value = p.title;
+        slugEl.value = p.slug;
+        slugTouched = true;
+        document.getElementById("f-category").value = p.category;
+        document.getElementById("f-excerpt").value = p.excerpt || "";
+        bodyEl.value = p.body;
+        renderPreview();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+  }
+
+  function deletePost(slug) {
+    if (!confirm("Delete this post permanently?")) return;
+    fetch("/.netlify/functions/delete-post", {
+      method: "POST",
+      headers: headers(),
+      body: JSON.stringify({ slug: slug })
+    }).then(loadPosts);
+  }
+})();
+</script>
+<script src="/site.js"></script>
+<script src="/community.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/playlists"
+  to = "/playlists/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/partners"
+  to = "/partners/index.html"
+  status = 200

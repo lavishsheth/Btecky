@@ -1,0 +1,110 @@
+{
+ "version": 1,
+ "settings": {
+  "siteUrl": "https://bteckyweb.netlify.app",
+  "adsenseClient": "ca-pub-2101092613299647",
+  "adSlot": "",
+  "author": "Lavish",
+  "bio": "Computer science student and the creator behind B Tecky. I make videos on Google Cloud, coding and careers.",
+  "blogTitle": "Guides, notes and updates",
+  "blogIntro": "Written guides on Google Cloud, Arcade, coding and careers to go with the videos."
+ },
+ "posts": [
+  {
+   "slug": "google-skills-arcade-2026-prize-tiers-explained",
+   "title": "Google Skills Arcade 2026 prize tiers explained: points, prize spots and the waterfall",
+   "date": "2026-09-20",
+   "tags": [
+    "Arcade",
+    "Google Cloud"
+   ],
+   "summary": "The four 2026 Arcade prize tiers, how many prizes each one has, how the waterfall system works, and what changed from last year.",
+   "cover": "",
+   "body": "Google announced the Google Skills Arcade 2026 prize tiers on 10 June 2026. If you are collecting points this year, these are the numbers to plan around.\n\n## The four tiers\n\n| Tier | Arcade points | Prize spots |\n|---|---|---|\n| Trooper | 50 to 74 | 6,000 |\n| Ranger | 75 to 94 | 4,000 |\n| Champion | 95 to 119 | 3,000 |\n| Legend | 120 or more | 2,500 |\n\n## What is different this year\n\n- **The Novice tier is gone.** Google says the season lasts a full year, so the rewards now focus on the four tiers above.\n- **Each tier has a limit.** For the first time, only a set number of players can receive prizes in each tier. Google says the limits are well above the number of prizes claimed last year.\n\n## How the waterfall works\n\nThe Prize Counter works on a first come, first served basis, starting at the Legend tier. Suppose you have 120 or more points but the 2,500 Legend spots are already taken. Your points then move you to the front of the line for Champion prizes. If Champion is full, you roll down to Ranger, and then to Trooper.\n\nThe practical lesson is simple: the earlier you lock in your points, the higher up the waterfall you stay.\n\n## When do the prizes arrive?\n\nThe Prize Counter is due to open shortly after the 2026 season ends at the end of the year. Google also said in April that all the Arcade points you have earned during 2026 are safe and will count when the counter opens.\n\n## Where the points come from\n\n- **Arcade games:** one point each. Since April 2026 every game is worth the same.\n- **Skill badges:** half a point each, so two badges make one point.\n- **Facilitator program:** bonus points from milestones. The 2026 program ran from 13 July to 14 September.\n\n## Work out where you stand\n\nType your numbers into the [Arcade Points Calculator](../arcade-calculator.html) to see your current tier, what you still need for the next one, and what a steady pace could give you by the end of the year.\n\n> Rules can change, so always confirm the details on Google's official announcement: [Google Skills Arcade 2026 Tiers](https://discuss.google.dev/t/google-skills-arcade-2026-tiers/371066). Points and tiers on this website are estimates."
+  },
+  {
+   "slug": "apple-new-ceo-and-first-foldable-iphone-september-2026",
+   "title": "Apple's new CEO and first foldable iPhone: tech news, September 2026",
+   "date": "2026-09-20",
+   "tags": [
+    "Tech News",
+    "Apple"
+   ],
+   "summary": "John Ternus took over as Apple's CEO on 1 September, and Apple showed its first foldable iPhone at its 9 September event. Here is what happened and why it matters.",
+   "cover": "",
+   "body": "September 2026 has been a big month for Apple. The company changed its chief executive and then held an unusual iPhone event. Here is a quick, sourced summary.\n\n## A new CEO on 1 September\n\nApple announced on 20 April 2026 that Tim Cook would become executive chairman of its board and that John Ternus would become CEO, both effective on 1 September. Apple's own announcement says the board approved the plan unanimously after a long-term succession process, and its filing with the US Securities and Exchange Commission confirms the dates.\n\nTernus joined Apple in 2001 and had been its senior vice president of hardware engineering since 2021. He took over on 1 September, the first day of the new arrangement, while Cook stayed on as executive chairman. When the change was announced, CNBC reported that Apple was worth about $4 trillion.\n\n## The \"Surprise and shine\" event\n\nApple held its September event on 9 September, and it was the first one led by the new CEO. According to Fox Business, Apple showed:\n\n- its first foldable iPhone\n- the iPhone 18 Pro and iPhone 18 Pro Max\n- the Apple Watch Series 12\n- AirPods 5\n\nFox Business also reported starting prices of $1,199 for the iPhone 18 Pro and $1,299 for the Pro Max. Outlets used different names for the foldable in their coverage, so check Apple's website for the final product name and price.\n\n## Why memory prices matter\n\nBefore the event, the research firm TrendForce expected iPhone prices to rise by roughly 10 to 20 percent because memory chips have become much more expensive. That is a reminder that the AI boom does not only affect software. It also pushes up the cost of the hardware in your pocket.\n\n## What students and developers can take from it\n\n- New form factors such as foldables mean apps may need layouts that adapt to more screen shapes.\n- Leadership changes at a company this size often shape its product priorities, so it is worth following how Apple talks about AI under its new CEO.\n\n## Sources\n\n- [Apple newsroom: Tim Cook to become executive chairman, John Ternus to become CEO](https://www.apple.com/newsroom/2026/04/tim-cook-to-become-apple-executive-chairman-john-ternus-to-become-apple-ceo/)\n- [CNBC: Apple names John Ternus CEO](https://www.cnbc.com/2026/04/20/apple-names-john-ternus-ceo-replacing-tim-cook-who-becomes-chairman.html)\n- [Fox Business: Apple unveils its first foldable iPhone and iPhone 18 Pro lineup](https://www.foxbusiness.com/technology/apple-unveils-first-foldable-iphone-iphone-18-pro-lineup-new-watches-annual-launch-event)\n- [MacRumors: iPhone 18 Pro price estimates ahead of the event](https://www.macrumors.com/2026/09/03/iphone-18-pro-prices-apple-event-next-week/)\n\n*Product details can change after launch. This post was written on 20 September 2026.*"
+  },
+  {
+   "slug": "what-is-an-ai-agent-beginner-guide",
+   "title": "What is an AI agent? A beginner-friendly guide",
+   "date": "2026-09-20",
+   "tags": [
+    "AI",
+    "Google Cloud"
+   ],
+   "summary": "AI agents are everywhere in tech news. Here is a plain explanation of what they are, how they differ from chatbots, and how to start building one.",
+   "cover": "",
+   "body": "You have probably seen the phrase \"AI agent\" in the news and in Google Cloud's learning content. It sounds complicated, but the idea is simple.\n\n## Chatbot versus agent\n\nA chatbot answers your question and stops. An **AI agent** is given a goal, decides which steps to take, uses tools to carry them out, and keeps going until the goal is done or it needs your help.\n\nFor example, a chatbot can explain how to book a meeting room. An agent could check the calendar, pick a free slot, send the invite and tell you it is done.\n\n## The main parts of an agent\n\n- **A model:** the language model that reads instructions and decides what to do next.\n- **Instructions:** a plain description of the agent's job and its limits.\n- **Tools:** things the agent is allowed to use, such as searching a database, calling an API or reading a file.\n- **A loop:** the agent thinks, acts, looks at the result, and repeats.\n\n## Why \"multi-agent\" matters\n\nBigger systems often use several agents with different roles. One agent might gather data, another might check it, and a third might write the final answer. Google Skills has skill badges on exactly this, including engineering agents with the Agent Development Kit, deploying multi-agent architectures, and orchestrating multi-agent workflows.\n\n## Keep agents on a short leash\n\nBecause an agent can take actions, it should only be given the access it truly needs. Read what it plans to do, test it on sample data first, and never share secrets you would not put in a document. Even the 2026 Arcade Facilitator bonus project asked learners to give access to a single verifier account rather than opening everything up.\n\n## How to start building\n\n1. Learn the basics with hands-on labs on [Google Skills](https://www.skills.google/).\n2. Try the agent-related skill badges to see the tools in action.\n3. Use the Google Cloud free trial for your own small project. Google describes it as 90 days with $300 in credits, and says it will not charge your card automatically when the trial ends.\n4. Start with something tiny, like an agent that answers questions from a short document, and grow from there.\n\nRead the next post to see how Google turned this into a real project for Arcade Facilitator learners: [Build your first AI agent on Google Cloud](first-ai-agent-google-cloud-bonus-milestone.html)."
+  },
+  {
+   "slug": "first-ai-agent-google-cloud-bonus-milestone",
+   "title": "Build your first AI agent on Google Cloud: what the 2026 Bonus Milestone taught",
+   "date": "2026-09-20",
+   "tags": [
+    "Arcade",
+    "AI"
+   ],
+   "summary": "A recap of the Arcade Facilitator 2026 Bonus Milestone: the checklist, the four skill badges, and the steps to build and submit your first AI agent.",
+   "cover": "",
+   "body": "The Arcade Facilitator 2026 program added a new Bonus Milestone. Instead of only collecting badges, learners built and deployed a working AI agent on Google Cloud, and earned **10 extra Arcade points** for it. The Facilitator program itself ended on 14 September 2026, but the project is a great template for learning the same skills.\n\n## Who could take part\n\nAccording to Google's announcement, you needed to:\n\n- be enrolled in the Arcade Facilitator 2026 cohort\n- hold both the GEAR badge and the Arcade GEAR badge on your Google Developer Profile\n- have unlocked Milestone 1 in the Facilitator program\n\n## The four steps\n\n### 1. Finish four GEAR skill badges\n\n- Create Your First Gemini Enterprise Application\n- Engineer AI Agents with ADK\n- Deploy Multi-Agent Architectures\n- Orchestrate Multi-agent Workflows\n\nGoogle noted that these also counted toward the normal Arcade milestones, so the work paid off twice.\n\n### 2. Start your Google Cloud free trial\n\nLearners signed up for the 90-day trial with $300 in credits, using the email address enrolled in the program. Anyone who already had an active billing account on that email could skip this step.\n\n### 3. Build the agent\n\nFollow the project instructions to build your first agent with Google Cloud's Vertex AI platform. The last step is to give access to the verifier email address so your project can be checked.\n\n### 4. Submit your details\n\nFill in the verification form with your Project ID and your 18-character Billing Account ID from the Google Cloud console.\n\n## Tips from the community\n\nSeveral learners in Google's forum reported problems setting up billing during the trial sign-up, so start early and read Google's free trial FAQs if something fails.\n\n## Why this project is worth copying\n\nBuilding a real agent teaches more than watching a demo. If you want the ideas behind it first, read [What is an AI agent?](what-is-an-ai-agent-beginner-guide.html). To see how those 10 points fit into your prize tier, use the [Arcade Points Calculator](../arcade-calculator.html).\n\nSource: [Arcade Facilitator 2026 Bonus Milestone](https://discuss.google.dev/t/arcade-facilitator-2026-bonus-milestone/386412) on the Google Developer forums."
+  },
+  {
+   "slug": "free-google-cloud-roadmap-for-beginners-2026",
+   "title": "A free roadmap to learn Google Cloud as a beginner in 2026",
+   "date": "2026-09-20",
+   "tags": [
+    "Google Cloud",
+    "Learning"
+   ],
+   "summary": "A simple step-by-step plan to start learning Google Cloud for free with Google Skills, Arcade games, skill badges and small projects.",
+   "cover": "",
+   "body": "Google Cloud can look huge when you are starting out. This roadmap breaks it into small steps you can follow for free, one at a time.\n\n## Step 1: Create your Google Skills account\n\nGoogle Skills is where the hands-on labs, courses and skill badges live. Sign up on [skills.google](https://www.skills.google/) and set up your public profile so your badges are recorded.\n\n## Step 2: Play the monthly Arcade games\n\nEach month the Google Skills Arcade releases new hands-on games. Every game is worth one Arcade point, and the access code for each game is on the official Arcade page. Games are short, so they are a friendly way to get used to the console.\n\n## Step 3: Earn skill badges\n\nSkill badges go deeper than games. Each badge is worth half an Arcade point, and together they build proof of your skills. Pick a theme and stay with it for a while, for example storage and data, or AI and agents, rather than jumping between topics.\n\n## Step 4: Use the free trial for your own projects\n\nGoogle offers a 90-day trial with $300 in credits, and says it will not charge your card automatically when the trial ends. Use it for small projects that are not part of a lab.\n\n## Step 5: Build tiny projects\n\nAfter each topic, build something small on your own:\n\n- store files in Cloud Storage\n- deploy a simple app to Cloud Run\n- query a sample dataset in BigQuery\n- try a Vertex AI example\n\n## Step 6: Take notes and repeat\n\nWrite down commands, mistakes and useful links after every lab. Try repeating a lab from memory a few days later. Thirty to sixty minutes a day beats one huge weekend.\n\n## Step 7: Join the community\n\nThe [Google Developer forums](https://discuss.google.dev/c/google-cloud/14) are full of learners sharing tips and asking questions.\n\n## Track your progress\n\nKeep count of your games and badges with the [Arcade Points Calculator](../arcade-calculator.html). It has a checklist that remembers your progress and shows which prize tier you are heading for.\n\nWant to see these steps done live? Watch the walkthroughs on the [B Tecky YouTube channel](https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ)."
+  },
+  {
+   "slug": "welcome-to-btecky-start-here",
+   "title": "Welcome to B Tecky: what the channel covers and where to start",
+   "date": "2026-09-20",
+   "tags": [
+    "B Tecky",
+    "Channel"
+   ],
+   "summary": "Meet the B Tecky YouTube channel and its official website: what I make, who it is for, and the best places to start.",
+   "cover": "",
+   "body": "Hi, I'm Lavish, a computer science student pursuing a B-Tech degree, and I'm passionate about technology. **B Tecky** is my YouTube channel, and this website is its official home.\n\n## What the channel covers\n\n- Google Cloud and the Qwiklabs program\n- Coverage of events and programs, including the Google Cloud Arcade\n- Programming videos, tips and tricks\n- Interviews and internship advice, and more\n\nThe goal is simple: useful content you can apply to your own learning, whether you are collecting skill badges or preparing for your first tech job.\n\n## Where to start\n\n1. **Watch the videos.** The latest uploads and playlists appear in the [videos section](../index.html#videos) of the home page, and you can subscribe on [YouTube](https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ?sub_confirmation=1).\n2. **Read the blog.** Guides and news, like [how Arcade points work](how-google-cloud-arcade-points-work.html) and [a free Google Cloud roadmap](free-google-cloud-roadmap-for-beginners-2026.html).\n3. **Try the tools.** The [Arcade Score Checker](../arcade.html) shows your Facilitator report score, and the [Arcade Points Calculator](../arcade-calculator.html) works out your points and prize tier.\n\n## Find me online\n\nYou can find me on [LinkedIn](https://www.linkedin.com/in/lavish-sheth-163844215) and on YouTube, and more links are in the footer of this site.\n\n## Work with me\n\nFor business queries, sponsorships or collaborations, email [lavishsheth122@gmail.com](mailto:lavishsheth122@gmail.com).\n\nThank you for spending your time here. If you enjoy the content, subscribe to the channel and share the site with a friend who is learning tech."
+  },
+  {
+   "slug": "how-to-use-the-arcade-score-checker",
+   "title": "How to check your Arcade score on B Tecky (no login)",
+   "date": "2026-09-19",
+   "tags": [
+    "Arcade",
+    "Tools"
+   ],
+   "summary": "Step by step: use the free B Tecky Arcade Score Checker to see your points, milestone and rank from your email.",
+   "cover": "",
+   "body": "The [Arcade Score Checker](../arcade.html) is a free tool on this website. You type the email you used for the Facilitator program and it shows where you stand. There is nothing to sign in to and nothing to install.\n\n## How to use it\n\n1. Open the [Arcade Score Checker](../arcade.html).\n2. Type the email address linked to your Google Skills account.\n3. Press **Check my score**.\n4. Read your estimated total, your milestone and your rank, and see which games and skill badges are counted.\n\n## What you will see\n\n- Your **estimated total points**, made from games, skill badges and milestone bonuses.\n- Your **milestone**, and how far you are from the next one.\n- Your **rank** among everyone in the report.\n- The names of the arcade games and skill badges you have completed.\n\n## Good to know\n\n- Capital letters do not matter, and for Gmail addresses dots and `+tags` are ignored.\n- Your email is matched inside your own browser. It is never sent to a server or saved.\n- Scores come from a report with a date shown on the page, so newer progress may not appear until the report is refreshed.\n- If your email is not found, check for typos and make sure you joined through the batches in that report.\n\nWant to know how the points are worked out? Read [How Google Cloud Arcade points work](how-google-cloud-arcade-points-work.html)."
+  },
+  {
+   "slug": "how-google-cloud-arcade-points-work",
+   "title": "How Google Cloud Arcade points work (2026 Facilitator program)",
+   "date": "2026-09-18",
+   "tags": [
+    "Google Cloud",
+    "Arcade"
+   ],
+   "summary": "A plain-English guide to arcade game points, skill badge points, milestone bonuses and the AI agent bonus in the 2026 Facilitator program.",
+   "cover": "",
+   "body": "If you are collecting points in the Google Cloud Arcade Facilitator program, it helps to know exactly where every point comes from. Here is the simple version.\n\n## Points from games and skill badges\n\n- **Arcade games:** each completed arcade game gives **1 point**. Since April 2026 every game is worth the same single point.\n- **Skill badges:** every **2 skill badges** give **1 point**, so each badge is worth 0.5 points. Completing 18 badges is worth 9 points.\n\n## Milestone bonuses\n\nReaching a milestone adds a bonus on top of your game and badge points. You only receive the bonus for the milestone you reach, not for the ones before it.\n\n| Milestone | Arcade games | Skill badges | Bonus points |\n|---|---|---|---|\n| Milestone 1 | 6 | 18 | 5 |\n| Milestone 2 | 8 | 34 | 15 |\n| Milestone 3 | 10 | 50 | 25 |\n| Ultimate Milestone | 12 | 66 | 35 |\n\n## The AI agent bonus\n\nThere is also a bonus milestone for an AI agent project. Earning it adds **10 points**.\n\n## A worked example\n\nSay you have completed 7 arcade games and 24 skill badges, and you have reached Milestone 1.\n\n- Games: 7 points\n- Skill badges: 24 x 0.5 = 12 points\n- Milestone 1 bonus: 5 points\n- **Total: 24 points**\n\n> The rules can change between programs, so always check the official Google Skills page for the latest details. Points shown on this website are estimates.\n\n## Plan your points\n\nWant to see your prize tier and what is left to earn? Use the [Arcade Points Calculator](../arcade-calculator.html). It adds up your games, badges and bonuses and shows how far you are from each tier.\n\n## Check your Facilitator score\n\nEnter your email in the free [Arcade Score Checker](../arcade.html) to see your estimated points, milestone and rank in seconds. No login is needed.\n\nWant more walkthroughs? Subscribe to the [B Tecky channel](https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ)."
+  }
+ ]
+}

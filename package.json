@@ -1,0 +1,9 @@
+{
+  "name": "btecky-website-functions",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Dependencies for the Netlify Functions used by the self-publish and playlists features.",
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "rewrites": [
+    {
+      "source": "/about",
+      "destination": "/about/index.html"
+    },
+    {
+      "source": "/partners",
+      "destination": "/partners/index.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact/index.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms/index.html"
+    },
+    {
+      "source": "/playlists",
+      "destination": "/playlists/index.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/arcade",
+      "destination": "/arcade.html"
+    },
+    {
+      "source": "/arcade-calculator",
+      "destination": "/arcade-calculator.html"
+    }
+  ]
+}
