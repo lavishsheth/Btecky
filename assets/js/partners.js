@@ -11,37 +11,37 @@
   const partners = [
     {
       name: "be10x",
-      relationship: "Collaborated with",
+      relationship: "Creator collaboration",
       url: "https://be10x.com/",
       logo: "https://www.google.com/s2/favicons?domain=be10x.com&sz=128"
     },
     {
       name: "Hack2Skill",
-      relationship: "Collaborated with",
+      relationship: "Technology ecosystem",
       url: "https://hack2skill.com/",
       logo: "https://www.google.com/s2/favicons?domain=hack2skill.com&sz=128"
     },
     {
       name: "Scaler",
-      relationship: "Collaborated with",
+      relationship: "Learning ecosystem",
       url: "https://www.scaler.com/",
       logo: "https://www.google.com/s2/favicons?domain=scaler.com&sz=128"
     },
     {
       name: "Masai School",
-      relationship: "Collaborated with",
+      relationship: "Learning ecosystem",
       url: "https://www.masaischool.com/",
       logo: "https://www.google.com/s2/favicons?domain=masaischool.com&sz=128"
     },
     {
       name: "NVIDIA",
-      relationship: "Collaborated with",
+      relationship: "Creator / learning activity",
       url: "https://www.nvidia.com/",
       logo: "https://cdn.simpleicons.org/nvidia"
     },
     {
       name: "Coding Ninjas",
-      relationship: "Collaborated with",
+      relationship: "Learning ecosystem",
       url: "https://www.codingninjas.com/",
       logo: "https://www.google.com/s2/favicons?domain=codingninjas.com&sz=128"
     }
@@ -51,8 +51,8 @@
     <section class="partners-section" aria-labelledby="partners-title">
       <div class="section-intro">
         <p class="eyebrow">Partners & collaborations</p>
-        <h2 id="partners-title">People and organisations B Tecky has worked with</h2>
-        <p>Organisations B Tecky has collaborated with through videos, programs and creator/community activities.</p>
+        <h2 id="partners-title">Organisations in our technology ecosystem</h2>
+        <p>A mix of creator collaborations, learning platforms and technology communities. These relationships are not all formal partnerships.</p>
       </div>
       <div class="partner-grid">
         ${partners.map((partner) => `

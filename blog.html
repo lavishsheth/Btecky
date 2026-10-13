@@ -96,6 +96,7 @@
 
 <script src="config.js"></script>
 <script src="site.js"></script>
+<script src="/assets/js/blog-covers.js" defer></script>
 <script>
 (function(){var bs=document.querySelectorAll('.filters button'),cs=document.querySelectorAll('#post-grid .post-card'),no=document.getElementById('no-posts');
 function apply(tag){bs.forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-tag')===tag));});var n=0;cs.forEach(function(c){var t=(c.getAttribute('data-tags')||'').split('|');var s=!tag||t.indexOf(tag)>-1;c.hidden=!s;if(s)n++;});no.hidden=n>0;}

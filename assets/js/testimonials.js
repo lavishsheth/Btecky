@@ -1,50 +1,11 @@
-/**
- * Reusable testimonials component.
- *
- * Production data is intentionally empty.
- * Add only real, permission-cleared quotes in the array below.
- */
+/* Honest community ribbon: never publish fabricated testimonials. */
 (() => {
   const root = document.querySelector("[data-testimonials]");
   if (!root) return;
-
-  // Keep this empty until real quotes are approved for public use.
-  const testimonials = [];
-
-  const escapeHtml = (value = "") =>
-    value.replace(/[&<>"']/g, (char) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-    }[char]));
-
+  const items = ["Practical tools", "Learning in public", "Built one useful step at a time", "Clear technology guides", "Community-led improvement"];
   root.innerHTML = `
-    <section class="testimonials-section" aria-labelledby="testimonials-title">
-      <div class="section-intro">
-        <p class="eyebrow">Community feedback</p>
-        <h2 id="testimonials-title">What the community says</h2>
-      </div>
-      ${
-        testimonials.length
-          ? `<div class="testimonial-grid">${testimonials.map((item) => `
-              <article class="testimonial-card">
-                <div class="testimonial-quote">“${escapeHtml(item.quote)}”</div>
-                <div class="testimonial-author">
-                  ${item.avatar ? `<img src="${item.avatar}" alt="" loading="lazy">` : ""}
-                  <div>
-                    <strong>${escapeHtml(item.name)}</strong>
-                    <span>${escapeHtml(item.context || "")}</span>
-                  </div>
-                </div>
-                ${item.url ? `<a class="text-link" href="${item.url}" target="_blank" rel="noopener noreferrer">View original ↗</a>` : ""}
-              </article>
-            `).join("")}</div>`
-          : `<div class="testimonials-empty">
-              <p>Real community feedback will be added here as it is collected and cleared for public use.</p>
-            </div>`
-      }
-    </section>
-  `;
+    <section class="community-ribbon-section" aria-labelledby="community-ribbon-title">
+      <div class="section-intro"><p class="eyebrow">The B Tecky approach</p><h2 id="community-ribbon-title">Useful by design. Growing with the community.</h2><p>We're collecting genuine feedback as people use our tools. Until then, here's what we're building toward.</p></div>
+      <div class="value-ribbon" aria-label="B Tecky values"><div class="value-ribbon-track">${[...items, ...items].map((item) => `<span class="value-ribbon-item"><i aria-hidden="true">✦</i>${item}</span>`).join("")}</div></div>
+    </section>`;
 })();
