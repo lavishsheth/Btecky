@@ -160,3 +160,7 @@
 footer .wrap{gap:30px}footer .foot-links{display:flex;flex-wrap:wrap;gap:8px 14px}footer .foot-links a{padding:5px 0}footer .foot-links a:hover{color:#ffcf3d}
 @media(max-width:760px){.founder-story-grid{grid-template-columns:1fr}.founder-portrait-wrap,.founder-portrait-wrap .founder-photo{min-height:340px}.founder-story-copy{padding:24px}.hero-products{padding:22px!important}.product-card{min-height:245px}}
 @media(prefers-reduced-motion:reduce){.value-ribbon-track{animation:none}.hero-product-link,.product-card,.partner-card,.partner-item{transition:none}}
+
+/* Accessible contrast for social links on the light founder/about cards. */
+.about-story .social a,.founder-story-copy .social a{background:#edf2ff!important;color:#14234b!important;border:1px solid #c9d5f2!important;box-shadow:0 3px 10px rgba(16,26,58,.06)}
+.about-story .social a:hover,.founder-story-copy .social a:hover{background:#dfe8ff!important;color:#123fc9!important;border-color:#8da8ff!important}
