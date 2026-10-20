@@ -108,5 +108,9 @@
 (function(){var b=document.getElementById("copy-link");if(!b)return;b.addEventListener("click",function(){var u=location.href;function ok(){b.textContent="Link copied";setTimeout(function(){b.textContent="Copy link";},2000);}if(navigator.clipboard){navigator.clipboard.writeText(u).then(ok,function(){});}else{ok();}});})();
 </script>
 <script src="/community.js"></script>
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <script>document.querySelector('.nav-drop-toggle')?.addEventListener('click',function(){const d=this.closest('.nav-dropdown');d.classList.toggle('open');this.setAttribute('aria-expanded',d.classList.contains('open')?'true':'false')});</script></body>
 </html>
