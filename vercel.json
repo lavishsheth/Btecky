@@ -31,6 +31,10 @@
     {
       "source": "/arcade-calculator",
       "destination": "/arcade-calculator.html"
+    },
+    {
+      "source": "/write-lavii-9f21k2",
+      "destination": "/write-lavii-9f21k2/index.html"
     }
   ]
 }

@@ -13,3 +13,12 @@ Founder & CEO / Development Lead: Lavish Sheth.
 Software Engineer: Rohan Pawar (former Development Lead at B Tecky).
 
 Brand relationships are described conservatively; inclusion of a logo does not imply endorsement or a formal commercial partnership.
+
+
+## Blog library refresh
+
+- Blog index: `/blog` (search + category filters)
+- Private writer: `/write-lavii-9f21k2/`
+- Publishing setup: see `BLOG-PUBLISHING-SETUP.md`
+- Article content: `blog/posts.json` and static `blog/<slug>.html` files
+- The writer uses a Vercel API route and a server-side GitHub token; it no longer relies on Netlify Functions for blog publishing.
