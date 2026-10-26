@@ -1,5 +1,29 @@
 (() => {
-  const API_URL = "/.netlify/functions/youtube-playlists";
+  const API_URL = "/api/youtube-playlists";
+  const CHANNEL_PLAYLISTS_URL = "https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ/playlists";
+  const FALLBACK_PAYLOAD = {
+    channels: [{
+      key: "btecky",
+      name: "B Tecky",
+      url: CHANNEL_PLAYLISTS_URL,
+      playlists: [
+        { id: "PLCwYbB8UztgM", title: "Google Learn With Communities 2026", videoCount: 6, firstVideoId: "v4lLhiqyG_Q" },
+        { id: "PLWiIoKE_Juj8", title: "Google Cloud Study Jam 2026", videoCount: 1, firstVideoId: "Dl9fAEnoI5s" },
+        { id: "PLHfG5z55qcXs", title: "Kestra Hacktoberfest 2026", videoCount: 2, firstVideoId: "U2BPgdxc3I4" },
+        { id: "PLbJhMRo_rEjs", title: "Arcade Adventure: Google Cloud ML APIs", videoCount: 7, firstVideoId: "Kc3pKJMH7n8" },
+        { id: "PLTIuaqKWnLCw", title: "Arcade Trail: Containers & Load Balancing", videoCount: 6, firstVideoId: "VCSm5Qoy4OA" },
+        { id: "PLFVx8GUEltNc", title: "Arcade Voyage: Language, Voice, and Multimodal Processing", videoCount: 7, firstVideoId: "dI_KrIWO86c" },
+        { id: "PLaFQYHjgd-vA", title: "Arcade Base Camp October 2026", videoCount: 6, firstVideoId: "C-M9rzhvsUI" },
+        { id: "PLUE6B4qQsZKc", title: "Arcade Simulator: Site Reliability Engineer", videoCount: 6, firstVideoId: "3KMUUhZhaqM" },
+        { id: "PLPs7XUAcZhTc", title: "Trick-or-Metric", videoCount: 6, firstVideoId: "PeD5iiIJz8g" },
+        { id: "PLB3Ug3UvAO5A", title: "Google DevFest 2026", videoCount: 3, firstVideoId: "kWLOARdcNh4" }
+      ].map((playlist) => ({
+        ...playlist,
+        thumbnail: `https://i.ytimg.com/vi/${playlist.firstVideoId}/hqdefault.jpg`,
+        url: `https://www.youtube.com/playlist?list=${playlist.id}`
+      }))
+    }]
+  };
   const root = document.querySelector("[data-playlists-root]");
   if (!root) return;
 
@@ -75,26 +99,33 @@
     `;
   };
 
-  const render = (payload) => {
+  const render = (payload, isFallback = false) => {
+    const playlistCount = payload.channels.reduce(
+      (count, channel) => count + channel.playlists.length,
+      0
+    );
     root.innerHTML = `
-      <div class="section-intro">
-        <p class="eyebrow">YouTube library</p>
-        <h1>Playlists</h1>
-        <p>Browse playlists across the B Tecky creator network — all in one place.</p>
+      <div class="playlist-feed-status ${isFallback ? "is-fallback" : ""}" role="status">
+        <span class="playlist-status-dot" aria-hidden="true"></span>
+        ${isFallback ? "" : "<span>Public playlists from B Tecky</span>"}
+        <span class="playlist-feed-count">${playlistCount} playlists</span>
       </div>
       <div class="playlist-sections">
         ${payload.channels.map(channelSection).join("")}
       </div>
+      ${isFallback ? `<div class="playlist-fallback-actions"><a class="text-link" href="${CHANNEL_PLAYLISTS_URL}" target="_blank" rel="noopener noreferrer">See all current playlists on YouTube ↗</a><button class="button button-secondary" type="button" data-playlist-retry>Retry live feed</button></div>` : ""}
     `;
+    root.querySelector("[data-playlist-retry]")?.addEventListener("click", load);
   };
 
   const renderError = () => {
     root.innerHTML = `
       <div class="playlist-error">
         <p class="eyebrow">Temporarily unavailable</p>
-        <h1>Playlists couldn't load</h1>
-        <p>Please try again in a little while. The YouTube feed is cached so normal page loads do not hit the API directly.</p>
-        <button class="button" type="button" data-playlist-retry>Try again</button>
+        <h1>Playlist feed couldn't load</h1>
+        <p>You can still browse the public playlists on the B Tecky YouTube channel.</p>
+        <p><a class="button" href="${CHANNEL_PLAYLISTS_URL}" target="_blank" rel="noopener noreferrer">Open B Tecky playlists ↗</a></p>
+        <button class="button button-secondary" type="button" data-playlist-retry>Try again</button>
       </div>
     `;
     root.querySelector("[data-playlist-retry]")?.addEventListener("click", load);
@@ -111,8 +142,8 @@
       if (!Array.isArray(payload.channels)) throw new Error("Invalid playlist response");
       render(payload);
     } catch (error) {
-      console.error(error);
-      renderError();
+      console.warn(error);
+      render(FALLBACK_PAYLOAD, true);
     } finally {
       root.setAttribute("aria-busy", "false");
     }

@@ -11,7 +11,7 @@
       "'": "&#039;"
     }[char]));
 
-  fetch("/.netlify/functions/youtube-playlists", {
+  fetch("/api/youtube-playlists", {
     headers: { Accept: "application/json" }
   })
     .then((response) => {

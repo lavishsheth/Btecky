@@ -4,7 +4,8 @@ A static website for B Tecky, positioned around digital products, software devel
 
 ## Deploy
 - Static pages can be deployed on Vercel or Netlify.
-- `netlify/functions/` and `netlify.toml` are Netlify-specific. The YouTube playlist API function requires `YOUTUBE_API_KEY` configured in Netlify.
+- The YouTube playlist API is available at `/api/youtube-playlists`; configure `YOUTUBE_API_KEY` in the Vercel project environment variables and redeploy.
+- `netlify/functions/` and `netlify.toml` are retained for Netlify deployments.
 - The static website does not require API keys for its basic pages.
 - Do not commit API keys or other secrets to this repository.
 

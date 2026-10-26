@@ -4,7 +4,7 @@
  * Netlify Function:
  *   GET /.netlify/functions/youtube-playlists
  *
- * Required Netlify environment variable:
+ * Required deployment environment variable:
  *   YOUTUBE_API_KEY
  *
  * The API key is never sent to the browser.
@@ -18,24 +18,6 @@ const CHANNELS = [
     name: "B Tecky",
     channelId: "UCS9BcPpwy1W5Xorp0KU23aQ",
     url: "https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ"
-  },
-  {
-    key: "algorithms-code",
-    name: "Algorithms & Code",
-    handle: "@Algorithm-Code",
-    url: "https://www.youtube.com/@Algorithm-Code"
-  },
-  {
-    key: "kalkaengineer",
-    name: "KalkaEngineer",
-    channelId: "UCzzC_uXopXyECc6prGABCCA",
-    url: "https://www.youtube.com/channel/UCzzC_uXopXyECc6prGABCCA"
-  },
-  {
-    key: "job-dekho",
-    name: "Job Dekho",
-    handle: "@placeadda",
-    url: "https://www.youtube.com/@placeadda"
   }
 ];
 
@@ -137,7 +119,7 @@ exports.handler = async () => {
   if (!process.env.YOUTUBE_API_KEY) {
     return json(
       {
-        error: "YOUTUBE_API_KEY is not configured in Netlify environment variables."
+        error: "YOUTUBE_API_KEY is not configured in the deployment environment."
       },
       500,
       { "Cache-Control": "no-store" }
