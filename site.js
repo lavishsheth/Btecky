@@ -264,6 +264,7 @@
     if(!heading) return false;
     shell.dataset.publicationEnhanced="true";
     shell.classList.add("publication-shell");
+    body.classList.add("publication-body");
     var back=shell.querySelector('a[href="/blog"]');
     if(back){back.classList.add("publication-back");}
     var head=shell.querySelector(".article-head") || shell.querySelector(".post-head");
