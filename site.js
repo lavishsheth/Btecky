@@ -162,7 +162,7 @@
   }
   function makeToc(body,layout){
     var headings=Array.prototype.slice.call(body.querySelectorAll("h2,h3"));
-    if(headings.length<2) return;
+    if(headings.length<2){layout.classList.add("publication-layout--no-toc");return;}
     var sidebar=make("aside","publication-sidebar");
     sidebar.appendChild(make("p","publication-toc-title","On this page"));
     var nav=make("nav","publication-toc");nav.setAttribute("aria-label","Article contents");
@@ -324,7 +324,8 @@
     window.addEventListener("scroll",update,{passive:true});window.addEventListener("resize",update);update();
     var articleNav=document.querySelector(".site-head .nav");
     if(articleNav && !document.querySelector(".site-head .nav-toggle")){
-      var toggle=make("button","nav-toggle");toggle.type="button";toggle.setAttribute("aria-label","Open menu");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-controls",articleNav.id || "nav");
+      if(!articleNav.id) articleNav.id="nav";
+      var toggle=make("button","nav-toggle");toggle.type="button";toggle.setAttribute("aria-label","Open menu");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-controls",articleNav.id);
       toggle.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
       articleNav.parentNode.insertBefore(toggle,articleNav);
       toggle.addEventListener("click",function(){var open=articleNav.classList.toggle("open");toggle.setAttribute("aria-expanded",open?"true":"false");toggle.setAttribute("aria-label",open?"Close menu":"Open menu");});
