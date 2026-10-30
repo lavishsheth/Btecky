@@ -369,3 +369,48 @@ footer .wrap{gap:30px}footer .foot-links{display:flex;flex-wrap:wrap;gap:8px 14p
 .publication-shell .publication-body blockquote{margin:2em 0;padding:20px 24px;border:1px solid #dce5ff;border-left:4px solid var(--pub-blue);border-radius:0 14px 14px 0;background:#f5f7ff;color:#354365;font-family:var(--pub-serif);font-size:1.18rem;line-height:1.7}
 .publication-shell .publication-body table{width:100%;min-width:540px;border-collapse:collapse;font-size:.94rem;line-height:1.55}
 .publication-shell .publication-body th,.publication-shell .publication-body td{padding:13px 15px;border:1px solid var(--pub-line);text-align:left;vertical-align:top}
+
+
+/* Publication layout correction: the content column is the primary column.
+   The TOC is explicitly placed first in the visual grid regardless of DOM order. */
+.publication-layout{
+  grid-template-columns:220px minmax(0,760px)!important;
+  gap:48px!important;
+  justify-content:center!important;
+}
+.publication-layout>.publication-sidebar{grid-column:1;grid-row:1}
+.publication-layout>.publication-main{grid-column:2;grid-row:1;width:100%;max-width:760px;min-width:0}
+.publication-layout--no-toc{display:block!important}
+.publication-layout--no-toc>.publication-main{grid-column:auto;grid-row:auto;margin:0 auto;max-width:760px}
+.publication-shell .article-head h1,.publication-shell .post-head h1{
+  max-width:900px;
+  font-size:clamp(2.25rem,4.5vw,3.85rem)!important;
+  line-height:1.07!important;
+  letter-spacing:-.045em!important;
+}
+.publication-author{align-items:center;min-width:0}
+.publication-author .publication-avatar{
+  display:block;
+  flex:none;
+  width:76px;
+  height:76px;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:center 35%;
+  border:3px solid #fff;
+  box-shadow:0 2px 12px rgba(16,26,58,.12);
+  background:#e7edff;
+  font-size:0;
+}
+@media(max-width:900px){
+  .publication-layout{grid-template-columns:minmax(0,1fr)!important;gap:20px!important}
+  .publication-layout>.publication-sidebar{display:none}
+  .publication-layout>.publication-main{grid-column:1;grid-row:1;max-width:760px;margin:0 auto}
+}
+@media(max-width:600px){
+  .publication-shell .article-head h1,.publication-shell .post-head h1{
+    font-size:clamp(2rem,8.5vw,2.8rem)!important;
+    line-height:1.1!important;
+  }
+  .publication-author .publication-avatar{width:62px;height:62px}
+}
