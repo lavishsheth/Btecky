@@ -655,3 +655,41 @@ body:has(.publication-shell){background:#fff}
   .publication-shell .publication-body ul,.publication-shell .publication-body ol{padding:14px 16px 14px 35px!important}
   .publication-callout{grid-template-columns:30px minmax(0,1fr);gap:9px;padding:14px!important}
 }
+
+
+/* Article body cards: each major section is a readable editorial panel,
+   with a separate highlighted introduction and consistent internal rhythm. */
+.publication-shell .publication-intro-card{
+  margin:0 0 22px!important;padding:22px 24px!important;
+  border:1px solid #dce6fb!important;border-radius:17px!important;
+  background:linear-gradient(135deg,#f7f9ff 0%,#fff 85%)!important;
+  box-shadow:0 8px 24px rgba(27,56,120,.045)!important;
+}
+.publication-shell .publication-section-card{
+  margin:20px 0!important;padding:22px 24px!important;
+  border:1px solid #e4eaf4!important;border-radius:17px!important;
+  background:#fff!important;box-shadow:0 8px 26px rgba(16,26,58,.045)!important;
+  transition:border-color .18s,box-shadow .18s;
+}
+.publication-shell .publication-section-card:hover{
+  border-color:#d5def0!important;box-shadow:0 11px 30px rgba(16,26,58,.06)!important;
+}
+.publication-shell .publication-section-card>h2{
+  margin:0 0 17px!important;padding:0 0 13px!important;
+  border-bottom:1px solid #edf0f6;
+}
+.publication-shell .publication-section-card>h2:after{margin-top:12px!important}
+.publication-shell .publication-section-card>h3{margin:1.3em 0 .55em!important}
+.publication-shell .publication-section-card>p:last-child{margin-bottom:0!important}
+.publication-shell .publication-section-card>.publication-table-wrap:last-child,
+.publication-shell .publication-section-card>ul:last-child,
+.publication-shell .publication-section-card>ol:last-child{margin-bottom:0!important}
+.publication-shell .publication-intro-card>p:last-child{margin-bottom:0!important}
+.publication-shell .publication-body>section>ul,
+.publication-shell .publication-body>section>ol{background:#f8faff}
+.publication-shell .publication-body>section>.publication-callout{margin:1.15em 0!important}
+@media(max-width:600px){
+  .publication-shell .publication-intro-card,
+  .publication-shell .publication-section-card{padding:16px!important;border-radius:14px!important;margin:14px 0!important}
+  .publication-shell .publication-section-card>h2{font-size:1.35rem!important}
+}
