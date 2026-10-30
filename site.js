@@ -161,8 +161,11 @@
     });
   }
   function makeToc(body,layout){
-    var headings=Array.prototype.slice.call(body.querySelectorAll("h2,h3"));
-    if(headings.length<2){layout.classList.add("publication-layout--no-toc");return;}
+    /* Articles may have only one major section, or use h4 sub-sections.
+       Include every meaningful heading level and show the TOC whenever at
+       least one navigable section exists. */
+    var headings=Array.prototype.slice.call(body.querySelectorAll("h2,h3,h4"));
+    if(!headings.length){layout.classList.add("publication-layout--no-toc");return;}
     var sidebar=make("aside","publication-sidebar");
     sidebar.appendChild(make("p","publication-toc-title","On this page"));
     var nav=make("nav","publication-toc");nav.setAttribute("aria-label","Article contents");
@@ -171,7 +174,7 @@
       var base=id,n=2;
       while(document.getElementById(id) && document.getElementById(id)!==h){id=base+"-"+n++;}
       h.id=id;
-      var a=make("a",h.tagName==="H3"?"toc-h3":"",text(h));
+      var a=make("a",h.tagName==="H3"?"toc-h3":(h.tagName==="H4"?"toc-h4":""),text(h));
       a.href="#"+id;
       a.addEventListener("click",function(){nav.querySelectorAll("a").forEach(function(x){x.classList.remove("is-active");});a.classList.add("is-active");});
       nav.appendChild(a);
