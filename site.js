@@ -75,3 +75,251 @@
     });
   })();
 })();
+
+
+/* ---- publication reading experience (shared by all article HTML pages) ---- */
+(function publicationExperience(){
+  "use strict";
+  var started = false;
+
+  function text(el){ return el ? (el.textContent || "").trim() : ""; }
+  function slugify(value){
+    return String(value || "").toLowerCase().normalize("NFKD")
+      .replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,72) || "section";
+  }
+  function formatDate(value){
+    if(!value) return "";
+    var d = new Date(String(value).slice(0,10) + "T00:00:00");
+    return isNaN(d.getTime()) ? String(value) : d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+  }
+  function readingMinutes(body){
+    var words = text(body).split(/\s+/).filter(Boolean).length;
+    return Math.max(1,Math.ceil(words/210));
+  }
+  function make(tag,cls,content){
+    var el=document.createElement(tag);
+    if(cls) el.className=cls;
+    if(content!==undefined) el.textContent=content;
+    return el;
+  }
+  function enhanceCode(body){
+    body.querySelectorAll("pre").forEach(function(pre){
+      if(pre.closest(".publication-code")) return;
+      var code=pre.querySelector("code");
+      var source=code ? code.textContent : pre.textContent;
+      var language="";
+      if(code){
+        var match=(code.className+" "+pre.className).match(/(?:language-|lang-)([a-z0-9+#-]+)/i);
+        language=match?match[1]:"";
+      }
+      var frame=make("div","publication-code");
+      var head=make("div","publication-code-head");
+      head.appendChild(make("span", "", language || "Code"));
+      var copy=make("button","","Copy code");
+      copy.type="button";
+      copy.addEventListener("click",function(){
+        var finish=function(){copy.textContent="Copied";setTimeout(function(){copy.textContent="Copy code";},1500);};
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(source).then(finish).catch(function(){copy.textContent="Copy unavailable";});
+        }else{
+          var area=make("textarea");area.value=source;document.body.appendChild(area);area.select();
+          try{document.execCommand("copy");finish();}catch(e){copy.textContent="Copy unavailable";}
+          area.remove();
+        }
+      });
+      head.appendChild(copy);
+      pre.parentNode.insertBefore(frame,pre);
+      frame.appendChild(head);frame.appendChild(pre);
+    });
+  }
+  function enhanceTables(body){
+    body.querySelectorAll("table").forEach(function(table){
+      if(table.parentElement.classList.contains("publication-table-wrap")) return;
+      var wrap=make("div","publication-table-wrap");
+      table.parentNode.insertBefore(wrap,table);wrap.appendChild(table);
+    });
+  }
+  function makeToc(body,layout){
+    var headings=Array.prototype.slice.call(body.querySelectorAll("h2,h3"));
+    if(headings.length<2) return;
+    var sidebar=make("aside","publication-sidebar");
+    sidebar.appendChild(make("p","publication-toc-title","On this page"));
+    var nav=make("nav","publication-toc");nav.setAttribute("aria-label","Article contents");
+    headings.forEach(function(h,i){
+      var id=h.id || slugify(text(h));
+      var base=id,n=2;
+      while(document.getElementById(id) && document.getElementById(id)!==h){id=base+"-"+n++;}
+      h.id=id;
+      var a=make("a",h.tagName==="H3"?"toc-h3":"",text(h));
+      a.href="#"+id;
+      a.addEventListener("click",function(){nav.querySelectorAll("a").forEach(function(x){x.classList.remove("is-active");});a.classList.add("is-active");});
+      nav.appendChild(a);
+    });
+    sidebar.appendChild(nav);
+    layout.appendChild(sidebar);
+    var mobile=make("details","publication-mobile-toc");
+    var summary=make("summary","","On this page");
+    mobile.appendChild(summary);
+    var mobileNav=nav.cloneNode(true);
+    mobileNav.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){mobile.open=false;});});
+    mobile.appendChild(mobileNav);
+    var main=layout.querySelector(".publication-main");
+    main.insertBefore(mobile,main.firstChild);
+    if("IntersectionObserver" in window){
+      var observer=new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            var id=entry.target.id;
+            nav.querySelectorAll("a").forEach(function(a){a.classList.toggle("is-active",a.getAttribute("href")==="#"+id);});
+          }
+        });
+      },{rootMargin:"-18% 0px -70% 0px"});
+      headings.forEach(function(h){observer.observe(h);});
+    }
+  }
+  function actionLink(label,url){
+    var a=make("a","publication-action",label);a.href=url;a.target="_blank";a.rel="noopener noreferrer";return a;
+  }
+  function addActions(parent){
+    var bar=make("div","publication-actions");
+    bar.appendChild(make("span","publication-actions-label","Share this guide"));
+    var pageUrl=location.href.split("#")[0];
+    var title=document.title;
+    bar.appendChild(actionLink("LinkedIn","https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(pageUrl)));
+    bar.appendChild(actionLink("X","https://twitter.com/intent/tweet?url="+encodeURIComponent(pageUrl)+"&text="+encodeURIComponent(title)));
+    var copy=make("button","publication-action","Copy link");copy.type="button";
+    copy.addEventListener("click",function(){
+      var done=function(){copy.textContent="Link copied";setTimeout(function(){copy.textContent="Copy link";},1600);};
+      if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(pageUrl).then(done).catch(function(){copy.textContent="Copy unavailable";});
+      else{var area=make("textarea");area.value=pageUrl;document.body.appendChild(area);area.select();try{document.execCommand("copy");done();}catch(e){copy.textContent="Copy unavailable";}area.remove();}
+    });
+    bar.appendChild(copy);parent.appendChild(bar);
+  }
+  function addAuthor(parent){
+    var box=make("section","publication-author");
+    box.appendChild(make("div","publication-avatar","LS"));
+    var details=make("div");
+    details.appendChild(make("h3","","Lavish Sheth"));
+    var p=make("p","","Founder of B Tecky. Writing practical guides on software, cloud, AI and developer skills.");
+    var a=make("a","","More about B Tecky");a.href="/about";p.appendChild(document.createTextNode(" "));p.appendChild(a);
+    details.appendChild(p);box.appendChild(details);parent.appendChild(box);
+  }
+  function renderPostNavigation(parent,posts,slug,currentTags){
+    if(!Array.isArray(posts)||!posts.length) return;
+    var index=posts.findIndex(function(p){return p.slug===slug;});
+    if(index<0) return;
+    var same=posts.filter(function(p){return p.slug!==slug && (p.tags||[]).some(function(tag){return currentTags.indexOf(tag)>=0;});});
+    var chosen=(same.concat(posts.filter(function(p){return p.slug!==slug&&!same.some(function(x){return x.slug===p.slug;});}))).slice(0,2);
+    if(chosen.length){
+      var section=make("section","publication-related");
+      var head=make("div","publication-section-head");
+      head.appendChild(make("h2","","Related guides"));
+      var all=make("a","","View all articles");all.href="/blog";head.appendChild(all);section.appendChild(head);
+      var grid=make("div","publication-related-grid");
+      chosen.forEach(function(p){
+        var a=make("a","publication-related-card");a.href="/blog/"+p.slug+".html";
+        a.appendChild(make("small","",((p.tags||[])[0]||"B Tecky")));
+        a.appendChild(make("strong","",p.title||"Read article"));
+        if(p.date)a.appendChild(make("span","",formatDate(p.date)));
+        grid.appendChild(a);
+      });
+      section.appendChild(grid);parent.appendChild(section);
+    }
+    var neighbors=make("nav","publication-neighbors");neighbors.setAttribute("aria-label","More articles");
+    var older=posts[index+1],newer=posts[index-1];
+    [[older,"Previous article"],[newer,"Next article"]].forEach(function(pair){
+      var p=pair[0];if(!p)return;
+      var a=make("a","publication-neighbor");a.href="/blog/"+p.slug+".html";
+      a.appendChild(make("small","",pair[1]));a.appendChild(make("strong","",p.title||"Read article"));neighbors.appendChild(a);
+    });
+    if(neighbors.children.length) parent.appendChild(neighbors);
+  }
+  function enhance(root){
+    root=root||document;
+    var shell=root.querySelector(".article-wrap") || root.querySelector("#post-root");
+    var body=root.querySelector(".article-body") || root.querySelector(".post-body .prose");
+    if(!shell||!body||shell.dataset.publicationEnhanced==="true") return false;
+    var heading=shell.querySelector("h1");
+    if(!heading) return false;
+    shell.dataset.publicationEnhanced="true";
+    shell.classList.add("publication-shell");
+    var back=shell.querySelector('a[href="/blog"]');
+    if(back){back.classList.add("publication-back");}
+    var head=shell.querySelector(".article-head") || shell.querySelector(".post-head");
+    var meta=shell.querySelector(".article-meta") || shell.querySelector(".post-meta");
+    var metaSpans=meta?Array.prototype.slice.call(meta.querySelectorAll("span")):[];
+    var date=metaSpans.length?text(metaSpans[0]):"";
+    var category=metaSpans.length>1?text(metaSpans[2]||metaSpans[1]):"";
+    var author=metaSpans.length?text(metaSpans[metaSpans.length-1]).replace(/^By\s*/i,""):"Lavish Sheth";
+    var oldUpdated=shell.querySelector("[data-updated],.publication-updated");
+    var updated=oldUpdated?(oldUpdated.getAttribute("data-updated")||text(oldUpdated)):"";
+    if(meta){
+      meta.innerHTML="";
+      var badge=make("span","publication-category",category||"B Tecky");
+      meta.appendChild(badge);
+    }else{
+      meta=make("div","article-meta");meta.appendChild(make("span","publication-category",category||"B Tecky"));
+      if(head)head.insertBefore(meta,heading);
+    }
+    var cover=shell.querySelector(".article-cover");
+    if(cover){cover.classList.add("publication-cover");if(!cover.getAttribute("alt")||cover.getAttribute("alt").trim()==="")cover.alt=text(heading)+" — featured image";}
+    var count=readingMinutes(body);
+    var byline=make("div","publication-byline");
+    byline.appendChild(make("span","", "By "+(author||"Lavish Sheth")));
+    if(date)byline.appendChild(make("span","","Published "+formatDate(date)));
+    if(updated)byline.appendChild(make("span","","Updated "+formatDate(updated)));
+    byline.appendChild(make("span","",""+count+" min read"));
+    if(head)head.appendChild(byline);
+    var layout=make("div","publication-layout");
+    var main=make("div","publication-main");
+    shell.appendChild(layout);layout.appendChild(main);
+    [body].concat(Array.prototype.slice.call(shell.querySelectorAll(".video-box,.publication-video,.article-actions"))).forEach(function(el){
+      if(el && el.parentNode!==main) main.appendChild(el);
+    });
+    var videoBox=main.querySelector(".video-box");
+    if(videoBox) videoBox.classList.add("publication-video");
+    enhanceCode(body);enhanceTables(body);makeToc(body,layout);
+    addActions(main);addAuthor(main);
+    var footer=make("div","publication-footer");
+    var link=make("a","btn btn-blue","Explore more guides");link.href="/blog";
+    var follow=make("a","btn btn-line","Follow B Tecky");follow.href="https://www.youtube.com/@btecky";follow.target="_blank";follow.rel="noopener noreferrer";
+    footer.appendChild(link);footer.appendChild(follow);main.appendChild(footer);
+    var slug=(document.querySelector('link[rel="canonical"]')||{}).href || location.pathname;
+    slug=String(slug).split("/").pop().replace(/\.html(?:\?.*)?$/,"");
+    var tags=category?[category]:[];
+    if(window.fetch){
+      fetch("/blog/posts.json").then(function(r){if(!r.ok)throw new Error("posts unavailable");return r.json();})
+        .then(function(data){renderPostNavigation(main,data.posts||[],slug,tags);})
+        .catch(function(){});
+    }
+    var progress=make("div","publication-progress");progress.setAttribute("aria-hidden","true");progress.appendChild(make("span"));
+    document.body.insertBefore(progress,document.body.firstChild);
+    var fill=progress.firstChild;
+    function update(){
+      var max=document.documentElement.scrollHeight-window.innerHeight;
+      var amount=max>0?Math.min(100,Math.max(0,(window.scrollY/max)*100)):0;
+      fill.style.width=amount+"%";
+    }
+    window.addEventListener("scroll",update,{passive:true});window.addEventListener("resize",update);update();
+    if(!shell.querySelector(".nav-toggle")){
+      var nav=shell.querySelector(".nav");
+      if(nav){
+        var toggle=make("button","nav-toggle");toggle.type="button";toggle.setAttribute("aria-label","Open menu");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-controls","nav");
+        toggle.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
+        nav.parentNode.insertBefore(toggle,nav);
+        toggle.addEventListener("click",function(){var open=nav.classList.toggle("open");toggle.setAttribute("aria-expanded",open?"true":"false");toggle.setAttribute("aria-label",open?"Close menu":"Open menu");});
+      }
+    }
+    return true;
+  }
+  function start(){
+    if(enhance(document)) return;
+    var root=document.getElementById("post-root");
+    if(root&&"MutationObserver" in window){
+      var observer=new MutationObserver(function(){if(enhance(root))observer.disconnect();});
+      observer.observe(root,{childList:true,subtree:true});
+    }
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});
+  else start();
+})();
