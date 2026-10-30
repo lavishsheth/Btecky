@@ -318,26 +318,16 @@
     if(body.dataset.editorialHeadings==="true")return;
     body.dataset.editorialHeadings="true";
     Array.prototype.slice.call(body.querySelectorAll(":scope > p")).forEach(function(p){
-      var value=text(p).replace(/\\s+/g," ").trim();
-      if(!value||value.length>115)return;
-      /* Older editor posts stored section labels as paragraphs instead of
-         semantic H2/H3 elements. Convert clear standalone headings before
-         generating the contents navigation and editorial section cards. */
-      var headingText=value
-        .replace(/^[^\\p{L}\\p{N}]+/u,"")
-        .replace(/^\\d+\\s*[.)|:-]\\s*/,"")
-        .trim();
-      if(!headingText||/[.!?]$/.test(headingText))return;
-      var knownHeading=/^(?:What\\s+(?:Is|Are|Can|Will|Does|To)|Why\\s+|How\\s+(?:to\\s+|Does|Do|Can|It)|Who\\s+(?:Can|Should|Is)|Where\\s+|When\\s+|Which\\s+|Other\\s+Useful|Example\\s*:|Final\\s+Verdict|Quick\\s+(?:Recap|Action|Summary)|Ready\\s+to\\s+Build|Key\\s+Takeaways|Important\\s+(?:Dates|Things|Information)|Contest\\s+Details|Internship\\s+Highlights|Frequently\\s+Asked\\s+Questions|Common\\s+Mistakes|Next\\s+Steps|Additional\\s+Rewards|What\\s+to\\s+Learn|Introduction|Conclusion|Overview|My\\s+Recommendation|[A-Z]+(?:\\s+[A-Z0-9&+/-]+){1,8})/i.test(headingText);
-      var numberedHeading=/^\\d+\\s*[.)|:-]\\s*[A-Z]/.test(value);
-      var titleCaseHeading=/^(?:[A-Z0-9][A-Za-z0-9’'&/()+,-]*|of|the|and|for|to|in|with|vs|on|a|an)(?:\\s+(?:[A-Z0-9][A-Za-z0-9’'&/()+,-]*|of|the|and|for|to|in|with|vs|on|a|an)){1,11}$/.test(headingText);
-      var looksLikeHeading=knownHeading||numberedHeading||titleCaseHeading;
-      /* Keep short factual labels and metadata rows as normal content. */
-      if(/^(?:Prize|Duration|Product|Platform|Cost|Location|Role|Stipend|Eligibility|Date|Time|Task|Winner selection)\\s*:/i.test(headingText))return;
-      if(looksLikeHeading){
-        var h=document.createElement("h2");
-        h.innerHTML=p.innerHTML;
-        p.replaceWith(h);
+      var value=text(p).trim();
+      if(!value||value.length>105)return;
+      /* Emoji-led fact rows (location, duration, role, stipend, etc.) are
+         metadata, not section headings. Only promote recognisable editorial
+         section titles so these facts stay together in the introduction card. */
+      var headingText=value.replace(/^[^\p{L}\p{N}]+/u,"").trim();
+      var emojiSection=/^(?:What\s+(?:Is|Are|Can|Will|You)|Why\s+|How\s+to\s+|How\s+Does|Does\s+|Who\s+Can|Where\s+to\s+|When\s+|Final\s+Verdict|Quick\s+Recap|Ready\s+to\s+Build|Key\s+Takeaways|Important\s+Dates|Important\s+Things|Contest\s+Details|Internship\s+Highlights|Frequently\s+Asked\s+Questions|Common\s+Mistakes|Next\s+Steps|Additional\s+Rewards|What\s+to\s+Learn)/i.test(headingText);
+      var looksLikeHeading=emojiSection || /^(?:Step\s+\d+\s*:|What\s+|Why\s+|How\s+|Does\s+|Is\s+it\s+|Can\s+you\s+|Who\s+can\s+|Where\s+|When\s+|Final\s+Verdict|Quick\s+Recap|Ready\s+to\s+Build|Introduction|Conclusion|Key\s+Takeaways|Important\s+Dates|Contest\s+Details|Frequently\s+Asked\s+Questions|FAQs|Common\s+Mistakes|Next\s+Steps)/i.test(value);
+      if(looksLikeHeading && !/[.!]$/.test(value)){
+        var h=document.createElement("h2");h.innerHTML=p.innerHTML;p.replaceWith(h);
       }
     });
   }
