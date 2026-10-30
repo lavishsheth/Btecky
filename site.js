@@ -268,21 +268,39 @@
     var back=shell.querySelector('a[href="/blog"]');
     if(back){back.classList.add("publication-back");}
     var head=shell.querySelector(".article-head") || shell.querySelector(".post-head");
+    var eyebrow=shell.querySelector(".eyebrow");
     var meta=shell.querySelector(".article-meta") || shell.querySelector(".post-meta");
     var metaSpans=meta?Array.prototype.slice.call(meta.querySelectorAll("span")):[];
-    var date=metaSpans.length?text(metaSpans[0]):"";
-    var category=metaSpans.length>1?text(metaSpans[2]||metaSpans[1]):"";
-    var author=metaSpans.length?text(metaSpans[metaSpans.length-1]).replace(/^By\s*/i,""):"Lavish Sheth";
+    var crumbs=shell.querySelector(".crumbs");
+    var crumbText=text(crumbs).split("/").slice(-1)[0].trim();
+    var date=metaSpans.length ? (meta.classList.contains("post-meta") ? text(metaSpans[1]) : text(metaSpans[0])) : "";
+    var category=metaSpans.length ? (meta.classList.contains("post-meta") ? crumbText : text(metaSpans[2]||metaSpans[1])) : "";
+    var author=metaSpans.length && !meta.classList.contains("post-meta") ? text(metaSpans[metaSpans.length-1]).replace(/^By\s*/i,"") : "Lavish Sheth";
+    if(!meta && eyebrow){
+      var parts=text(eyebrow).split(/\s*[·|]\s*/);
+      category=parts.length>1 ? parts[0] : "B Tecky";
+      date=parts.length>1 && /\d{4}-\d{2}-\d{2}/.test(parts[parts.length-1]) ? parts[parts.length-1] : "";
+    }
     var oldUpdated=shell.querySelector("[data-updated],.publication-updated");
     var updated=oldUpdated?(oldUpdated.getAttribute("data-updated")||text(oldUpdated)):"";
+    if(!head){
+      head=make("header","article-head");
+      if(eyebrow)eyebrow.remove();
+      var lede=shell.querySelector(".lede");
+      shell.insertBefore(head,heading);
+      if(eyebrow)head.appendChild(eyebrow);
+      if(lede)head.appendChild(lede);
+    }
     if(meta){
       meta.innerHTML="";
-      var badge=make("span","publication-category",category||"B Tecky");
-      meta.appendChild(badge);
+      meta.appendChild(make("span","publication-category",category||"B Tecky"));
+      if(!meta.parentNode && head)head.insertBefore(meta,heading);
     }else{
-      meta=make("div","article-meta");meta.appendChild(make("span","publication-category",category||"B Tecky"));
+      meta=make("div","article-meta");
+      meta.appendChild(make("span","publication-category",category||"B Tecky"));
       if(head)head.insertBefore(meta,heading);
     }
+    if(heading.parentNode!==head)head.appendChild(heading);
     var cover=shell.querySelector(".article-cover");
     if(cover){cover.classList.add("publication-cover");if(!cover.getAttribute("alt")||cover.getAttribute("alt").trim()==="")cover.alt=text(heading)+" — featured image";}
     var count=readingMinutes(body);
@@ -301,13 +319,25 @@
     var videoBox=main.querySelector(".video-box");
     if(videoBox) videoBox.classList.add("publication-video");
     enhanceCode(body);enhanceTables(body);makeToc(body,layout);
-    addActions(main);addAuthor(main);
+    addActions(main);
+    var existingAuthor=shell.querySelector(".author");
+    if(existingAuthor){
+      existingAuthor.classList.add("publication-author");
+      main.appendChild(existingAuthor);
+    }else{
+      addAuthor(main);
+    }
     var footer=make("div","publication-footer");
     var link=make("a","btn btn-blue","Explore more guides");link.href="/blog";
     var follow=make("a","btn btn-line","Follow B Tecky");follow.href="https://www.youtube.com/@btecky";follow.target="_blank";follow.rel="noopener noreferrer";
     footer.appendChild(link);footer.appendChild(follow);main.appendChild(footer);
-    var slug=(document.querySelector('link[rel="canonical"]')||{}).href || location.pathname;
+    var canonical=document.querySelector('link[rel="canonical"]');
+    var slug=canonical ? canonical.href : location.pathname;
     slug=String(slug).split("/").pop().replace(/\.html(?:\?.*)?$/,"");
+    if(slug==="index" || slug==="post"){
+      var querySlug=new URLSearchParams(location.search).get("slug");
+      if(querySlug)slug=querySlug;
+    }
     var tags=category?[category]:[];
     if(window.fetch){
       fetch("/blog/posts.json").then(function(r){if(!r.ok)throw new Error("posts unavailable");return r.json();})
