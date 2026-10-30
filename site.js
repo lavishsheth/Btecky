@@ -323,6 +323,28 @@
       }
     });
   }
+  function wrapArticleSections(body){
+    if(body.dataset.sectionCards==="true")return;
+    body.dataset.sectionCards="true";
+    var children=Array.prototype.slice.call(body.children),groups=[],current=null;
+    children.forEach(function(node){
+      if(node.tagName==="H2"){
+        current={heading:node,nodes:[node]};groups.push(current);
+      }else if(current){current.nodes.push(node);}
+      else{
+        if(!groups.length)groups.push({intro:true,nodes:[]});
+        groups[0].nodes.push(node);
+      }
+    });
+    if(!groups.length)return;
+    groups.forEach(function(group){
+      if(!group.nodes.length)return;
+      var section=document.createElement("section");
+      section.className=group.intro?"publication-intro-card":"publication-section-card";
+      body.insertBefore(section,group.nodes[0]);
+      group.nodes.forEach(function(node){section.appendChild(node);});
+    });
+  }
   function enhance(root){
     root=root||document;
     normalizePublicationNav();
@@ -339,6 +361,7 @@
     shell.classList.add("publication-shell");
     body.classList.add("publication-body");
     promoteLegacyArticleHeadings(body);
+    wrapArticleSections(body);
     var back=shell.querySelector('a[href="/blog"]');
     if(back){back.classList.add("publication-back");back.innerHTML='<span aria-hidden="true">←</span><span>Back</span>';}
     var head=shell.querySelector(".article-head") || shell.querySelector(".post-head");
