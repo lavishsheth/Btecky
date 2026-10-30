@@ -227,6 +227,7 @@
   }
   function renderPostNavigation(parent,posts,slug,currentTags){
     if(!Array.isArray(posts)||!posts.length) return;
+    posts=posts.filter(function(post){return !post.status || post.status==="published";});
     var index=posts.findIndex(function(p){return p.slug===slug;});
     if(index<0) return;
     var same=posts.filter(function(p){return p.slug!==slug && (p.tags||[]).some(function(tag){return currentTags.indexOf(tag)>=0;});});
