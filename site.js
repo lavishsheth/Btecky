@@ -283,24 +283,22 @@
     }
     var oldUpdated=shell.querySelector("[data-updated],.publication-updated");
     var updated=oldUpdated?(oldUpdated.getAttribute("data-updated")||text(oldUpdated)):"";
+    var lede=shell.querySelector(".lede");
     if(!head){
       head=make("header","article-head");
       if(eyebrow)eyebrow.remove();
-      var lede=shell.querySelector(".lede");
       shell.insertBefore(head,heading);
-      if(eyebrow)head.appendChild(eyebrow);
-      if(lede)head.appendChild(lede);
     }
     if(meta){
       meta.innerHTML="";
       meta.appendChild(make("span","publication-category",category||"B Tecky"));
-      if(!meta.parentNode && head)head.insertBefore(meta,heading);
     }else{
       meta=make("div","article-meta");
       meta.appendChild(make("span","publication-category",category||"B Tecky"));
-      if(head)head.insertBefore(meta,heading);
     }
+    if(meta.parentNode!==head)head.insertBefore(meta,head.firstChild);
     if(heading.parentNode!==head)head.appendChild(heading);
+    if(lede && lede.parentNode!==head)head.appendChild(lede);
     var cover=shell.querySelector(".article-cover");
     if(cover){cover.classList.add("publication-cover");if(!cover.getAttribute("alt")||cover.getAttribute("alt").trim()==="")cover.alt=text(heading)+" — featured image";}
     var count=readingMinutes(body);
