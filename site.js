@@ -291,7 +291,7 @@
       if(bylineText)author=text(bylineText).replace(/^By\s*/i,"");
     }
     var oldUpdated=shell.querySelector("[data-updated],.publication-updated");
-    var updated=oldUpdated?(oldUpdated.getAttribute("data-updated")||text(oldUpdated)):"";
+    var updated=oldUpdated?(oldUpdated.getAttribute("data-updated")||text(oldUpdated)):date;
     var lede=shell.querySelector(".lede");
     if(!head){
       head=make("header","article-head");
