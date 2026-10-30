@@ -10,9 +10,16 @@ Before using the publisher, add these **Production** environment variables in Ve
 
 - `BLOG_ADMIN_PASSWORD`: a long unique passphrase.
 - `GITHUB_TOKEN`: a fine-grained GitHub personal access token limited to repository `lavishsheth/Btecky`, with **Contents: Read and write** permission. Keep it secret and never put it in browser code or commit it.
-- Optional: `GITHUB_OWNER=lavishsheth`, `GITHUB_REPO=Btecky`, `GITHUB_BRANCH=main`.
+- Optional: `GITHUB_OWNER=lavishsheth`, `GITHUB_REPO=Btecky`.
+- This branch-specific version pins publishing to `test-vs-branch`; it intentionally ignores `GITHUB_BRANCH` so a leftover `main` environment variable cannot redirect editor commits.
 
 After adding environment variables, redeploy. If the writer reports that a variable is missing, configure it in Vercel and redeploy. The editor is intentionally not linked from the main navigation, but a hidden URL is not a security boundary; the server-side password and private token are required.
+
+## Article design and publishing format
+
+New posts are generated with the shared B Tecky editorial article layout. The existing HTML, CSS and JavaScript architecture is retained. The template includes article metadata, a featured image, a generated table of contents, reading progress, sharing controls, author details, related articles and previous/next navigation. Existing article pages reuse the same reading experience through `site.js` and `additions.css` without changing their URLs or article bodies.
+
+The publisher converts Markdown headings, paragraphs, links, images, ordered and unordered lists, blockquotes, horizontal rules, fenced code blocks and pipe tables into safe HTML. Code blocks include a language label and copy control. Do not paste untrusted raw HTML into article content.
 
 ## How video thumbnails work
 
