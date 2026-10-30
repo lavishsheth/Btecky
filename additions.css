@@ -292,7 +292,6 @@ footer .wrap{gap:30px}footer .foot-links{display:flex;flex-wrap:wrap;gap:8px 14p
 .publication-footer{margin:35px 0 0;padding:26px 0 0;border-top:1px solid var(--pub-line);color:var(--pub-muted);font-size:.88rem}
 .publication-footer .btn{margin-right:8px}
 .publication-shell .article-actions{margin:28px 0 0}
-.publication-shell .video-box{display:none}
 .legal-page{background:#fff}
 .legal-hero{position:relative;overflow:hidden;padding:76px 0 66px;background:linear-gradient(180deg,#f8faff 0%,#fff 100%);border-bottom:1px solid var(--pub-line)}
 .legal-hero:after{content:"";position:absolute;right:max(4vw,24px);top:45px;width:210px;height:210px;border:1px solid #e8edfa;border-radius:50%;box-shadow:0 0 0 28px rgba(36,86,255,.025),0 0 0 58px rgba(36,86,255,.018);pointer-events:none}
@@ -354,3 +353,6 @@ footer .wrap{gap:30px}footer .foot-links{display:flex;flex-wrap:wrap;gap:8px 14p
   .publication-back,.publication-action,.publication-related-card{transition:none}
   html{scroll-behavior:auto}
 }
+
+/* A single-column article fallback when the content has no useful TOC headings. */
+.publication-layout--no-toc{display:block!important}.publication-layout--no-toc .publication-main{max-width:760px;margin:0 auto}
