@@ -102,6 +102,26 @@
     if(content!==undefined) el.textContent=content;
     return el;
   }
+  function escapeCode(value){
+    return String(value).replace(/[&<>"']/g,function(ch){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
+    });
+  }
+  function highlightCode(source){
+    var pattern=/\/\/[^\n]*|\/\*[\s\S]*?\*\/|#[^\n]*|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|\b(?:const|let|var|function|return|if|else|for|while|class|new|async|await|import|export|from|try|catch|throw|true|false|null|None|def|print|public|private|static|void|int|string|SELECT|FROM|WHERE|JOIN|CREATE|TABLE|INSERT|UPDATE|DELETE|AND|OR)\b|\b\d+(?:\.\d+)?\b|[A-Za-z_$][\w$]*(?=\s*\()/gi;
+    var html="",last=0,match;
+    while((match=pattern.exec(source))!==null){
+      html+=escapeCode(source.slice(last,match.index));
+      var token=match[0],kind="tok-function";
+      if(token.slice(0,2)==="//"||token.slice(0,2)==="/*"||token.charAt(0)==="#")kind="tok-comment";
+      else if(token.charAt(0)==='"'||token.charAt(0)==="'")kind="tok-string";
+      else if(/^\d/.test(token))kind="tok-number";
+      else if(/^(const|let|var|function|return|if|else|for|while|class|new|async|await|import|export|from|try|catch|throw|true|false|null|None|def|print|public|private|static|void|int|string|SELECT|FROM|WHERE|JOIN|CREATE|TABLE|INSERT|UPDATE|DELETE|AND|OR)$/i.test(token))kind="tok-keyword";
+      html+='<span class="'+kind+'">'+escapeCode(token)+'</span>';
+      last=pattern.lastIndex;
+    }
+    return html+escapeCode(source.slice(last));
+  }
   function enhanceCode(body){
     body.querySelectorAll("pre").forEach(function(pre){
       if(pre.closest(".publication-code")) return;
@@ -111,10 +131,11 @@
       if(code){
         var match=(code.className+" "+pre.className).match(/(?:language-|lang-)([a-z0-9+#-]+)/i);
         language=match?match[1]:"";
+        code.innerHTML=highlightCode(source);
       }
       var frame=make("div","publication-code");
       var head=make("div","publication-code-head");
-      head.appendChild(make("span", "", language || "Code"));
+      head.appendChild(make("span","",language || "Code"));
       var copy=make("button","","Copy code");
       copy.type="button";
       copy.addEventListener("click",function(){
@@ -301,14 +322,13 @@
       fill.style.width=amount+"%";
     }
     window.addEventListener("scroll",update,{passive:true});window.addEventListener("resize",update);update();
-    if(!shell.querySelector(".nav-toggle")){
-      var nav=shell.querySelector(".nav");
-      if(nav){
-        var toggle=make("button","nav-toggle");toggle.type="button";toggle.setAttribute("aria-label","Open menu");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-controls","nav");
-        toggle.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
-        nav.parentNode.insertBefore(toggle,nav);
-        toggle.addEventListener("click",function(){var open=nav.classList.toggle("open");toggle.setAttribute("aria-expanded",open?"true":"false");toggle.setAttribute("aria-label",open?"Close menu":"Open menu");});
-      }
+    var articleNav=document.querySelector(".site-head .nav");
+    if(articleNav && !document.querySelector(".site-head .nav-toggle")){
+      var toggle=make("button","nav-toggle");toggle.type="button";toggle.setAttribute("aria-label","Open menu");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-controls",articleNav.id || "nav");
+      toggle.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
+      articleNav.parentNode.insertBefore(toggle,articleNav);
+      toggle.addEventListener("click",function(){var open=articleNav.classList.toggle("open");toggle.setAttribute("aria-expanded",open?"true":"false");toggle.setAttribute("aria-label",open?"Close menu":"Open menu");});
+      articleNav.addEventListener("click",function(event){if(event.target.tagName==="A"){articleNav.classList.remove("open");toggle.setAttribute("aria-expanded","false");}});
     }
     return true;
   }
