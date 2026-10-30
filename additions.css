@@ -229,6 +229,7 @@ footer .wrap{gap:30px}footer .foot-links{display:flex;flex-wrap:wrap;gap:8px 14p
 .publication-toc a{display:block;margin-left:-1px;padding:7px 12px;border-left:2px solid transparent;color:#68738d;text-decoration:none;font-size:.83rem;line-height:1.4;transition:color .16s,border-color .16s,background .16s}
 .publication-toc a:hover,.publication-toc a.is-active{color:var(--pub-blue);border-left-color:var(--pub-blue);background:#f5f7ff}
 .publication-toc a.toc-h3{padding-left:23px;font-size:.78rem}
+.publication-toc a.toc-h4{padding-left:34px;font-size:.74rem;color:#7b859b}
 .publication-mobile-toc{display:none}
 .publication-main{min-width:0;max-width:760px}
 .publication-body,.publication-shell .post-body .prose{max-width:760px;color:#293653;font-size:1.075rem;line-height:1.9;overflow-wrap:anywhere}
