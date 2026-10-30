@@ -323,6 +323,38 @@
       }
     });
   }
+  function convertLegacyTables(body){
+    Array.prototype.slice.call(body.querySelectorAll(":scope > h2")).forEach(function(heading){
+      var nodes=[],node=heading.nextElementSibling;
+      while(node&&node.tagName!=="H2"&&node.tagName!=="H3"){nodes.push(node);node=node.nextElementSibling;}
+      for(var i=0;i<nodes.length-5;i++){
+        if(nodes[i].tagName!=="P"||nodes[i+1].tagName!=="P")continue;
+        var first=text(nodes[i]).trim(),second=text(nodes[i+1]).trim();
+        var validFirst=/^(detail|event detail|position|feature|database|step|item|category|requirement|layer|field|criteria)$/i.test(first);
+        var validSecond=/^(information|prize|date|description|details|value|benefit|requirement)$/i.test(second);
+        if(!validFirst||!validSecond)continue;
+        var rows=[],j=i+2;
+        while(j+1<nodes.length&&nodes[j].tagName==="P"&&nodes[j+1].tagName==="P"){
+          rows.push([nodes[j],nodes[j+1]]);j+=2;
+        }
+        if(rows.length<2)continue;
+        var wrap=document.createElement("div");wrap.className="publication-table-wrap publication-auto-table";
+        var table=document.createElement("table");
+        table.innerHTML="<thead><tr><th scope='col'></th><th scope='col'></th></tr></thead><tbody></tbody>";
+        table.querySelector("thead th:first-child").textContent=first;
+        table.querySelector("thead th:last-child").textContent=second;
+        rows.forEach(function(pair){
+          var tr=document.createElement("tr"),left=document.createElement("td"),right=document.createElement("td");
+          left.innerHTML=pair[0].innerHTML;right.innerHTML=pair[1].innerHTML;
+          tr.appendChild(left);tr.appendChild(right);table.querySelector("tbody").appendChild(tr);
+        });
+        wrap.appendChild(table);
+        nodes[i].parentNode.insertBefore(wrap,nodes[i]);
+        for(var k=i;k<j;k++)if(nodes[k].parentNode)nodes[k].remove();
+        break;
+      }
+    });
+  }
   function wrapArticleSections(body){
     if(body.dataset.sectionCards==="true")return;
     body.dataset.sectionCards="true";
@@ -361,6 +393,7 @@
     shell.classList.add("publication-shell");
     body.classList.add("publication-body");
     promoteLegacyArticleHeadings(body);
+    convertLegacyTables(body);
     wrapArticleSections(body);
     var back=shell.querySelector('a[href="/blog"]');
     if(back){back.classList.add("publication-back");back.innerHTML='<span aria-hidden="true">←</span><span>Back</span>';}
