@@ -1,7 +1,7 @@
 // B Tecky blog admin API. Shared-secret admin check; GitHub PAT remains server-side.
 const OWNER = process.env.GITHUB_OWNER || 'lavishsheth';
 const REPO = process.env.GITHUB_REPO || 'Btecky';
-const BRANCH = process.env.GITHUB_BRANCH || 'test-vs-branch';
+const BRANCH = 'test-vs-branch'; // pinned for branch testing; never allow deployment env to redirect writes to main
 const API = 'https://api.github.com';
 
 const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
