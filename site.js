@@ -258,6 +258,10 @@
   function enhance(root){
     root=root||document;
     var shell=root.querySelector(".article-wrap") || root.querySelector("#post-root");
+    if(!shell){
+      var legacyArticle=root.querySelector("article");
+      if(legacyArticle && legacyArticle.querySelector(".post-head") && legacyArticle.querySelector(".post-body .prose")) shell=legacyArticle;
+    }
     var body=root.querySelector(".article-body") || root.querySelector(".post-body .prose");
     if(!shell||!body||shell.dataset.publicationEnhanced==="true") return false;
     var heading=shell.querySelector("h1");
@@ -273,13 +277,17 @@
     var metaSpans=meta?Array.prototype.slice.call(meta.querySelectorAll("span")):[];
     var crumbs=shell.querySelector(".crumbs");
     var crumbText=text(crumbs).split("/").slice(-1)[0].trim();
-    var date=metaSpans.length ? (meta.classList.contains("post-meta") ? text(metaSpans[1]) : text(metaSpans[0])) : "";
-    var category=metaSpans.length ? (meta.classList.contains("post-meta") ? crumbText : text(metaSpans[2]||metaSpans[1])) : "";
-    var author=metaSpans.length && !meta.classList.contains("post-meta") ? text(metaSpans[metaSpans.length-1]).replace(/^By\s*/i,"") : "Lavish Sheth";
-    if(!meta && eyebrow){
-      var parts=text(eyebrow).split(/\s*[·|]\s*/);
-      category=parts.length>1 ? parts[0] : "B Tecky";
-      date=parts.length>1 && /\d{4}-\d{2}-\d{2}/.test(parts[parts.length-1]) ? parts[parts.length-1] : "";
+    var dateNode=meta?meta.querySelector("time[datetime]"):null;
+    var date=dateNode ? (dateNode.getAttribute("datetime") || text(dateNode)) :
+      (metaSpans.length ? (meta.classList.contains("post-meta") ? text(metaSpans[1]) : text(metaSpans[0])) : "");
+    var chip=shell.querySelector(".post-head .chips .chip-t,.post-head .chip-t");
+    var category=metaSpans.length ? (meta.classList.contains("post-meta") ? (crumbText && crumbText!=="Blog" ? crumbText : text(chip)) : text(metaSpans[2]||metaSpans[1])) : text(chip);
+    var author="Lavish Sheth";
+    if(metaSpans.length && !meta.classList.contains("post-meta")){
+      author=text(metaSpans[metaSpans.length-1]).replace(/^By\s*/i,"") || author;
+    }else if(metaSpans.length){
+      var bylineText=metaSpans.find(function(item){return /^By\s+/i.test(text(item));});
+      if(bylineText)author=text(bylineText).replace(/^By\s*/i,"");
     }
     var oldUpdated=shell.querySelector("[data-updated],.publication-updated");
     var updated=oldUpdated?(oldUpdated.getAttribute("data-updated")||text(oldUpdated)):"";
@@ -289,6 +297,8 @@
       if(eyebrow)eyebrow.remove();
       shell.insertBefore(head,heading);
     }
+    var oldChips=shell.querySelector(".post-head .chips");
+    if(oldChips)oldChips.remove();
     if(meta){
       meta.innerHTML="";
       meta.appendChild(make("span","publication-category",category||"B Tecky"));
@@ -317,7 +327,16 @@
     var videoBox=main.querySelector(".video-box");
     if(videoBox) videoBox.classList.add("publication-video");
     enhanceCode(body);enhanceTables(body);makeToc(body,layout);
-    addActions(main);
+    var existingShare=shell.querySelector(".share");
+    if(existingShare){
+      existingShare.classList.add("publication-actions");
+      var shareLabel=existingShare.querySelector("b");
+      if(shareLabel)shareLabel.classList.add("publication-actions-label");
+      existingShare.querySelectorAll("a,button").forEach(function(control){control.classList.add("publication-action");});
+      main.appendChild(existingShare);
+    }else{
+      addActions(main);
+    }
     var existingAuthor=shell.querySelector(".author");
     if(existingAuthor){
       existingAuthor.classList.add("publication-author");
