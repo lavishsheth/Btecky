@@ -15,32 +15,41 @@ function safeUrl(value) {
 
 function inlineMarkdown(source) {
   let text = esc(source);
-  const code = [];
+  const code = [], images = [], links = [], rawLinks = [];
   text = text.replace(/\x60([^\x60]+)\x60/g, (_, value) => {
     const key = '\u0000CODE' + code.length + '\u0000';
     code.push('<code>' + value + '</code>');
     return key;
   });
   text = text.replace(/!\[([^\]]*)\]\(([^ )]+)(?:\s+"([^"]*)")?\)/g, (_, alt, rawUrl, caption) => {
+    const key = '\u0000IMAGE' + images.length + '\u0000';
     const url = safeUrl(rawUrl);
-    return url ? '<figure><img src="' + esc(url) + '" alt="' + esc(alt) + '" loading="lazy" decoding="async">' +
-      (caption ? '<figcaption>' + caption + '</figcaption>' : '') + '</figure>' : alt;
+    images.push(url ? '<figure><img src="' + url + '" alt="' + alt + '" loading="lazy" decoding="async">' +
+      (caption ? '<figcaption>' + caption + '</figcaption>' : '') + '</figure>' : alt);
+    return key;
   });
   text = text.replace(/\[([^\]]+)\]\(([^ )]+)(?:\s+"([^"]*)")?\)/g, (_, label, rawUrl) => {
+    const key = '\u0000LINK' + links.length + '\u0000';
     const url = safeUrl(rawUrl);
-    return url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + label + '</a>' : label;
+    links.push(url ? '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + label + '</a>' : label);
+    return key;
+  });
+  text = text.replace(/(^|[\s(])(https?:\/\/[^\s<]+)/g, (_, prefix, url) => {
+    const key = '\u0000RAWLINK' + rawLinks.length + '\u0000';
+    const clean = url.replace(/[),.]+$/, '');
+    rawLinks.push('<a href="' + clean + '" target="_blank" rel="noopener noreferrer">' + clean + '</a>' + url.slice(clean.length));
+    return prefix + key;
   });
   text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/__([^_]+)__/g, '<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(/_([^_]+)_/g, '<em>$1</em>')
     .replace(/~~([^~]+)~~/g, '<del>$1</del>');
-  text = text.replace(/(^|[\s(])(https?:\/\/[^\s<]+)/g, (_, prefix, url) => {
-    const clean = url.replace(/[),.]+$/, '');
-    return prefix + '<a href="' + esc(clean) + '" target="_blank" rel="noopener noreferrer">' +
-      esc(clean) + '</a>' + url.slice(clean.length);
-  });
-  return text.replace(/\u0000CODE(\d+)\u0000/g, (_, index) => code[Number(index)]);
+  text = text.replace(/\u0000CODE(\d+)\u0000/g, (_, index) => code[Number(index)])
+    .replace(/\u0000IMAGE(\d+)\u0000/g, (_, index) => images[Number(index)])
+    .replace(/\u0000LINK(\d+)\u0000/g, (_, index) => links[Number(index)])
+    .replace(/\u0000RAWLINK(\d+)\u0000/g, (_, index) => rawLinks[Number(index)]);
+  return text;
 }
 
 function splitTableRow(line) {
@@ -163,7 +172,7 @@ function article(post) {
   const date = String(post.date || new Date().toISOString().slice(0,10));
   const updated = String(post.updatedAt || post.updated || date).slice(0,10);
   const author = esc(post.author || 'Lavish Sheth');
-  const cover = esc(post.cover || (videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : '/assets/images/blog-covers/' + post.slug + '.svg'));
+  const cover = esc(post.videoThumbnail || (videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : (post.cover || '/assets/images/blog-covers/' + post.slug + '.svg')));
   const canonical = '/blog/' + slug + '.html';
   const minutes = Math.max(1,Math.ceil(String(post.body || '').trim().split(/\s+/).filter(Boolean).length/210));
   const jsonLd = JSON.stringify({
