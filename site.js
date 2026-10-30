@@ -218,7 +218,12 @@
   }
   function addAuthor(parent){
     var box=make("section","publication-author");
-    box.appendChild(make("div","publication-avatar","LS"));
+    var avatar=make("img","publication-avatar");
+    avatar.src="/assets/images/lavish-btecky-founder.png";
+    avatar.alt="Lavish Sheth, founder of B Tecky";
+    avatar.loading="lazy";
+    avatar.decoding="async";
+    box.appendChild(avatar);
     var details=make("div");
     details.appendChild(make("h3","","Lavish Sheth"));
     var p=make("p","","Founder of B Tecky. Writing practical guides on software, cloud, AI and developer skills.");
@@ -341,6 +346,22 @@
     var existingAuthor=shell.querySelector(".author");
     if(existingAuthor){
       existingAuthor.classList.add("publication-author");
+      var oldAvatar=existingAuthor.querySelector(".publication-avatar");
+      if(oldAvatar && oldAvatar.tagName!=="IMG"){
+        var authorImage=make("img","publication-avatar");
+        authorImage.src="/assets/images/lavish-btecky-founder.png";
+        authorImage.alt="Lavish Sheth, founder of B Tecky";
+        authorImage.loading="lazy";
+        authorImage.decoding="async";
+        oldAvatar.replaceWith(authorImage);
+      }else if(!oldAvatar){
+        var authorImage=make("img","publication-avatar");
+        authorImage.src="/assets/images/lavish-btecky-founder.png";
+        authorImage.alt="Lavish Sheth, founder of B Tecky";
+        authorImage.loading="lazy";
+        authorImage.decoding="async";
+        existingAuthor.insertBefore(authorImage,existingAuthor.firstChild);
+      }
       main.appendChild(existingAuthor);
     }else{
       addAuthor(main);
