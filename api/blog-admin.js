@@ -73,6 +73,19 @@ function renderMarkdown(source) {
     const line = lines[i];
     if (!line.trim()) { i++; continue; }
 
+    const callout = line.match(/^\s*:::(info|tip|warning|takeaway)(?:\s+(.+))?\s*$/i);
+    if (callout) {
+      const kind = callout[1].toLowerCase();
+      const heading = callout[2] ? '<strong class="publication-callout-title">' + inlineMarkdown(callout[2]) + '</strong>' : '';
+      i++;
+      const content = [];
+      while (i < lines.length && !/^\s*:::\s*$/.test(lines[i])) { content.push(lines[i]); i++; }
+      if (i < lines.length) i++;
+      const icons = {info:'i',tip:'✓',warning:'!',takeaway:'★'};
+      out.push('<aside class="publication-callout publication-callout--' + kind + '"><span class="publication-callout-icon" aria-hidden="true">' + icons[kind] + '</span><div class="publication-callout-content">' + heading + renderMarkdown(content.join('\n')) + '</div></aside>');
+      continue;
+    }
+
     const fence = line.match(/^ {0,3}(\x60{3,}|~~~)\s*([a-zA-Z0-9+#._-]*)\s*$/);
     if (fence) {
       const marker = fence[1][0], language = fence[2] || '';
@@ -196,11 +209,11 @@ function article(post) {
     '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="' + title + '"><meta name="twitter:description" content="' + summary.slice(0,300) + '"><meta name="twitter:image" content="' + cover + '">',
     '<link rel="canonical" href="' + canonical + '"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     '<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">',
-    '<link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/additions.css"><script type="application/ld+json">' + jsonLd + '</script></head><body>',
+    '<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%229%22%20fill%3D%22%232456ff%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2229%22%20font-size%3D%2228%22%20font-family%3D%22Arial%22%20font-weight%3D%22bold%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3EB%3C%2Ftext%3E%3C%2Fsvg%3E"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/additions.css"><script type="application/ld+json">' + jsonLd + '</script></head><body>',
     '<header class="site-head"><div class="wrap"><a class="brand" href="/" aria-label="B Tecky home"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#2456ff"/><g fill="#fff"><rect x="10" y="6" width="16" height="4"/><rect x="10" y="10" width="4" height="8"/><rect x="26" y="10" width="4" height="8"/><rect x="10" y="18" width="16" height="4"/><rect x="10" y="22" width="4" height="8"/><rect x="26" y="22" width="4" height="8"/><rect x="10" y="30" width="16" height="4"/></g></svg><span>B Tecky</span></a>',
     '<button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>',
-    '<nav class="nav" id="nav" aria-label="Main"><a href="/">Home</a><a href="/about">About</a><a href="/#services">Services</a><a href="/#products">Products</a><div class="nav-dropdown"><button type="button" class="nav-drop-toggle" aria-expanded="false">Arcade <span aria-hidden="true">▾</span></button><div class="nav-drop-menu"><a href="/arcade">Score Checker</a><a href="/arcade-calculator">Points Calculator</a><a href="/playlists">Learning Playlists</a><a href="/blog">Guides &amp; Blog</a></div></div><a href="/partners">Partnerships</a><a href="/contact">Contact</a></nav></div></header>',
-    '<main class="article-wrap publication-shell"><a class="publication-back" href="/blog">All articles</a>',
+    '<nav class="nav" id="nav" aria-label="Main"><a href="/">Home</a><a href="/about">About</a><a href="/#services">Services</a><a href="/#products">Products</a><a href="/blog" aria-label="Blog and guides">Blog</a><div class="nav-dropdown"><button type="button" class="nav-drop-toggle" aria-expanded="false">Arcade <span aria-hidden="true">▾</span></button><div class="nav-drop-menu"><a href="/arcade">Score Checker</a><a href="/arcade-calculator">Points Calculator</a><a href="/playlists">Learning Playlists</a></div></div><a href="/partners">Partnerships</a><a href="/contact">Contact</a></nav></div></header>',
+    '<main class="article-wrap publication-shell"><a class="publication-back" href="/blog"><span aria-hidden="true">←</span><span>Back</span></a>',
     '<header class="article-head"><div class="article-meta"><span>' + esc(date) + '</span><span>·</span><span>' + category + '</span><span>·</span><span>By ' + author + '</span></div>',
     '<span class="publication-updated" data-updated="' + esc(updated) + '" hidden></span><h1>' + title + '</h1><p class="lede">' + summary + '</p>',
     '<img class="article-cover publication-cover" src="' + cover + '" alt="' + esc(post.coverAlt || post.title) + ' — featured image" loading="eager" decoding="async">',

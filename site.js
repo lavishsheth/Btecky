@@ -218,7 +218,12 @@
   }
   function addAuthor(parent){
     var box=make("section","publication-author");
-    box.appendChild(make("div","publication-avatar","LS"));
+    var avatar=make("img","publication-avatar");
+    avatar.src="/assets/images/lavish-btecky-founder.png";
+    avatar.alt="Lavish Sheth, founder of B Tecky";
+    avatar.loading="lazy";
+    avatar.decoding="async";
+    box.appendChild(avatar);
     var details=make("div");
     details.appendChild(make("h3","","Lavish Sheth"));
     var p=make("p","","Founder of B Tecky. Writing practical guides on software, cloud, AI and developer skills.");
@@ -256,8 +261,125 @@
     });
     if(neighbors.children.length) parent.appendChild(neighbors);
   }
+  function normalizePublicationNav(){
+    var header=document.querySelector(".site-head");
+    if(!header)return;
+    var wrap=header.querySelector(".wrap");
+    var nav=header.querySelector(".nav");
+    if(!wrap||!nav)return;
+    var existingToggle=wrap.querySelector(".nav-toggle");
+    var logo=wrap.querySelector(".brand");
+    if(!logo)return;
+    if(!logo.querySelector("svg")){
+      logo.insertAdjacentHTML("afterbegin",'<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#2456ff"/><g fill="#fff"><rect x="10" y="6" width="16" height="4"/><rect x="10" y="10" width="4" height="8"/><rect x="26" y="10" width="4" height="8"/><rect x="10" y="18" width="16" height="4"/><rect x="10" y="22" width="4" height="8"/><rect x="26" y="22" width="4" height="8"/><rect x="10" y="30" width="16" height="4"/></g></svg>');
+    }
+    var favicon=document.querySelector('link[rel~="icon"]');
+    if(!favicon){favicon=make("link");favicon.rel="icon";document.head.appendChild(favicon);}
+    favicon.type="image/svg+xml";
+    favicon.href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%232456ff'/%3E%3Ctext x='20' y='29' font-size='28' font-family='Arial' font-weight='bold' text-anchor='middle' fill='white'%3EB%3C/text%3E%3C/svg%3E";
+    nav.innerHTML=
+      '<a href="/">Home</a>'+
+      '<a href="/about">About</a>'+
+      '<a href="/#services">Services</a>'+
+      '<a href="/#products">Products</a>'+
+      '<a href="/blog" aria-label="Blog and guides">Blog</a>'+
+      '<div class="nav-dropdown"><button type="button" class="nav-drop-toggle" aria-expanded="false">Arcade <span aria-hidden="true">▾</span></button>'+
+      '<div class="nav-drop-menu"><a href="/arcade">Score Checker</a><a href="/arcade-calculator">Points Calculator</a><a href="/playlists">Learning Playlists</a></div></div>'+
+      '<a href="/partners">Partnerships</a>'+
+      '<a href="/contact">Contact</a>';
+    nav.id="nav";
+    if(!existingToggle){
+      existingToggle=make("button","nav-toggle");
+      existingToggle.type="button";
+      existingToggle.setAttribute("aria-label","Open menu");
+      existingToggle.setAttribute("aria-expanded","false");
+      existingToggle.setAttribute("aria-controls","nav");
+      existingToggle.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
+      logo.insertAdjacentElement("afterend",existingToggle);
+    }
+    existingToggle.onclick=function(){
+      var open=nav.classList.toggle("open");
+      existingToggle.setAttribute("aria-expanded",open?"true":"false");
+      existingToggle.setAttribute("aria-label",open?"Close menu":"Open menu");
+    };
+    nav.addEventListener("click",function(event){
+      if(event.target.tagName==="A"){nav.classList.remove("open");existingToggle.setAttribute("aria-expanded","false");}
+    });
+    var drop=nav.querySelector(".nav-drop-toggle");
+    if(drop)drop.addEventListener("click",function(){
+      var parent=drop.closest(".nav-dropdown"),open=parent.classList.toggle("open");
+      drop.setAttribute("aria-expanded",open?"true":"false");
+    });
+  }
+  function promoteLegacyArticleHeadings(body){
+    if(body.dataset.editorialHeadings==="true")return;
+    body.dataset.editorialHeadings="true";
+    Array.prototype.slice.call(body.querySelectorAll(":scope > p")).forEach(function(p){
+      var value=text(p).trim();
+      if(!value||value.length>105)return;
+      var looksLikeHeading=/^(?:[🎁📅🗄️🚀💡🏆⚠️🎯🏁🤖💻🎓📊📸🧠🛠️🌐🔐☁️]|Step\s+\d+\s*:|What\s+|Why\s+|How\s+|Does\s+|Is\s+it\s+|Can\s+you\s+|Who\s+can\s+|Where\s+|When\s+|Final\s+Verdict|Quick\s+Recap|Ready\s+to\s+Build|Introduction|Conclusion|Key\s+Takeaways|Important\s+Dates|Contest\s+Details|Frequently\s+Asked\s+Questions|FAQs|Common\s+Mistakes|Next\s+Steps)/i.test(value);
+      if(looksLikeHeading && !/[.!]$/.test(value)){
+        var h=document.createElement("h2");h.innerHTML=p.innerHTML;p.replaceWith(h);
+      }
+    });
+  }
+  function convertLegacyTables(body){
+    Array.prototype.slice.call(body.querySelectorAll(":scope > h2")).forEach(function(heading){
+      var nodes=[],node=heading.nextElementSibling;
+      while(node&&node.tagName!=="H2"&&node.tagName!=="H3"){nodes.push(node);node=node.nextElementSibling;}
+      for(var i=0;i<nodes.length-5;i++){
+        if(nodes[i].tagName!=="P"||nodes[i+1].tagName!=="P")continue;
+        var first=text(nodes[i]).trim(),second=text(nodes[i+1]).trim();
+        var validFirst=/^(detail|event detail|position|feature|database|step|item|category|requirement|layer|field|criteria)$/i.test(first);
+        var validSecond=/^(information|prize|date|description|details|value|benefit|requirement)$/i.test(second);
+        if(!validFirst||!validSecond)continue;
+        var rows=[],j=i+2;
+        while(j+1<nodes.length&&nodes[j].tagName==="P"&&nodes[j+1].tagName==="P"){
+          rows.push([nodes[j],nodes[j+1]]);j+=2;
+        }
+        if(rows.length<2)continue;
+        var wrap=document.createElement("div");wrap.className="publication-table-wrap publication-auto-table";
+        var table=document.createElement("table");
+        table.innerHTML="<thead><tr><th scope='col'></th><th scope='col'></th></tr></thead><tbody></tbody>";
+        table.querySelector("thead th:first-child").textContent=first;
+        table.querySelector("thead th:last-child").textContent=second;
+        rows.forEach(function(pair){
+          var tr=document.createElement("tr"),left=document.createElement("td"),right=document.createElement("td");
+          left.innerHTML=pair[0].innerHTML;right.innerHTML=pair[1].innerHTML;
+          tr.appendChild(left);tr.appendChild(right);table.querySelector("tbody").appendChild(tr);
+        });
+        wrap.appendChild(table);
+        nodes[i].parentNode.insertBefore(wrap,nodes[i]);
+        for(var k=i;k<j;k++)if(nodes[k].parentNode)nodes[k].remove();
+        break;
+      }
+    });
+  }
+  function wrapArticleSections(body){
+    if(body.dataset.sectionCards==="true")return;
+    body.dataset.sectionCards="true";
+    var children=Array.prototype.slice.call(body.children),groups=[],current=null;
+    children.forEach(function(node){
+      if(node.tagName==="H2"){
+        current={heading:node,nodes:[node]};groups.push(current);
+      }else if(current){current.nodes.push(node);}
+      else{
+        if(!groups.length)groups.push({intro:true,nodes:[]});
+        groups[0].nodes.push(node);
+      }
+    });
+    if(!groups.length)return;
+    groups.forEach(function(group){
+      if(!group.nodes.length)return;
+      var section=document.createElement("section");
+      section.className=group.intro?"publication-intro-card":"publication-section-card";
+      body.insertBefore(section,group.nodes[0]);
+      group.nodes.forEach(function(node){section.appendChild(node);});
+    });
+  }
   function enhance(root){
     root=root||document;
+    normalizePublicationNav();
     var shell=root.querySelector(".article-wrap") || root.querySelector("#post-root");
     if(!shell){
       var legacyArticle=root.querySelector("article");
@@ -270,8 +392,11 @@
     shell.dataset.publicationEnhanced="true";
     shell.classList.add("publication-shell");
     body.classList.add("publication-body");
+    promoteLegacyArticleHeadings(body);
+    convertLegacyTables(body);
+    wrapArticleSections(body);
     var back=shell.querySelector('a[href="/blog"]');
-    if(back){back.classList.add("publication-back");}
+    if(back){back.classList.add("publication-back");back.innerHTML='<span aria-hidden="true">←</span><span>Back</span>';}
     var head=shell.querySelector(".article-head") || shell.querySelector(".post-head");
     var eyebrow=shell.querySelector(".eyebrow");
     var meta=shell.querySelector(".article-meta") || shell.querySelector(".post-meta");
@@ -311,6 +436,17 @@
     if(heading.parentNode!==head)head.appendChild(heading);
     if(lede && lede.parentNode!==head)head.appendChild(lede);
     var cover=shell.querySelector(".article-cover");
+    if(!cover){
+      var videoFrame=shell.querySelector(".video-box iframe,.embed iframe");
+      var videoMatch=videoFrame&&videoFrame.src.match(/embed\/([a-zA-Z0-9_-]{6,})/);
+      if(videoMatch){
+        cover=make("img","article-cover");
+        cover.src="https://img.youtube.com/vi/"+videoMatch[1]+"/hqdefault.jpg";
+        cover.alt=text(heading)+" — featured video thumbnail";
+        cover.loading="eager";cover.decoding="async";
+        head.insertAdjacentElement("afterend",cover);
+      }
+    }
     if(cover){cover.classList.add("publication-cover");if(!cover.getAttribute("alt")||cover.getAttribute("alt").trim()==="")cover.alt=text(heading)+" — featured image";}
     var count=readingMinutes(body);
     var byline=make("div","publication-byline");
@@ -341,6 +477,22 @@
     var existingAuthor=shell.querySelector(".author");
     if(existingAuthor){
       existingAuthor.classList.add("publication-author");
+      var oldAvatar=existingAuthor.querySelector(".publication-avatar");
+      if(oldAvatar && oldAvatar.tagName!=="IMG"){
+        var authorImage=make("img","publication-avatar");
+        authorImage.src="/assets/images/lavish-btecky-founder.png";
+        authorImage.alt="Lavish Sheth, founder of B Tecky";
+        authorImage.loading="lazy";
+        authorImage.decoding="async";
+        oldAvatar.replaceWith(authorImage);
+      }else if(!oldAvatar){
+        var authorImage=make("img","publication-avatar");
+        authorImage.src="/assets/images/lavish-btecky-founder.png";
+        authorImage.alt="Lavish Sheth, founder of B Tecky";
+        authorImage.loading="lazy";
+        authorImage.decoding="async";
+        existingAuthor.insertBefore(authorImage,existingAuthor.firstChild);
+      }
       main.appendChild(existingAuthor);
     }else{
       addAuthor(main);
@@ -383,6 +535,7 @@
     return true;
   }
   function start(){
+    normalizePublicationNav();
     if(enhance(document)) return;
     var root=document.getElementById("post-root");
     if(root&&"MutationObserver" in window){
