@@ -414,3 +414,86 @@ footer .wrap{gap:30px}footer .foot-links{display:flex;flex-wrap:wrap;gap:8px 14p
   }
   .publication-author .publication-avatar{width:62px;height:62px}
 }
+
+
+/* Final editorial pass: match the white legal-page reading surface and fix
+   the actual DOM order (main is inserted before the TOC by site.js). */
+body:has(.publication-shell){background:#fff}
+.publication-shell{
+  width:min(1180px,calc(100% - 48px))!important;
+  max-width:1180px!important;
+  margin:0 auto!important;
+  padding:38px 0 88px!important;
+  background:#fff;
+}
+.publication-shell .article-head{max-width:900px;margin:0 auto;padding:34px 0 12px!important}
+.publication-shell .article-head h1{
+  max-width:900px!important;
+  font-size:clamp(2.7rem,5.2vw,4.35rem)!important;
+  line-height:1.04!important;
+  letter-spacing:-.055em!important;
+  overflow-wrap:anywhere;
+}
+.publication-shell .article-head .lede{max-width:760px;font-size:1.18rem;line-height:1.75;color:#5b6884}
+.publication-shell>.publication-cover,
+.publication-shell>img.publication-cover{
+  width:100%;max-width:900px;max-height:520px;display:block;margin:24px auto 54px!important;
+  aspect-ratio:16/9;object-fit:cover;border-radius:22px!important;
+}
+.publication-layout{
+  display:grid!important;
+  grid-template-columns:230px minmax(0,760px)!important;
+  grid-template-areas:"toc content"!important;
+  gap:54px!important;
+  width:100%!important;
+  max-width:1044px!important;
+  margin:0 auto!important;
+  align-items:start!important;
+}
+.publication-layout>.publication-sidebar{grid-area:toc!important;grid-column:1!important;grid-row:1!important}
+.publication-layout>.publication-main{
+  grid-area:content!important;grid-column:2!important;grid-row:1!important;
+  width:100%!important;max-width:760px!important;min-width:0!important;
+}
+.publication-layout--no-toc{display:block!important;max-width:900px!important}
+.publication-layout--no-toc>.publication-main{max-width:900px!important;margin:0 auto!important}
+.publication-shell .publication-body{
+  max-width:760px!important;width:100%!important;
+  color:#35415d!important;font-size:1.08rem!important;line-height:1.9!important;
+}
+.publication-shell .publication-body>p{margin:0 0 1.45em!important}
+.publication-shell .publication-body>h2{
+  margin:2.3em 0 .8em!important;padding:0!important;
+  color:#101a3a!important;font-size:clamp(1.55rem,2.7vw,2.05rem)!important;
+  line-height:1.2!important;letter-spacing:-.035em!important;
+}
+.publication-shell .publication-body>h2:after{content:"";display:block;width:38px;height:3px;margin-top:13px;border-radius:4px;background:#d7e0ff}
+.publication-back{
+  display:inline-flex!important;align-items:center!important;gap:10px!important;
+  min-height:44px!important;padding:10px 16px!important;margin:0 0 18px!important;
+  border:1px solid #dce4f4!important;border-radius:11px!important;
+  background:#fff!important;color:#24345a!important;
+  box-shadow:0 2px 8px rgba(16,26,58,.04)!important;
+  font:700 .92rem/1.2 var(--body)!important;text-decoration:none!important;
+  transition:background .18s,border-color .18s,transform .18s,box-shadow .18s!important;
+}
+.publication-back span:first-child{font-size:1.15rem;color:#2456ff}
+.publication-back:hover{background:#f5f7ff!important;border-color:#b9c8ff!important;transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,26,58,.07)!important}
+.publication-shell .site-head .wrap{max-width:1180px}
+.publication-shell .publication-mobile-toc{margin-bottom:26px}
+@media(max-width:900px){
+  .publication-shell{width:calc(100% - 40px)!important;padding:26px 0 65px!important}
+  .publication-layout{grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"content"!important;gap:20px!important;max-width:760px!important}
+  .publication-layout>.publication-sidebar{display:none!important}
+  .publication-layout>.publication-main{grid-area:content!important;grid-column:1!important;grid-row:1!important;max-width:760px!important}
+  .publication-shell .article-head{padding:24px 0 8px!important}
+  .publication-shell .article-head h1{font-size:clamp(2.35rem,6vw,3.5rem)!important}
+}
+@media(max-width:600px){
+  .publication-shell{width:calc(100% - 32px)!important;padding:18px 0 52px!important}
+  .publication-shell .article-head h1{font-size:clamp(2rem,9vw,2.8rem)!important;line-height:1.08!important}
+  .publication-shell .article-head .lede{font-size:1.02rem}
+  .publication-shell>.publication-cover,.publication-shell>img.publication-cover{border-radius:15px!important;margin:16px auto 32px!important}
+  .publication-shell .publication-body{font-size:1rem!important;line-height:1.82!important}
+  .publication-back{min-height:42px!important;padding:9px 13px!important}
+}
