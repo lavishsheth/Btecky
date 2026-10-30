@@ -270,9 +270,9 @@
     var existingToggle=wrap.querySelector(".nav-toggle");
     var logo=wrap.querySelector(".brand");
     if(!logo)return;
-    if(!logo.querySelector("svg")){
-      logo.insertAdjacentHTML("afterbegin",'<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#2456ff"/><g fill="#fff"><rect x="10" y="6" width="16" height="4"/><rect x="10" y="10" width="4" height="8"/><rect x="26" y="10" width="4" height="8"/><rect x="10" y="18" width="16" height="4"/><rect x="10" y="22" width="4" height="8"/><rect x="26" y="22" width="4" height="8"/><rect x="10" y="30" width="16" height="4"/></g></svg>');
-    }
+    /* Legacy article headers can contain an old logo plus an injected mark.
+       Rebuild the brand consistently so there is exactly one icon and label. */
+    logo.innerHTML='<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#2456ff"/><g fill="#fff"><rect x="10" y="6" width="16" height="4"/><rect x="10" y="10" width="4" height="8"/><rect x="26" y="10" width="4" height="8"/><rect x="10" y="18" width="16" height="4"/><rect x="10" y="22" width="4" height="8"/><rect x="26" y="22" width="4" height="8"/><rect x="10" y="30" width="16" height="4"/></g></svg><span>B Tecky</span>';
     var favicon=document.querySelector('link[rel~="icon"]');
     if(!favicon){favicon=make("link");favicon.rel="icon";document.head.appendChild(favicon);}
     favicon.type="image/svg+xml";
