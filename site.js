@@ -270,6 +270,13 @@
     var existingToggle=wrap.querySelector(".nav-toggle");
     var logo=wrap.querySelector(".brand");
     if(!logo)return;
+    if(!logo.querySelector("svg")){
+      logo.insertAdjacentHTML("afterbegin",'<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#2456ff"/><g fill="#fff"><rect x="10" y="6" width="16" height="4"/><rect x="10" y="10" width="4" height="8"/><rect x="26" y="10" width="4" height="8"/><rect x="10" y="18" width="16" height="4"/><rect x="10" y="22" width="4" height="8"/><rect x="26" y="22" width="4" height="8"/><rect x="10" y="30" width="16" height="4"/></g></svg>');
+    }
+    var favicon=document.querySelector('link[rel~="icon"]');
+    if(!favicon){favicon=make("link");favicon.rel="icon";document.head.appendChild(favicon);}
+    favicon.type="image/svg+xml";
+    favicon.href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%232456ff'/%3E%3Ctext x='20' y='29' font-size='28' font-family='Arial' font-weight='bold' text-anchor='middle' fill='white'%3EB%3C/text%3E%3C/svg%3E";
     nav.innerHTML=
       '<a href="/">Home</a>'+
       '<a href="/about">About</a>'+
@@ -310,7 +317,7 @@
     Array.prototype.slice.call(body.querySelectorAll(":scope > p")).forEach(function(p){
       var value=text(p).trim();
       if(!value||value.length>105)return;
-      var looksLikeHeading=/^(?:[🎁📅🗄️🚀💡🏆⚠️🎯🏁🤖💻🎓📊]|Step\s+\d+\s*:|What\s+|Why\s+|How\s+|Does\s+|Is\s+it\s+|Final\s+Verdict|Quick\s+Recap|Ready\s+to\s+Build)/i.test(value);
+      var looksLikeHeading=/^(?:[🎁📅🗄️🚀💡🏆⚠️🎯🏁🤖💻🎓📊📸🧠🛠️🌐🔐☁️]|Step\s+\d+\s*:|What\s+|Why\s+|How\s+|Does\s+|Is\s+it\s+|Can\s+you\s+|Who\s+can\s+|Where\s+|When\s+|Final\s+Verdict|Quick\s+Recap|Ready\s+to\s+Build|Introduction|Conclusion|Key\s+Takeaways|Important\s+Dates|Contest\s+Details|Frequently\s+Asked\s+Questions|FAQs|Common\s+Mistakes|Next\s+Steps)/i.test(value);
       if(looksLikeHeading && !/[.!]$/.test(value)){
         var h=document.createElement("h2");h.innerHTML=p.innerHTML;p.replaceWith(h);
       }
@@ -333,7 +340,7 @@
     body.classList.add("publication-body");
     promoteLegacyArticleHeadings(body);
     var back=shell.querySelector('a[href="/blog"]');
-    if(back){back.classList.add("publication-back");back.innerHTML='<span aria-hidden="true">←</span><span>All articles</span>';}
+    if(back){back.classList.add("publication-back");back.innerHTML='<span aria-hidden="true">←</span><span>Back</span>';}
     var head=shell.querySelector(".article-head") || shell.querySelector(".post-head");
     var eyebrow=shell.querySelector(".eyebrow");
     var meta=shell.querySelector(".article-meta") || shell.querySelector(".post-meta");
@@ -472,6 +479,7 @@
     return true;
   }
   function start(){
+    normalizePublicationNav();
     if(enhance(document)) return;
     var root=document.getElementById("post-root");
     if(root&&"MutationObserver" in window){
