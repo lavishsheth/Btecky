@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import catalogue from '../../../data/posts.json';
+export function getStaticPaths() {
+  return catalogue.posts.filter((post) => post.status !== 'draft').map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+const { post } = Astro.props;
+const paragraphs = (post.body || '').split(/\n{2,}/).filter(Boolean);
+---
+<BaseLayout title={post.title+' | B Tecky'} description={post.summary || post.title}>
+<main class="container article-page">
+<a class="back-link" href="/blog">← Back to the learning library</a>
+<article><header class="article-head"><p class="eyebrow">{post.date || 'B TECKY'}{post.tags?.length ? ' · '+post.tags.join(' · ') : ''}</p><h1 class="display">{post.title}</h1><p class="summary">{post.summary}</p>{post.cover && <img class="cover" src={post.cover.startsWith('/') ? post.cover : '/'+post.cover} alt="" />}</header>
+<div class="article-body">{paragraphs.map((paragraph) => <p>{paragraph}</p>)}</div>
+<footer class="article-footer"><a href="/blog">Explore more guides ↗</a></footer></article>
+</main>
+</BaseLayout>
+<style>
+.article-page{max-width:900px;padding-block:48px 110px}.back-link{color:var(--color-muted);font-weight:600;font-size:.9rem}.article-head{padding-block:48px 34px}.article-head h1{font-size:clamp(2.6rem,6vw,4.8rem);line-height:1.04;margin:18px 0 22px}.summary{font-size:1.2rem;line-height:1.75;color:var(--color-muted);white-space:pre-line}.cover{width:100%;max-height:480px;object-fit:cover;border-radius:18px;margin-top:32px}.article-body{max-width:720px;margin-inline:auto;font-size:1.08rem;line-height:1.9;color:#344054}.article-body p{white-space:pre-line;margin:0 0 1.45em}.article-footer{max-width:720px;margin:50px auto 0;padding-top:24px;border-top:1px solid var(--color-border);font-weight:700;color:var(--color-brand)}
+</style>
