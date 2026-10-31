@@ -103,7 +103,7 @@ const readingMinutes = Math.max(1, Math.ceil(wordCount / 210));
 <BaseLayout title={post.seoTitle || post.title+' | B Tecky'} description={post.seoDescription || post.summary || post.title}>
 <main class="container article-page">
 <a class="back-link" href="/blog">← Back to the learning library</a>
-<article><header class="article-head"><p class="eyebrow">{post.date || 'B TECKY'}{post.tags?.length ? ' · '+post.tags.join(' · ') : ''}</p><h1 class="display">{post.title}</h1><p class="summary">{post.summary}</p><p class="reading-time">{readingMinutes} min read{post.author ? ' · By '+post.author : ''}</p>{post.cover && <img class="cover" src={post.cover.startsWith('/') ? post.cover : '/'+post.cover} alt={post.coverAlt || post.title} />}</header>
+<article><header class="article-head"><p class="eyebrow">{post.date || 'B TECKY'}{post.tags?.length ? ' · '+post.tags.join(' · ') : ''}</p><h1 class="display">{post.title}</h1><p class="summary">{post.summary}</p><p class="reading-time">{readingMinutes} min read{post.author ? ' · By '+post.author : ''}</p>{(post.videoThumbnail || post.cover) && <img class="cover" src={post.videoThumbnail || (post.cover!.startsWith('/') ? post.cover : '/'+post.cover)} alt={post.coverAlt || post.title} />}</header>
 <div class="article-body" set:html={articleHtml}></div>
 {post.videoUrl && <section class="video-section"><h2>Watch the video</h2><a href={post.videoUrl} target="_blank" rel="noopener noreferrer">Open the related video ↗</a></section>}
 <footer class="article-footer"><a href="/blog">Explore more guides ↗</a></footer></article>
