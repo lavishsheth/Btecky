@@ -1,7 +1,22 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import catalogue from '../../data/posts.json';
-type BlogPost = (typeof catalogue.posts)[number];
+type BlogPost = {
+  slug: string;
+  title: string;
+  date?: string;
+  tags?: string[];
+  summary?: string;
+  body?: string;
+  videoUrl?: string;
+  videoThumbnail?: string;
+  cover?: string;
+  coverAlt?: string;
+  author?: string;
+  status?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+};
 export function getStaticPaths() {
   return catalogue.posts
     .filter((post: BlogPost) => post.status !== 'draft')
