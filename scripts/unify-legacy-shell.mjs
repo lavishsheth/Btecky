@@ -56,20 +56,20 @@ for (const relative of pages) {
   if (!existsSync(path)) continue;
   let html = readFileSync(path, 'utf8');
   if (!html.includes('btecky-shared-shell')) {
-    html = html.replace('</head>', sharedStyles + '\\n</head>');
+    html = html.replace('</head>', sharedStyles + '\n</head>');
   }
   if (html.includes('<nav class="nav"') && !html.includes('btecky-blog-dropdown')) {
     const arcadeMenu = html.indexOf('<div class="nav-dropdown">');
-    if (arcadeMenu >= 0) html = html.slice(0, arcadeMenu) + blogMenu + '\\n      ' + html.slice(arcadeMenu);
-    else html = html.replace('</nav>', blogMenu + '\\n    </nav>');
+    if (arcadeMenu >= 0) html = html.slice(0, arcadeMenu) + blogMenu + '\n      ' + html.slice(arcadeMenu);
+    else html = html.replace('</nav>', blogMenu + '\n    </nav>');
   }
-  html = html.replace(/<script>document\\.querySelector\\('.nav-drop-toggle'\\)\\?\\.addEventListener\\('click',[\\s\\S]*?<\\/script>/g, '');
+  html = html.replace(/<script>document\.querySelector\('.nav-drop-toggle'\)\?\.addEventListener\('click',[\s\S]*?<\/script>/g, '');
   if (!html.includes('btecky-legacy-dropdowns')) {
     const dropdownScript = `<script id="btecky-legacy-dropdowns">
 document.querySelectorAll('.nav-drop-toggle').forEach(function(button){button.addEventListener('click',function(){var menu=this.closest('.nav-dropdown');var open=!menu.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(function(item){item.classList.remove('open');item.querySelector('.nav-drop-toggle')?.setAttribute('aria-expanded','false');});menu.classList.toggle('open',open);this.setAttribute('aria-expanded',String(open));});});
 document.addEventListener('keydown',function(event){if(event.key==='Escape')document.querySelectorAll('.nav-dropdown.open').forEach(function(item){item.classList.remove('open');item.querySelector('.nav-drop-toggle')?.setAttribute('aria-expanded','false');});});
 </script>`;
-    html = html.replace('</body>', dropdownScript + '\\n</body>');
+    html = html.replace('</body>', dropdownScript + '\n</body>');
   }
   writeFileSync(path, html);
   changed++;
