@@ -1,11 +1,14 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import catalogue from '../../../data/posts.json';
+import catalogue from '../../data/posts.json';
+type BlogPost = (typeof catalogue.posts)[number];
 export function getStaticPaths() {
-  return catalogue.posts.filter((post) => post.status !== 'draft').map((post) => ({ params: { slug: post.slug }, props: { post } }));
+  return catalogue.posts
+    .filter((post: BlogPost) => post.status !== 'draft')
+    .map((post: BlogPost) => ({ params: { slug: post.slug }, props: { post } }));
 }
-const { post } = Astro.props;
-const paragraphs = (post.body || '').split(/\n{2,}/).filter(Boolean);
+const { post } = Astro.props as { post: BlogPost };
+const paragraphs: string[] = (post.body || '').split(/\n{2,}/).filter(Boolean);
 ---
 <BaseLayout title={post.title+' | B Tecky'} description={post.summary || post.title}>
 <main class="container article-page">
