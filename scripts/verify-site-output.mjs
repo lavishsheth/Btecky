@@ -35,7 +35,7 @@ if (missing.length) {
   console.error('Missing required site output:', missing.join(', '));
   process.exitCode = 1;
 } else {
-  const catalogue = JSON.parse(readFileSync(join(root, 'src/data/posts.json'), 'utf8'));
+  const catalogue = JSON.parse(readFileSync(join(root, 'blog/posts.json'), 'utf8'));
   const publicPosts = catalogue.posts.filter((post) => post.status !== 'draft');
   const missingArticles = publicPosts
     .filter((post) => !existsSync(join(dist, 'blog', post.slug, 'index.html')))
