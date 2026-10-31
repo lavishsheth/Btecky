@@ -180,7 +180,9 @@ function coverSvg(post) {
 function article(post) {
   const videoMatch = String(post.videoUrl || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
   const videoId = videoMatch ? videoMatch[1] : '';
-  const title = esc(post.title), summary = esc(post.summary || ''), slug = esc(post.slug);\n  const seoTitle = esc(post.seoTitle || post.title);\n  const seoDescription = esc(post.seoDescription || post.summary || '').slice(0,300);
+  const title = esc(post.title), summary = esc(post.summary || ''), slug = esc(post.slug);
+  const seoTitle = esc(post.seoTitle || post.title);
+  const seoDescription = esc(post.seoDescription || post.summary || '').slice(0,300);
   const category = esc((post.tags || ['Technology'])[0] || 'Technology');
   const date = String(post.date || new Date().toISOString().slice(0,10));
   const updated = String(post.updatedAt || post.updated || date).slice(0,10);
