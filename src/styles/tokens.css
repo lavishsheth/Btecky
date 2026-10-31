@@ -1,0 +1,16 @@
+:root {
+  color-scheme: light;
+  --color-ink: #101828;
+  --color-muted: #667085;
+  --color-brand: #315efb;
+  --color-brand-strong: #2348d8;
+  --color-surface: #ffffff;
+  --color-canvas: #f7f8fc;
+  --color-border: #e6e9f0;
+  --color-subtle: #f0f3f9;
+  --font-display: "Bricolage Grotesque", "Arial", sans-serif;
+  --font-body: "DM Sans", "Arial", sans-serif;
+  --content-width: 1160px;
+  --radius-card: 22px;
+  --shadow-card: 0 16px 44px rgba(16, 24, 40, .07);
+}
