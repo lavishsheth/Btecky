@@ -15,8 +15,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="/additions.css">
-</head>
+<link rel="stylesheet" href="/additions.css"><link rel="stylesheet" href="/assets/css/blog-redesign.css">
+<style>
+.legal-hero{position:relative;overflow:hidden;padding:76px 0 54px;background:radial-gradient(circle at 85% 0,rgba(36,86,255,.18),transparent 35%),linear-gradient(180deg,#f8faff,#eef2fb)}
+.legal-hero-inner{max-width:980px}.legal-kicker{font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#2456ff}
+.legal-hero h1{font-size:clamp(2.8rem,6vw,4.6rem);letter-spacing:-.06em;margin:16px 0}.legal-hero-copy{max-width:680px;color:#5f6d89;font-size:1.08rem}
+.legal-updated{display:inline-flex;gap:8px;align-items:center;margin-top:14px;padding:8px 12px;border:1px solid #dce4f2;border-radius:9px;background:#fff;color:#5f6d89;font-size:.86rem}
+.legal-layout{padding:38px 0 80px;background:#f7f9fd}.legal-grid{display:grid;grid-template-columns:220px minmax(0,760px);gap:46px;align-items:start;justify-content:center}
+.legal-toc{position:sticky;top:100px;padding:17px;border:1px solid #e0e7f2;border-radius:14px;background:#fff;box-shadow:0 8px 28px rgba(16,26,58,.04)}
+.legal-toc strong{display:block;margin-bottom:12px;color:#17254a;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}.legal-toc nav{display:grid;gap:4px}
+.legal-toc a{padding:7px 9px;border-radius:7px;color:#62708e;text-decoration:none;font-size:.86rem}.legal-toc a:hover,.legal-toc a.active{background:#edf2ff;color:#214bd5}
+.legal-document{padding:clamp(22px,4vw,42px);border:1px solid #e1e7f1;border-radius:19px;background:#fff;box-shadow:0 14px 40px rgba(16,26,58,.05)}
+.legal-document section{padding:0 0 24px;margin:0 0 24px;border-bottom:1px solid #edf0f6;scroll-margin-top:110px}.legal-document section:last-child{padding:0;margin:0;border:0}
+.legal-document h2{font-size:1.4rem;letter-spacing:-.03em;margin:0 0 12px;color:#142044}.legal-document p,.legal-document li{color:#4e5c79;line-height:1.8}.legal-document a{color:#2456ff;text-underline-offset:3px}
+@media(max-width:850px){.legal-grid{grid-template-columns:1fr;gap:18px}.legal-toc{position:static}.legal-toc nav{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.legal-hero{padding:52px 0 38px}.legal-layout{padding:22px 0 54px}.legal-document{padding:20px;border-radius:14px}.legal-toc nav{grid-template-columns:1fr}}
+</style></head>
 <body>
 <header class="site-head">
   <div class="wrap">
@@ -126,5 +140,7 @@
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
-<script>document.querySelector('.nav-drop-toggle')?.addEventListener('click',function(){const d=this.closest('.nav-dropdown');d.classList.toggle('open');this.setAttribute('aria-expanded',d.classList.contains('open')?'true':'false')});</script></body>
+<script>document.querySelector('.nav-drop-toggle')?.addEventListener('click',function(){const d=this.closest('.nav-dropdown');d.classList.toggle('open');this.setAttribute('aria-expanded',d.classList.contains('open')?'true':'false')});</script><script>
+(function(){var links=[].slice.call(document.querySelectorAll('.legal-toc a'));if(!links.length||!('IntersectionObserver'in window))return;var map={};links.forEach(function(a){var id=a.getAttribute('href').slice(1);map[id]=a;});var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('active',a===map[e.target.id]);});}});},{rootMargin:'-18% 0px -70% 0px'});Object.keys(map).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});})();
+</script></body>
 </html>
