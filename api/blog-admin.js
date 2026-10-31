@@ -254,7 +254,7 @@ async function commitFiles(files, message) {
   const entries = [];
   for (const file of files) {
     const blob = await gh('/repos/' + OWNER + '/' + REPO + '/git/blobs', {
-      method:'POST',body:JSON.stringify({content:file.content,encoding:'utf-8'})
+      method:'POST',body:JSON.stringify({content:file.content,encoding:file.encoding || 'utf-8'})
     });
     entries.push({path:file.path,mode:'100644',type:'blob',sha:blob.sha});
   }
@@ -289,6 +289,18 @@ module.exports = async (req, res) => {
     if (req.method !== 'POST') return res.status(405).json({error:'Method not allowed'});
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
     const action = body.action || 'save';
+    if (action === 'upload') {
+      const types = {'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/avif':'avif','image/gif':'gif'};
+      const type = String(body.contentType || '').toLowerCase();
+      const ext = types[type];
+      const encoded = String(body.contentBase64 || '');
+      if (!ext || !/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)) return res.status(400).json({error:'Choose a valid JPG, PNG, WebP, AVIF, or GIF image.'});
+      if (encoded.length > 4 * 1024 * 1024) return res.status(413).json({error:'Images must be 3 MB or smaller.'});
+      const filename = String(body.filename || 'cover').split(/[\\/]/).pop().toLowerCase().replace(/\\.[^.]+$/,'').replace(/[^a-z0-9-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,48) || 'cover';
+      const path = 'assets/images/blog-uploads/' + Date.now() + '-' + filename + '.' + ext;
+      await commitFiles([{path,content:encoded,encoding:'base64'}],'Upload blog image: ' + filename);
+      return res.status(200).json({ok:true,path:'/' + path});
+    }
     const file = await readRepoFile('blog/posts.json');
     const data = JSON.parse(file.text);
     data.posts = data.posts || [];
