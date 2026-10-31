@@ -143,4 +143,9 @@
 <script>document.querySelector('.nav-drop-toggle')?.addEventListener('click',function(){const d=this.closest('.nav-dropdown');d.classList.toggle('open');this.setAttribute('aria-expanded',d.classList.contains('open')?'true':'false')});</script><script>
 (function(){var links=[].slice.call(document.querySelectorAll('.legal-toc a'));if(!links.length||!('IntersectionObserver'in window))return;var map={};links.forEach(function(a){var id=a.getAttribute('href').slice(1);map[id]=a;});var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('active',a===map[e.target.id]);});}});},{rootMargin:'-18% 0px -70% 0px'});Object.keys(map).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});})();
 </script></body>
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script>document.querySelector('.nav-drop-toggle')?.addEventListener('click',function(){const d=this.closest('.nav-dropdown');d.classList.toggle('open');this.setAttribute('aria-expanded',d.classList.contains('open')?'true':'false')});</script></body>
 </html>

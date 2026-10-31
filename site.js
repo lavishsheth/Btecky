@@ -161,6 +161,9 @@
     });
   }
   function makeToc(body,layout){
+    /* Articles may have only one major section, or use h4 sub-sections.
+       Include every meaningful heading level and show the TOC whenever at
+       least one navigable section exists. */
     var headings=Array.prototype.slice.call(body.querySelectorAll("h2,h3,h4"));
     if(!headings.length){layout.classList.add("publication-layout--no-toc");return;}
     var sidebar=make("aside","publication-sidebar");
@@ -270,9 +273,9 @@
     var existingToggle=wrap.querySelector(".nav-toggle");
     var logo=wrap.querySelector(".brand");
     if(!logo)return;
-    if(!logo.querySelector("svg")){
-      logo.insertAdjacentHTML("afterbegin",'<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#2456ff"/><g fill="#fff"><rect x="10" y="6" width="16" height="4"/><rect x="10" y="10" width="4" height="8"/><rect x="26" y="10" width="4" height="8"/><rect x="10" y="18" width="16" height="4"/><rect x="10" y="22" width="4" height="8"/><rect x="26" y="22" width="4" height="8"/><rect x="10" y="30" width="16" height="4"/></g></svg>');
-    }
+    /* Legacy article headers can contain an old logo plus an injected mark.
+       Rebuild the brand consistently so there is exactly one icon and label. */
+    logo.innerHTML='<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#2456ff"/><g fill="#fff"><rect x="10" y="6" width="16" height="4"/><rect x="10" y="10" width="4" height="8"/><rect x="26" y="10" width="4" height="8"/><rect x="10" y="18" width="16" height="4"/><rect x="10" y="22" width="4" height="8"/><rect x="26" y="22" width="4" height="8"/><rect x="10" y="30" width="16" height="4"/></g></svg><span>B Tecky</span>';
     var favicon=document.querySelector('link[rel~="icon"]');
     if(!favicon){favicon=make("link");favicon.rel="icon";document.head.appendChild(favicon);}
     favicon.type="image/svg+xml";
@@ -317,7 +320,12 @@
     Array.prototype.slice.call(body.querySelectorAll(":scope > p")).forEach(function(p){
       var value=text(p).trim();
       if(!value||value.length>105)return;
-      var looksLikeHeading=/^(?:[🎁📅🗄️🚀💡🏆⚠️🎯🏁🤖💻🎓📊📸🧠🛠️🌐🔐☁️]|Step\s+\d+\s*:|What\s+|Why\s+|How\s+|Does\s+|Is\s+it\s+|Can\s+you\s+|Who\s+can\s+|Where\s+|When\s+|Final\s+Verdict|Quick\s+Recap|Ready\s+to\s+Build|Introduction|Conclusion|Key\s+Takeaways|Important\s+Dates|Contest\s+Details|Frequently\s+Asked\s+Questions|FAQs|Common\s+Mistakes|Next\s+Steps)/i.test(value);
+      /* Emoji-led fact rows (location, duration, role, stipend, etc.) are
+         metadata, not section headings. Only promote recognisable editorial
+         section titles so these facts stay together in the introduction card. */
+      var headingText=value.replace(/^[^\p{L}\p{N}]+/u,"").trim();
+      var emojiSection=/^(?:What\s+(?:Is|Are|Can|Will|You)|Why\s+|How\s+to\s+|How\s+Does|Does\s+|Who\s+Can|Where\s+to\s+|When\s+|Final\s+Verdict|Quick\s+Recap|Ready\s+to\s+Build|Key\s+Takeaways|Important\s+Dates|Important\s+Things|Contest\s+Details|Internship\s+Highlights|Frequently\s+Asked\s+Questions|Common\s+Mistakes|Next\s+Steps|Additional\s+Rewards|What\s+to\s+Learn)/i.test(headingText);
+      var looksLikeHeading=emojiSection || /^(?:Step\s+\d+\s*:|What\s+|Why\s+|How\s+|Does\s+|Is\s+it\s+|Can\s+you\s+|Who\s+can\s+|Where\s+|When\s+|Final\s+Verdict|Quick\s+Recap|Ready\s+to\s+Build|Introduction|Conclusion|Key\s+Takeaways|Important\s+Dates|Contest\s+Details|Frequently\s+Asked\s+Questions|FAQs|Common\s+Mistakes|Next\s+Steps)/i.test(value);
       if(looksLikeHeading && !/[.!]$/.test(value)){
         var h=document.createElement("h2");h.innerHTML=p.innerHTML;p.replaceWith(h);
       }
