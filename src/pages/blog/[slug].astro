@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import catalogue from '../../data/posts.json';
+import catalogue from '../../../blog/posts.json';
 type BlogPost = {
   slug: string;
   title: string;
@@ -16,6 +16,7 @@ type BlogPost = {
   status?: string;
   seoTitle?: string;
   seoDescription?: string;
+  contentType?: string;
 };
 export function getStaticPaths() {
   return catalogue.posts
