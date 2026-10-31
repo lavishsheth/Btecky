@@ -181,10 +181,13 @@ function article(post) {
   const videoMatch = String(post.videoUrl || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
   const videoId = videoMatch ? videoMatch[1] : '';
   const title = esc(post.title), summary = esc(post.summary || ''), slug = esc(post.slug);
+  const seoTitle = esc(post.seoTitle || post.title);
+  const seoDescription = esc(post.seoDescription || post.summary || '').slice(0,300);
   const category = esc((post.tags || ['Technology'])[0] || 'Technology');
   const date = String(post.date || new Date().toISOString().slice(0,10));
   const updated = String(post.updatedAt || post.updated || date).slice(0,10);
   const author = esc(post.author || 'Lavish Sheth');
+  const coverAlt = esc(post.coverAlt || post.title);
   const cover = esc(post.videoThumbnail || (videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : (post.cover || '/assets/images/blog-covers/' + post.slug + '.svg')));
   const canonical = '/blog/' + slug + '.html';
   const minutes = Math.max(1,Math.ceil(String(post.body || '').trim().split(/\s+/).filter(Boolean).length/210));
@@ -201,12 +204,12 @@ function article(post) {
       '<p><a href="https://www.youtube.com/watch?v=' + esc(videoId) + '" target="_blank" rel="noopener noreferrer">Open video on YouTube ↗</a></p></section>' : '';
   return [
     '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">',
-    '<title>' + title + ' | B Tecky</title><meta name="description" content="' + summary.slice(0,300) + '">',
+    '<title>' + seoTitle + ' | B Tecky</title><meta name="description" content="' + seoDescription + '">',
     '<meta name="theme-color" content="#101a3a"><meta name="robots" content="index,follow">',
-    '<meta property="og:type" content="article"><meta property="og:site_name" content="B Tecky"><meta property="og:title" content="' + title + '">',
-    '<meta property="og:description" content="' + summary.slice(0,300) + '"><meta property="og:image" content="' + cover + '">',
+    '<meta property="og:type" content="article"><meta property="og:site_name" content="B Tecky"><meta property="og:title" content="' + seoTitle + '">',
+    '<meta property="og:description" content="' + seoDescription + '"><meta property="og:image" content="' + cover + '">',
     '<meta property="article:published_time" content="' + esc(date) + '"><meta property="article:modified_time" content="' + esc(updated) + '">',
-    '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="' + title + '"><meta name="twitter:description" content="' + summary.slice(0,300) + '"><meta name="twitter:image" content="' + cover + '">',
+    '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="' + seoTitle + '"><meta name="twitter:description" content="' + seoDescription + '"><meta name="twitter:image" content="' + cover + '">',
     '<link rel="canonical" href="' + canonical + '"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     '<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">',
     '<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%229%22%20fill%3D%22%232456ff%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2229%22%20font-size%3D%2228%22%20font-family%3D%22Arial%22%20font-weight%3D%22bold%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3EB%3C%2Ftext%3E%3C%2Fsvg%3E"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/additions.css"><script type="application/ld+json">' + jsonLd + '</script></head><body>',
@@ -251,7 +254,7 @@ async function commitFiles(files, message) {
   const entries = [];
   for (const file of files) {
     const blob = await gh('/repos/' + OWNER + '/' + REPO + '/git/blobs', {
-      method:'POST',body:JSON.stringify({content:file.content,encoding:'utf-8'})
+      method:'POST',body:JSON.stringify({content:file.content,encoding:file.encoding || 'utf-8'})
     });
     entries.push({path:file.path,mode:'100644',type:'blob',sha:blob.sha});
   }
@@ -286,6 +289,18 @@ module.exports = async (req, res) => {
     if (req.method !== 'POST') return res.status(405).json({error:'Method not allowed'});
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
     const action = body.action || 'save';
+    if (action === 'upload') {
+      const types = {'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/avif':'avif','image/gif':'gif'};
+      const type = String(body.contentType || '').toLowerCase();
+      const ext = types[type];
+      const encoded = String(body.contentBase64 || '');
+      if (!ext || !/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)) return res.status(400).json({error:'Choose a valid JPG, PNG, WebP, AVIF, or GIF image.'});
+      if (encoded.length > 4 * 1024 * 1024) return res.status(413).json({error:'Images must be 3 MB or smaller.'});
+      const filename = String(body.filename || 'cover').split(/[\\/]/).pop().toLowerCase().replace(/\\.[^.]+$/,'').replace(/[^a-z0-9-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,48) || 'cover';
+      const path = 'assets/images/blog-uploads/' + Date.now() + '-' + filename + '.' + ext;
+      await commitFiles([{path,content:encoded,encoding:'base64'}],'Upload blog image: ' + filename);
+      return res.status(200).json({ok:true,path:'/' + path});
+    }
     const file = await readRepoFile('blog/posts.json');
     const data = JSON.parse(file.text);
     data.posts = data.posts || [];
@@ -323,8 +338,11 @@ module.exports = async (req, res) => {
       slug,title,date:String(input.date || (oldPost && oldPost.date) || today),updatedAt:today,tags,
       summary:String(input.summary || input.excerpt || '').trim(),body:bodyText,
       videoUrl:String(input.videoUrl || '').trim(),
-      videoThumbnail:videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : '',
-      cover:'/assets/images/blog-covers/' + slug + '.svg',
+      videoThumbnail:videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : ((oldPost && oldPost.videoThumbnail) || ''),
+      cover:String(input.cover || (oldPost && oldPost.cover) || '/assets/images/blog-covers/' + slug + '.svg'),
+      seoTitle:String(input.seoTitle || (oldPost && oldPost.seoTitle) || '').trim(),
+      seoDescription:String(input.seoDescription || (oldPost && oldPost.seoDescription) || '').trim(),
+      coverAlt:String(input.coverAlt || (oldPost && oldPost.coverAlt) || title).trim(),
       author:String(input.author || (oldPost && oldPost.author) || 'Lavish Sheth'),status
     };
     if (oldIndex >= 0) data.posts.splice(oldIndex,1);
@@ -333,7 +351,7 @@ module.exports = async (req, res) => {
       {path:'blog/posts.json',content:JSON.stringify(data,null,2)},
       {path:'blog/' + slug + '.html',content:article(post,data.posts)}
     ];
-    if (!videoId) files.push({path:'assets/images/blog-covers/' + slug + '.svg',content:coverSvg(post)});
+    if (!videoId && post.cover === '/assets/images/blog-covers/' + slug + '.svg') files.push({path:'assets/images/blog-covers/' + slug + '.svg',content:coverSvg(post)});
     if (oldIndex >= 0 && originalSlug !== slug) {
       files.push({path:'blog/' + originalSlug + '.html',content:'<!doctype html><html><head><meta http-equiv="refresh" content="0;url=/blog"></head><body>Article moved. <a href="/blog">Back to blog</a></body></html>'});
     }

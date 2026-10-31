@@ -174,7 +174,7 @@
       var base=id,n=2;
       while(document.getElementById(id) && document.getElementById(id)!==h){id=base+"-"+n++;}
       h.id=id;
-      var a=make("a",h.tagName==="H3"?"toc-h3":(h.tagName==="H4"?"toc-h4":""),text(h));
+      var a=make("a",h.tagName==="H4"?"toc-h4":(h.tagName==="H3"?"toc-h3":""),text(h));
       a.href="#"+id;
       a.addEventListener("click",function(){nav.querySelectorAll("a").forEach(function(x){x.classList.remove("is-active");});a.classList.add("is-active");});
       nav.appendChild(a);
@@ -390,11 +390,17 @@
     normalizePublicationNav();
     var shell=root.querySelector(".article-wrap") || root.querySelector("#post-root");
     if(!shell){
+      var modernBody=root.querySelector(".article-body");
+      if(modernBody)shell=modernBody.closest("main")||modernBody.parentElement;
+    }
+    if(!shell){
       var legacyArticle=root.querySelector("article");
       if(legacyArticle && legacyArticle.querySelector(".post-head") && legacyArticle.querySelector(".post-body .prose")) shell=legacyArticle;
     }
     var body=root.querySelector(".article-body") || root.querySelector(".post-body .prose");
     if(!shell||!body||shell.dataset.publicationEnhanced==="true") return false;
+    var editorialCss=document.getElementById("blog-redesign-css");
+    if(!editorialCss){editorialCss=document.createElement("link");editorialCss.id="blog-redesign-css";editorialCss.rel="stylesheet";editorialCss.href="/assets/css/blog-redesign.css";document.head.appendChild(editorialCss);}
     var heading=shell.querySelector("h1");
     if(!heading) return false;
     shell.dataset.publicationEnhanced="true";
