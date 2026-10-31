@@ -1,0 +1,20 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import catalogue from '../../data/posts.json';
+const posts = catalogue.posts.filter((post) => post.status !== 'draft').sort((a,b) => (b.date || '').localeCompare(a.date || ''));
+---
+<BaseLayout title="Practical Tech Guides & Learning | B Tecky" description="Explore practical guides on AI, Python, Java, machine learning, cloud, cybersecurity and web development.">
+<main class="container blog-page">
+<header class="blog-heading"><p class="eyebrow">THE B TECKY LEARNING LIBRARY</p><h1 class="display">Ideas worth<br /><span>understanding.</span></h1><p>Practical technology guides, explainers and walkthroughs for curious builders.</p></header>
+<section class="post-grid" aria-label="Articles">
+{posts.map((post) => <article class="post-card">
+{post.cover && <img src={post.cover.startsWith('/') ? post.cover : '/'+post.cover} alt="" loading="lazy" />}
+<div class="post-meta">{post.date || 'B Tecky'}{post.tags?.length ? ' · '+post.tags.slice(0,2).join(', ') : ''}</div>
+<h2><a href={`/blog/${post.slug}`}>{post.title}</a></h2>
+<p>{post.summary}</p><a class="read-link" href={`/blog/${post.slug}`}>Read article ↗</a>
+</article>)}
+</section></main>
+</BaseLayout>
+<style>
+.blog-page{padding-block:76px 110px}.blog-heading{max-width:760px;margin-bottom:54px}.blog-heading h1{font-size:clamp(3.2rem,7vw,6rem);line-height:.98;margin:18px 0}.blog-heading h1 span{color:var(--color-brand)}.blog-heading>p:last-child{color:var(--color-muted);font-size:1.1rem;line-height:1.7}.post-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}.post-card{border:1px solid var(--color-border);border-radius:18px;padding:20px;background:white;min-width:0}.post-card img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:11px;margin-bottom:18px}.post-meta{font-size:.75rem;color:var(--color-muted);text-transform:uppercase;letter-spacing:.06em}.post-card h2{font:700 1.3rem/1.25 var(--font-display);letter-spacing:-.03em}.post-card p{color:var(--color-muted);line-height:1.65;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}.read-link{display:inline-block;color:var(--color-brand);font-weight:700;margin-top:8px}@media(max-width:900px){.post-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.post-grid{grid-template-columns:1fr}.blog-page{padding-block:52px 80px}}
+</style>
