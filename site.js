@@ -171,7 +171,7 @@
       var base=id,n=2;
       while(document.getElementById(id) && document.getElementById(id)!==h){id=base+"-"+n++;}
       h.id=id;
-      var a=make("a",h.tagName==="H3"?"toc-h3":"",text(h));
+      var a=make("a",h.tagName==="H4"?"toc-h4":(h.tagName==="H3"?"toc-h3":""),text(h));
       a.href="#"+id;
       a.addEventListener("click",function(){nav.querySelectorAll("a").forEach(function(x){x.classList.remove("is-active");});a.classList.add("is-active");});
       nav.appendChild(a);
@@ -380,7 +380,7 @@
   function enhance(root){
     root=root||document;
     normalizePublicationNav();
-    var shell=root.querySelector(".article-wrap") || root.querySelector("#post-root");
+    var shell=root.querySelector(".article-wrap") || root.querySelector("#post-root");\n    if(!shell){var modernBody=root.querySelector(".article-body");if(modernBody)shell=modernBody.closest("main")||modernBody.parentElement;}
     if(!shell){
       var legacyArticle=root.querySelector("article");
       if(legacyArticle && legacyArticle.querySelector(".post-head") && legacyArticle.querySelector(".post-body .prose")) shell=legacyArticle;
