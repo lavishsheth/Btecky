@@ -5,6 +5,7 @@ const root = process.cwd();
 const dist = join(root, 'dist');
 const required = [
   'index.html',
+  '404.html',
   'about/index.html',
   'partners/index.html',
   'contact/index.html',
