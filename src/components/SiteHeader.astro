@@ -2,24 +2,46 @@
 const links = [
   { href: '/', label: 'Home' }, { href: '/about', label: 'About' },
   { href: '/#products', label: 'Products' }, { href: '/blog', label: 'Blog' },
+  { href: '/arcade', label: 'Arcade' }, { href: '/playlists', label: 'Playlists' },
   { href: '/partners', label: 'Partners' }, { href: '/contact', label: 'Contact' },
 ];
 ---
 <header class="site-header">
   <div class="container header-inner">
     <a class="brand" href="/" aria-label="B Tecky home"><span class="brand-mark" aria-hidden="true">B</span><span>B Tecky</span></a>
-    <nav aria-label="Main navigation" class="desktop-nav">{links.map((link) => <a href={link.href}>{link.label}</a>)}</nav>
+    <nav id="primary-navigation" aria-label="Main navigation" class="desktop-nav">{links.map((link) => <a href={link.href}>{link.label}</a>)}</nav>
     <a class="header-cta" href="/contact">Let's talk <span aria-hidden="true">↗</span></a>
+    <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation"><span></span><span></span><span></span></button>
   </div>
 </header>
+<script>
+const toggle = document.querySelector('.menu-toggle');
+const navigation = document.querySelector('#primary-navigation');
+function closeMenu() {
+  toggle?.setAttribute('aria-expanded', 'false');
+  toggle?.setAttribute('aria-label', 'Open navigation');
+  navigation?.classList.remove('is-open');
+}
+toggle?.addEventListener('click', () => {
+  const open = toggle.getAttribute('aria-expanded') !== 'true';
+  toggle.setAttribute('aria-expanded', String(open));
+  toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  navigation?.classList.toggle('is-open', open);
+});
+navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
+</script>
 <style>
-.site-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--color-border)}
-.header-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:28px}
-.brand{display:inline-flex;align-items:center;gap:11px;font-weight:800;font-size:1.08rem;letter-spacing:-.04em}
+.site-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--color-border)}
+.header-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative}
+.brand{display:inline-flex;align-items:center;gap:11px;font-weight:800;font-size:1.08rem;letter-spacing:-.04em;flex-shrink:0}
 .brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--color-brand);color:#fff;font-family:var(--font-display);font-size:1.5rem}
-.desktop-nav{display:flex;align-items:center;gap:clamp(14px,2.2vw,30px);color:#475467;font-size:.9rem;font-weight:600}
-.desktop-nav a:hover{color:var(--color-brand)}
-.header-cta{padding:11px 16px;border:1px solid var(--color-border);border-radius:999px;font-size:.88rem;font-weight:700}
+.desktop-nav{display:flex;align-items:center;gap:clamp(12px,1.7vw,24px);color:#475467;font-size:.86rem;font-weight:600}
+.desktop-nav a:hover,.desktop-nav a:focus-visible{color:var(--color-brand)}
+.header-cta{padding:11px 16px;border:1px solid var(--color-border);border-radius:999px;font-size:.88rem;font-weight:700;white-space:nowrap}
 .header-cta:hover{border-color:var(--color-brand);color:var(--color-brand)}
-@media(max-width:760px){.header-inner{height:66px}.desktop-nav{display:none}.header-cta{margin-left:auto}}
+.menu-toggle{display:none;border:1px solid var(--color-border);background:white;border-radius:10px;width:42px;height:42px;padding:10px;align-items:center;justify-content:center;flex-direction:column;gap:4px;cursor:pointer}
+.menu-toggle span{height:2px;width:18px;background:var(--color-ink);border-radius:2px}
+@media(max-width:900px){.header-inner{min-height:68px}.menu-toggle{display:flex}.desktop-nav{display:none;position:absolute;top:calc(100% + 1px);left:0;right:0;padding:12px;background:white;border:1px solid var(--color-border);border-radius:0 0 14px 14px;box-shadow:var(--shadow-card);flex-direction:column;align-items:stretch;gap:0}.desktop-nav.is-open{display:flex}.desktop-nav a{padding:12px;border-radius:8px}.desktop-nav a:hover{background:var(--color-subtle)}.header-cta{margin-left:auto}}
+@media(max-width:420px){.header-cta{display:none}}
 </style>
