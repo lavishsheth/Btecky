@@ -45,3 +45,17 @@
 - Retained explicit Vercel rewrites only for `/arcade` and `/arcade-calculator`; removed the stale `/blog -> /blog.html` rewrite that would have overridden the Astro blog index.
 - This is a compatibility-first full-output build, not a claim that every old page has been visually redesigned. The original functional pages are carried into the Preview so they can be tested before replacement.
 - Latest Vercel Preview status for the route/output changes: pending at time of note. A successful check is required before declaring this output validated.
+
+## Consolidated full-site build work
+
+- The compatibility output now copies the legacy runtime dependencies that the Arcade, Playlists, and private Studio pages reference: `config.js`, `site.js`, `community.js`, `channel.js`, `dynamic-posts.js`, `posts.js`, `snippets/`, and both sitemap source files, in addition to the original page folders and assets.
+- Replaced the first-pass article paragraph renderer with an escaped Markdown renderer for headings, paragraphs, links, emphasis, inline code, fenced code, lists, blockquotes and horizontal rules. Article metadata, cover alt text, author, reading-time estimate and related video link are retained.
+- Added client-side blog search and topic filters over the complete non-draft catalogue.
+- Added generated sitemap and robots endpoints for the Astro routes and article catalogue, plus a branded 404 page.
+- Added responsive mobile navigation with an accessible menu toggle, Escape handling and link-close behavior.
+- Added Open Graph and Twitter metadata, canonical URL and favicon to the shared Astro layout.
+- Added a post-build smoke test that verifies key pages, legacy runtime assets, sitemap/robots output, 404 output and every non-draft article route.
+- Removed the package-level ESM declaration so the existing CommonJS Vercel API handlers continue to execute as CommonJS while Astro config and build scripts remain explicit `.mjs`.
+- Added a permanent Vercel redirect from legacy `/blog/:slug.html` URLs to the clean Astro article route.
+- The latest commit's Vercel Preview check is pending; until it passes, do not claim the final consolidated build is deployed or verified.
+- The final canonical hostname remains provisional as configured in `astro.config.mjs` (`btecky-sigma.vercel.app`). Confirm the intended production domain before a production cutover.
