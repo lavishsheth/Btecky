@@ -37,3 +37,11 @@
 7. Add deterministic dependency lockfile, CI checks, route/link/asset tests, accessibility checks, and production-build verification.
 8. Test every route and interactive feature on Vercel Preview, inspect mobile/desktop layouts, and compare against the existing production experience.
 9. Only after explicit approval, prepare a production cutover plan. No merge or production deployment is authorized by this status note.
+
+## Legacy compatibility build added
+
+- Added `scripts/copy-legacy-to-dist.mjs` and appended it to the Astro build pipeline. It copies the original public site pages, assets, data files, and legacy article HTML into `dist` after Astro builds.
+- The copy is non-destructive: generated Astro files win when a path already exists, so the new homepage and `/blog` catalogue remain in control while legacy routes and article .html URLs are preserved.
+- Retained explicit Vercel rewrites only for `/arcade` and `/arcade-calculator`; removed the stale `/blog -> /blog.html` rewrite that would have overridden the Astro blog index.
+- This is a compatibility-first full-output build, not a claim that every old page has been visually redesigned. The original functional pages are carried into the Preview so they can be tested before replacement.
+- Latest Vercel Preview status for the route/output changes: pending at time of note. A successful check is required before declaring this output validated.
