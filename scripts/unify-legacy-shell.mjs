@@ -8,7 +8,7 @@ import { join } from 'node:path';
 const root = join(process.cwd(), 'dist');
 const pages = [
   'about/index.html', 'partners/index.html', 'contact/index.html',
-  'terms/index.html', 'playlists/index.html', 'arcade.html',
+  'terms/index.html', 'playlists/index.html', 'write-lavii-9f21k2/index.html', 'arcade.html',
   'arcade-calculator.html', 'privacy.html',
 ];
 const blogMenu = `<div class="nav-dropdown btecky-blog-dropdown">
@@ -55,6 +55,7 @@ for (const relative of pages) {
   const path = join(root, relative);
   if (!existsSync(path)) continue;
   let html = readFileSync(path, 'utf8');
+  if (relative.startsWith('write-lavii-9f21k2/')) html = html.replace('<a href="/blog">Blog</a>', '');
   if (!html.includes('btecky-shared-shell')) {
     html = html.replace('</head>', sharedStyles + '\n</head>');
   }
