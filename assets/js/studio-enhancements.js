@@ -15,7 +15,6 @@ function controls(){
  document.querySelectorAll('[data-status]').forEach(function(button){button.addEventListener('click',function(){active=button.dataset.status;document.querySelectorAll('[data-status]').forEach(function(b){b.setAttribute('aria-pressed',String(b===button));});apply();});});
  if(filter)filter.addEventListener('input',apply);
 }
-var originalRender=window.renderList;
 var listObserver=new MutationObserver(function(){var posts=window.__bteckyPosts||[];count(posts);apply();});
 listObserver.observe(list,{childList:true,subtree:true});
 controls();
