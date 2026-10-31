@@ -19,12 +19,12 @@
       info.innerHTML='<strong>'+esc(p.title)+'</strong><span>'+esc(p.date||'No date')+' · '+esc((p.tags||[]).join(', '))+'</span>';
       var badge=document.createElement('span');badge.className='studio-state '+((p.status||'published')==='draft'?'is-draft':'is-live');badge.textContent=p.status||'published';
       var actions=document.createElement('div');actions.className='studio-post-actions';
-      var edit=document.createElement('button');edit.type='button';edit.className='btn btn-line';edit.textContent='Edit';edit.addEventListener('click',function(){var b=document.querySelector('#post-list .post-row button');if(b)b.click();var target=Array.prototype.find.call(document.querySelectorAll('#post-list button'),function(x){return x.textContent==='Edit'&&x.closest('.post-row')&&x.closest('.post-row').textContent.indexOf(p.title)>-1;});if(target)target.click();});
+      var edit=document.createElement('button');edit.type='button';edit.className='btn btn-line';edit.textContent='Edit';edit.addEventListener('click',function(){var all=Array.prototype.slice.call(document.querySelectorAll('#post-list .post-row'));var target=all.find(function(x){return x.querySelector('.studio-post-info strong')&&x.querySelector('.studio-post-info strong').textContent===p.title;});if(target){var button=target.querySelector('[data-edit-slug]');if(button)button.click();}});
       var view=document.createElement('a');view.className='btn btn-line';view.textContent='View';view.href='/blog/'+encodeURIComponent(p.slug)+'.html';view.target='_blank';view.rel='noopener';
       actions.append(badge,edit,view);row.append(info,actions);list.appendChild(row);
     });
   }
-  function wire(){
+  window.BteckyStudioRefresh=refresh;\n  function wire(){
     var all=document.querySelectorAll('[data-status]');
     all.forEach(function(b){b.addEventListener('click',function(){active=b.dataset.status;all.forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});refresh();});});
     if(filter)filter.addEventListener('input',refresh);
