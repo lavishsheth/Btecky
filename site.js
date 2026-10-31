@@ -161,8 +161,8 @@
     });
   }
   function makeToc(body,layout){
-    var headings=Array.prototype.slice.call(body.querySelectorAll("h2,h3"));
-    if(headings.length<2){layout.classList.add("publication-layout--no-toc");return;}
+    var headings=Array.prototype.slice.call(body.querySelectorAll("h2,h3,h4"));
+    if(!headings.length){layout.classList.add("publication-layout--no-toc");return;}
     var sidebar=make("aside","publication-sidebar");
     sidebar.appendChild(make("p","publication-toc-title","On this page"));
     var nav=make("nav","publication-toc");nav.setAttribute("aria-label","Article contents");
