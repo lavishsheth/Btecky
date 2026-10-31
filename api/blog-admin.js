@@ -187,6 +187,7 @@ function article(post) {
   const date = String(post.date || new Date().toISOString().slice(0,10));
   const updated = String(post.updatedAt || post.updated || date).slice(0,10);
   const author = esc(post.author || 'Lavish Sheth');
+  const coverAlt = esc(post.coverAlt || post.title);
   const cover = esc(post.videoThumbnail || (videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : (post.cover || '/assets/images/blog-covers/' + post.slug + '.svg')));
   const canonical = '/blog/' + slug + '.html';
   const minutes = Math.max(1,Math.ceil(String(post.body || '').trim().split(/\s+/).filter(Boolean).length/210));
@@ -329,6 +330,7 @@ module.exports = async (req, res) => {
       cover:String(input.cover || (oldPost && oldPost.cover) || '/assets/images/blog-covers/' + slug + '.svg'),
       seoTitle:String(input.seoTitle || (oldPost && oldPost.seoTitle) || '').trim(),
       seoDescription:String(input.seoDescription || (oldPost && oldPost.seoDescription) || '').trim(),
+      coverAlt:String(input.coverAlt || (oldPost && oldPost.coverAlt) || title).trim(),
       author:String(input.author || (oldPost && oldPost.author) || 'Lavish Sheth'),status
     };
     if (oldIndex >= 0) data.posts.splice(oldIndex,1);
