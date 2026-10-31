@@ -2,7 +2,6 @@
   "name": "btecky-modernization",
   "private": true,
   "version": "2.0.0",
-  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build && node scripts/copy-legacy-to-dist.mjs",
