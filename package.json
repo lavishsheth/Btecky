@@ -1,11 +1,26 @@
 {
-  "name": "btecky-website-functions",
+  "name": "btecky-modernization",
   "private": true,
-  "version": "1.0.0",
-  "description": "Dependencies for the Netlify Functions used by the self-publish and playlists features.",
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
-    "@netlify/blobs": "^8.1.0",
-    "@vercel/analytics": "^2.0.1",
-    "@vercel/speed-insights": "^2.0.0"
+    "@astrojs/react": "4.2.1",
+    "astro": "5.7.13",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.0.9",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
+    "tailwindcss": "4.0.9",
+    "typescript": "5.8.2"
   }
 }
