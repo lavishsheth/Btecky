@@ -323,8 +323,10 @@ module.exports = async (req, res) => {
       slug,title,date:String(input.date || (oldPost && oldPost.date) || today),updatedAt:today,tags,
       summary:String(input.summary || input.excerpt || '').trim(),body:bodyText,
       videoUrl:String(input.videoUrl || '').trim(),
-      videoThumbnail:videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : '',
-      cover:'/assets/images/blog-covers/' + slug + '.svg',
+      videoThumbnail:videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : ((oldPost && oldPost.videoThumbnail) || ''),
+      cover:String(input.cover || (oldPost && oldPost.cover) || '/assets/images/blog-covers/' + slug + '.svg'),
+      seoTitle:String(input.seoTitle || (oldPost && oldPost.seoTitle) || '').trim(),
+      seoDescription:String(input.seoDescription || (oldPost && oldPost.seoDescription) || '').trim(),
       author:String(input.author || (oldPost && oldPost.author) || 'Lavish Sheth'),status
     };
     if (oldIndex >= 0) data.posts.splice(oldIndex,1);
