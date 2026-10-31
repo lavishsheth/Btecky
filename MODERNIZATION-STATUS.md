@@ -12,3 +12,5 @@
 - Added an Astro blog index and static article route template using existing slugs. Draft records are excluded from public route generation.
 - Article body text is rendered as escaped paragraph text; richer legacy formatting, video embeds, and cover-image asset migration remain follow-up work.
 - Legacy Vercel rewrites and root-level static assets still need migration before this preview can replace the current site.
+
+- Preview deployment investigation: the configured build script runs `astro check`; added the missing `@astrojs/check` development dependency. The Vercel dashboard build logs were not accessible via the connected tools, so this is a concrete configuration fix, not a confirmed diagnosis of every failed deployment.
