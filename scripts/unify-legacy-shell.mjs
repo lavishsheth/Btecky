@@ -3,7 +3,7 @@
  * Page-specific markup and functionality remain intact.
  */
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 
 const root = join(process.cwd(), 'dist');
 const pages = [
