@@ -1,15 +1,14 @@
 <footer class="site-footer">
   <div class="container footer-inner">
-    <a class="footer-brand" href="/">B Tecky</a><p>Practical technology, thoughtfully built.</p>
-    <nav aria-label="Footer navigation"><a href="/privacy.html">Privacy</a><a href="/terms">Terms</a><a href="https://www.youtube.com/@btecky" target="_blank" rel="noopener noreferrer">YouTube ↗</a></nav>
-    <small>© {new Date().getFullYear()} B Tecky. All rights reserved.</small>
+    <div class="footer-brand-block"><a class="footer-brand" href="/"><span class="footer-mark">B</span><span>B Tecky</span></a><p>Practical technology, thoughtfully built.</p><span class="footer-note">Tools · Learning · Community</span></div>
+    <div class="footer-column"><b>EXPLORE</b><a href="/about">About B Tecky</a><a href="/arcade">Arcade Score Checker</a><a href="/arcade-calculator">Points Calculator</a><a href="/playlists">Learning Playlists</a></div>
+    <div class="footer-column"><b>THE JOURNAL</b><a href="/blog">All stories</a><a href="/blog?type=tech">Tech blogs</a><a href="/blog?type=events">Events & opportunities</a><a href="/partners">Partners</a></div>
+    <div class="footer-column"><b>GET IN TOUCH</b><a href="/contact">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms">Terms</a><a href="https://www.youtube.com/@btecky" target="_blank" rel="noopener noreferrer">YouTube ↗</a></div>
+    <div class="footer-bottom"><small>© {new Date().getFullYear()} B Tecky. All rights reserved.</small><span>Built with curiosity. Designed with purpose.</span><a href="#top">Back to top ↑</a></div>
   </div>
 </footer>
 <style>
-.site-footer{margin-top:100px;padding:42px 0;background:#101828;color:#fff}
-.footer-inner{display:grid;grid-template-columns:1fr auto;gap:14px 24px;align-items:center}
-.footer-brand{font-family:var(--font-display);font-size:1.35rem;font-weight:800;letter-spacing:-.04em}
-p{margin:0;color:#b7c0d0}.footer-inner nav{display:flex;gap:22px;color:#d5dbea;font-size:.88rem}
-small{grid-column:1/-1;color:#98a2b3;margin-top:18px}
-@media(max-width:640px){.footer-inner{grid-template-columns:1fr}.footer-inner nav{flex-wrap:wrap}small{grid-column:auto}}
+.site-footer{margin-top:0;padding:64px 0 25px;background:#0d1628;color:#fff}.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:34px 28px}.footer-brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:1.3rem;font-weight:900;letter-spacing:-.05em}.footer-mark{width:34px;height:34px;border-radius:10px;background:#315efb;display:grid;place-items:center;font-size:1.2rem}.footer-brand-block p{margin:17px 0 8px;color:#c0c9d9;font-size:.9rem}.footer-note{font-size:.68rem;color:#8190aa;letter-spacing:.1em;text-transform:uppercase}.footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:12px}.footer-column b{font-size:.62rem;letter-spacing:.14em;color:#91aaff;margin:4px 0 7px}.footer-column a{font-size:.82rem;color:#c3cbd9;transition:color .2s}.footer-column a:hover{color:#fff}.footer-bottom{grid-column:1/-1;border-top:1px solid #26334a;padding-top:22px;margin-top:16px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;color:#8c9ab1}.footer-bottom small,.footer-bottom span,.footer-bottom a{font-size:.7rem}.footer-bottom a{color:#cbd5e7;font-weight:700}
+@media(max-width:760px){.footer-inner{grid-template-columns:1fr 1fr}.footer-brand-block{grid-column:1/-1}.footer-bottom{grid-column:1/-1}}
+@media(max-width:440px){.site-footer{padding-top:48px}.footer-inner{grid-template-columns:1fr}.footer-brand-block,.footer-bottom{grid-column:auto}.footer-bottom{flex-direction:column}}
 </style>
