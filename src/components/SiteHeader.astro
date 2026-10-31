@@ -1,47 +1,50 @@
 ---
 const links = [
   { href: '/', label: 'Home' }, { href: '/about', label: 'About' },
-  { href: '/#products', label: 'Products' }, { href: '/blog', label: 'Blog' },
-  { href: '/arcade', label: 'Arcade' }, { href: '/playlists', label: 'Playlists' },
-  { href: '/partners', label: 'Partners' }, { href: '/contact', label: 'Contact' },
+  { href: '/#explore', label: 'Products' },
+  { href: '/arcade', label: 'Arcade' }, { href: '/arcade-calculator', label: 'Calculator' },
+  { href: '/playlists', label: 'Playlists' }, { href: '/partners', label: 'Partners' },
+  { href: '/contact', label: 'Contact' },
 ];
 ---
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label="B Tecky home"><span class="brand-mark" aria-hidden="true">B</span><span>B Tecky</span></a>
-    <nav id="primary-navigation" aria-label="Main navigation" class="desktop-nav">{links.map((link) => <a href={link.href}>{link.label}</a>)}</nav>
+    <a class="brand" href="/" aria-label="B Tecky home"><span class="brand-mark" aria-hidden="true">B</span><span class="brand-name">B Tecky</span></a>
+    <nav id="primary-navigation" aria-label="Main navigation" class="desktop-nav">
+      {links.slice(0,3).map((link) => <a href={link.href}>{link.label}</a>)}
+      <div class="nav-dropdown">
+        <button class="nav-drop-toggle" type="button" aria-expanded="false">Blog <span aria-hidden="true">⌄</span></button>
+        <div class="nav-drop-menu">
+          <a href="/blog">All stories <small>Latest from B Tecky</small></a>
+          <a href="/blog?type=tech">Tech blogs <small>Guides, explainers & tutorials</small></a>
+          <a href="/blog?type=events">Events & opportunities <small>Hackathons, internships & more</small></a>
+        </div>
+      </div>
+      {links.slice(3).map((link) => <a href={link.href}>{link.label}</a>)}
+    </nav>
     <a class="header-cta" href="/contact">Let's talk <span aria-hidden="true">↗</span></a>
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation"><span></span><span></span><span></span></button>
   </div>
 </header>
 <script>
-const toggle = document.querySelector('.menu-toggle');
-const navigation = document.querySelector('#primary-navigation');
-function closeMenu() {
-  toggle?.setAttribute('aria-expanded', 'false');
-  toggle?.setAttribute('aria-label', 'Open navigation');
-  navigation?.classList.remove('is-open');
-}
-toggle?.addEventListener('click', () => {
-  const open = toggle.getAttribute('aria-expanded') !== 'true';
-  toggle.setAttribute('aria-expanded', String(open));
-  toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-  navigation?.classList.toggle('is-open', open);
-});
-navigation?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
-document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeMenu(); });
+const toggle=document.querySelector<HTMLButtonElement>('.menu-toggle');
+const navigation=document.querySelector<HTMLElement>('#primary-navigation');
+const blogToggle=document.querySelector<HTMLButtonElement>('.nav-drop-toggle');
+const blogDropdown=document.querySelector<HTMLElement>('.nav-dropdown');
+function closeMenu(){toggle?.setAttribute('aria-expanded','false');toggle?.setAttribute('aria-label','Open navigation');navigation?.classList.remove('is-open');blogDropdown?.classList.remove('is-open');blogToggle?.setAttribute('aria-expanded','false');}
+toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close navigation':'Open navigation');navigation?.classList.toggle('is-open',open);});
+blogToggle?.addEventListener('click',()=>{const open=blogToggle.getAttribute('aria-expanded')!=='true';blogToggle.setAttribute('aria-expanded',String(open));blogDropdown?.classList.toggle('is-open',open);});
+navigation?.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMenu));
+document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMenu();});
 </script>
 <style>
-.site-header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--color-border)}
-.header-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative}
-.brand{display:inline-flex;align-items:center;gap:11px;font-weight:800;font-size:1.08rem;letter-spacing:-.04em;flex-shrink:0}
-.brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--color-brand);color:#fff;font-family:var(--font-display);font-size:1.5rem}
-.desktop-nav{display:flex;align-items:center;gap:clamp(12px,1.7vw,24px);color:#475467;font-size:.86rem;font-weight:600}
-.desktop-nav a:hover,.desktop-nav a:focus-visible{color:var(--color-brand)}
-.header-cta{padding:11px 16px;border:1px solid var(--color-border);border-radius:999px;font-size:.88rem;font-weight:700;white-space:nowrap}
-.header-cta:hover{border-color:var(--color-brand);color:var(--color-brand)}
-.menu-toggle{display:none;border:1px solid var(--color-border);background:white;border-radius:10px;width:42px;height:42px;padding:10px;align-items:center;justify-content:center;flex-direction:column;gap:4px;cursor:pointer}
-.menu-toggle span{height:2px;width:18px;background:var(--color-ink);border-radius:2px}
-@media(max-width:900px){.header-inner{min-height:68px}.menu-toggle{display:flex}.desktop-nav{display:none;position:absolute;top:calc(100% + 1px);left:0;right:0;padding:12px;background:white;border:1px solid var(--color-border);border-radius:0 0 14px 14px;box-shadow:var(--shadow-card);flex-direction:column;align-items:stretch;gap:0}.desktop-nav.is-open{display:flex}.desktop-nav a{padding:12px;border-radius:8px}.desktop-nav a:hover{background:var(--color-subtle)}.header-cta{margin-left:auto}}
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border-bottom:1px solid #e8ebf2}
+.header-inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:22px;position:relative}
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:900;font-size:1.05rem;letter-spacing:-.05em;flex-shrink:0}.brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#5278ff,#244be0);color:#fff;font-family:var(--font-display);font-size:1.5rem;box-shadow:0 6px 16px #315efb35}.brand-name{color:#101828}
+.desktop-nav{display:flex;align-items:center;gap:clamp(10px,1.35vw,20px);color:#475467;font-size:.82rem;font-weight:700}.desktop-nav>a,.nav-drop-toggle{padding:10px 0}.desktop-nav a:hover,.desktop-nav a:focus-visible,.nav-drop-toggle:hover{color:var(--color-brand)}
+.nav-dropdown{position:relative}.nav-drop-toggle{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;display:flex;align-items:center;gap:6px}.nav-drop-toggle span{font-size:1rem;color:var(--color-brand)}.nav-drop-menu{position:absolute;top:calc(100% + 13px);left:-22px;width:255px;padding:8px;background:#fff;border:1px solid var(--color-border);border-radius:15px;box-shadow:0 18px 45px rgba(19,35,75,.14);display:none}.nav-dropdown:hover .nav-drop-menu,.nav-dropdown:focus-within .nav-drop-menu,.nav-dropdown.is-open .nav-drop-menu{display:block}.nav-drop-menu a{display:block;padding:12px;border-radius:9px;font-weight:800;color:#17233f}.nav-drop-menu a:hover{background:#f2f5ff}.nav-drop-menu small{display:block;color:#8993a5;font-size:.68rem;font-weight:500;margin-top:4px}
+.header-cta{padding:11px 16px;border:1px solid var(--color-border);border-radius:999px;font-size:.84rem;font-weight:800;white-space:nowrap}.header-cta:hover{border-color:var(--color-brand);color:var(--color-brand)}
+.menu-toggle{display:none;border:1px solid var(--color-border);background:white;border-radius:10px;width:42px;height:42px;padding:10px;align-items:center;justify-content:center;flex-direction:column;gap:4px;cursor:pointer}.menu-toggle span{height:2px;width:18px;background:var(--color-ink);border-radius:2px}
+@media(max-width:1000px){.header-inner{min-height:68px}.menu-toggle{display:flex}.desktop-nav{display:none;position:absolute;top:calc(100% + 1px);left:0;right:0;padding:12px;background:white;border:1px solid var(--color-border);border-radius:0 0 16px 16px;box-shadow:0 20px 45px rgba(20,35,70,.13);flex-direction:column;align-items:stretch;gap:0}.desktop-nav.is-open{display:flex}.desktop-nav>a,.nav-drop-toggle{display:flex;width:100%;padding:12px;border-radius:9px;text-align:left}.desktop-nav>a:hover,.nav-drop-toggle:hover{background:#f3f5fb}.nav-dropdown{width:100%}.nav-drop-toggle{justify-content:space-between}.nav-drop-menu{position:static;width:100%;box-shadow:none;border:0;background:#f7f8fc;padding:5px 10px 10px;margin:0 0 6px}.header-cta{margin-left:auto}}
 @media(max-width:420px){.header-cta{display:none}}
 </style>
