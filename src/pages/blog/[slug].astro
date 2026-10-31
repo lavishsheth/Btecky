@@ -8,16 +8,92 @@ export function getStaticPaths() {
     .map((post: BlogPost) => ({ params: { slug: post.slug }, props: { post } }));
 }
 const { post } = Astro.props as { post: BlogPost };
-const paragraphs: string[] = (post.body || '').split(/\n{2,}/).filter(Boolean);
+
+const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+}[char] || char));
+
+function renderInline(value: string): string {
+  const code: string[] = [];
+  let text = escapeHtml(value).replace(/`([^`]+)`/g, (_match, content) => {
+    const token = `@@CODE${code.length}@@`;
+    code.push(`<code>${content}</code>`);
+    return token;
+  });
+  text = text.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/(?!\/)[^\s)]*)\)/g, (_m, label, href) =>
+    `<a href="${href}" rel="noopener noreferrer">${label}</a>`);
+  text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/__([^_]+)__/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/_([^_]+)_/g, '<em>$1</em>')
+    .replace(/~~([^~]+)~~/g, '<del>$1</del>');
+  return text.replace(/@@CODE(\d+)@@/g, (_m, index) => code[Number(index)] || '');
+}
+
+function renderMarkdown(source: string): string {
+  const lines = String(source || '').replace(/\r\n?/g, '\n').split('\n');
+  const html: string[] = [];
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    if (!line.trim()) { i++; continue; }
+    const fence = line.match(/^\s*```/);
+    if (fence) {
+      i++;
+      const code: string[] = [];
+      while (i < lines.length && !/^\s*```/.test(lines[i])) code.push(lines[i++]);
+      if (i < lines.length) i++;
+      html.push(`<pre><code>${escapeHtml(code.join('\n'))}</code></pre>`);
+      continue;
+    }
+    const heading = line.match(/^\s*(#{1,6})\s+(.+)$/);
+    if (heading) {
+      const level = heading[1].length;
+      html.push(`<h${level}>${renderInline(heading[2])}</h${level}>`);
+      i++; continue;
+    }
+    if (/^\s*([-*_])\1\1+\s*$/.test(line)) { html.push('<hr>'); i++; continue; }
+    if (/^\s*>/.test(line)) {
+      const quote: string[] = [];
+      while (i < lines.length && /^\s*>/.test(lines[i])) quote.push(lines[i++].replace(/^\s*>\s?/, ''));
+      html.push(`<blockquote>${renderMarkdown(quote.join('\n'))}</blockquote>`);
+      continue;
+    }
+    const listMatch = line.match(/^\s*([-*+] |\d+[.)] )/);
+    if (listMatch) {
+      const ordered = /^\s*\d/.test(line);
+      const items: string[] = [];
+      while (i < lines.length && /^\s*([-*+] |\d+[.)] )/.test(lines[i])) {
+        items.push(`<li>${renderInline(lines[i].replace(/^\s*([-*+] |\d+[.)] )/, ''))}</li>`);
+        i++;
+      }
+      html.push(`<${ordered ? 'ol' : 'ul'}>${items.join('')}</${ordered ? 'ol' : 'ul'}>`);
+      continue;
+    }
+    const paragraph: string[] = [line];
+    i++;
+    while (i < lines.length && lines[i].trim() &&
+      !/^\s*(#{1,6}\s|>|[-*_]{3,}\s*$|```|[-*+] |\d+[.)] )/.test(lines[i])) {
+      paragraph.push(lines[i++]);
+    }
+    html.push(`<p>${renderInline(paragraph.join(' '))}</p>`);
+  }
+  return html.join('\n');
+}
+const articleHtml = renderMarkdown(post.body || '');
+const wordCount = String(post.body || '').trim().split(/\s+/).filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.ceil(wordCount / 210));
 ---
-<BaseLayout title={post.title+' | B Tecky'} description={post.summary || post.title}>
+<BaseLayout title={post.seoTitle || post.title+' | B Tecky'} description={post.seoDescription || post.summary || post.title}>
 <main class="container article-page">
 <a class="back-link" href="/blog">← Back to the learning library</a>
-<article><header class="article-head"><p class="eyebrow">{post.date || 'B TECKY'}{post.tags?.length ? ' · '+post.tags.join(' · ') : ''}</p><h1 class="display">{post.title}</h1><p class="summary">{post.summary}</p>{post.cover && <img class="cover" src={post.cover.startsWith('/') ? post.cover : '/'+post.cover} alt="" />}</header>
-<div class="article-body">{paragraphs.map((paragraph) => <p>{paragraph}</p>)}</div>
+<article><header class="article-head"><p class="eyebrow">{post.date || 'B TECKY'}{post.tags?.length ? ' · '+post.tags.join(' · ') : ''}</p><h1 class="display">{post.title}</h1><p class="summary">{post.summary}</p><p class="reading-time">{readingMinutes} min read{post.author ? ' · By '+post.author : ''}</p>{post.cover && <img class="cover" src={post.cover.startsWith('/') ? post.cover : '/'+post.cover} alt={post.coverAlt || post.title} />}</header>
+<div class="article-body" set:html={articleHtml}></div>
+{post.videoUrl && <section class="video-section"><h2>Watch the video</h2><a href={post.videoUrl} target="_blank" rel="noopener noreferrer">Open the related video ↗</a></section>}
 <footer class="article-footer"><a href="/blog">Explore more guides ↗</a></footer></article>
 </main>
 </BaseLayout>
 <style>
-.article-page{max-width:900px;padding-block:48px 110px}.back-link{color:var(--color-muted);font-weight:600;font-size:.9rem}.article-head{padding-block:48px 34px}.article-head h1{font-size:clamp(2.6rem,6vw,4.8rem);line-height:1.04;margin:18px 0 22px}.summary{font-size:1.2rem;line-height:1.75;color:var(--color-muted);white-space:pre-line}.cover{width:100%;max-height:480px;object-fit:cover;border-radius:18px;margin-top:32px}.article-body{max-width:720px;margin-inline:auto;font-size:1.08rem;line-height:1.9;color:#344054}.article-body p{white-space:pre-line;margin:0 0 1.45em}.article-footer{max-width:720px;margin:50px auto 0;padding-top:24px;border-top:1px solid var(--color-border);font-weight:700;color:var(--color-brand)}
+.article-page{max-width:900px;padding-block:48px 110px}.back-link{color:var(--color-muted);font-weight:600;font-size:.9rem}.article-head{padding-block:48px 34px}.article-head h1{font-size:clamp(2.6rem,6vw,4.8rem);line-height:1.04;margin:18px 0 22px}.summary{font-size:1.2rem;line-height:1.75;color:var(--color-muted);white-space:pre-line}.reading-time{font-size:.88rem;color:var(--color-muted);margin-top:18px}.cover{width:100%;max-height:480px;object-fit:cover;border-radius:18px;margin-top:32px}.article-body{max-width:740px;margin-inline:auto;font-size:1.08rem;line-height:1.9;color:#344054}.article-body :global(p){margin:0 0 1.45em}.article-body :global(h2){font-family:var(--font-display);font-size:1.8rem;line-height:1.2;letter-spacing:-.035em;color:var(--color-ink);margin:2.1em 0 .7em}.article-body :global(h3){font-family:var(--font-display);font-size:1.35rem;color:var(--color-ink);margin:1.8em 0 .6em}.article-body :global(ul),.article-body :global(ol){padding-left:1.5em;margin:0 0 1.5em}.article-body :global(li){padding-left:.35em;margin:.35em 0}.article-body :global(a){color:var(--color-brand);text-decoration:underline;text-underline-offset:3px}.article-body :global(blockquote){border-left:3px solid var(--color-brand);padding:.2em 1.2em;margin:1.5em 0;color:var(--color-muted)}.article-body :global(pre){overflow:auto;padding:20px;border-radius:14px;background:#101828;color:#f8fafc;font-size:.9rem;line-height:1.65}.article-body :global(code){font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:#f0f3f9;padding:.12em .35em;border-radius:5px}.article-body :global(pre code){background:transparent;padding:0}.article-body :global(hr){border:0;border-top:1px solid var(--color-border);margin:2em 0}.video-section{max-width:740px;margin:45px auto;padding:24px;border:1px solid var(--color-border);border-radius:16px}.video-section h2{margin-top:0}.video-section a,.article-footer a{color:var(--color-brand);font-weight:700}.article-footer{max-width:740px;margin:55px auto 0;padding-top:24px;border-top:1px solid var(--color-border)}
+@media(max-width:640px){.article-page{padding-block:32px 72px}.article-head{padding-top:34px}.article-body{font-size:1rem}}
 </style>
