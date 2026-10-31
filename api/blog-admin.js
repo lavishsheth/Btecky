@@ -180,7 +180,7 @@ function coverSvg(post) {
 function article(post) {
   const videoMatch = String(post.videoUrl || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
   const videoId = videoMatch ? videoMatch[1] : '';
-  const title = esc(post.title), summary = esc(post.summary || ''), slug = esc(post.slug);
+  const title = esc(post.title), summary = esc(post.summary || ''), slug = esc(post.slug);\n  const seoTitle = esc(post.seoTitle || post.title);\n  const seoDescription = esc(post.seoDescription || post.summary || '').slice(0,300);
   const category = esc((post.tags || ['Technology'])[0] || 'Technology');
   const date = String(post.date || new Date().toISOString().slice(0,10));
   const updated = String(post.updatedAt || post.updated || date).slice(0,10);
@@ -201,12 +201,12 @@ function article(post) {
       '<p><a href="https://www.youtube.com/watch?v=' + esc(videoId) + '" target="_blank" rel="noopener noreferrer">Open video on YouTube ↗</a></p></section>' : '';
   return [
     '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">',
-    '<title>' + title + ' | B Tecky</title><meta name="description" content="' + summary.slice(0,300) + '">',
+    '<title>' + seoTitle + ' | B Tecky</title><meta name="description" content="' + seoDescription + '">',
     '<meta name="theme-color" content="#101a3a"><meta name="robots" content="index,follow">',
     '<meta property="og:type" content="article"><meta property="og:site_name" content="B Tecky"><meta property="og:title" content="' + title + '">',
-    '<meta property="og:description" content="' + summary.slice(0,300) + '"><meta property="og:image" content="' + cover + '">',
+    '<meta property="og:description" content="' + seoDescription + '"><meta property="og:image" content="' + cover + '">',
     '<meta property="article:published_time" content="' + esc(date) + '"><meta property="article:modified_time" content="' + esc(updated) + '">',
-    '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="' + title + '"><meta name="twitter:description" content="' + summary.slice(0,300) + '"><meta name="twitter:image" content="' + cover + '">',
+    '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="' + seoTitle + '"><meta name="twitter:description" content="' + seoDescription + '"><meta name="twitter:image" content="' + cover + '">',
     '<link rel="canonical" href="' + canonical + '"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
     '<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">',
     '<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%229%22%20fill%3D%22%232456ff%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2229%22%20font-size%3D%2228%22%20font-family%3D%22Arial%22%20font-weight%3D%22bold%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3EB%3C%2Ftext%3E%3C%2Fsvg%3E"><link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/additions.css"><script type="application/ld+json">' + jsonLd + '</script></head><body>',
