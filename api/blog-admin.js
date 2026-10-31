@@ -1,7 +1,7 @@
 // B Tecky blog admin API. Shared-secret admin check; GitHub PAT remains server-side.
 const OWNER = process.env.GITHUB_OWNER || 'lavishsheth';
 const REPO = process.env.GITHUB_REPO || 'Btecky';
-const BRANCH = 'test-vs-branch'; // pinned for branch testing; never allow deployment env to redirect writes to main
+const BRANCH = 'modernization/astro-foundation'; // preview branch only; production main remains protected
 const API = 'https://api.github.com';
 
 const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
@@ -334,8 +334,9 @@ module.exports = async (req, res) => {
     const videoId = (String(input.videoUrl || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/) || [])[1] || '';
     const tags = Array.isArray(input.tags) ? input.tags : [String(input.category || 'Technology')];
     const today = new Date().toISOString().slice(0,10);
+    const contentType = input.contentType === 'events' ? 'events' : input.contentType === 'tech' ? 'tech' : ((oldPost && oldPost.contentType) || 'tech');
     const post = {
-      slug,title,date:String(input.date || (oldPost && oldPost.date) || today),updatedAt:today,tags,
+      slug,title,contentType,date:String(input.date || (oldPost && oldPost.date) || today),updatedAt:today,tags,
       summary:String(input.summary || input.excerpt || '').trim(),body:bodyText,
       videoUrl:String(input.videoUrl || '').trim(),
       videoThumbnail:videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : ((oldPost && oldPost.videoThumbnail) || ''),

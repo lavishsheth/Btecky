@@ -4,14 +4,14 @@ This package merges the existing B Tecky site with the supplied `blog.zip` posts
 
 ## Blog authoring workspace on Vercel
 
-The writing workspace is `/write-lavii-9f21k2/`. It publishes by committing `blog/posts.json` and the generated article HTML to the private GitHub repository. A successful save triggers the normal Vercel Git deployment.
+The writing workspace is `/write-lavii-9f21k2/`. Each post is explicitly classified as **Tech Blog** or **Event & Opportunity** in the editor; existing posts use a conservative title/content classifier until edited. It publishes by committing `blog/posts.json` and the generated article HTML to the private GitHub repository. A successful save triggers the normal Vercel Git deployment.
 
 Before using the publisher, add these **Production** environment variables in Vercel Project → Settings → Environment Variables:
 
 - `BLOG_ADMIN_PASSWORD`: a long unique passphrase.
 - `GITHUB_TOKEN`: a fine-grained GitHub personal access token limited to repository `lavishsheth/Btecky`, with **Contents: Read and write** permission. Keep it secret and never put it in browser code or commit it.
 - Optional: `GITHUB_OWNER=lavishsheth`, `GITHUB_REPO=Btecky`.
-- This branch-specific version pins publishing to `test-vs-branch`; it intentionally ignores `GITHUB_BRANCH` so a leftover `main` environment variable cannot redirect editor commits.
+- This branch-specific version pins publishing to `modernization/astro-foundation`; this preview branch is intentionally used instead of production `main`. New posts update the single `blog/posts.json` catalogue used by the homepage, journal, article routes and sitemap, then trigger a Preview deployment. Keep production `main` protected until the migration is approved.
 
 After adding environment variables, redeploy. If the writer reports that a variable is missing, configure it in Vercel and redeploy. The editor is intentionally not linked from the main navigation, but a hidden URL is not a security boundary; the server-side password and private token are required.
 

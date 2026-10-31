@@ -1,0 +1,14 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page not found | B Tecky" description="The page you are looking for may have moved or no longer exists.">
+<main class="container not-found">
+  <p class="eyebrow">ERROR 404</p>
+  <h1 class="display">This page took<br /><span>a different route.</span></h1>
+  <p>The link may be outdated, or the page may have moved. You can head back home or explore the learning library.</p>
+  <div class="actions"><a class="primary" href="/">Back to home ↗</a><a class="secondary" href="/blog">Explore the blog</a></div>
+</main>
+<style>
+.not-found{min-height:62vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding-block:80px}.not-found h1{font-size:clamp(3rem,7vw,5.5rem);line-height:1;margin:18px 0}.not-found h1 span{color:var(--color-brand)}.not-found>p:not(.eyebrow){max-width:580px;color:var(--color-muted);line-height:1.75;font-size:1.1rem}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.actions a{padding:13px 18px;border-radius:999px;font-weight:700}.primary{background:var(--color-brand);color:white}.secondary{border:1px solid var(--color-border)}
+</style>
+</BaseLayout>
