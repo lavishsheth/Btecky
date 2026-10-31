@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && node scripts/copy-legacy-to-dist.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "typecheck": "tsc --noEmit"
