@@ -1,11 +1,9 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import catalogue from '../data/posts.json';
-type Post = {slug:string;title:string;date?:string;tags?:string[];summary?:string;cover?:string;coverAlt?:string;status?:string};
+import catalogue from '../../blog/posts.json';
+type Post = {slug:string;title:string;date?:string;tags?:string[];summary?:string;cover?:string;coverAlt?:string;status?:string;contentType?:string};
 const posts: Post[] = (catalogue.posts as Post[]).filter(p=>p.status!=='draft').sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-const isEvent = (p:Post) => /(hackathon|internship|giveaway|contest|challenge|conference|webinar|workshop|summit|devfest|hiring|recruit|scholarship|fellowship|swag|prize|register now|apply now|opportunity|opportunities|competition|bootcamp|meetup|event series|call for|applications open|submission deadline|win \$|win an? |free ticket)/i.test([p.title,...(p.tags||[]),p.summary||''].join(' '));
-const techPosts=posts.filter(p=>!isEvent(p)).slice(0,3);
-const eventPosts=posts.filter(isEvent).slice(0,3);
+const isEvent = (p:Post) => p.contentType ? p.contentType === 'events' : /(hackathon|internship|giveaway|contest|challenge|conference|webinar|workshop|summit|devfest|hiring|recruit|scholarship|fellowship|swag|prize|register now|apply now|opportunity|opportunities|competition|bootcamp|meetup|event series|call for|applications open|submission deadline|win \$|win an? |free ticket)/i.test([p.title,...(p.tags||[]),p.summary||''].join(' '));
 const latest=posts.slice(0,3);
 const cardLabel=(p:Post)=>isEvent(p)?'EVENTS & OPPORTUNITIES':'TECH INSIGHT';
 ---
