@@ -391,6 +391,8 @@
     }
     var body=root.querySelector(".article-body") || root.querySelector(".post-body .prose");
     if(!shell||!body||shell.dataset.publicationEnhanced==="true") return false;
+    var editorialCss=document.getElementById("blog-redesign-css");
+    if(!editorialCss){editorialCss=document.createElement("link");editorialCss.id="blog-redesign-css";editorialCss.rel="stylesheet";editorialCss.href="/assets/css/blog-redesign.css";document.head.appendChild(editorialCss);}
     var heading=shell.querySelector("h1");
     if(!heading) return false;
     shell.dataset.publicationEnhanced="true";
