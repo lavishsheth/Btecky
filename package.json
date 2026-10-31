@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build && node scripts/copy-legacy-to-dist.mjs",
+    "build": "astro check && astro build && node scripts/copy-legacy-to-dist.mjs && node scripts/verify-site-output.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "typecheck": "tsc --noEmit"
