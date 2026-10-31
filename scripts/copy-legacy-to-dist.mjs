@@ -10,12 +10,13 @@ const root = process.cwd();
 const output = join(root, 'dist');
 const legacyPaths = [
   'about', 'partners', 'contact', 'terms', 'playlists',
-  'write-lavii-9f21k2', 'blog', 'assets',
-  'style.css', 'additions.css', 'data.js',
+  'write-lavii-9f21k2', 'blog', 'assets', 'snippets',
+  'style.css', 'additions.css', 'data.js', 'config.js', 'site.js', 'community.js',
+  'channel.js', 'dynamic-posts.js', 'posts.js',
   'arcade.js', 'arcade-calc.js', 'arcade-calculator.js',
   'arcade-catalog.js', 'arcade-rules.js',
   'blog.html', 'arcade.html', 'arcade-calculator.html',
-  'privacy.html', 'robots.txt', 'sitemap.xml', 'ads.txt',
+  'privacy.html', 'robots.txt', 'sitemap.xml', 'sitemap-additions.xml', 'ads.txt',
 ];
 
 mkdirSync(output, { recursive: true });
