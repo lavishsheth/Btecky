@@ -56,7 +56,7 @@ function filterArticles() {
   const term = (search?.value || '').trim().toLowerCase();
   let visible = 0;
   for (const card of cards) {
-    const matchesText = card.dataset.title.includes(term);
+    const matchesText = (card.dataset.title || '').includes(term);
     const tags = (card.dataset.tags || '').split('|');
     const matchesCategory = activeCategory === 'all' || tags.includes(activeCategory.toLowerCase());
     const show = matchesText && matchesCategory;
