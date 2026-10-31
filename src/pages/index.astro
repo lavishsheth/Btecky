@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+<BaseLayout>
+<main>
+<section class="hero"><div class="container hero-grid"><div class="hero-copy">
+<p class="eyebrow">B TECKY · DIGITAL PRODUCTS & TECHNOLOGY</p>
+<h1 class="display">Useful technology.<br /><span>Built with purpose.</span></h1>
+<p class="intro">We create practical digital products, software experiences and learning resources that help people turn ideas into useful outcomes.</p>
+<div class="actions"><a class="primary" href="#products">Explore what we build <span aria-hidden="true">↗</span></a><a class="secondary" href="/about">Get to know us</a></div>
+<div class="proof"><span class="proof-dot"></span> Independent technology venture · Building in public</div>
+</div><div class="hero-art" aria-label="Abstract geometric illustration representing connected technology">
+<div class="orb orb-one"></div><div class="orb orb-two"></div>
+<div class="art-card card-top"><span class="art-kicker">IDEAS</span><strong>Think clearly.</strong><i>↗</i></div>
+<div class="art-card card-main"><span class="art-kicker">B / TECKY</span><strong>Make it<br />useful.</strong><div class="art-lines"><b></b><b></b><b></b></div></div>
+<div class="art-card card-bottom"><span class="art-kicker">IMPACT</span><strong>Keep improving.</strong><i>✳</i></div><div class="art-cross">✳</div>
+</div></div></section>
+<section class="intro-strip"><div class="container strip-inner"><span>PRODUCTS</span><span>SOFTWARE</span><span>LEARNING</span><span>COMMUNITY</span></div></section>
+<section id="products" class="products container"><div class="section-heading"><p class="eyebrow">WHAT WE'RE BUILDING</p><h2 class="display">A growing ecosystem of<br />practical digital experiences.</h2><p>Explore the tools and resources we're developing at B Tecky.</p></div>
+<div class="product-grid">
+<a class="product-card" href="/arcade"><span class="product-icon">01</span><h3>Arcade tools</h3><p>Helpful tools for tracking progress, calculating points and making learning challenges easier to navigate.</p><span class="card-link">Explore tools ↗</span></a>
+<a class="product-card" href="/blog"><span class="product-icon">02</span><h3>Learning library</h3><p>Practical technology guides, explainers and resources for curious builders and developers.</p><span class="card-link">Read the guides ↗</span></a>
+<a class="product-card" href="/playlists"><span class="product-icon">03</span><h3>Video learning</h3><p>Curated video playlists and hands-on learning content from the B Tecky channel.</p><span class="card-link">Watch & learn ↗</span></a>
+</div></section>
+<section class="statement"><div class="container statement-inner"><p class="eyebrow">OUR APPROACH</p><h2 class="display">Technology should make<br />the next step clearer.</h2><a href="/about">More about B Tecky ↗</a></div></section>
+<section class="contact-band container"><div><p class="eyebrow">HAVE AN IDEA?</p><h2 class="display">Let's build something useful.</h2></div><a class="primary" href="/contact">Start a conversation ↗</a></section>
+</main></BaseLayout>
+<style>
+.hero{padding:clamp(70px,10vw,132px) 0 90px;background:radial-gradient(ellipse at 80% 20%,rgba(49,94,251,.09),transparent 38%),linear-gradient(180deg,#fbfcff,#fff)}
+.hero-grid{display:grid;grid-template-columns:1.04fr .96fr;align-items:center;gap:54px}
+.hero-copy h1{font-size:clamp(3.4rem,6.5vw,6.1rem);line-height:.99;margin:24px 0;max-width:760px}
+.hero-copy h1 span{color:var(--color-brand)}
+.intro{font-size:1.14rem;line-height:1.8;color:var(--color-muted);max-width:570px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.primary,.secondary{display:inline-flex;align-items:center;gap:18px;padding:15px 19px;border-radius:12px;font-size:.94rem;font-weight:700}
+.primary{background:var(--color-brand);color:white;box-shadow:0 10px 24px rgba(49,94,251,.2)}
+.primary:hover{background:var(--color-brand-strong);transform:translateY(-1px)}
+.secondary{border:1px solid var(--color-border);background:white}
+.proof{display:flex;align-items:center;gap:9px;margin-top:34px;color:#7b8496;font-size:.84rem}
+.proof-dot{width:8px;height:8px;border-radius:50%;background:#28b47e;box-shadow:0 0 0 4px #e7f7f0}
+.hero-art{height:490px;position:relative;display:grid;place-items:center;isolation:isolate}
+.hero-art:before{content:"";position:absolute;width:390px;height:390px;border:1px solid #dfe6ff;border-radius:50%;z-index:-1}
+.hero-art:after{content:"";position:absolute;width:300px;height:300px;border:1px dashed #c9d5ff;border-radius:50%;z-index:-1}
+.orb{position:absolute;border-radius:50%;filter:blur(1px);z-index:-1}.orb-one{width:130px;height:130px;background:linear-gradient(140deg,#c8d5ff,#eaf0ff);top:25px;right:45px}.orb-two{width:90px;height:90px;background:linear-gradient(140deg,#d7f5e9,#f2fffa);bottom:45px;left:12px}
+.art-card{position:absolute;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.88);backdrop-filter:blur(14px);box-shadow:var(--shadow-card);border-radius:20px;padding:20px 22px;display:flex;flex-direction:column;gap:12px}
+.art-card strong{font-family:var(--font-display);font-size:1.5rem;letter-spacing:-.04em}.art-kicker{font-size:.65rem;letter-spacing:.16em;color:var(--color-brand);font-weight:800}.art-card i{font-style:normal;position:absolute;right:18px;top:17px;color:var(--color-brand)}
+.card-main{width:230px;height:245px;justify-content:space-between;left:50%;top:50%;transform:translate(-50%,-50%);background:#315efb;color:white}.card-main .art-kicker{color:#dbe4ff}.card-main strong{font-size:2.8rem;line-height:.98}.art-lines{display:flex;gap:6px}.art-lines b{height:5px;border-radius:9px;background:#9eb4ff;flex:1}.art-lines b:first-child{background:#fff;flex:1.6}
+.card-top{top:46px;left:2px;width:185px;transform:rotate(-7deg)}.card-bottom{right:0;bottom:35px;width:205px;transform:rotate(5deg)}.art-cross{position:absolute;right:50px;top:120px;color:#315efb;font-size:2rem}
+.intro-strip{border-block:1px solid var(--color-border);padding:22px 0}.strip-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#8a93a4;font-size:.74rem;letter-spacing:.16em;font-weight:800}
+.products{padding-top:110px;padding-bottom:115px}.section-heading{max-width:720px}.section-heading h2,.statement h2{font-size:clamp(2.5rem,4.5vw,4.1rem);line-height:1.04;margin:18px 0}.section-heading>p:last-child{color:var(--color-muted);font-size:1.05rem}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}.product-card{padding:28px;border:1px solid var(--color-border);border-radius:var(--radius-card);transition:transform .2s,box-shadow .2s,border-color .2s}.product-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-card);border-color:#c8d4ff}.product-icon{display:grid;place-items:center;width:44px;height:44px;background:#eef2ff;color:var(--color-brand);border-radius:13px;font-weight:800;font-size:.8rem}.product-card h3{font-family:var(--font-display);font-size:1.45rem;letter-spacing:-.04em;margin:25px 0 10px}.product-card p{min-height:82px;color:var(--color-muted);line-height:1.7}.card-link{display:inline-block;margin-top:18px;color:var(--color-brand);font-weight:700;font-size:.9rem}
+.statement{background:#101828;color:#fff;padding:90px 0}.statement h2{font-size:clamp(2.8rem,5vw,4.8rem)}.statement a{display:inline-block;margin-top:20px;color:#aebfff;font-weight:700}
+.contact-band{padding:78px 0;display:flex;align-items:center;justify-content:space-between;gap:24px}.contact-band h2{font-size:clamp(2rem,3.5vw,3.2rem);margin:12px 0}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:20px}.hero-copy{max-width:760px}.hero-art{height:400px}.product-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.hero{padding-top:64px}.hero-copy h1{font-size:clamp(3.1rem,14vw,4.3rem)}.hero-art{height:330px;transform:scale(.88);margin:-10px -25px}.hero-art:before{width:300px;height:300px}.hero-art:after{width:230px;height:230px}.card-top{left:-2px;top:22px}.card-bottom{right:-3px;bottom:15px}.product-grid{grid-template-columns:1fr}.product-card p{min-height:0}.products{padding-top:75px;padding-bottom:80px}.contact-band{align-items:flex-start;flex-direction:column;padding:58px 0}}
+</style>
