@@ -1,0 +1,15 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a class="footer-brand" href="/">B Tecky</a><p>Practical technology, thoughtfully built.</p>
+    <nav aria-label="Footer navigation"><a href="/privacy.html">Privacy</a><a href="/terms">Terms</a><a href="https://www.youtube.com/@btecky" target="_blank" rel="noopener noreferrer">YouTube ↗</a></nav>
+    <small>© {new Date().getFullYear()} B Tecky. All rights reserved.</small>
+  </div>
+</footer>
+<style>
+.site-footer{margin-top:100px;padding:42px 0;background:#101828;color:#fff}
+.footer-inner{display:grid;grid-template-columns:1fr auto;gap:14px 24px;align-items:center}
+.footer-brand{font-family:var(--font-display);font-size:1.35rem;font-weight:800;letter-spacing:-.04em}
+p{margin:0;color:#b7c0d0}.footer-inner nav{display:flex;gap:22px;color:#d5dbea;font-size:.88rem}
+small{grid-column:1/-1;color:#98a2b3;margin-top:18px}
+@media(max-width:640px){.footer-inner{grid-template-columns:1fr}.footer-inner nav{flex-wrap:wrap}small{grid-column:auto}}
+</style>
