@@ -14,3 +14,26 @@
 - Legacy Vercel rewrites and root-level static assets still need migration before this preview can replace the current site.
 
 - Preview deployment investigation: the configured build script runs `astro check`; added the missing `@astrojs/check` development dependency. The Vercel dashboard build logs were not accessible via the connected tools, so this is a concrete configuration fix, not a confirmed diagnosis of every failed deployment.
+
+## Full-site migration audit (2026-10-31)
+
+- The article-route TypeScript/import failure is fixed. Vercel reports the current branch head `f8f4b75a81ef23015d29d7fa7193578d6089ec20` as successful.
+- The migration branch currently has 349 tracked tree entries versus 345 on the production baseline. The only branch-only paths are the Astro blog data and two blog routes; the original static site is still present.
+- The original site contains distinct About, Partners, Contact, Terms, Playlists, Arcade Score Checker, Arcade Calculator, private Blog Studio, and 138 blog catalogue records. These must be migrated or deliberately retained before cutover.
+- Important publishing/API risk: `api/blog-admin.js` currently pins writes to `test-vs-branch`. This must be reconciled with the new deployment workflow and protected-branch policy; do not silently point it at production.
+- Important output risk: Astro currently publishes from its generated `dist` directory. Legacy root-level HTML, CSS, JS, JSON and image assets are not automatically copied into `dist`. Their URLs and runtime dependencies need explicit migration and route-by-route verification.
+- Hosting configuration risk: legacy `vercel.json` rewrites still send `/blog` to `/blog.html`, while Astro now generates `/blog/index.html`. Review and remove/replace conflicting rewrites only after route behavior is verified.
+- Domain/SEO risk: legacy canonical URLs and the imported catalogue settings still reference `https://bteckyweb.netlify.app`; `btecky-sigma.vercel.app` is only a provisional preview hostname until the intended canonical domain is confirmed.
+- Dependency reproducibility risk: the legacy lockfile was removed and a matching lockfile has not yet been generated. Vercel currently installs successfully, but reproducible local/CI installs remain a release requirement.
+
+### Remaining work before a complete replacement
+
+1. Define the final canonical hostname and deployment target.
+2. Build a route inventory and preserve every public route and redirect, including legacy article slugs.
+3. Migrate shared design system, images, fonts, CSS and JS into the Astro public/src structure.
+4. Rebuild About, Partners, Contact, Terms, Playlists, Arcade Score Checker, Arcade Calculator, and the private Blog Studio/API integration.
+5. Upgrade the blog renderer to preserve existing content formatting, links, lists, code, images, embeds, metadata, and SEO; validate all 138 catalogue records and cover assets.
+6. Audit API secrets, authorization, CORS, rate limits, publishing branch selection, and failure recovery.
+7. Add deterministic dependency lockfile, CI checks, route/link/asset tests, accessibility checks, and production-build verification.
+8. Test every route and interactive feature on Vercel Preview, inspect mobile/desktop layouts, and compare against the existing production experience.
+9. Only after explicit approval, prepare a production cutover plan. No merge or production deployment is authorized by this status note.
