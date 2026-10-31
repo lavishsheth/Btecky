@@ -380,7 +380,11 @@
   function enhance(root){
     root=root||document;
     normalizePublicationNav();
-    var shell=root.querySelector(".article-wrap") || root.querySelector("#post-root");\n    if(!shell){var modernBody=root.querySelector(".article-body");if(modernBody)shell=modernBody.closest("main")||modernBody.parentElement;}
+    var shell=root.querySelector(".article-wrap") || root.querySelector("#post-root");
+    if(!shell){
+      var modernBody=root.querySelector(".article-body");
+      if(modernBody)shell=modernBody.closest("main")||modernBody.parentElement;
+    }
     if(!shell){
       var legacyArticle=root.querySelector("article");
       if(legacyArticle && legacyArticle.querySelector(".post-head") && legacyArticle.querySelector(".post-body .prose")) shell=legacyArticle;
