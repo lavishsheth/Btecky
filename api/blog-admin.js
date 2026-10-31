@@ -206,7 +206,7 @@ function article(post) {
     '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">',
     '<title>' + seoTitle + ' | B Tecky</title><meta name="description" content="' + seoDescription + '">',
     '<meta name="theme-color" content="#101a3a"><meta name="robots" content="index,follow">',
-    '<meta property="og:type" content="article"><meta property="og:site_name" content="B Tecky"><meta property="og:title" content="' + title + '">',
+    '<meta property="og:type" content="article"><meta property="og:site_name" content="B Tecky"><meta property="og:title" content="' + seoTitle + '">',
     '<meta property="og:description" content="' + seoDescription + '"><meta property="og:image" content="' + cover + '">',
     '<meta property="article:published_time" content="' + esc(date) + '"><meta property="article:modified_time" content="' + esc(updated) + '">',
     '<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="' + seoTitle + '"><meta name="twitter:description" content="' + seoDescription + '"><meta name="twitter:image" content="' + cover + '">',
@@ -339,7 +339,7 @@ module.exports = async (req, res) => {
       {path:'blog/posts.json',content:JSON.stringify(data,null,2)},
       {path:'blog/' + slug + '.html',content:article(post,data.posts)}
     ];
-    if (!videoId) files.push({path:'assets/images/blog-covers/' + slug + '.svg',content:coverSvg(post)});
+    if (!videoId && post.cover === '/assets/images/blog-covers/' + slug + '.svg') files.push({path:'assets/images/blog-covers/' + slug + '.svg',content:coverSvg(post)});
     if (oldIndex >= 0 && originalSlug !== slug) {
       files.push({path:'blog/' + originalSlug + '.html',content:'<!doctype html><html><head><meta http-equiv="refresh" content="0;url=/blog"></head><body>Article moved. <a href="/blog">Back to blog</a></body></html>'});
     }
