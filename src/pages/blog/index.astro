@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import catalogue from '../../data/posts.json';
-type BlogPost = {slug:string;title:string;date?:string;tags?:string[];summary?:string;body?:string;cover?:string;coverAlt?:string;author?:string;status?:string};
+import catalogue from '../../../blog/posts.json';
+type BlogPost = {slug:string;title:string;date?:string;tags?:string[];summary?:string;body?:string;cover?:string;coverAlt?:string;author?:string;status?:string;contentType?:string};
 const posts:BlogPost[]=(catalogue.posts as BlogPost[]).filter(p=>p.status!=='draft').sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-const isEvent=(p:BlogPost)=>/(hackathon|internship|giveaway|contest|challenge|conference|webinar|workshop|summit|devfest|hiring|recruit|scholarship|fellowship|swag|prize|register now|apply now|opportunity|opportunities|competition|bootcamp|meetup|event series|call for|applications open|submission deadline|win \$|win an? |free ticket)/i.test([p.title,...(p.tags||[]),p.summary||''].join(' '));
+const isEvent=(p:BlogPost)=>p.contentType ? p.contentType === 'events' : /(hackathon|internship|giveaway|contest|challenge|conference|webinar|workshop|summit|devfest|hiring|recruit|scholarship|fellowship|swag|prize|register now|apply now|opportunity|opportunities|competition|bootcamp|meetup|event series|call for|applications open|submission deadline|win \$|win an? |free ticket)/i.test([p.title,...(p.tags||[]),p.summary||''].join(' '));
 const techCount=posts.filter(p=>!isEvent(p)).length;
 const eventCount=posts.filter(isEvent).length;
 const topics=[...new Set(posts.flatMap(p=>p.tags||[]))].sort((a,b)=>a.localeCompare(b));
