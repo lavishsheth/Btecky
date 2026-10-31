@@ -1,4 +1,4 @@
-import catalogue from '../data/posts.json';
+import catalogue from '../../blog/posts.json';
 
 export function GET() {
   const origin = 'https://btecky-sigma.vercel.app';
