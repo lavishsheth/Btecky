@@ -14,3 +14,15 @@
   --radius-card: 22px;
   --shadow-card: 0 16px 44px rgba(16, 24, 40, .07);
 }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ink: #f2f5ff;
+  --color-muted: #a8b2c5;
+  --color-brand: #7d98ff;
+  --color-brand-strong: #9bb0ff;
+  --color-surface: #0c1220;
+  --color-canvas: #111a2b;
+  --color-border: #27344a;
+  --color-subtle: #19243a;
+  --shadow-card: 0 18px 50px rgba(0, 0, 0, .28);
+}
