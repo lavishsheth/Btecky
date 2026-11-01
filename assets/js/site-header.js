@@ -59,7 +59,7 @@
   header.querySelectorAll('[data-menu-toggle]').forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
-      toggleMenu(link.closest('.site-nav__item'));
+      toggleMenu(link.closest('.site-nav__item'), true);
     });
   });
 
