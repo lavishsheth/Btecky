@@ -1,90 +1,39 @@
 ---
-const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/#explore', label: 'Products', menu: 'products' },
-  { href: '/blog', label: 'Blog', menu: 'blog' },
-  { href: '/arcade', label: 'Arcade', menu: 'arcade' },
-  { href: '/arcade-calculator', label: 'Calculator' },
-  { href: '/playlists', label: 'Playlists' },
-  { href: '/partners', label: 'Partners' },
+const products = [
+  { href: '/arcade', icon: '✦', title: 'Arcade Score Checker', description: 'Track points, milestones and progress' },
+  { href: '/arcade/guide', icon: '▶', title: 'Arcade Guide & Videos', description: 'Guides, updates and Arcade videos' },
+  { href: '/playlists', icon: '▤', title: 'Learning Playlists', description: 'Curated video learning paths' },
 ];
+const menus = {
+  blog: [
+    { href: '/blog?type=video', icon: '▶', title: 'Video blogs', description: 'Watch walkthroughs, explainers and updates' },
+    { href: '/blog?type=written', icon: '▤', title: 'Written blogs', description: 'Read detailed guides and tutorials' },
+    { href: '/blog', icon: '✦', title: 'All stories', description: 'Explore the complete B Tecky journal' },
+  ],
+  arcade: [
+    { href: '/arcade', icon: '✦', title: 'Arcade Score Checker', description: 'Check your Arcade progress' },
+    { href: '/arcade/guide', icon: '▶', title: 'Arcade Guide & Videos', description: 'Everything Arcade in one place' },
+  ],
+};
 ---
 <header class="site-header" id="site-header">
   <div class="site-header__inner">
-    <a class="site-brand" href="/" aria-label="B Tecky home">
-      <img src="/assets/images/btecky-logo.svg" width="44" height="44" alt="" fetchpriority="high" />
-      <span>B Tecky</span>
-    </a>
-
+    <a class="site-brand" href="/" aria-label="B Tecky home"><img src="/assets/images/btecky-logo.svg" width="44" height="44" alt="" fetchpriority="high" /><span>B Tecky</span></a>
     <nav class="site-nav" id="primary-navigation" aria-label="Main navigation">
-      {navItems.map((item) => item.menu ? (
-        <div class="site-nav__item" data-menu={item.menu}>
-          <a class="site-nav__link" href={item.href}>{item.label}</a>
-          <button class="site-nav__chevron" type="button" aria-label={`Open ${item.label} menu`} aria-expanded="false" aria-controls={`mega-${item.menu}`}>
-            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4" /></svg>
-          </button>
-          <div class="mega-menu" id={`mega-${item.menu}`} hidden>
-            {item.menu === 'products' && <div class="mega-menu__grid">
-              <a class="mega-card" href="/arcade"><span class="mega-card__icon">✦</span><span><b>Arcade Score Checker</b><small>Track your progress and scores</small></span><span class="mega-card__arrow">↗</span></a>
-              <a class="mega-card" href="/arcade-calculator"><span class="mega-card__icon">＋</span><span><b>Points Calculator</b><small>Plan points and prize tiers</small></span><span class="mega-card__arrow">↗</span></a>
-              <a class="mega-card" href="/playlists"><span class="mega-card__icon">▶</span><span><b>Learning Playlists</b><small>Curated video learning</small></span><span class="mega-card__arrow">↗</span></a>
-            </div>}
-            {item.menu === 'blog' && <div class="mega-menu__grid">
-              <a class="mega-card" href="/blog"><span class="mega-card__icon">▤</span><span><b>All stories</b><small>Explore the B Tecky journal</small></span><span class="mega-card__arrow">↗</span></a>
-              <a class="mega-card" href="/blog?type=tech"><span class="mega-card__icon">⌘</span><span><b>Tech guides</b><small>Practical explainers and tutorials</small></span><span class="mega-card__arrow">↗</span></a>
-              <a class="mega-card" href="/blog?type=events"><span class="mega-card__icon">✳</span><span><b>Events & opportunities</b><small>Challenges, events and opportunities</small></span><span class="mega-card__arrow">↗</span></a>
-            </div>}
-            {item.menu === 'arcade' && <div class="mega-menu__grid">
-              <a class="mega-card" href="/arcade"><span class="mega-card__icon">✦</span><span><b>Score Checker</b><small>Check your Arcade progress</small></span><span class="mega-card__arrow">↗</span></a>
-              <a class="mega-card" href="/arcade-calculator"><span class="mega-card__icon">＋</span><span><b>Points Calculator</b><small>Estimate points and tiers</small></span><span class="mega-card__arrow">↗</span></a>
-              <a class="mega-card" href="/playlists"><span class="mega-card__icon">▶</span><span><b>Learning Playlists</b><small>Learn with curated videos</small></span><span class="mega-card__arrow">↗</span></a>
-            </div>}
-          </div>
-        </div>
-      ) : <a class="site-nav__link" href={item.href}>{item.label}</a>)}
-      <a class="site-nav__mobile-cta" href="/contact">Let's talk <span aria-hidden="true">↗</span></a>
+      <a class="site-nav__link" href="/">Home</a>
+      <div class="site-nav__item" data-menu="products"><a class="site-nav__link" href="/#explore">Products</a><button class="site-nav__chevron" type="button" aria-label="Open Products menu" aria-expanded="false" aria-controls="mega-products"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4"/></svg></button><div class="mega-menu" id="mega-products" hidden><div class="mega-menu__grid">{products.map(item=><a class="mega-card" href={item.href}><span class="mega-card__icon">{item.icon}</span><span><b>{item.title}</b><small>{item.description}</small></span><span class="mega-card__arrow">↗</span></a>)}</div></div></div>
+      {(['blog','arcade'] as const).map(key=><div class="site-nav__item" data-menu={key}><a class="site-nav__link" href={key==='blog'?'/blog':'/arcade'}>{key==='blog'?'Blog':'Arcade'}</a><button class="site-nav__chevron" type="button" aria-label={`Open ${key} menu`} aria-expanded="false" aria-controls={`mega-${key}`}><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4"/></svg></button><div class="mega-menu" id={`mega-${key}`} hidden><div class="mega-menu__grid">{menus[key].map(item=><a class="mega-card" href={item.href}><span class="mega-card__icon">{item.icon}</span><span><b>{item.title}</b><small>{item.description}</small></span><span class="mega-card__arrow">↗</span></a>)}</div></div></div>)}
+      <a class="site-nav__link" href="/about">About</a>
+      <a class="site-nav__mobile-cta" href="/contact">Let's talk <span>↗</span></a>
     </nav>
-
     <div class="site-tools" aria-label="Website tools">
-      <button class="site-tool" type="button" data-search-open aria-label="Search B Tecky" title="Search (Ctrl K)">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
-      </button>
-      <button class="site-tool" type="button" data-updates-toggle aria-label="What's new" aria-expanded="false" aria-controls="site-updates" title="What's new">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
-        <span class="site-tool__dot" aria-hidden="true"></span>
-      </button>
-      <button class="site-tool" type="button" data-theme-toggle aria-label="Switch to dark mode" title="Switch theme">
-        <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-        <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5 8.5 8.5 0 1 0 20.5 15.5Z"/></svg>
-      </button>
-      <a class="site-header__cta" href="/contact" data-magnetic>Let's talk <span aria-hidden="true">↗</span></a>
+      <button class="site-tool" type="button" data-search-open aria-label="Search B Tecky" title="Search (Ctrl K)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button>
+      <button class="site-tool" type="button" data-updates-toggle aria-label="What's new" aria-expanded="false" aria-controls="site-updates" title="What's new"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span class="site-tool__dot"></span></button>
+      <a class="site-header__cta" href="/contact" data-magnetic>Let's talk <span>↗</span></a>
     </div>
-
-    <button class="site-menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation" data-mobile-toggle>
-      <span></span><span></span><span></span>
-    </button>
+    <button class="site-menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation" data-mobile-toggle><span></span><span></span><span></span></button>
   </div>
-
-  <div class="site-updates" id="site-updates" hidden>
-    <div class="site-updates__head"><div><span class="site-updates__eyebrow">THE LATEST</span><h2>What's new</h2></div><button type="button" data-updates-close aria-label="Close updates">×</button></div>
-    <div class="site-updates__list" data-updates-list><p>Loading the latest from B Tecky…</p></div>
-    <a class="site-updates__all" href="/blog">Explore all updates <span>↗</span></a>
-  </div>
+  <div class="site-updates" id="site-updates" hidden><div class="site-updates__head"><div><span class="site-updates__eyebrow">THE LATEST</span><h2>What's new</h2></div><button type="button" data-updates-close aria-label="Close updates">×</button></div><div class="site-updates__list" data-updates-list><p>Loading the latest from B Tecky…</p></div><a class="site-updates__all" href="/blog">Explore all updates <span>↗</span></a></div>
 </header>
-
-<dialog class="site-search" data-search-dialog aria-label="Search B Tecky">
-  <div class="site-search__panel">
-    <div class="site-search__top">
-      <div class="site-search__input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input type="search" data-search-input placeholder="Search blogs, products, tools…" autocomplete="off" aria-label="Search B Tecky" /><kbd>ESC</kbd></div>
-      <button type="button" class="site-search__close" data-search-close aria-label="Close search">×</button>
-    </div>
-    <p class="site-search__hint">SEARCH THE B TECKY LIBRARY</p>
-    <div class="site-search__results" data-search-results aria-live="polite">
-      <a href="/blog"><span class="site-search__result-icon">▤</span><span><b>Browse the journal</b><small>Explore all technology guides and updates</small></span><span>↗</span></a>
-      <a href="/arcade"><span class="site-search__result-icon">✦</span><span><b>Arcade Score Checker</b><small>Explore B Tecky tools</small></span><span>↗</span></a>
-    </div>
-    <div class="site-search__foot"><span>↑ ↓ to navigate</span><span>ENTER to open</span><span>ESC to close</span></div>
-  </div>
-</dialog>
+<dialog class="site-search" data-search-dialog aria-label="Search B Tecky"><div class="site-search__panel"><div class="site-search__top"><div class="site-search__input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input type="search" data-search-input placeholder="Search blogs, products, tools…" autocomplete="off" aria-label="Search B Tecky"/><kbd>ESC</kbd></div><button type="button" class="site-search__close" data-search-close aria-label="Close search">×</button></div><p class="site-search__hint">SEARCH THE B TECKY LIBRARY</p><div class="site-search__results" data-search-results aria-live="polite"><a href="/blog"><span class="site-search__result-icon">▤</span><span><b>Browse the journal</b><small>Explore all technology guides and updates</small></span><span>↗</span></a></div><div class="site-search__foot"><span>↑ ↓ to navigate</span><span>ENTER to open</span><span>ESC to close</span></div></div></dialog>
 <div class="site-scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
