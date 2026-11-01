@@ -26,9 +26,11 @@
   function classify(badge) {
     var title = String(badge.title || "").trim();
     var key = normalize(title);
-    if (gameNames.has(key) || /\b(arcade|game badge|trivia|sprint|certification zone)\b/i.test(title)) return "game";
-    if (skillNames.has(key) || /\bskill badge\b/i.test(title)) return "skill";
-    if (badge.type === "game" || badge.type === "skill") return badge.type;
+    var earnedAt = String(badge.earnedAt || "");
+    if (!/^2026-\\d{2}-\\d{2}$/.test(earnedAt)) return "other";
+    if (gameNames.has(key) || /^arcade (january|february|march) 2026 sprint \\d+$/i.test(title) ||
+        /^google skills arcade trivia (january|february|march) 2026 week \\d+$/i.test(title)) return "game";
+    if (skillNames.has(key)) return "skill";
     return "other";
   }
 
@@ -64,7 +66,7 @@
     badges.forEach(function (badge) {
       if (!badge || !badge.title) return;
       var key = normalize(badge.title);
-      if (key && !unique.has(key)) unique.set(key, { title: String(badge.title).trim(), url: badge.url || "", type: classify(badge) });
+      if (key && !unique.has(key)) unique.set(key, { title: String(badge.title).trim(), url: badge.url || "", earnedAt: badge.earnedAt || null, type: classify(badge) });
     });
     var all = Array.from(unique.values());
     var games = all.filter(function (badge) { return badge.type === "game"; });
@@ -99,8 +101,9 @@
       var title = document.createElement("strong");
       title.textContent = badge.title;
       var kind = document.createElement("small");
-      kind.textContent = badge.type === "game" ? "Game badge · 1 point" : badge.type === "skill" ? "Skill badge · 0.5 points" : "Not classified · excluded from score";
+      kind.textContent = badge.type === "game" ? "2026 eligible game · 1 point" : badge.type === "skill" ? "2026 eligible skill badge · 0.5 points" : "Not eligible / date or category unverified · excluded";
       item.appendChild(title);
+      if (badge.earnedAt) kind.textContent += " · Earned " + new Date(badge.earnedAt + "T00:00:00").toLocaleDateString();
       item.appendChild(kind);
       if (badge.url) {
         var link = document.createElement("a");
@@ -116,7 +119,7 @@
     dashboard.classList.add("show");
     dashboard.scrollIntoView({ behavior: "smooth", block: "start" });
     if (other.length) {
-      setStatus("Profile loaded. " + games.length + " game badges and " + skills.length + " skill badges were counted. " + other.length + " other entries were left out rather than guessed. Facilitator bonuses are not verified from a public profile.", "success");
+      setStatus("Profile loaded. " + games.length + " eligible 2026 game badges and " + skills.length + " eligible 2026 skill badges were counted. " + other.length + " other entries were left out rather than guessed. Facilitator bonuses are not verified from a public profile.", "success");
     } else {
       setStatus("Profile loaded. " + games.length + " game badges and " + skills.length + " skill badges were counted. Facilitator bonuses remain unverified and are not included.", "success");
     }
