@@ -80,7 +80,7 @@ function classify(title){const t=title.toLowerCase();if(/skill badge|\bskill bad
 function calc(data){
 const seen=new Set(),badges=[];for(const b of (data.badges||[])){const key=String(b.title||"").trim().toLowerCase();if(!key||seen.has(key))continue;seen.add(key);const type=b.type==="skill"||b.type==="game"?b.type:classify(key);badges.push({...b,type});}
 const games=badges.filter(b=>b.type==="game"),skills=badges.filter(b=>b.type==="skill"),other=badges.filter(b=>b.type==="other");
-const gamePoints=games.length,skillPoints=Math.floor(skills.length/2)*.5+(skills.length%2)*.5;
+const gamePoints=games.length,skillPoints=skills.length*.5;
 const total=gamePoints+skillPoints;let tier=null,next=tiers.find(t=>total<t.min)||null;tiers.forEach(t=>{if(total>=t.min)tier=t;});
 $("profile-name").textContent=(data.name||"Google Skills learner")+" · "+(data.profileUrl||"Public profile");
 $("score-total").textContent=Number.isInteger(total)?total:total.toFixed(1);$("score-tier").textContent=tier?"Current tier: "+tier.name:"Below Trooper";
