@@ -64,7 +64,6 @@ module.exports = async (req,res) => {
     if (finalUrl.protocol!=="https:" || !PROFILE_HOSTS.has(finalUrl.hostname)) return res.status(400).json({error:"The profile URL redirected to an unsupported host."});
     const html = await response.text();
     if (html.length > 8_000_000) return res.status(502).json({error:"The public profile response was too large to analyse."});
-    if (/sign in|log in to continue|private profile|profile is private/i.test(clean(html).slice(0,12000))) return res.status(403).json({error:"This profile may be private. Enable public profile visibility and try again."});
     const nameMatch = html.match(/<meta[^>]+(?:property|name)=["'](?:og:title|twitter:title)["'][^>]+content=["']([^"']+)/i) || html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
     const badges = extractBadges(html,finalUrl.toString());
     res.setHeader("Cache-Control","public, s-maxage=300, stale-while-revalidate=600");
