@@ -151,9 +151,8 @@ function extractBadges(html, base) {
     }
   }
 
-  // Inspect every candidate opening element independently. A single global
-  // regex over nested markup lets an outer <section> consume all inner cards.
-  // Balance same-tag elements so nested wrappers do not hide their children.
+  // Scan every candidate element independently; outer wrappers must not hide
+  // credential tiles nested inside them.
   const openingRe = /<(a|article|div|li|section)\b([^>]*)>/gi;
   let opening;
   while ((opening = openingRe.exec(html))) {
@@ -163,7 +162,7 @@ function extractBadges(html, base) {
     tagRe.lastIndex = openEnd;
     let depth = 1, close;
     while ((close = tagRe.exec(html))) {
-      if (/^<\s*\//.test(close[0])) depth--;
+      if (close[0].startsWith("</")) depth--;
       else if (!/\/\s*>$/.test(close[0])) depth++;
       if (depth === 0) break;
     }
@@ -181,8 +180,6 @@ function extractBadges(html, base) {
       const href = linkTag ? (attrs(linkTag).href || "") : "";
       add(title, href, context + " " + body.slice(0, 500), earnedAt);
     }
-    // Do not advance openingRe to the closing tag: nested candidate cards
-    // inside this wrapper must each be visited on their own iteration.
   }
 
   // Image labels and accessible names are frequently the only textual badge
