@@ -40,6 +40,7 @@ const dated = profileApi._extractBadges(`
   <title>Lavish Sheth | Google Skills</title>
   <h1>Google Skills</h1>
   <section>${datedCards}</section>`, base);
+console.log("[Arcade parser diagnostic] dated count:", dated.length, "titles:", dated.map(item => item.title));
 assert.equal(dated.length, 17, "extracts all dated credential cards from a generic public-profile layout");
 assert.equal(dated[0].title, "The Basics of Google Cloud Compute", "extracts credential title rather than page title");
 assert.equal(dated[0].earnedAt, "2026-05-01", "extracts the earned date for season eligibility");
