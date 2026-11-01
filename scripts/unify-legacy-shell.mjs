@@ -3,7 +3,7 @@
  * Astro-rendered pages already use SiteHeader.astro and are left untouched.
  */
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { join } from 'node:path';
 
 const root = join(process.cwd(), 'dist');
 const canonicalHeader = `<header class="site-header" id="site-header">
@@ -49,14 +49,14 @@ let replaced = 0;
 for (const path of htmlFiles) {
   let html = readFileSync(path, 'utf8');
   if (html.includes('id="site-header"') && html.includes('site-search')) continue;
-  const headerBlocks = [...html.matchAll(/<header\\b[^>]*>[\\s\\S]*?<\\/header>/gi)];
+  const headerBlocks = [...html.matchAll(/<header\b[^>]*>[\s\S]*?<\/header>/gi)];
   const brandHeader = headerBlocks.find((match) =>
-    /class=["'][^"']*\\bbrand\\b/.test(match[0]) && /href=["']\\//.test(match[0])
+    /class=["'][^"']*\bbrand\b/.test(match[0]) && /href=["']\//.test(match[0])
   );
   if (brandHeader) {
     html = html.replace(brandHeader[0], canonicalHeader);
   } else if (!/<header[^>]*id=["']site-header["']/.test(html)) {
-    html = html.replace(/<body\\b[^>]*>/i, (bodyTag) => bodyTag + canonicalHeader);
+    html = html.replace(/<body\b[^>]*>/i, (bodyTag) => bodyTag + canonicalHeader);
   } else {
     continue;
   }
