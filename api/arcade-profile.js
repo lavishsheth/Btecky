@@ -208,6 +208,7 @@ function extractBadges(html, base) {
   // Image labels and accessible names are frequently the only textual badge
   // labels in responsive Google Skills cards.
   const tagRe = /<(img|a|button|div|span)\b([^>]*)>/gi;
+  let match;
   while ((match = tagRe.exec(html))) {
     const a = attrs(match[0]);
     const context = [a.class, a.id, a["data-testid"], a["data-type"], a["data-kind"], a["aria-label"], a.title].join(" ");
