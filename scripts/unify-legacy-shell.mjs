@@ -1,78 +1,28 @@
 /**
- * Apply the shared B Tecky navigation and footer styling to retained legacy pages.
- * Page-specific markup and functionality remain intact.
+ * Build-time normalizer: every retained legacy HTML page gets the same
+ * B Tecky header, logo and footer as Astro pages.
  */
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-
-const root = join(process.cwd(), 'dist');
-const pages = [
-  'about/index.html', 'partners/index.html', 'contact/index.html',
-  'terms/index.html', 'playlists/index.html', 'write-lavii-9f21k2/index.html', 'arcade.html',
-  'arcade-calculator.html', 'privacy.html',
-];
-const blogMenu = `<div class="nav-dropdown btecky-blog-dropdown">
-  <button type="button" class="nav-drop-toggle" aria-expanded="false">Blog <span aria-hidden="true">▾</span></button>
-  <div class="nav-drop-menu">
-    <a href="/blog">All stories <small>Latest from B Tecky</small></a>
-    <a href="/blog?type=tech">Tech blogs <small>Guides, explainers &amp; tutorials</small></a>
-    <a href="/blog?type=events">Events &amp; opportunities <small>Hackathons, internships &amp; more</small></a>
-  </div>
-</div>`;
-const sharedStyles = `
-<style id="btecky-shared-shell">
-.site-head{position:sticky!important;top:0!important;z-index:100!important;background:rgba(255,255,255,.96)!important;backdrop-filter:blur(18px)!important;border-bottom:1px solid #e7ebf3!important;box-shadow:0 5px 22px rgba(16,24,40,.035)!important}
-.site-head>.wrap,.site-head .wrap{max-width:1240px!important;margin-inline:auto!important;padding-inline:24px!important;min-height:72px!important;display:flex!important;align-items:center!important;gap:24px!important}
-.site-head .brand{display:inline-flex!important;align-items:center!important;gap:10px!important;font-weight:900!important;letter-spacing:-.045em!important;color:#101828!important;flex-shrink:0!important}
-.site-head .brand svg{width:36px!important;height:36px!important;display:block!important}
-.site-head .nav{align-items:center!important;gap:clamp(10px,1.4vw,20px)!important;font-size:.84rem!important;font-weight:700!important}
-.site-head .nav>a,.site-head .nav-drop-toggle{padding:10px 0!important;color:#475467!important}
-.site-head .nav>a:hover,.site-head .nav-drop-toggle:hover{color:#315efb!important}
-.site-head .nav-dropdown{position:relative!important}
-.site-head .nav-drop-toggle{border:0!important;background:transparent!important;font:inherit!important;cursor:pointer!important}
-.site-head .nav-drop-menu{position:absolute!important;top:calc(100% + 10px)!important;left:-18px!important;z-index:110!important;width:255px!important;padding:8px!important;background:#fff!important;border:1px solid #e5eaf3!important;border-radius:14px!important;box-shadow:0 18px 45px rgba(19,35,75,.14)!important;display:none!important}
-.site-head .nav-dropdown:hover .nav-drop-menu,.site-head .nav-dropdown:focus-within .nav-drop-menu,.site-head .nav-dropdown.open .nav-drop-menu{display:block!important}
-.site-head .nav-drop-menu a{display:block!important;padding:12px!important;border-radius:9px!important;color:#17233f!important;font-weight:800!important}
-.site-head .nav-drop-menu a:hover{background:#f2f5ff!important}
-.site-head .nav-drop-menu small{display:block!important;color:#8993a5!important;font-size:.68rem!important;font-weight:500!important;margin-top:4px!important}
-body>footer{margin-top:0!important;padding:55px 0 25px!important;background:#0d1628!important;color:#fff!important;border:0!important}
-body>footer .wrap{max-width:1240px!important;margin-inline:auto!important;padding-inline:24px!important;display:grid!important;grid-template-columns:1.35fr 1fr!important;gap:25px 45px!important;align-items:start!important}
-body>footer p{color:#bdc7d8!important;line-height:1.7!important}
-body>footer .foot-links{display:flex!important;flex-wrap:wrap!important;gap:12px 20px!important;align-content:start!important}
-body>footer a{color:#d5dced!important;font-size:.84rem!important}
-body>footer a:hover{color:#fff!important}
-@media(max-width:900px){
-.site-head>.wrap,.site-head .wrap{min-height:66px!important;flex-wrap:wrap!important;gap:12px!important}
-.site-head .nav{top:100%!important;left:0!important;right:0!important;padding:12px 18px!important;background:#fff!important;border:1px solid #e7ebf3!important;border-radius:0 0 15px 15px!important;box-shadow:0 18px 38px rgba(20,35,70,.12)!important;align-items:stretch!important}
-.site-head .nav-dropdown{width:100%!important}
-.site-head .nav-drop-toggle{width:100%!important;display:flex!important;justify-content:space-between!important;padding:12px 0!important}
-.site-head .nav-drop-menu{position:static!important;width:100%!important;box-shadow:none!important;border:0!important;background:#f6f8fc!important;padding:6px 10px!important}
-body>footer .wrap{grid-template-columns:1fr!important}
+const root=join(process.cwd(),'dist');
+const canonicalHeader="<header class=\"site-header\" id=\"site-header\">\n<div class=\"site-header__inner\">\n<a class=\"site-brand\" href=\"/\" aria-label=\"B Tecky home\"><img src=\"/assets/images/btecky-logo.svg\" width=\"44\" height=\"44\" alt=\"\" fetchpriority=\"high\"><span>B Tecky</span></a>\n<nav class=\"site-nav\" id=\"primary-navigation\" aria-label=\"Main navigation\">\n<a class=\"site-nav__link\" href=\"/\">Home</a>\n<div class=\"site-nav__item\" data-menu=\"products\"><a class=\"site-nav__link\" href=\"#products-menu\" data-menu-toggle=\"products\" aria-haspopup=\"true\" aria-expanded=\"false\">Products</a><button class=\"site-nav__chevron\" type=\"button\" aria-label=\"Open Products menu\" aria-expanded=\"false\" aria-controls=\"mega-products\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"m3.5 6 4.5 4 4.5-4\"></path></svg></button><div class=\"mega-menu\" id=\"mega-products\" hidden><div class=\"mega-menu__grid\">\n<a class=\"mega-card\" href=\"/arcade\"><span class=\"mega-card__icon\">✦</span><span><b>Arcade Score Checker</b><small>Track points, milestones and progress</small></span><span class=\"mega-card__arrow\">↗</span></a>\n<a class=\"mega-card\" href=\"/arcade/guide\"><span class=\"mega-card__icon\">▶</span><span><b>Arcade Guide &amp; Videos</b><small>Guides, updates and Arcade videos</small></span><span class=\"mega-card__arrow\">↗</span></a>\n<a class=\"mega-card\" href=\"/playlists\"><span class=\"mega-card__icon\">▤</span><span><b>Learning Playlists</b><small>Curated video learning paths</small></span><span class=\"mega-card__arrow\">↗</span></a>\n<a class=\"mega-card\" href=\"/arcade-calculator.html\"><span class=\"mega-card__icon\">∑</span><span><b>Arcade Points Calculator</b><small>Estimate points, milestones and prize tiers</small></span><span class=\"mega-card__arrow\">↗</span></a>\n</div></div></div>\n<div class=\"site-nav__item\" data-menu=\"blog\"><a class=\"site-nav__link\" href=\"#blog-menu\" data-menu-toggle=\"blog\" aria-haspopup=\"true\" aria-expanded=\"false\">Blog</a><button class=\"site-nav__chevron\" type=\"button\" aria-label=\"Open Blog menu\" aria-expanded=\"false\" aria-controls=\"mega-blog\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"m3.5 6 4.5 4 4.5-4\"></path></svg></button><div class=\"mega-menu\" id=\"mega-blog\" hidden><div class=\"mega-menu__grid\">\n<a class=\"mega-card\" href=\"/blog?type=video\"><span class=\"mega-card__icon\">▶</span><span><b>Video blogs</b><small>Watch walkthroughs, explainers and updates</small></span><span class=\"mega-card__arrow\">↗</span></a>\n<a class=\"mega-card\" href=\"/blog?type=written\"><span class=\"mega-card__icon\">▤</span><span><b>Written blogs</b><small>Read detailed guides and tutorials</small></span><span class=\"mega-card__arrow\">↗</span></a>\n<a class=\"mega-card\" href=\"/blog\"><span class=\"mega-card__icon\">✦</span><span><b>All stories</b><small>Explore the complete B Tecky journal</small></span><span class=\"mega-card__arrow\">↗</span></a>\n</div></div></div>\n<div class=\"site-nav__item\" data-menu=\"arcade\"><a class=\"site-nav__link\" href=\"#arcade-menu\" data-menu-toggle=\"arcade\" aria-haspopup=\"true\" aria-expanded=\"false\">Arcade</a><button class=\"site-nav__chevron\" type=\"button\" aria-label=\"Open Arcade menu\" aria-expanded=\"false\" aria-controls=\"mega-arcade\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"m3.5 6 4.5 4 4.5-4\"></path></svg></button><div class=\"mega-menu\" id=\"mega-arcade\" hidden><div class=\"mega-menu__grid\">\n<a class=\"mega-card\" href=\"/arcade\"><span class=\"mega-card__icon\">✦</span><span><b>Arcade Score Checker</b><small>Check your Arcade progress</small></span><span class=\"mega-card__arrow\">↗</span></a>\n<a class=\"mega-card\" href=\"/arcade/guide\"><span class=\"mega-card__icon\">▶</span><span><b>Arcade Guide &amp; Videos</b><small>Everything Arcade in one place</small></span><span class=\"mega-card__arrow\">↗</span></a>\n<a class=\"mega-card\" href=\"/arcade-calculator.html\"><span class=\"mega-card__icon\">∑</span><span><b>Arcade Points Calculator</b><small>Estimate points, milestones and prize tiers</small></span><span class=\"mega-card__arrow\">↗</span></a>\n</div></div></div>\n<a class=\"site-nav__link\" href=\"/about\">About</a>\n<a class=\"site-nav__mobile-cta\" href=\"/contact\">Let's talk <span>↗</span></a>\n</nav>\n<div class=\"site-tools\" aria-label=\"Website tools\">\n<button class=\"site-tool\" type=\"button\" data-search-open aria-label=\"Search B Tecky\" title=\"Search (Ctrl K)\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"10.8\" cy=\"10.8\" r=\"6.8\"></circle><path d=\"m16 16 5 5\"></path></svg></button>\n<button class=\"site-tool\" type=\"button\" data-updates-toggle aria-label=\"What's new\" aria-expanded=\"false\" aria-controls=\"site-updates\" title=\"What's new\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4\"></path></svg><span class=\"site-tool__dot\"></span></button>\n<a class=\"site-header__cta\" href=\"/contact\" data-magnetic>Let's talk <span>↗</span></a>\n</div>\n<button class=\"site-menu-toggle\" type=\"button\" aria-label=\"Open navigation\" aria-expanded=\"false\" aria-controls=\"primary-navigation\" data-mobile-toggle><span></span><span></span><span></span></button>\n</div>\n<div class=\"site-updates\" id=\"site-updates\" hidden><div class=\"site-updates__head\"><div><span class=\"site-updates__eyebrow\">THE LATEST</span><h2>What's new</h2></div><button type=\"button\" data-updates-close aria-label=\"Close updates\">×</button></div><div class=\"site-updates__list\" data-updates-list><p>Loading the latest from B Tecky…</p></div><a class=\"site-updates__all\" href=\"/blog\">Explore all updates <span>↗</span></a></div>\n</header>\n<dialog class=\"site-search\" data-search-dialog aria-label=\"Search B Tecky\"><div class=\"site-search__panel\"><div class=\"site-search__top\"><div class=\"site-search__input-wrap\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"10.8\" cy=\"10.8\" r=\"6.8\"></circle><path d=\"m16 16 5 5\"></path></svg><input type=\"search\" data-search-input placeholder=\"Search blogs, products, tools…\" autocomplete=\"off\" aria-label=\"Search B Tecky\"><kbd>ESC</kbd></div><button type=\"button\" class=\"site-search__close\" data-search-close aria-label=\"Close search\">×</button></div><p class=\"site-search__hint\">SEARCH THE B TECKY LIBRARY</p><div class=\"site-search__results\" data-search-results aria-live=\"polite\"><a href=\"/blog\"><span class=\"site-search__result-icon\">▤</span><span><b>Browse the journal</b><small>Explore all technology guides and updates</small></span><span>↗</span></a></div><div class=\"site-search__foot\"><span>↑ ↓ to navigate</span><span>ENTER to open</span><span>ESC to close</span></div></div></dialog>\n<div class=\"site-scroll-progress\" aria-hidden=\"true\"><span data-scroll-progress></span></div>";
+const canonicalFooter="<footer class=\"site-footer\"><div class=\"container footer-inner\">\n<div class=\"footer-brand-block\"><a class=\"footer-brand\" href=\"/\" aria-label=\"B Tecky home\"><img src=\"/assets/images/btecky-logo.svg\" alt=\"\" width=\"40\" height=\"40\"><span>B Tecky</span></a><p>Practical technology, thoughtfully built.</p><span class=\"footer-note\">Tools · Learning · Community</span></div>\n<div class=\"footer-column\"><b>EXPLORE</b><a href=\"/\">Home</a><a href=\"/#explore\">Products</a><a href=\"/arcade\">Arcade Score Checker</a><a href=\"/arcade/guide\">Arcade Guide &amp; Videos</a><a href=\"/about\">About B Tecky</a></div>\n<div class=\"footer-column\"><b>THE JOURNAL</b><a href=\"/blog\">All stories</a><a href=\"/blog?type=video\">Video blogs</a><a href=\"/blog?type=written\">Written blogs</a><a href=\"/playlists\">Learning Playlists</a></div>\n<div class=\"footer-column\"><b>CONNECT &amp; SOCIAL</b><a href=\"/contact\">Contact B Tecky</a><a href=\"https://www.youtube.com/@btecky\" target=\"_blank\" rel=\"noopener noreferrer\">YouTube · B Tecky ↗</a><a href=\"https://www.youtube.com/@KalkaEngineer\" target=\"_blank\" rel=\"noopener noreferrer\">YouTube · KalkaEngineer ↗</a><a href=\"https://www.youtube.com/@placeadda\" target=\"_blank\" rel=\"noopener noreferrer\">YouTube · PlaceAdda ↗</a><a href=\"https://www.youtube.com/@Algorithm-Code\" target=\"_blank\" rel=\"noopener noreferrer\">YouTube · Algorithms &amp; Code ↗</a><a href=\"https://www.instagram.com/kalkaengineeer/\" target=\"_blank\" rel=\"noopener noreferrer\">Instagram · KalkaEngineer ↗</a><a href=\"https://www.instagram.com/lavish__sheth/\" target=\"_blank\" rel=\"noopener noreferrer\">Instagram · Lavish ↗</a><a href=\"https://www.instagram.com/lavish_sheth_ls/\" target=\"_blank\" rel=\"noopener noreferrer\">Instagram · Lavish LS ↗</a><a href=\"https://www.linkedin.com/in/lavish-sheth-163844215/\" target=\"_blank\" rel=\"noopener noreferrer\">LinkedIn ↗</a><a href=\"https://profile.google.com/@btecky\" target=\"_blank\" rel=\"noopener noreferrer\">Google profile ↗</a><a href=\"https://t.me/bteckyls\" target=\"_blank\" rel=\"noopener noreferrer\">Telegram ↗</a><a href=\"https://whatsapp.com/channel/0029Va7uSWT7oQhlRVJKka1Q\" target=\"_blank\" rel=\"noopener noreferrer\">WhatsApp ↗</a></div>\n<div class=\"footer-bottom\"><small>© 2026 B Tecky. All rights reserved.</small><span>Built with curiosity. Designed with purpose.</span><a href=\"#top\">Back to top ↑</a></div>\n</div></footer>";
+function walk(dir){if(!existsSync(dir))return[];return readdirSync(dir,{withFileTypes:true}).flatMap(e=>{const p=join(dir,e.name);return e.isDirectory()?walk(p):e.isFile()&&e.name.endsWith('.html')?[p]:[];});}
+let updated=0;
+for(const path of walk(root)){
+ if(path.includes('/write-lavii-9f21k2/'))continue;
+ let html=readFileSync(path,'utf8');
+ if(html.includes('id="site-header"')&&html.includes('class="site-footer"'))continue;
+ const blocks=[...html.matchAll(/<header\b[^>]*>[\s\S]*?<\/header>/gi)];
+ const brand=blocks.find(m=>/class=["'][^"']*\bbrand\b/.test(m[0])&&/href=["']\//.test(m[0]));
+ if(brand)html=html.replace(brand[0],canonicalHeader);
+ else if(!html.includes('id="site-header"'))html=html.replace(/<body\b[^>]*>/i,m=>m+canonicalHeader);
+ const footers=[...html.matchAll(/<footer\b[^>]*>[\s\S]*?<\/footer>/gi)];
+ if(footers.length)html=html.replace(footers[0][0],canonicalFooter);
+ else html=html.replace(/<\/body>/i,canonicalFooter+'</body>');
+ if(!html.includes('/assets/css/site-header.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/assets/css/site-header.css"></head>');
+ if(!html.includes('/assets/css/site-footer.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/assets/css/site-footer.css"></head>');
+ if(!html.includes('/assets/js/site-header.js'))html=html.replace(/<\/body>/i,'<script src="/assets/js/site-header.js" defer></script></body>');
+ writeFileSync(path,html);updated++;
 }
-</style>`;
-let changed = 0;
-for (const relative of pages) {
-  const path = join(root, relative);
-  if (!existsSync(path)) continue;
-  let html = readFileSync(path, 'utf8');
-  if (relative.startsWith('write-lavii-9f21k2/')) html = html.replace('<a href="/blog">Blog</a>', '');
-  if (!html.includes('btecky-shared-shell')) {
-    html = html.replace('</head>', sharedStyles + '\n</head>');
-  }
-  if (html.includes('<nav class="nav"') && !html.includes('btecky-blog-dropdown')) {
-    const arcadeMenu = html.indexOf('<div class="nav-dropdown">');
-    if (arcadeMenu >= 0) html = html.slice(0, arcadeMenu) + blogMenu + '\n      ' + html.slice(arcadeMenu);
-    else html = html.replace('</nav>', blogMenu + '\n    </nav>');
-  }
-  html = html.replace(/<script>document\.querySelector\('.nav-drop-toggle'\)\?\.addEventListener\('click',[\s\S]*?<\/script>/g, '');
-  if (!html.includes('btecky-legacy-dropdowns')) {
-    const dropdownScript = `<script id="btecky-legacy-dropdowns">
-document.querySelectorAll('.nav-drop-toggle').forEach(function(button){button.addEventListener('click',function(){var menu=this.closest('.nav-dropdown');var open=!menu.classList.contains('open');document.querySelectorAll('.nav-dropdown.open').forEach(function(item){item.classList.remove('open');item.querySelector('.nav-drop-toggle')?.setAttribute('aria-expanded','false');});menu.classList.toggle('open',open);this.setAttribute('aria-expanded',String(open));});});
-document.addEventListener('keydown',function(event){if(event.key==='Escape')document.querySelectorAll('.nav-dropdown.open').forEach(function(item){item.classList.remove('open');item.querySelector('.nav-drop-toggle')?.setAttribute('aria-expanded','false');});});
-</script>`;
-    html = html.replace('</body>', dropdownScript + '\n</body>');
-  }
-  writeFileSync(path, html);
-  changed++;
-}
-console.log(`Unified shared navigation and footer styling on ${changed} retained pages.`);
+console.log('Applied the shared B Tecky header and footer to '+updated+' legacy pages.');
