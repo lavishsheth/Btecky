@@ -24,31 +24,43 @@
 
 
   const closeMenus = () => {
-    header.querySelectorAll('.site-nav__item.is-open').forEach((item) => {
+    header.querySelectorAll('.site-nav__item').forEach((item) => {
       item.classList.remove('is-open');
       item.querySelector('.site-nav__chevron')?.setAttribute('aria-expanded', 'false');
+      item.querySelector('[data-menu-toggle]')?.setAttribute('aria-expanded', 'false');
+      const menu = item.querySelector('.mega-menu');
+      if (menu) menu.hidden = true;
     });
+  };
+  const toggleMenu = (item, force) => {
+    if (!item) return;
+    const open = typeof force === 'boolean' ? force : !item.classList.contains('is-open');
+    closeMenus();
+    item.classList.toggle('is-open', open);
+    const trigger = item.querySelector('.site-nav__chevron');
+    const label = item.querySelector('[data-menu-toggle]');
+    trigger?.setAttribute('aria-expanded', String(open));
+    label?.setAttribute('aria-expanded', String(open));
+    const menu = item.querySelector('.mega-menu');
+    if (menu) menu.hidden = !open;
   };
   header.querySelectorAll('.site-nav__chevron').forEach((button) => {
     const item = button.closest('.site-nav__item');
-    button.addEventListener('click', () => {
-      const open = !item.classList.contains('is-open');
-      closeMenus();
-      item.classList.toggle('is-open', open);
-      button.setAttribute('aria-expanded', String(open));
-    });
+    button.addEventListener('click', () => toggleMenu(item));
     if (finePointer) {
       item.addEventListener('mouseenter', () => {
-        if (window.innerWidth > 980) {
-          closeMenus(); item.classList.add('is-open'); button.setAttribute('aria-expanded', 'true');
-        }
+        if (window.innerWidth > 980) toggleMenu(item, true);
       });
       item.addEventListener('mouseleave', () => {
-        if (window.innerWidth > 980) {
-          item.classList.remove('is-open'); button.setAttribute('aria-expanded', 'false');
-        }
+        if (window.innerWidth > 980) toggleMenu(item, false);
       });
     }
+  });
+  header.querySelectorAll('[data-menu-toggle]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      toggleMenu(link.closest('.site-nav__item'));
+    });
   });
 
   const closeMobile = () => {
