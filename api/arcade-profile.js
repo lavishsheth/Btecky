@@ -28,7 +28,7 @@ function extractBadges(html, base) {
       if (!found.has(key)) {
         let url = "";
         if (href) { try { const parsed = new URL(href, base); if (parsed.protocol === "https:" && PROFILE_HOSTS.has(parsed.hostname)) url = parsed.toString(); } catch (_) {} }
-        found.set(key,{title,url});
+        found.set(key,{title,url,type:/skill badge/i.test(body)?"skill":/arcade|game badge|trivia|sprint|certification zone/i.test(body)?"game":"other"});
       }
     }
   }
@@ -43,7 +43,7 @@ function extractBadges(html, base) {
         const title = value.name || value.headline || value.title;
         if (typeof title === "string" && /badge|arcade|cloud|google|skill|game|trivia/i.test(title)) {
           const key = clean(title).toLowerCase();
-          if (!found.has(key)) found.set(key,{title:clean(title),url:typeof value.url==="string"?value.url:""});
+          if (!found.has(key)) found.set(key,{title:clean(title),url:typeof value.url==="string"?value.url:"",type:/skill badge/i.test(JSON.stringify(value))?"skill":/arcade|game badge|trivia|sprint|certification zone/i.test(JSON.stringify(value))?"game":"other"});
         }
         Object.values(value).forEach(visit);
       };
@@ -56,9 +56,9 @@ module.exports = async (req,res) => {
   if (req.method !== "GET") return res.status(405).json({error:"Method not allowed."});
   try {
     const profileUrl = safeProfileUrl(req.query && req.query.url);
-    const response = await fetch(profileUrl,{headers:{"User-Agent":"BTecky-ArcadeCalculator/1.0 (+https://btecky.tech)","Accept":"text/html,application/xhtml+xml"},redirect:"follow"});
+    let target=profileUrl,response;\n    for(let hop=0;hop<4;hop++){ response=await fetch(target,{headers:{"User-Agent":"BTecky-ArcadeCalculator/1.0 (+https://btecky.tech)","Accept":"text/html,application/xhtml+xml"},redirect:"manual"}); if(response.status>=300&&response.status<400){const loc=response.headers.get("location");if(!loc)break;const next=new URL(loc,target);if(next.protocol!=="https:"||!PROFILE_HOSTS.has(next.hostname))return res.status(400).json({error:"The profile redirected to an unsupported host."});target=next.toString();continue;}break;}
     if (!response.ok) return res.status(response.status===404?404:502).json({error:response.status===404?"Profile not found. Check that it is public and the URL is correct.":"Google Skills could not return this profile right now. Try again later."});
-    const finalUrl = new URL(response.url);
+    const finalUrl = new URL(target);
     if (finalUrl.protocol!=="https:" || !PROFILE_HOSTS.has(finalUrl.hostname)) return res.status(400).json({error:"The profile URL redirected to an unsupported host."});
     const html = await response.text();
     if (html.length > 8_000_000) return res.status(502).json({error:"The public profile response was too large to analyse."});
