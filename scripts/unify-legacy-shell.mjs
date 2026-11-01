@@ -49,9 +49,17 @@ let replaced = 0;
 for (const path of htmlFiles) {
   let html = readFileSync(path, 'utf8');
   if (html.includes('id="site-header"') && html.includes('site-search')) continue;
-  const headerPattern = /<header\b(?=[^>]*class=["'][^"']*\bsite-head\b)[^>]*>[\s\S]*?<\/header>/i;
-  if (!headerPattern.test(html)) continue;
-  html = html.replace(headerPattern, canonicalHeader);
+  const headerBlocks = [...html.matchAll(/<header\\b[^>]*>[\\s\\S]*?<\\/header>/gi)];
+  const brandHeader = headerBlocks.find((match) =>
+    /class=["'][^"']*\\bbrand\\b/.test(match[0]) && /href=["']\\//.test(match[0])
+  );
+  if (brandHeader) {
+    html = html.replace(brandHeader[0], canonicalHeader);
+  } else if (!/<header[^>]*id=["']site-header["']/.test(html)) {
+    html = html.replace(/<body\\b[^>]*>/i, (bodyTag) => bodyTag + canonicalHeader);
+  } else {
+    continue;
+  }
   if (!html.includes('/assets/css/site-header.css')) {
     html = html.replace(/<\/head>/i, '<link rel="stylesheet" href="/assets/css/site-header.css"></head>');
   }
