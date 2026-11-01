@@ -75,7 +75,7 @@
     nav?.classList.toggle('is-open', open);
     if (open) header.classList.remove('is-hidden');
   });
-  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+  nav?.querySelectorAll('a:not([data-menu-toggle])').forEach((link) => link.addEventListener('click', () => {
     closeMobile(); closeMenus();
   }));
 
