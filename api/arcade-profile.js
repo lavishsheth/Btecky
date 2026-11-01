@@ -33,9 +33,10 @@ function safeProfileUrl(value) {
 }
 function extractBadges(html, base) {
   const found = new Map();
-  const add = (rawTitle, rawUrl, context) => {
+  const add = (rawTitle, rawUrl, context, earnedAt) => {
     const title = clean(rawTitle);
     if (title.length < 5 || title.length > 180) return;
+    if (/^(google skills|credentials|completions|certifications)$/i.test(title)) return;
     if (/^(view|share|completed|badge|badges|skills|all badges|profile|paths|activities|leaderboard|learn more)$/i.test(title)) return;
     if (/^(https?:|www\.)/i.test(title)) return;
     const key = title.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
@@ -50,8 +51,105 @@ function extractBadges(html, base) {
     const hint = String(context || "").toLowerCase();
     const type = /skill.?badge|skill_badge/.test(hint) ? "skill"
       : /arcade|game.?badge|trivia|sprint|certification.?zone/.test(hint) ? "game" : "other";
-    found.set(key, { title, url, type });
+    found.set(key, { title, url, type, earnedAt: earnedAt || null });
   };
+
+  // New Google Skills public profiles render credential cards without stable
+  // "badge-card" class names. Walk the HTML element tree and identify the
+  // smallest container that has a completion date, image and credential link.
+  const tokens = html.match(/<!--[\s\S]*?-->|<![^>]*>|<\/?[^>]+>|[^<]+/g) || [];
+  const stack = [];
+  const voidTags = new Set(["area","base","br","col","embed","hr","img","input","link","meta","param","source","track","wbr"]);
+  const datePattern = /(?:earned(?:\s+on)?|completed(?:\s+on)?)\s*:?\s*((?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|June?|July?|Aug(?:ust)?|Sept?(?:ember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+\d{1,2},?\s+\d{4})/i;
+  const parseEarnedDate = value => {
+    const match = String(value || "").match(datePattern);
+    if (!match) return null;
+    const parsed = new Date(match[1].replace(/(\d{1,2})\s+(\d{4})$/, "$1, $2") + " 00:00:00 UTC");
+    return Number.isNaN(parsed.getTime()) ? null : parsed.toISOString().slice(0, 10);
+  };
+  const finishNode = node => {
+    const date = parseEarnedDate(node.text);
+    if (!date || !node.images.length || !node.links.length) return;
+    const lines = node.text.split(/\s{2,}|\n/).map(clean).filter(Boolean)
+      .filter(line => !datePattern.test(line) && !/^(learn more|view badge|share|completed|credentials?)$/i.test(line));
+    const heading = node.headings.find(line => line.length >= 5 && !/^(google skills|credentials|completions|certifications)$/i.test(line));
+    let title = heading || lines.find(line => line.length >= 5 && line.length <= 180 &&
+      !/^(google skills|credentials|completions|certifications|learn more|view badge)$/i.test(line));
+    if (!title) {
+      const beforeDate = clean(node.text.split(datePattern)[0]);
+      title = beforeDate.split(/learn more|view badge/i)[0].trim();
+    }
+    title = clean(title);
+    if (!title || /^(google skills|credentials|completions|certifications)$/i.test(title)) return;
+    const link = node.links.find(item => item.href && !/learn.?more|share/i.test(item.label)) || node.links[0];
+    add(title, link && link.href, "public credential card " + node.context, date);
+  };
+  for (const token of tokens) {
+    if (/^<!--|^<!/i.test(token)) continue;
+    if (/^<\//.test(token)) {
+      const tag = token.match(/^<\/\s*([\w:-]+)/);
+      if (!tag) continue;
+      const name = tag[1].toLowerCase();
+      let node;
+      while (stack.length) {
+        node = stack.pop();
+        finishNode(node);
+        if (node.name === name) break;
+        if (stack.length) {
+          const parent = stack[stack.length - 1];
+          parent.text += " " + node.text;
+          parent.images.push(...node.images);
+          parent.links.push(...node.links);
+          parent.headings.push(...node.headings);
+        }
+      }
+      if (stack.length && node && node.name === name) {
+        const parent = stack[stack.length - 1];
+        parent.text += " " + node.text;
+        parent.images.push(...node.images);
+        parent.links.push(...node.links);
+        parent.headings.push(...node.headings);
+      }
+      continue;
+    }
+    if (/^</.test(token)) {
+      const tag = token.match(/^<\s*([\w:-]+)/);
+      if (!tag) continue;
+      const name = tag[1].toLowerCase();
+      const a = attrs(token);
+      const node = { name, text: "", images: [], links: [], headings: [], context: [a.class,a.id,a["data-testid"],a["aria-label"]].filter(Boolean).join(" ") };
+      if (name === "img" && a.alt) node.images.push(a.alt);
+      if (name === "a") node.links.push({ href: a.href || "", label: "" });
+      if (/^h[1-6]$/.test(name) && a["aria-label"]) node.headings.push(a["aria-label"]);
+      if (!voidTags.has(name) && !/\/>$/.test(token)) stack.push(node);
+      else if (stack.length) {
+        const parent = stack[stack.length - 1];
+        parent.images.push(...node.images);
+        parent.links.push(...node.links);
+      }
+      continue;
+    }
+    if (stack.length) {
+      const value = clean(token);
+      if (value) {
+        const node = stack[stack.length - 1];
+        node.text += " " + value;
+        if (node.name === "a" && node.links.length) node.links[node.links.length - 1].label += " " + value;
+        if (/^h[1-6]$/.test(node.name)) node.headings.push(value);
+      }
+    }
+  }
+  while (stack.length) {
+    const node = stack.pop();
+    finishNode(node);
+    if (stack.length) {
+      const parent = stack[stack.length - 1];
+      parent.text += " " + node.text;
+      parent.images.push(...node.images);
+      parent.links.push(...node.links);
+      parent.headings.push(...node.headings);
+    }
+  }
 
   // Card wrappers: support both the older badge-named classes and newer generic
   // card components whose data attributes identify a credential.
