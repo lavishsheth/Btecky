@@ -1,7 +1,7 @@
 // Read-only public Google Skills profile fetcher for the B Tecky Arcade calculator.
 // No API key, Google login, cookies, or credentials are used.
 const PROFILE_HOSTS = new Set(["skills.google", "www.skills.google", "www.cloudskillsboost.google", "cloudskillsboost.google"]);
-const clean = value => String(value || "").replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&").replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+const clean = value => String(value || "").replace(/<(?:img|meta|a|div|span)[^>]*\\b(?:alt|aria-label|title)=["']([^"']+)["'][^>]*>/gi, " $1 ").replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&").replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&nbsp;/g, " ").replace(/\\s+/g, " ").trim();
 function safeProfileUrl(value) {
   let u;
   try { u = new URL(value); } catch (_) { throw new Error("Enter a valid Google Skills public profile URL."); }
