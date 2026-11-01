@@ -14,28 +14,14 @@
   const updatesPanel = header.querySelector('#site-updates');
   const updatesList = header.querySelector('[data-updates-list]');
   const updatesToggle = header.querySelector('[data-updates-toggle]');
-  const themeToggle = header.querySelector('[data-theme-toggle]');
+  try { localStorage.removeItem('btecky-theme'); } catch {}
+  root.removeAttribute('data-theme');
   let posts = [];
   let activeResult = -1;
   let lastScrollY = window.scrollY;
   let scrollTicking = false;
 
-  try {
-    const saved = localStorage.getItem('btecky-theme');
-    const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    root.dataset.theme = saved || preferred;
-  } catch { root.dataset.theme = 'light'; }
-  const updateThemeLabel = () => {
-    const dark = root.dataset.theme === 'dark';
-    themeToggle?.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
-    themeToggle?.setAttribute('title', dark ? 'Switch to light mode' : 'Switch to dark mode');
-  };
-  updateThemeLabel();
-  themeToggle?.addEventListener('click', () => {
-    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    try { localStorage.setItem('btecky-theme', root.dataset.theme); } catch {}
-    updateThemeLabel();
-  });
+
 
   const closeMenus = () => {
     header.querySelectorAll('.site-nav__item.is-open').forEach((item) => {
@@ -97,9 +83,8 @@
   const staticResults = [
     { title: 'About B Tecky', summary: 'Learn about the team and our work', url: '/about', kind: 'Company' },
     { title: 'Arcade Score Checker', summary: 'Check your Google Cloud Arcade progress', url: '/arcade', kind: 'Tool' },
-    { title: 'Arcade Points Calculator', summary: 'Estimate points and prize tiers', url: '/arcade-calculator', kind: 'Tool' },
+    { title: 'Arcade Guide & Videos', summary: 'Arcade guides, updates and video walkthroughs', url: '/arcade/guide', kind: 'Guide' },
     { title: 'Learning Playlists', summary: 'Explore curated learning videos', url: '/playlists', kind: 'Learning' },
-    { title: 'Partners', summary: 'Explore B Tecky partnerships', url: '/partners', kind: 'Company' },
     { title: 'Contact B Tecky', summary: 'Start a conversation', url: '/contact', kind: 'Company' }
   ];
   const renderResults = async (query) => {

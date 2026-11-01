@@ -7,21 +7,16 @@ const { title = 'B Tecky — Practical technology, thoughtfully built', descript
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImage = new URL(image, Astro.site);
 ---
-<!doctype html>
-<html lang="en"><head>
+<!doctype html><html lang="en"><head>
 <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content={description} /><meta name="theme-color" content="#ffffff" />
-<meta name="color-scheme" content="light dark" />
 <meta property="og:type" content="website" /><meta property="og:site_name" content="B Tecky" />
 <meta property="og:title" content={title} /><meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} /><meta property="og:image" content={socialImage} />
 <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} /><meta name="twitter:image" content={socialImage} />
-<link rel="canonical" href={canonical} />
-<link rel="icon" href="/assets/images/btecky-logo.svg" type="image/svg+xml" />
-<link rel="stylesheet" href="/assets/css/site-header.css" />
+<link rel="canonical" href={canonical} /><link rel="icon" href="/assets/images/btecky-logo.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="/assets/css/site-header.css" /><link rel="stylesheet" href="/assets/css/site-footer.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<title>{title}</title></head><body><SiteHeader /><slot /><SiteFooter />
-<script is:inline src="/assets/js/site-header.js" defer></script>
-</body></html>
+<title>{title}</title></head><body><SiteHeader /><slot /><SiteFooter /><script is:inline src="/assets/js/site-header.js" defer></script></body></html>
