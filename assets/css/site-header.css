@@ -13,7 +13,7 @@
 .site-nav__chevron{display:grid;place-items:center;width:22px;height:28px;border:0;background:transparent;color:var(--nav-muted);cursor:pointer;border-radius:7px;transition:background .2s,color .2s,transform .2s}
 .site-nav__chevron svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .site-nav__item.is-open .site-nav__chevron{transform:rotate(180deg);color:var(--nav-blue);background:rgba(49,94,251,.08)}
-.mega-menu{position:absolute;top:calc(100% + 12px);left:50%;width:min(690px,calc(100vw - 44px));padding:13px;transform:translate(-50%,8px);opacity:0;visibility:hidden;pointer-events:none;background:var(--nav-glass);backdrop-filter:blur(24px);border:1px solid var(--nav-line);border-radius:20px;box-shadow:var(--nav-shadow);transition:opacity .2s,transform .2s,visibility .2s}
+.mega-menu[hidden]{display:none!important}.mega-menu{position:absolute;top:calc(100% + 12px);left:50%;width:min(690px,calc(100vw - 44px));padding:13px;transform:translate(-50%,8px);opacity:0;visibility:hidden;pointer-events:none;background:var(--nav-glass);backdrop-filter:blur(24px);border:1px solid var(--nav-line);border-radius:20px;box-shadow:var(--nav-shadow);transition:opacity .2s,transform .2s,visibility .2s}
 .site-nav__item.is-open .mega-menu{display:block;opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
 .mega-menu__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .mega-card{display:grid;grid-template-columns:38px 1fr 14px;align-items:center;gap:10px;min-height:86px;padding:13px 11px;border:1px solid transparent;border-radius:13px;color:var(--nav-ink);transition:transform .2s,border-color .2s,background .2s,box-shadow .2s}
