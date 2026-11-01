@@ -10,6 +10,7 @@ const canonicalFooter="<footer class=\"site-footer\"><div class=\"container foot
 function walk(dir){if(!existsSync(dir))return[];return readdirSync(dir,{withFileTypes:true}).flatMap(e=>{const p=join(dir,e.name);return e.isDirectory()?walk(p):e.isFile()&&e.name.endsWith('.html')?[p]:[];});}
 let updated=0;
 for(const path of walk(root)){
+ if(path.includes('/write-lavii-9f21k2/'))continue;
  let html=readFileSync(path,'utf8');
  if(html.includes('id="site-header"')&&html.includes('class="site-footer"'))continue;
  const blocks=[...html.matchAll(/<header\b[^>]*>[\s\S]*?<\/header>/gi)];
