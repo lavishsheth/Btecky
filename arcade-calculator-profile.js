@@ -15,7 +15,7 @@
     { name: "Champion", min: 95 }, { name: "Legend", min: 120 }
   ];
   var gameNames = new Set((catalog.games || []).map(normalize));
-  var skillNames = new Set((catalog.badges || []).map(normalize));
+  var skillNames = new Set(["App Engine: 3 Ways","Build a Website on Google Cloud","Build a Data Mesh with Dataplex","Develop Serverless Apps with Firebase","Implement Cloud Security Fundamentals","Implement DevOps Workflows in Google Cloud","The Basics of Google Cloud Compute","Deploy Kubernetes Applications on Google Cloud","Develop Your Google Cloud Network","Set Up a Google Cloud Network","Use Machine Learning APIs on Google Cloud"].map(normalize));
   ["Develop Your Google Cloud Network","Implement Cloud Security Fundamentals",
    "Build a Data Mesh with Dataplex","Develop Serverless Apps with Firebase"]
     .forEach(function (name) { skillNames.add(normalize(name)); });
