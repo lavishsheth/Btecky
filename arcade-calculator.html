@@ -78,37 +78,18 @@
 <div class="footer-column"><b>POLICIES</b><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms of Use</a><a href="/cookies/">Cookie Policy</a><a href="/advertising/">Advertising &amp; Ads</a><a href="/disclaimer/">Disclaimer</a><a href="/ads.txt">ads.txt (AdSense)</a></div>
 <div class="footer-bottom"><small>© 2026 B Tecky. All rights reserved.</small><span>Built with curiosity. Designed with purpose.</span><a href="#top">Back to top ↑</a></div>
 </div></footer>
-<script src="/config.js"></script><script src="/site.js"></script><script src="/community.js"></script>
-<script>
-(function(){
-const $=id=>document.getElementById(id),tiers=[{name:"Trooper",min:50},{name:"Ranger",min:75},{name:"Champion",min:95},{name:"Legend",min:120}];
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function showStatus(message,kind){const el=$("profile-status");el.textContent=message;el.className="ap-status show"+(kind?" "+kind:"");}
-function classify(title){const t=title.toLowerCase();if(/skill badge|\bskill badge\b/.test(t))return"skill";if(/arcade|trivia|game badge|work meets play|sprint|certification zone/.test(t))return"game";return"other";}
-function calc(data){
-const seen=new Set(),badges=[];for(const b of (data.badges||[])){const key=String(b.title||"").trim().toLowerCase();if(!key||seen.has(key))continue;seen.add(key);const type=b.type==="skill"||b.type==="game"?b.type:classify(key);badges.push({...b,type});}
-const games=badges.filter(b=>b.type==="game"),skills=badges.filter(b=>b.type==="skill"),other=badges.filter(b=>b.type==="other");
-const gamePoints=games.length,skillPoints=skills.length*.5;
-const total=gamePoints+skillPoints;let tier=null,next=tiers.find(t=>total<t.min)||null;tiers.forEach(t=>{if(total>=t.min)tier=t;});
-$("profile-name").textContent=(data.name||"Google Skills learner")+" · "+(data.profileUrl||"Public profile");
-$("score-total").textContent=Number.isInteger(total)?total:total.toFixed(1);$("score-tier").textContent=tier?"Current tier: "+tier.name:"Below Trooper";
-const target=next?next.min:(tier?tier.min:50),progress=Math.min(100,total/target*100);$("score-progress").style.width=progress+"%";
-$("score-next").textContent=next?(next.min-total).toFixed(1).replace(/\.0$/,"")+" points to "+next.name:"Legend tier reached";
-$("game-count").textContent=games.length;$("game-points").textContent=gamePoints;$("skill-count").textContent=skills.length;$("skill-points").textContent=skillPoints.toFixed(1);$("bonus-points").textContent="Not verified";$("badge-total").textContent=badges.length;$("last-sync").textContent=new Date().toLocaleTimeString();
-const list=$("badge-list");list.innerHTML="";badges.forEach(b=>{const el=document.createElement("div");el.className="ap-badge "+(b.type!=="other"?"done":"");el.innerHTML="<b>"+esc(b.title)+"</b><small>"+esc(b.type==="skill"?"Skill badge":b.type==="game"?"Game / Arcade badge":"Unclassified · not included in score")+(b.completedAt?" · "+esc(b.completedAt):"")+"</small>";if(b.url){const a=document.createElement("a");a.href=b.url;a.target="_blank";a.rel="noopener";a.textContent="View badge ↗";a.style.fontSize=".82rem";el.appendChild(a);}list.appendChild(el);});
-if(!badges.length)list.innerHTML="<p class='muted'>The public page was fetched, but no badge entries could be reliably identified. Check profile visibility or try again later.</p>";
-$("dashboard").classList.add("show");$("dashboard").scrollIntoView({behavior:"smooth",block:"start"});
-}
-$("profile-form").addEventListener("submit",async e=>{e.preventDefault();const url=$("profile-url").value.trim(),btn=$("calculate-btn");if(!url)return;btn.disabled=true;btn.innerHTML='<span class="ap-loading"></span> Fetching';showStatus("Fetching your public Google Skills profile…");try{const res=await fetch("/api/arcade-profile",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({url})});const data=await res.json();if(!res.ok)throw new Error(data.error||"Unable to fetch this profile.");calc(data);showStatus("Profile fetched. Review the badge classifications and compare the estimate with your official records.","success");}catch(err){showStatus(err.message||"Something went wrong. Please check the URL and public visibility.","error");}finally{btn.disabled=false;btn.textContent="Calculate points";}});
-const saved=localStorage.getItem("btecky-arcade-profile-url");if(saved)$("profile-url").value=saved;$("profile-url").addEventListener("change",()=>{try{localStorage.setItem("btecky-arcade-profile-url",$("profile-url").value.trim());}catch(e){}});
-$("feedback-link").addEventListener("click",e=>{const email=$("feedback-email").value.trim(),msg=$("feedback-message").value.trim();$("feedback-link").href="mailto:lavishsheth122@gmail.com?subject="+encodeURIComponent("Arcade Calculator feedback")+"&body="+encodeURIComponent("Reply to: "+email+"\n\n"+msg);});
-document.querySelector(".nav-drop-toggle")?.addEventListener("click",function(){const d=this.closest(".nav-dropdown");d.classList.toggle("open");this.setAttribute("aria-expanded",d.classList.contains("open")?"true":"false");});
-})();
-</script>
+
+
+
+
+
+
+
+
 <script src="/arcade-rules.js"></script>
 <script src="/arcade-catalog.js"></script>
-<script src="/arcade-calculator-profile.js" defer></script>
 <script src="/config.js"></script>
 <script src="/site.js"></script>
 <script src="/community.js"></script>
+<script src="/arcade-calculator-profile.js"></script>
 </body></html>
