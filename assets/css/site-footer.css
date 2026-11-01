@@ -3,3 +3,14 @@
 @media(max-width:980px){.footer-inner{grid-template-columns:repeat(3,minmax(0,1fr))}.footer-brand-block{grid-column:1/-1}}
 @media(max-width:760px){.footer-inner{grid-template-columns:1fr 1fr}.footer-brand-block{grid-column:1/-1}.footer-bottom{grid-column:1/-1}}
 @media(max-width:440px){.site-footer{padding-top:48px}.footer-inner{grid-template-columns:1fr}.footer-brand-block,.footer-bottom{grid-column:auto}.footer-bottom{flex-direction:column}}
+
+/* Match the centered, restrained footer composition used on the homepage. */
+.site-footer{padding:64px 0 25px!important;}
+.site-footer>.container.footer-inner{width:min(1450px,calc(100% - 48px))!important;max-width:1450px!important;margin:0 auto!important;box-sizing:border-box;grid-template-columns:minmax(270px,1.35fr) repeat(4,minmax(0,1fr))!important;gap:34px 32px!important;}
+.site-footer .footer-brand-block{max-width:330px;}
+.site-footer .footer-social{display:flex!important;flex-wrap:wrap;gap:10px!important;margin-top:18px!important;}
+.site-footer .footer-social a{border:0!important;background:rgba(255,255,255,.09)!important;padding:9px 15px!important;}
+.site-footer .footer-bottom{margin-top:42px!important;padding-top:24px!important;}
+@media(max-width:980px){.site-footer>.container.footer-inner{grid-template-columns:repeat(3,minmax(0,1fr))!important;}}
+@media(max-width:760px){.site-footer>.container.footer-inner{width:calc(100% - 36px)!important;grid-template-columns:1fr 1fr!important;}}
+@media(max-width:440px){.site-footer>.container.footer-inner{grid-template-columns:1fr!important;}}
