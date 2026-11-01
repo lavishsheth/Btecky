@@ -2,7 +2,7 @@ import catalogue from '../../blog/posts.json';
 
 export function GET() {
   const origin = 'https://btecky-sigma.vercel.app';
-  const staticPaths = ['/', '/about/', '/contact/', '/terms/', '/playlists/', '/arcade.html', '/arcade-calculator.html', '/arcade/guide/', '/blog/'];
+  const staticPaths = ['/', '/about/', '/contact/', '/terms/', '/playlists/', '/arcade.html', '/arcade-calculator.html', '/arcade/guide/', '/skill-badges/', '/privacy/', '/terms/', '/cookies/', '/advertising/', '/disclaimer/', '/blog/'];
   const articlePaths = catalogue.posts
     .filter((post) => post.status !== 'draft' && post.slug)
     .map((post) => `/blog/${post.slug}/`);
