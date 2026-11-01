@@ -18,6 +18,11 @@
   (function initSocial() {
     var S = window.BTECKY_SOCIAL || {};
     var defs = [["youtube", "YouTube"], ["linkedin", "LinkedIn"], ["instagram", "Instagram"], ["x", "X"], ["telegram", "Telegram"], ["whatsapp", "WhatsApp"], ["github", "GitHub"]];
+    var footer = document.querySelector("footer");
+    if (footer && !footer.querySelector("[data-social]")) {
+      var brandBlock = footer.querySelector(".footer-brand-block") || footer.querySelector(".wrap > div") || footer.querySelector(".wrap");
+      if (brandBlock) { var social = document.createElement("div"); social.className = "social"; social.setAttribute("data-social", ""); social.setAttribute("aria-label", "B Tecky on social media"); brandBlock.appendChild(social); }
+    }
     document.querySelectorAll("[data-social]").forEach(function (box) {
       box.innerHTML = "";
       defs.forEach(function (d) {
