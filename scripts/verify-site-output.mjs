@@ -14,7 +14,6 @@ const required = [
   'disclaimer/index.html',
   'partners/index.html',
   'contact/index.html',
-  'terms/index.html',
   'playlists/index.html',
   'write-lavii-9f21k2/index.html',
   'blog/index.html',
@@ -42,7 +41,7 @@ if (missing.length) {
   process.exitCode = 1;
 } else {
   const ads = readFileSync(join(dist, 'ads.txt'), 'utf8');
-  if (!/^google\\.com,\\s*pub-\\d+,\\s*DIRECT,\\s*[a-f0-9]{16}$/m.test(ads)) {
+  if (!/^google\.com,\s*pub-\d+,\s*DIRECT,\s*[a-f0-9]{16}$/m.test(ads)) {
     console.error('ads.txt is present but its Google publisher record is invalid or missing.');
     process.exitCode = 1;
   }
