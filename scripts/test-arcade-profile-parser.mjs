@@ -28,4 +28,21 @@ assert.ok(titles.includes("Use Machine Learning APIs on Google Cloud"), "reads e
 assert.equal(new Set(titles.map(title => title.toLowerCase())).size, titles.length, "deduplicates badge titles");
 assert.equal(profileApi._safeProfileUrl(base), base, "accepts a supported public profile URL");
 assert.throws(() => profileApi._safeProfileUrl("https://example.com/public_profiles/example"), /Google Skills public profile URL/);
-console.log("Arcade profile parser fixtures passed:", titles.length, "badge candidates.");
+
+const datedCards = Array.from({ length: 17 }, (_, index) => `
+  <div class="credential-tile">
+    <img src="/credential-${index}.png" alt="Google Cloud credential">
+    <h3>${index === 0 ? "The Basics of Google Cloud Compute" : "Arcade Credential ${index}"}</h3>
+    <p>Earned on May ${index + 1}, 2026</p>
+    <a href="/public_profiles/example/credentials/${index}">Learn more</a>
+  </div>`).join("");
+const dated = profileApi._extractBadges(`
+  <title>Lavish Sheth | Google Skills</title>
+  <h1>Google Skills</h1>
+  <section>${datedCards}</section>`, base);
+assert.equal(dated.length, 17, "extracts all dated credential cards from a generic public-profile layout");
+assert.equal(dated[0].title, "The Basics of Google Cloud Compute", "extracts credential title rather than page title");
+assert.equal(dated[0].earnedAt, "2026-05-01", "extracts the earned date for season eligibility");
+assert.ok(!dated.some(item => item.title === "Google Skills"), "does not treat the page title as a credential");
+
+console.log("Arcade profile parser fixtures passed:", titles.length, "legacy candidates and", dated.length, "dated credentials.");
