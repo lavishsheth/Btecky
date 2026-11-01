@@ -151,13 +151,18 @@ function extractBadges(html, base) {
     }
   }
 
-  // Explicitly recognize dated credential-tile wrappers used by Google Skills
-  // profile layouts. This narrow pass is intentionally independent of the
-  // generic nested-element walker below.
-  const datedTileRe = /<div\b[^>]*class\s*=\s*(?:"[^"]*\bcredential-tile\b[^"]*"|'[^']*\bcredential-tile\b[^']*')[^>]*>([\s\S]*?)<\/div>/gi;
-  let tile;
-  while ((tile = datedTileRe.exec(html))) {
-    const body = tile[1];
+  // Explicitly scan div openings and inspect their attributes. This avoids
+  // fragile backreferences across nested HTML and preserves each tile boundary.
+  const tileOpenRe = /<div\b[^>]*>/gi;
+  let tileOpen;
+  while ((tileOpen = tileOpenRe.exec(html))) {
+    const tileAttrs = attrs(tileOpen[0]);
+    const classes = (tileAttrs.class || "").split(/\s+/);
+    if (!classes.includes("credential-tile")) continue;
+    const bodyStart = tileOpenRe.lastIndex;
+    const closeIndex = html.indexOf("</div>", bodyStart);
+    if (closeIndex < 0) continue;
+    const body = html.slice(bodyStart, closeIndex);
     const earnedAt = parseEarnedDate(body.replace(/<[^>]*>/g, " "));
     if (!earnedAt) continue;
     const heading = body.match(/<(?:h[1-6]|strong)\b[^>]*>([\s\S]{1,500}?)<\/(?:h[1-6]|strong)>/i);
