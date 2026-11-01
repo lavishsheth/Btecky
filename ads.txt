@@ -1,2 +1,1 @@
-# This file must be served from the root of your domain: https://yourdomain.com/ads.txt
 google.com, pub-2101092613299647, DIRECT, f08c47fec0942fa0
