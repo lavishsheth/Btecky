@@ -20,7 +20,7 @@ const required = [
   'blog/posts.json',
   'arcade.html',
   'arcade-calculator.html',
-  'arcade-calculator-profile.js',
+  'arcade-calculator.js',
   'skill-badges/index.html',
   'style.css',
   'additions.css',
