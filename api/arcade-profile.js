@@ -161,10 +161,13 @@ function extractBadges(html, base) {
     const body = match[3];
     const imageAlt = [...body.matchAll(/<img\b([^>]*)>/gi)].map(x => attrs(x[0])["alt"]).filter(Boolean);
     const heading = body.match(/<(?:h[1-6]|strong|a)\b[^>]*>([\s\S]{1,500}?)<\/(?:h[1-6]|strong|a)>/i);
-    if (/badge|credential|achievement|award|course.?card|activity.?card/i.test(context)) {
+    const earnedAt = parseEarnedDate(body.replace(/<[^>]*>/g, " "));
+    const hasCredentialSignals = Boolean(earnedAt && imageAlt.length && /<a\\b/i.test(body));
+    if (/badge|credential|achievement|award|course.?card|activity.?card|tile/i.test(context) || hasCredentialSignals) {
       const title = heading ? clean(heading[1]) : imageAlt[0];
-      const link = match[1].toLowerCase() === "a" ? a.href : (body.match(/<a\b([^>]*)>/i) || [])[1];
-      add(title, link ? (typeof link === "string" ? (attrs(link).href || link) : "") : "", context + " " + body.slice(0, 500));
+      const linkTag = match[1].toLowerCase() === "a" ? match[2] : (body.match(/<a\\b([^>]*)>/i) || [])[1];
+      const href = linkTag ? (attrs(linkTag).href || "") : "";
+      add(title, href, context + " " + body.slice(0, 500), earnedAt);
     }
   }
 
