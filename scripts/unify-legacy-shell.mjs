@@ -12,7 +12,6 @@ let updated=0;
 for(const path of walk(root)){
  if(path.includes('/write-lavii-9f21k2/'))continue;
  let html=readFileSync(path,'utf8');
- if(html.includes('id="site-header"')&&html.includes('class="site-footer"'))continue;
  const blocks=[...html.matchAll(/<header\b[^>]*>[\s\S]*?<\/header>/gi)];
  const brand=blocks.find(m=>/class=["'][^"']*\bbrand\b/.test(m[0])&&/href=["']\//.test(m[0]));
  if(brand)html=html.replace(brand[0],canonicalHeader);
