@@ -1,7 +1,7 @@
 // B Tecky blog admin API. Shared-secret admin check; GitHub PAT remains server-side.
 const OWNER = process.env.GITHUB_OWNER || 'lavishsheth';
 const REPO = process.env.GITHUB_REPO || 'Btecky';
-const BRANCH = 'modernization/astro-foundation'; // preview branch only; production main remains protected
+const BRANCH = 'main'; // Blog Studio publishes directly to the production catalogue on main
 const API = 'https://api.github.com';
 
 const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
@@ -322,9 +322,11 @@ module.exports = async (req, res) => {
     const bodyText = String(input.body || '').trim();
     if (!title || !bodyText) return res.status(400).json({error:'Title and body are required.'});
     const status = String(input.status || 'published');
+    const contentType = input.contentType === 'events' ? 'events' : 'tech';
+    const minimumWords = contentType === 'events' ? 600 : 1200;
     const wordCount = bodyText.split(/\s+/).filter(Boolean).length;
-    if (status === 'published' && wordCount < 500) {
-      return res.status(400).json({error:'Published articles must contain at least 500 words. Current count: ' + wordCount + '. Save as draft to continue editing.'});
+    if (status === 'published' && wordCount < minimumWords) {
+      return res.status(400).json({error:(contentType === 'events' ? 'Event articles' : 'Tech articles') + ' must contain at least ' + minimumWords + ' words before publishing. Current count: ' + wordCount + '. Add useful detail, examples, steps and caveats, or save as draft.'});
     }
     const slug = String(input.slug || title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,88));
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return res.status(400).json({error:'Slug must contain lowercase letters, numbers, and hyphens.'});
@@ -334,9 +336,9 @@ module.exports = async (req, res) => {
     const videoId = (String(input.videoUrl || '').match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/) || [])[1] || '';
     const tags = Array.isArray(input.tags) ? input.tags : [String(input.category || 'Technology')];
     const today = new Date().toISOString().slice(0,10);
-    const contentType = input.contentType === 'events' ? 'events' : input.contentType === 'tech' ? 'tech' : ((oldPost && oldPost.contentType) || 'tech');
+    const savedContentType = contentType;
     const post = {
-      slug,title,contentType,date:String(input.date || (oldPost && oldPost.date) || today),updatedAt:today,tags,
+      slug,title,contentType:savedContentType,date:String(input.date || (oldPost && oldPost.date) || today),updatedAt:today,tags,
       summary:String(input.summary || input.excerpt || '').trim(),body:bodyText,
       videoUrl:String(input.videoUrl || '').trim(),
       videoThumbnail:videoId ? 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg' : ((oldPost && oldPost.videoThumbnail) || ''),
