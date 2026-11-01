@@ -154,30 +154,30 @@ function extractBadges(html, base) {
   // Inspect every candidate opening element independently. A single global
   // regex over nested markup lets an outer <section> consume all inner cards.
   // Balance same-tag elements so nested wrappers do not hide their children.
-  const openingRe = /<(a|article|div|li|section)\\b([^>]*)>/gi;
+  const openingRe = /<(a|article|div|li|section)\b([^>]*)>/gi;
   let opening;
   while ((opening = openingRe.exec(html))) {
     const tagName = opening[1].toLowerCase();
     const openEnd = openingRe.lastIndex;
-    const tagRe = new RegExp("<\\\\/?"+tagName+"\\\\b[^>]*>", "gi");
+    const tagRe = new RegExp("</?"+tagName+"\\b[^>]*>", "gi");
     tagRe.lastIndex = openEnd;
     let depth = 1, close;
     while ((close = tagRe.exec(html))) {
-      if (/^<\\s*\\//.test(close[0])) depth--;
-      else if (!/\\/\\s*>$/.test(close[0])) depth++;
+      if (/^<\s*\//.test(close[0])) depth--;
+      else if (!/\/\s*>$/.test(close[0])) depth++;
       if (depth === 0) break;
     }
     if (!close) continue;
     const a = attrs(opening[0]);
     const context = [a.class, a.id, a["aria-label"], a.title, a["data-testid"], a["data-type"], a["data-kind"]].join(" ");
     const body = html.slice(openEnd, close.index);
-    const imageAlt = [...body.matchAll(/<img\\b([^>]*)>/gi)].map(x => attrs(x[0])["alt"]).filter(Boolean);
-    const heading = body.match(/<(?:h[1-6]|strong|a)\\b[^>]*>([\\s\\S]{1,500}?)<\\/(?:h[1-6]|strong|a)>/i);
+    const imageAlt = [...body.matchAll(/<img\b([^>]*)>/gi)].map(x => attrs(x[0])["alt"]).filter(Boolean);
+    const heading = body.match(/<(?:h[1-6]|strong|a)\b[^>]*>([\s\S]{1,500}?)<\/(?:h[1-6]|strong|a)>/i);
     const earnedAt = parseEarnedDate(body.replace(/<[^>]*>/g, " "));
-    const hasCredentialSignals = Boolean(earnedAt && imageAlt.length && /<a\\b/i.test(body));
+    const hasCredentialSignals = Boolean(earnedAt && imageAlt.length && /<a\b/i.test(body));
     if (/badge|credential|achievement|award|course.?card|activity.?card|tile/i.test(context) || hasCredentialSignals) {
       const title = heading ? clean(heading[1]) : imageAlt[0];
-      const linkTag = tagName === "a" ? opening[0] : (body.match(/<a\\b([^>]*)>/i) || [])[1];
+      const linkTag = tagName === "a" ? opening[0] : (body.match(/<a\b([^>]*)>/i) || [])[1];
       const href = linkTag ? (attrs(linkTag).href || "") : "";
       add(title, href, context + " " + body.slice(0, 500), earnedAt);
     }
