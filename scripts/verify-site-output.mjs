@@ -43,7 +43,7 @@ if (missing.length) {
   process.exitCode = 1;
 } else {
   const homepage = readFileSync(join(dist, 'index.html'), 'utf8');
-  const footerOf = (html) => html.match(/<footer class="site-footer">[\\s\\S]*?<\\/footer>/)?.[0]?.replace(/\\s+/g, ' ').trim() || '';
+  const footerOf = (html) => html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/)?.[0]?.replace(/\s+/g, ' ').trim() || '';
   const expectedFooter = footerOf(homepage);
   const arcadePages = ['arcade.html', 'arcade-calculator.html', 'arcade/guide/index.html'];
   const footerMismatches = arcadePages.filter((path) => {
