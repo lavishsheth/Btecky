@@ -52,7 +52,11 @@
     var badges = Array.isArray(data.badges) ? data.badges : [];
     if (!badges.length) {
       dashboard.classList.remove("show");
-      setStatus("Google Skills returned the public profile page, but no badge cards could be read from its page data. This is not a zero score. Please try again later; the profile parser needs to recognise the current Google Skills page format.", "error");
+      var diagnostics = data.diagnostics || {};
+      var detail = diagnostics.responseBytes
+        ? " Google returned " + number.format(diagnostics.responseBytes) + " bytes of page data, but the parser found " + number.format(diagnostics.candidateCount || 0) + " badge candidates."
+        : "";
+      setStatus("Your Google Skills profile was reached, but no badge entries could be extracted." + detail + " This is not a zero score. The profile data format needs further inspection.", "error");
       return;
     }
 
