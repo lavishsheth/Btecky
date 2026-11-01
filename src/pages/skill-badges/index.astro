@@ -1,0 +1,46 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+<BaseLayout title="Google Cloud Skill Badge Directory | B Tecky" description="Browse Google Cloud Skills Boost skill badges by suggested learning level and open the official badge pages.">
+<main class="badge-directory">
+<section class="badge-hero"><div class="container"><p class="eyebrow">B TECKY / GOOGLE CLOUD LEARNING</p><h1 class="display">Find your next<br><span>skill badge.</span></h1><p>Explore the skill-badge names in our current learning catalogue, search by topic, and choose a suggested starting level. Always open Google Skills for the official badge details and current availability.</p><a class="badge-official" href="https://www.skills.google/catalog" target="_blank" rel="noopener noreferrer">Browse official Google Skills catalogue ↗</a></div></section>
+<section class="container badge-tools"><div class="badge-search"><label for="badge-search">Search skill badges</label><input id="badge-search" type="search" placeholder="Try BigQuery, Gemini, Kubernetes…" autocomplete="off"></div><div class="badge-filters" role="group" aria-label="Filter by suggested level"><button class="active" data-level="all">All badges</button><button data-level="beginner">Beginner</button><button data-level="intermediate">Intermediate</button><button data-level="advanced">Advanced</button></div><p class="badge-count" id="badge-count" aria-live="polite">Loading catalogue…</p><div class="badge-grid" id="badge-grid"><p>Loading the current B Tecky badge catalogue…</p></div><p class="badge-disclaimer">Difficulty labels are B Tecky learning suggestions based on the badge title and topic—not official Google difficulty ratings. The catalogue is a curated snapshot and may not include every badge currently published by Google. Badge availability and requirements can change.</p></section>
+</main>
+</BaseLayout>
+<style>
+.badge-hero{padding:82px 0 65px;background:radial-gradient(ellipse at 78% 30%,rgba(49,94,251,.13),transparent 36%),linear-gradient(135deg,#f3f6ff,#fff 68%)}.badge-hero h1{font-size:clamp(3rem,6vw,5.6rem);line-height:.95;letter-spacing:-.07em;margin:22px 0}.badge-hero h1 span{color:#315efb}.badge-hero p:not(.eyebrow){max-width:680px;color:#667085;font-size:1.05rem;line-height:1.8}.badge-official{display:inline-flex;margin-top:14px;padding:12px 16px;border-radius:10px;background:#315efb;color:#fff;font-weight:800}.badge-tools{padding-block:55px 90px}.badge-search{max-width:620px}.badge-search label{display:block;font-weight:800;margin-bottom:8px}.badge-search input{width:100%;padding:15px 16px;border:1px solid #d8deeb;border-radius:12px;background:#fff;color:#101828}.badge-filters{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}.badge-filters button{border:1px solid #d8deeb;background:#fff;border-radius:999px;padding:9px 15px;color:#344054;font-weight:700;cursor:pointer}.badge-filters button.active{background:#17264b;border-color:#17264b;color:#fff}.badge-count{font-size:.82rem;color:#667085}.badge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.badge-card{padding:18px;border:1px solid #e5eaf4;border-radius:15px;background:#fff;display:flex;flex-direction:column;gap:12px;min-height:150px}.badge-card h2{font:800 1rem/1.4 var(--font-display);margin:0;letter-spacing:-.02em}.badge-card a{color:#315efb;font-size:.8rem;font-weight:800;margin-top:auto}.badge-level{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;font-weight:900;color:#315efb}.badge-empty{padding:22px;border:1px dashed #cbd5e1;border-radius:14px;color:#667085;grid-column:1/-1}.badge-disclaimer{max-width:850px;margin-top:28px;color:#667085;font-size:.8rem;line-height:1.7}
+@media(max-width:800px){.badge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:540px){.badge-hero{padding:60px 0 45px}.badge-grid{grid-template-columns:1fr}.badge-tools{padding-block:38px 60px}}
+</style>
+<script is:inline src="/arcade-catalog.js"></script>
+<script is:inline>
+(function(){
+ const grid=document.getElementById('badge-grid'),search=document.getElementById('badge-search'),count=document.getElementById('badge-count'),filters=[...document.querySelectorAll('[data-level]')];
+ if(!grid)return;
+ const names=(window.ARCADE_CATALOG&&Array.isArray(window.ARCADE_CATALOG.badges)?window.ARCADE_CATALOG.badges:[]);
+ const levelOf=name=>{
+  const s=name.toLowerCase();
+  if(/basics|getting started|get started|kickstarting|first |intro|use functions|use apis|app engine: 3 ways|google sheets|speech api: 3 ways/.test(s))return 'beginner';
+  if(/multi-agent|kubernetes|architecture|architect|migrations|security|secure|terraform|network|bigtable|spanner|alloydb|data mesh|vector search|prometheus|sensitive data|cloud sql|load balancing|agent development kit|adk|devops|ci\/cd|predictive modeling|machine learning|ml models/.test(s))return 'advanced';
+  return 'intermediate';
+ };
+ let active='all';
+ const render=()=>{
+  const q=(search.value||'').trim().toLowerCase();
+  const rows=names.filter(n=>(active==='all'||levelOf(n)===active)&&n.toLowerCase().includes(q));
+  count.textContent=rows.length+' skill badge'+(rows.length===1?'':'s')+' found · '+(active==='all'?'all suggested levels':active+' level');
+  grid.innerHTML='';
+  if(!rows.length){const empty=document.createElement('p');empty.className='badge-empty';empty.textContent='No badges match this search. Try a different keyword or level.';grid.appendChild(empty);return;}
+  rows.forEach(name=>{
+   const card=document.createElement('article');card.className='badge-card';
+   const level=document.createElement('span');level.className='badge-level';level.textContent=levelOf(name);
+   const title=document.createElement('h2');title.textContent=name;
+   const link=document.createElement('a');link.href='https://www.skills.google/catalog';link.target='_blank';link.rel='noopener noreferrer';link.textContent='Find on Google Skills ↗';
+   card.append(level,title,link);grid.appendChild(card);
+  });
+ };
+ search.addEventListener('input',render);
+ filters.forEach(btn=>btn.addEventListener('click',()=>{active=btn.dataset.level;filters.forEach(b=>b.classList.toggle('active',b===btn));render();}));
+ if(!names.length){grid.textContent='The badge catalogue could not be loaded. Please use the official Google Skills catalogue link above.';count.textContent='Catalogue unavailable';return;}
+ render();
+})();
+</script>
