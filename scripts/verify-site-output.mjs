@@ -28,6 +28,7 @@ const required = [
   'assets/js/playlists.js',
   'assets/js/studio-enhancements.js',
   'robots.txt',
+  'ads.txt',
   'sitemap.xml',
 ];
 const missing = required.filter((path) => !existsSync(join(dist, path)));
@@ -35,6 +36,11 @@ if (missing.length) {
   console.error('Missing required site output:', missing.join(', '));
   process.exitCode = 1;
 } else {
+  const ads = readFileSync(join(dist, 'ads.txt'), 'utf8');
+  if (!/^google\\.com,\\s*pub-\\d+,\\s*DIRECT,\\s*[a-f0-9]{16}$/m.test(ads)) {
+    console.error('ads.txt is present but its Google publisher record is invalid or missing.');
+    process.exitCode = 1;
+  }
   const catalogue = JSON.parse(readFileSync(join(root, 'blog/posts.json'), 'utf8'));
   const publicPosts = catalogue.posts.filter((post) => post.status !== 'draft');
   const missingArticles = publicPosts
