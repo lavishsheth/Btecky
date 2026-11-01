@@ -20,14 +20,14 @@
 
   function normalize(value) {
     return String(value || "").toLowerCase().replace(/&amp;/g, "&")
-      .replace(/[^a-z0-9]+/g, " ").trim().replace(/\\s+/g, " ");
+      .replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
   }
 
   function classify(badge) {
     var title = String(badge.title || "").trim();
     var key = normalize(title);
-    if (gameNames.has(key) || /\\b(arcade|game badge|trivia|sprint|certification zone)\\b/i.test(title)) return "game";
-    if (skillNames.has(key) || /\\bskill badge\\b/i.test(title)) return "skill";
+    if (gameNames.has(key) || /\b(arcade|game badge|trivia|sprint|certification zone)\b/i.test(title)) return "game";
+    if (skillNames.has(key) || /\bskill badge\b/i.test(title)) return "skill";
     if (badge.type === "game" || badge.type === "skill") return badge.type;
     return "other";
   }
@@ -128,7 +128,7 @@
     }
     try {
       var parsed = new URL(url);
-      if (parsed.protocol !== "https:" || !/^(www\\.)?(skills\\.google|cloudskillsboost\\.google)$/.test(parsed.hostname) || !/^\\/public_profiles\\/[A-Za-z0-9_-]+\\/?$/.test(parsed.pathname)) {
+      if (parsed.protocol !== "https:" || !/^(www\.)?(skills\.google|cloudskillsboost\.google)$/.test(parsed.hostname) || !/^\/public_profiles\/[A-Za-z0-9_-]+\/?$/.test(parsed.pathname)) {
         throw new Error("Use the full HTTPS Google Skills public profile link, including /public_profiles/…");
       }
     } catch (error) {
