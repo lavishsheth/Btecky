@@ -4,7 +4,8 @@
   "version": "2.0.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build && node scripts/copy-legacy-to-dist.mjs && node scripts/unify-legacy-shell.mjs && node scripts/verify-site-output.mjs",
+    "build": "node scripts/test-arcade-profile-parser.mjs && astro check && astro build && node scripts/copy-legacy-to-dist.mjs && node scripts/unify-legacy-shell.mjs && node scripts/verify-site-output.mjs",
+    "test:arcade-profile": "node scripts/test-arcade-profile-parser.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "typecheck": "tsc --noEmit"
