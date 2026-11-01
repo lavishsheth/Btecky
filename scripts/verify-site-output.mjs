@@ -20,6 +20,7 @@ const required = [
   'blog/posts.json',
   'arcade.html',
   'arcade-calculator.html',
+  'arcade-calculator-profile.js',
   'skill-badges/index.html',
   'style.css',
   'additions.css',
@@ -41,6 +42,18 @@ if (missing.length) {
   console.error('Missing required site output:', missing.join(', '));
   process.exitCode = 1;
 } else {
+  const homepage = readFileSync(join(dist, 'index.html'), 'utf8');
+  const footerOf = (html) => html.match(/<footer class="site-footer">[\\s\\S]*?<\\/footer>/)?.[0]?.replace(/\\s+/g, ' ').trim() || '';
+  const expectedFooter = footerOf(homepage);
+  const arcadePages = ['arcade.html', 'arcade-calculator.html', 'arcade/guide/index.html'];
+  const footerMismatches = arcadePages.filter((path) => {
+    const file = join(dist, path);
+    return !existsSync(file) || !expectedFooter || footerOf(readFileSync(file, 'utf8')) !== expectedFooter;
+  });
+  if (footerMismatches.length) {
+    console.error('Arcade pages do not share the exact homepage footer:', footerMismatches.join(', '));
+    process.exitCode = 1;
+  }
   const ads = readFileSync(join(dist, 'ads.txt'), 'utf8');
   if (!/^google\.com,\s*pub-\d+,\s*DIRECT,\s*[a-f0-9]{16}$/m.test(ads)) {
     console.error('ads.txt is present but its Google publisher record is invalid or missing.');
