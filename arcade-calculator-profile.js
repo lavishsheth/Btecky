@@ -16,6 +16,9 @@
   ];
   var gameNames = new Set((catalog.games || []).map(normalize));
   var skillNames = new Set((catalog.badges || []).map(normalize));
+  ["Develop Your Google Cloud Network","Implement Cloud Security Fundamentals",
+   "Build a Data Mesh with Dataplex","Develop Serverless Apps with Firebase"]
+    .forEach(function (name) { skillNames.add(normalize(name)); });
   var number = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 1 });
 
   function normalize(value) {
@@ -27,9 +30,9 @@
     var title = String(badge.title || "").trim();
     var key = normalize(title);
     var earnedAt = String(badge.earnedAt || "");
-    if (!/^2026-\\d{2}-\\d{2}$/.test(earnedAt)) return "other";
-    if (gameNames.has(key) || /^arcade (january|february|march) 2026 sprint \\d+$/i.test(title) ||
-        /^google skills arcade trivia (january|february|march) 2026 week \\d+$/i.test(title)) return "game";
+    if (!/^2026-\d{2}-\d{2}$/.test(earnedAt)) return "other";
+    if (gameNames.has(key) || /^arcade (january|february|march) 2026 sprint \d+$/i.test(title) ||
+        /^google skills arcade trivia (january|february|march) 2026 week \d+$/i.test(title)) return "game";
     if (skillNames.has(key)) return "skill";
     return "other";
   }
@@ -121,7 +124,7 @@
     if (other.length) {
       setStatus("Profile loaded. " + games.length + " eligible 2026 game badges and " + skills.length + " eligible 2026 skill badges were counted. " + other.length + " other entries were left out rather than guessed. Facilitator bonuses are not verified from a public profile.", "success");
     } else {
-      setStatus("Profile loaded. " + games.length + " game badges and " + skills.length + " skill badges were counted. Facilitator bonuses remain unverified and are not included.", "success");
+      setStatus("Profile loaded. " + games.length + " eligible 2026 game badges and " + skills.length + " eligible 2026 skill badges were counted. Facilitator bonuses remain unverified and are not included.", "success");
     }
   }
 
