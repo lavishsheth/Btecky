@@ -1,0 +1,141 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+const milestones = [
+  { number: 1, name: 'Milestone 1', games: 6, badges: 18, bonus: 5 },
+  { number: 2, name: 'Milestone 2', games: 8, badges: 34, bonus: 15 },
+  { number: 3, name: 'Milestone 3', games: 10, badges: 50, bonus: 25 },
+  { number: 4, name: 'Ultimate Milestone', games: 12, badges: 66, bonus: 35 },
+];
+---
+<BaseLayout title="Arcade Facilitator Score Calculator | B Tecky" description="Calculate your Google Cloud Arcade Facilitator milestone and its official bonus points using your completed game and skill badge counts.">
+<main class="fac-calc">
+  <section class="fac-hero"><div class="container">
+    <p class="eyebrow">B TECKY / FACILITATOR TOOL</p>
+    <h1 class="display">Your Facilitator<br><span>milestone score.</span></h1>
+    <p>Calculate only your Facilitator milestone qualification and bonus. Enter your completed Arcade games and skill badges to see the highest milestone your counts meet.</p>
+    <span class="fac-chip">Facilitator-only calculator · 2026 rules</span>
+  </div></section>
+  <section class="container fac-layout">
+    <div class="fac-card">
+      <p class="eyebrow">YOUR COMPLETION COUNTS</p><h2 class="display">Enter your progress.</h2>
+      <label class="fac-field"><span>Completed Arcade games</span><input id="fac-games" type="number" min="0" max="999" step="1" value="0" inputmode="numeric"></label>
+      <label class="fac-field"><span>Completed skill badges</span><input id="fac-badges" type="number" min="0" max="999" step="1" value="0" inputmode="numeric"></label>
+      <p class="fac-help">Use eligible activities recorded for the current Facilitator program. Both the game and skill badge requirements must be met for a milestone.</p>
+      <button class="fac-reset" id="fac-reset" type="button">Reset counts</button>
+    </div>
+    <aside class="fac-result" aria-live="polite">
+      <p class="eyebrow">YOUR FACILITATOR RESULT</p><span class="fac-result__label" id="fac-status">Not qualified yet</span>
+      <strong id="fac-bonus">0 <small>pts</small></strong><p id="fac-result-copy">Complete the requirements for Milestone 1 to unlock your first Facilitator bonus.</p>
+      <div class="fac-progress"><span id="fac-progress-fill"></span></div><p class="fac-progress-copy" id="fac-progress-copy">Next: 6 games and 18 skill badges</p>
+    </aside>
+  </section>
+  <section class="container fac-milestones">
+    <div class="fac-section-heading"><p class="eyebrow">MILESTONE REQUIREMENTS</p><h2 class="display">Four levels. One highest bonus.</h2><p>Only the highest Facilitator milestone you qualify for is shown. Bonuses do not stack.</p></div>
+    <div class="fac-milestone-grid">
+      {milestones.map((m) => <article class="fac-milestone" data-fac-milestone={m.number}>
+        <div class="fac-milestone__top"><span>0{m.number}</span><span class="fac-milestone__bonus">+{m.bonus} pts</span></div>
+        <h3>{m.name}</h3><div class="fac-requirements"><span><b>{m.games}</b> Arcade games</span><span><b>{m.badges}</b> Skill badges</span></div>
+        <span class="fac-milestone__state">Not yet reached</span>
+      </article>)}
+    </div>
+    <p class="fac-disclaimer">This is an independent B Tecky estimate tool, not an official Google product. The milestone requirements and bonus values shown here reflect the 2026 Facilitator rules linked below. Confirm eligibility and completion in your official program records; official Google announcements take precedence if rules change.</p>
+    <p class="fac-source">Official reference: <a href="https://discuss.google.dev/t/arcade-facilitator-2026-bonus-milestone/386412" target="_blank" rel="noopener noreferrer">Arcade Facilitator 2026 bonus milestone ↗</a></p>
+    <div class="fac-next-tools"><a href="/arcade-calculator.html"><span>∑</span><span><b>Need your complete Arcade total?</b><small>Open the full Arcade Points Calculator</small></span><span>↗</span></a><a href="/skill-badges"><span>✧</span><span><b>Find your next skill badge</b><small>Explore the Skill Badge Directory</small></span><span>↗</span></a></div>
+  </section>
+</main>
+</BaseLayout>
+<style>
+.fac-calc{--fac-blue:#315efb;--fac-ink:#101a3a;--fac-muted:#667085;color:var(--fac-ink)}
+.fac-hero{padding:75px 0 55px;background:radial-gradient(ellipse at 80% 30%,rgba(49,94,251,.15),transparent 35%),linear-gradient(135deg,#f3f6ff,#fff 68%)}
+.fac-hero h1{font-size:clamp(3rem,6vw,5.4rem);line-height:.96;letter-spacing:-.07em;margin:20px 0}
+.fac-hero h1 span{color:var(--fac-blue)}
+.fac-hero>div>p:not(.eyebrow){max-width:670px;color:var(--fac-muted);font-size:1.05rem;line-height:1.8}
+.fac-chip{display:inline-flex;margin-top:12px;padding:7px 11px;border-radius:999px;background:#eaf0ff;color:#315efb;font-size:.7rem;font-weight:900;letter-spacing:.06em}
+.fac-layout{display:grid;grid-template-columns:1fr .9fr;gap:20px;padding-block:55px 45px;align-items:stretch}
+.fac-card,.fac-result{padding:27px;border:1px solid #e5eaf4;border-radius:20px;background:#fff;box-shadow:0 12px 34px rgba(16,26,58,.055)}
+.fac-card h2{font-size:2rem;letter-spacing:-.05em;margin:8px 0 24px}
+.fac-field{display:grid;gap:8px;margin:17px 0;font-size:.86rem;font-weight:800}
+.fac-field input{width:100%;padding:14px 15px;border:1px solid #d8deeb;border-radius:11px;background:#fff;color:#101828;font:600 1rem var(--font-body)}
+.fac-field input:focus{outline:3px solid rgba(49,94,251,.14);border-color:#315efb}
+.fac-help{color:var(--fac-muted);font-size:.78rem;line-height:1.7}
+.fac-reset{margin-top:12px;padding:10px 14px;border:1px solid #d8deeb;border-radius:9px;background:#fff;color:var(--fac-ink);font:700 .78rem var(--font-body);cursor:pointer}
+.fac-reset:hover{border-color:#315efb;color:#315efb}
+.fac-result{display:flex;flex-direction:column;justify-content:center;background:var(--fac-ink);color:#fff;border-color:var(--fac-ink)}
+.fac-result .eyebrow{color:#aebfff}
+.fac-result__label{font-size:.85rem;font-weight:800;color:#cbd5f1}
+.fac-result>strong{display:block;margin:10px 0;font:800 clamp(4rem,8vw,6rem)/1 var(--font-display);color:#ffcf3d;letter-spacing:-.06em}
+.fac-result>strong small{font-size:1.2rem;letter-spacing:0}
+.fac-result>p:not(.eyebrow){color:#cbd5f1;line-height:1.7;font-size:.88rem}
+.fac-progress{height:11px;margin:17px 0 8px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}
+.fac-progress span{display:block;width:0;height:100%;border-radius:99px;background:#ffcf3d;transition:width .25s}
+.fac-progress-copy{font-size:.75rem!important;margin:0}
+.fac-milestones{padding-block:40px 85px}
+.fac-section-heading{max-width:650px;margin-bottom:25px}
+.fac-section-heading h2{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.055em;margin:8px 0}
+.fac-section-heading>p:last-child{color:var(--fac-muted);line-height:1.7}
+.fac-milestone-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.fac-milestone{padding:18px;border:1px solid #e5eaf4;border-radius:16px;background:#fff;transition:.2s}
+.fac-milestone.is-earned{border-color:#315efb;background:#f1f5ff;box-shadow:0 8px 24px rgba(49,94,251,.09)}
+.fac-milestone__top{display:flex;align-items:center;justify-content:space-between;color:#8792a6;font-size:.7rem;font-weight:900}
+.fac-milestone__bonus{color:#315efb}
+.fac-milestone h3{font:800 1.08rem var(--font-display);margin:17px 0}
+.fac-requirements{display:grid;gap:8px;color:#667085;font-size:.72rem}
+.fac-requirements b{color:#101a3a;font-size:1.1rem;margin-right:4px}
+.fac-milestone__state{display:block;margin-top:18px;padding-top:12px;border-top:1px solid #e9edf5;color:#98a2b3;font-size:.68rem;font-weight:800}
+.fac-milestone.is-earned .fac-milestone__state{color:#315efb}
+.fac-disclaimer{margin:28px 0 10px;padding:15px 17px;border:1px solid #f0dfa7;border-radius:12px;background:#fff8e2;color:#695100;font-size:.78rem;line-height:1.7}
+.fac-source{color:#667085;font-size:.8rem}.fac-source a{color:#315efb;font-weight:800}
+.fac-next-tools{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:30px}
+.fac-next-tools>a{display:grid;grid-template-columns:40px 1fr 15px;gap:12px;align-items:center;padding:16px;border:1px solid #e5eaf4;border-radius:14px;background:#fff;color:#101a3a}
+.fac-next-tools>a>span:first-child{display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:linear-gradient(145deg,#315efb,#6d8cff);color:#fff;font-size:1.2rem}
+.fac-next-tools b,.fac-next-tools small{display:block}.fac-next-tools b{font-size:.8rem}.fac-next-tools small{margin-top:4px;color:#667085;font-size:.7rem}.fac-next-tools>a>span:last-child{color:#315efb}
+@media(max-width:850px){.fac-layout{grid-template-columns:1fr}.fac-milestone-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.fac-hero{padding:58px 0 42px}.fac-layout{padding-block:38px 28px}.fac-card,.fac-result{padding:20px}.fac-milestone-grid,.fac-next-tools{grid-template-columns:1fr}.fac-milestones{padding-bottom:60px}}
+</style>
+<script>
+const gameInput = document.querySelector<HTMLInputElement>('#fac-games');
+const badgeInput = document.querySelector<HTMLInputElement>('#fac-badges');
+const bonusOutput = document.querySelector<HTMLElement>('#fac-bonus');
+const statusOutput = document.querySelector<HTMLElement>('#fac-status');
+const resultCopy = document.querySelector<HTMLElement>('#fac-result-copy');
+const progressFill = document.querySelector<HTMLElement>('#fac-progress-fill');
+const progressCopy = document.querySelector<HTMLElement>('#fac-progress-copy');
+const milestoneCards = Array.from(document.querySelectorAll<HTMLElement>('[data-fac-milestone]'));
+const levels = [{name:'Milestone 1',games:6,badges:18,bonus:5},{name:'Milestone 2',games:8,badges:34,bonus:15},{name:'Milestone 3',games:10,badges:50,bonus:25},{name:'Ultimate Milestone',games:12,badges:66,bonus:35}];
+const readCount = (input: HTMLInputElement | null) => Math.max(0,Math.min(999,Math.floor(Number(input?.value)||0)));
+const render = () => {
+  const games = readCount(gameInput), badges = readCount(badgeInput);
+  if (gameInput) gameInput.value = String(games);
+  if (badgeInput) badgeInput.value = String(badges);
+  const earned = levels.filter(level => games >= level.games && badges >= level.badges);
+  const highest = earned[earned.length - 1];
+  const next = levels.find(level => !(games >= level.games && badges >= level.badges));
+  bonusOutput!.innerHTML = (highest ? '+'+highest.bonus : '0')+' <small>pts</small>';
+  statusOutput!.textContent = highest ? highest.name+' qualified' : 'Not qualified yet';
+  resultCopy!.textContent = highest ? 'You meet the '+highest.name+' requirements. This is your highest qualifying Facilitator bonus; milestone bonuses do not stack.' : 'Complete both requirements for Milestone 1 to unlock your first Facilitator bonus.';
+  if (next) {
+    const gameProgress = Math.min(1,games/next.games), badgeProgress = Math.min(1,badges/next.badges);
+    progressFill!.style.width = (Math.min(gameProgress,badgeProgress)*100)+'%';
+    const remainingGames = Math.max(0,next.games-games), remainingBadges = Math.max(0,next.badges-badges);
+    progressCopy!.textContent = 'Next: '+remainingGames+' more game'+(remainingGames===1?'':'s')+' and '+remainingBadges+' more skill badge'+(remainingBadges===1?'':'s')+' for '+next.name;
+  } else {
+    progressFill!.style.width = '100%';
+    progressCopy!.textContent = 'Ultimate Facilitator milestone reached.';
+  }
+  milestoneCards.forEach(card => {
+    const level = levels[Number(card.dataset.facMilestone)-1];
+    const done = games >= level.games && badges >= level.badges;
+    card.classList.toggle('is-earned',done);
+    const state = card.querySelector<HTMLElement>('.fac-milestone__state');
+    if (state) state.textContent = done ? '✓ Requirements met' : 'Not yet reached';
+  });
+};
+gameInput?.addEventListener('input',render);
+badgeInput?.addEventListener('input',render);
+document.querySelector<HTMLButtonElement>('#fac-reset')?.addEventListener('click',()=>{
+  if (gameInput) gameInput.value='0';
+  if (badgeInput) badgeInput.value='0';
+  render();
+});
+render();
+</script>
