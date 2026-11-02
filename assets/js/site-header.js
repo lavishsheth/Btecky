@@ -95,8 +95,9 @@
   const staticResults = [
     { title: 'About B Tecky', summary: 'Learn about the team and our work', url: '/about', kind: 'Company' },
     { title: 'Arcade Score Checker', summary: 'Check your Google Cloud Arcade progress', url: '/arcade', kind: 'Tool' },
-    { title: 'Arcade Guide & Videos', summary: 'Arcade guides, updates and video walkthroughs', url: '/arcade/guide', kind: 'Guide' },
-    { title: 'Learning Playlists', summary: 'Explore curated learning videos', url: '/playlists', kind: 'Learning' },
+    { title: 'Facilitator Score Calculator', summary: 'Calculate your Facilitator milestone and bonus score', url: '/arcade/facilitator-calculator', kind: 'Tool' },
+    { title: 'Full Arcade Points Calculator', summary: 'Calculate games, skill badges, bonuses and prize-tier progress', url: '/arcade-calculator.html', kind: 'Tool' },
+    { title: 'Skill Badge Directory', summary: 'Browse Google Cloud skill badges by topic and level', url: '/skill-badges', kind: 'Learning' },
     { title: 'Contact B Tecky', summary: 'Start a conversation', url: '/contact', kind: 'Company' }
   ];
   const renderResults = async (query) => {
