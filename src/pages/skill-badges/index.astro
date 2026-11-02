@@ -21,7 +21,7 @@ const levelOf = (name: string) => {
   return 'Intermediate';
 };
 const badges = (badgeNames as string[]).map((name, index) => ({
-  name, category: classify(name), level: levelOf(name), id: index + 1
+  name, category: classify(name), level: levelOf(name), id: index + 1, slug: `${index + 1}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
 }));
 ---
 <BaseLayout title="Google Cloud Skill Badge Directory | B Tecky" description="Explore 99 curated Google Cloud skill badges with visual topic artwork, suggested levels and links to the official Google Skills catalogue.">
@@ -39,13 +39,13 @@ const badges = (badgeNames as string[]).map((name, index) => ({
     <div class="badge-results"><p class="badge-count" id="badge-count" aria-live="polite">{badges.length} skill badges</p><span class="badge-count">A curated snapshot · verify current availability on Google Skills</span></div>
     <div class="badge-grid" id="badge-grid">
       {badges.map((badge) => <article class="badge-card" data-name={badge.name.toLowerCase()} data-level={badge.level}>
-        <a class="badge-card__image" href="https://www.skills.google/catalog" target="_blank" rel="noopener noreferrer" aria-label={'Find '+badge.name+' on Google Skills'}>
+        <a class="badge-card__image" href={'/skill-badges/'+badge.slug} aria-label={'View details for '+badge.name}>
           <img src={'/assets/images/skill-badges/'+badge.category+'.svg'} alt="" loading="lazy" width="240" height="190" />
           <span class="badge-card__image-tag">B TECKY TOPIC ART</span>
         </a>
         <div class="badge-card__body"><div class="badge-card__meta"><span class="badge-level">{badge.level}</span><span class="badge-index">#{String(badge.id).padStart(2,'0')}</span></div>
           <h3>{badge.name}</h3><p class="badge-card__topic">{badge.category.replace('-', ' ')} learning</p>
-          <a class="badge-card__link" href="https://www.skills.google/catalog" target="_blank" rel="noopener noreferrer">View on Google Skills <span>↗</span></a>
+          <a class="badge-card__link" href={'/skill-badges/'+badge.slug}>View badge details <span>↗</span></a>
         </div>
       </article>)}
     </div>

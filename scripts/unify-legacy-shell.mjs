@@ -16,12 +16,25 @@ for(const path of walk(root)){
  const brand=blocks.find(m=>/class=["'][^"']*\bbrand\b/.test(m[0])&&/href=["']\//.test(m[0]));
  if(brand)html=html.replace(brand[0],canonicalHeader);
  else if(!html.includes('id="site-header"'))html=html.replace(/<body\b[^>]*>/i,m=>m+canonicalHeader);
- const footers=[...html.matchAll(/<footer\b[^>]*>[\s\S]*?<\/footer>/gi)];
- if(footers.length)html=html.replace(footers[0][0],canonicalFooter);
+ const siteFooters=[...html.matchAll(/<footer\b(?=[^>]*class=["'][^"']*\bsite-footer\b)[^>]*>[\s\S]*?<\/footer>/gi)];
+ const allFooters=[...html.matchAll(/<footer\b[^>]*>[\s\S]*?<\/footer>/gi)];
+ if(siteFooters.length) html=html.replace(siteFooters[0][0],canonicalFooter);
+ else if(allFooters.length) html=html.replace(allFooters[allFooters.length-1][0],canonicalFooter);
  else html=html.replace(/<\/body>/i,canonicalFooter+'</body>');
  if(!html.includes('/assets/css/site-header.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/assets/css/site-header.css"></head>');
  if(!html.includes('/assets/css/site-footer.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/assets/css/site-footer.css"></head>');
  if(!html.includes('/assets/js/site-header.js'))html=html.replace(/<\/body>/i,'<script src="/assets/js/site-header.js" defer></script></body>');
+
+ // Keep legacy-page navigation aligned with the current Astro navigation.
+ html=html.replace(/<a class="mega-card" href="\/arcade\/guide">[\s\S]*?<\/a>/g,'');
+ html=html.replace(/<a class="mega-card" href="\/playlists">[\s\S]*?<\/a>/g,'');
+ html=html.replace(/(<div class="site-nav__item" data-menu="products">[\s\S]*?)<a class="mega-card" href="\/skill-badges">[\s\S]*?<\/a>/, '$1');
+ html=html.replace(/(<div class="site-nav__item" data-menu="arcade">[\s\S]*?)<a class="mega-card" href="\/arcade">[\s\S]*?<\/a>/, '$1');
+ html=html.replace(/(<div class="site-nav__item" data-menu="arcade">[\s\S]*?<a class="mega-card" href="\/arcade-calculator\.html">[\s\S]*?<\/a>)(<\/div><\/div><\/div>)/,
+   '$1<a class="mega-card" href="/arcade/facilitator-calculator"><span class="mega-card__icon">◈</span><span><b>Facilitator Score Calculator</b><small>Calculate your Facilitator milestone score</small></span><span class="mega-card__arrow">↗</span></a><a class="mega-card" href="/skill-badges"><span class="mega-card__icon">✧</span><span><b>Skill Badge Directory</b><small>Explore badges by topic and level</small></span><span class="mega-card__arrow">↗</span></a>$2');
+ html=html.replace(/(<div class="site-nav__item" data-menu="arcade">[\s\S]*?<a class="mega-card" href="\/arcade-calculator\.html">)([\s\S]*?<b>)Arcade Points Calculator(<\/b>)/, '$1$2Full Arcade Points Calculator$3');
+ html=html.replace(/<a href="\/arcade\/guide">Arcade Guide &amp; Videos<\/a>/g,'');
+
  writeFileSync(path,html);updated++;
 }
 console.log('Applied the shared B Tecky header and footer to '+updated+' legacy pages.');

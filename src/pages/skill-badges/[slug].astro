@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import badgeNames from '../../data/skill-badges.json';
+
+const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const entries = (badgeNames as string[]).map((name, index) => ({ name, id: index + 1, slug: String(index + 1) + '-' + slugify(name) }));
+export function getStaticPaths() {
+  return entries.map((badge) => ({ params: { slug: badge.slug }, props: { badge } }));
+}
+const { badge } = Astro.props;
+const text = badge.name.toLowerCase();
+const category = /gemini|agent|generative ai|machine learning|multimodal|imagen|vertex ai|ai studio|deepmind/.test(text) ? 'Artificial intelligence'
+  : /bigquery|biglake|bigtable|spanner|alloydb|sql|data|looker|dataplex|analytics|document ai/.test(text) ? 'Data and analytics'
+  : /security|secure|iam|threat|protect|sensitive|vulnerabilit/.test(text) ? 'Cloud security'
+  : /network|load balancing|ncc|traffic/.test(text) ? 'Networking'
+  : /devops|ci.?cd|terraform|kubernetes|prometheus|observability|monitor|logging|migrations/.test(text) ? 'DevOps and operations'
+  : /workspace|sheets|apps script|appsheet/.test(text) ? 'Google Workspace'
+  : /api|app engine|firebase|apigee|serverless|website|application|cloud run|functions/.test(text) ? 'Application development' : 'Google Cloud';
+const level = /get started|basics|kickstarting|first gemini|first language|3 ways|use apis|google sheets/.test(text) ? 'Beginner'
+  : /multi-agent|kubernetes|architecture|migrations|security|terraform|network|bigtable|spanner|alloydb|vector search|prometheus|sensitive data|cloud sql|load balancing|agent development kit|devops|ci.?cd|predictive modeling/.test(text) ? 'Advanced' : 'Intermediate';
+const officialUrl = 'https://www.skills.google/catalog?keywords=' + encodeURIComponent(badge.name);
+---
+<BaseLayout title={badge.name + ' Skill Badge | B Tecky'} description={'Explore the ' + badge.name + ' Google Cloud skill badge, its learning area, suggested level and official requirements.'}>
+<main class="container badge-detail">
+  <a class="back-link" href="/skill-badges">← Back to all skill badges</a>
+  <section class="badge-detail__hero">
+    <p class="eyebrow">GOOGLE CLOUD SKILL BADGE · #{String(badge.id).padStart(2,'0')}</p>
+    <span class="badge-detail__art"><img src={'/assets/images/skill-badges/'+(category==='Artificial intelligence'?'ai':category==='Data and analytics'?'data':category==='Cloud security'?'security':category==='Networking'?'network':category==='DevOps and operations'?'devops':category==='Google Workspace'?'workspace':category==='Application development'?'apps':'cloud')+'.svg'} alt="" width="180" height="140"></span>
+    <h1 class="display">{badge.name}</h1>
+    <div class="badge-detail__meta"><span>{category}</span><span>{level} · Suggested level</span></div>
+    <p>This learning path builds practical experience with {category.toLowerCase()} through the <strong>{badge.name}</strong> skill badge. It is focused on applied skills and hands-on activities rather than theory alone.</p>
+    <a class="badge-detail__cta" href={officialUrl} target="_blank" rel="noopener noreferrer">Check exact badge requirements on Google Skills ↗</a>
+  </section>
+  <section class="badge-detail__content">
+    <h2>What this badge covers</h2>
+    <p>This badge focuses on practical tasks related to {category.toLowerCase()}. The official learning path is the source for its current lab sequence, assessment criteria, prerequisites and completion requirements.</p>
+    <h2>How to use this learning path</h2>
+    <ol><li>Open the official badge listing and confirm the learning path is currently available.</li><li>Review prerequisites and set aside time for the hands-on labs.</li><li>Complete each activity in your Google Cloud or Workspace environment as instructed.</li><li>Return to your Google Skills profile to verify completion and track your credential progress.</li></ol>
+    <p class="badge-detail__note">B Tecky’s level and topic classification are editorial guidance. Official badge requirements, availability and completion status are maintained by Google Skills.</p>
+  </section>
+</main>
+</BaseLayout>
+<style>
+.badge-detail{max-width:1000px;padding-block:42px 100px}.back-link{display:inline-block;color:var(--color-muted);font-weight:700;margin-bottom:25px}.badge-detail__hero{padding:clamp(25px,5vw,55px);border:1px solid #e2e8f3;border-radius:24px;background:radial-gradient(circle at 88% 15%,rgba(49,94,251,.12),transparent 35%),linear-gradient(135deg,#f5f7ff,#fff)}.badge-detail__art{display:grid;place-items:center;width:130px;height:105px;border-radius:18px;background:#101a3a;overflow:hidden}.badge-detail__art img{width:100%;height:100%;object-fit:cover}.badge-detail h1{max-width:800px;font-size:clamp(2.2rem,5vw,4.2rem);line-height:1.05;letter-spacing:-.06em;margin:25px 0 18px}.badge-detail__meta{display:flex;gap:10px;flex-wrap:wrap}.badge-detail__meta span{padding:7px 11px;border-radius:99px;background:#eaf0ff;color:#315efb;font-size:.72rem;font-weight:800}.badge-detail__hero>p:not(.eyebrow){max-width:720px;color:#667085;line-height:1.8;font-size:1.05rem}.badge-detail__cta{display:inline-flex;margin-top:12px;padding:13px 18px;border-radius:11px;background:#315efb;color:#fff;font-weight:800}.badge-detail__content{max-width:760px;margin:45px auto 0;color:#475467;line-height:1.85}.badge-detail__content h2{color:#101a3a;font-size:1.5rem;letter-spacing:-.035em;margin:30px 0 10px}.badge-detail__content li{margin:8px 0}.badge-detail__note{padding:15px 18px;border-left:3px solid #315efb;background:#f5f7ff;border-radius:0 10px 10px 0;font-size:.88rem}
+</style>
