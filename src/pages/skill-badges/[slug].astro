@@ -7,7 +7,8 @@ const entries = (badgeNames as string[]).map((name, index) => ({ name, id: index
 export function getStaticPaths() {
   return entries.map((badge) => ({ params: { slug: badge.slug }, props: { badge } }));
 }
-const { badge } = Astro.props;
+type BadgeEntry = { name: string; id: number; slug: string };
+const { badge } = Astro.props as { badge: BadgeEntry };
 const text = badge.name.toLowerCase();
 const category = /gemini|agent|generative ai|machine learning|multimodal|imagen|vertex ai|ai studio|deepmind/.test(text) ? 'Artificial intelligence'
   : /bigquery|biglake|bigtable|spanner|alloydb|sql|data|looker|dataplex|analytics|document ai/.test(text) ? 'Data and analytics'
