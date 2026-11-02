@@ -324,9 +324,11 @@ module.exports = async (req, res) => {
     const status = String(input.status || 'published');
     const contentType = input.contentType === 'events' ? 'events' : 'tech';
     const minimumWords = contentType === 'events' ? 600 : 1200;
+    const minimumHeadings = contentType === 'events' ? 3 : 6;
     const wordCount = bodyText.split(/\s+/).filter(Boolean).length;
-    if (status === 'published' && wordCount < minimumWords) {
-      return res.status(400).json({error:(contentType === 'events' ? 'Event articles' : 'Tech articles') + ' must contain at least ' + minimumWords + ' words before publishing. Current count: ' + wordCount + '. Add useful detail, examples, steps and caveats, or save as draft.'});
+    const headingCount = (bodyText.match(/^##\s+/gm) || []).length;
+    if (status === 'published' && (wordCount < minimumWords || headingCount < minimumHeadings)) {
+      return res.status(400).json({error:(contentType === 'events' ? 'Event articles' : 'Tech articles') + ' need at least ' + minimumWords + ' words and ' + minimumHeadings + ' main sections before publishing. Current article: ' + wordCount + ' words and ' + headingCount + ' main sections. Add useful explanations, concrete examples, practical steps, trade-offs and caveats, or save as draft.'});
     }
     const slug = String(input.slug || title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,88));
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return res.status(400).json({error:'Slug must contain lowercase letters, numbers, and hyphens.'});
