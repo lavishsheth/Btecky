@@ -14,6 +14,32 @@
     });
   }
 
+  /* ---- legacy navigation dropdowns (standalone calculator pages) ---- */
+  document.querySelectorAll(".nav-drop-toggle").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var dropdown = button.closest(".nav-dropdown");
+      var open = dropdown && !dropdown.classList.contains("open");
+      document.querySelectorAll(".nav-dropdown").forEach(function (item) {
+        item.classList.remove("open");
+        var trigger = item.querySelector(".nav-drop-toggle");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
+      });
+      if (dropdown && open) {
+        dropdown.classList.add("open");
+        button.setAttribute("aria-expanded", "true");
+      }
+    });
+  });
+  document.addEventListener("click", function (event) {
+    if (!event.target.closest(".nav-dropdown")) {
+      document.querySelectorAll(".nav-dropdown").forEach(function (item) {
+        item.classList.remove("open");
+        var trigger = item.querySelector(".nav-drop-toggle");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
+      });
+    }
+  });
+
   /* ---- social links (from config.js) ---- */
   (function initSocial() {
     var S = window.BTECKY_SOCIAL || {};
