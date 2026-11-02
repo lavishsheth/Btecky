@@ -112,7 +112,7 @@ function renderMarkdown(source: string): string {
   return html.join('\n');
 }
 const articleHtml = renderMarkdown(post.body || '');
-const tableOfContents = [...String(post.body || '').matchAll(/^##\\s+(.+)$/gm)].map(match => ({title:match[1].trim(),id:match[1].trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}));
+const tableOfContents = [...String(post.body || '').matchAll(/^##\s+(.+)$/gm)].map(match => ({title:match[1].trim(),id:match[1].trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}));
 const wordCount = String(post.body || '').trim().split(/\s+/).filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.ceil(wordCount / 210));
 ---
