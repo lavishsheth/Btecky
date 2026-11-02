@@ -1,9 +1,7 @@
 ---
 const products = [
-  { href: '/arcade', icon: '✦', title: 'Arcade Score Checker', description: 'Track points, milestones and progress' },
-  { href: '/arcade/guide', icon: '▶', title: 'Arcade Guide & Videos', description: 'Guides, updates and Arcade videos' },
-  { href: '/playlists', icon: '▤', title: 'Learning Playlists', description: 'Curated video learning paths' },
-  { href: '/arcade-calculator.html', icon: '∑', title: 'Arcade Points Calculator', description: 'Estimate points, milestones and prize tiers' },
+  { href: '/arcade', icon: '✦', title: 'Arcade Score Checker', description: 'Check your Arcade progress' },
+  { href: '/arcade-calculator.html', icon: '∑', title: 'Arcade Points Calculator', description: 'Calculate your complete Arcade score' },
 ];
 const menus = {
   blog: [
@@ -12,18 +10,19 @@ const menus = {
     { href: '/blog', icon: '✦', title: 'All stories', description: 'Explore the complete B Tecky journal' },
   ],
   arcade: [
-    { href: '/arcade', icon: '✦', title: 'Arcade Score Checker', description: 'Check your Arcade progress' },
-    { href: '/arcade/guide', icon: '▶', title: 'Arcade Guide & Videos', description: 'Everything Arcade in one place' },
-    { href: '/arcade-calculator.html', icon: '∑', title: 'Arcade Points Calculator', description: 'Estimate points, milestones and prize tiers' },
+    { href: '/arcade/facilitator-calculator', icon: '◈', title: 'Facilitator Score Calculator', description: 'Calculate your Facilitator milestone score' },
+    { href: '/arcade-calculator.html', icon: '∑', title: 'Full Arcade Points Calculator', description: 'Calculate all points and prize-tier progress' },
+    { href: '/skill-badges', icon: '✧', title: 'Skill Badge Directory', description: 'Explore skill badges with visual cards' },
   ],
 };
+
 ---
 <header class="site-header" id="site-header">
   <div class="site-header__inner">
     <a class="site-brand" href="/" aria-label="B Tecky home"><img src="/assets/images/btecky-logo.svg" width="44" height="44" alt="" fetchpriority="high" /><span>B Tecky</span></a>
     <nav class="site-nav" id="primary-navigation" aria-label="Main navigation">
       <a class="site-nav__link" href="/">Home</a>
-      <div class="site-nav__item" data-menu="products"><a class="site-nav__link" href="#products-menu" data-menu-toggle="products" aria-haspopup="true" aria-expanded="false">Products</a><button class="site-nav__chevron" type="button" aria-label="Open Products menu" aria-expanded="false" aria-controls="mega-products"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4"/></svg></button><div class="mega-menu" id="mega-products" hidden><div class="mega-menu__grid">{products.map(item=><a class="mega-card" href={item.href}><span class="mega-card__icon">{item.icon}</span><span><b>{item.title}</b><small>{item.description}</small></span><span class="mega-card__arrow">↗</span></a>)}</div></div></div>
+      <div class="site-nav__item" data-menu="products"><a class="site-nav__link" href="#products-menu" data-menu-toggle="products" aria-haspopup="true" aria-expanded="false">Products</a><button class="site-nav__chevron" type="button" aria-label="Open Products menu" aria-expanded="false" aria-controls="mega-products"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4"/></svg></button><div class="mega-menu" id="mega-products" hidden><div class="mega-menu__grid mega-menu__grid--products">{products.map(item=><a class="mega-card" href={item.href}><span class="mega-card__icon">{item.icon}</span><span><b>{item.title}</b><small>{item.description}</small></span><span class="mega-card__arrow">↗</span></a>)}</div></div></div>
       {(['blog','arcade'] as const).map(key=><div class="site-nav__item" data-menu={key}><a class="site-nav__link" href={`#${key}-menu`} data-menu-toggle={key} aria-haspopup="true" aria-expanded="false">{key==='blog'?'Blog':'Arcade'}</a><button class="site-nav__chevron" type="button" aria-label={`Open ${key} menu`} aria-expanded="false" aria-controls={`mega-${key}`}><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4"/></svg></button><div class="mega-menu" id={`mega-${key}`} hidden><div class="mega-menu__grid">{menus[key].map(item=><a class="mega-card" href={item.href}><span class="mega-card__icon">{item.icon}</span><span><b>{item.title}</b><small>{item.description}</small></span><span class="mega-card__arrow">↗</span></a>)}</div></div></div>)}
       <a class="site-nav__link" href="/about">About</a>
       <a class="site-nav__mobile-cta" href="/contact">Let's talk <span>↗</span></a>

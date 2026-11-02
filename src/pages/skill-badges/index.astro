@@ -1,0 +1,138 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import badgeNames from '../../data/skill-badges.json';
+
+type BadgeCategory = 'ai' | 'data' | 'cloud' | 'security' | 'network' | 'devops' | 'apps' | 'workspace';
+const classify = (name: string): BadgeCategory => {
+  const s = name.toLowerCase();
+  if (/gemini|agent|generative ai|machine learning|ml model|multimodal|imagen|vertex ai|predictive|ai studio|deepmind/.test(s)) return 'ai';
+  if (/bigquery|biglake|bigtable|spanner|alloydb|sql|data|looker|dataplex|analytics|document ai/.test(s)) return 'data';
+  if (/security|secure|iam|threat|protect|sensitive|vulnerabilit/.test(s)) return 'security';
+  if (/network|load balancing|ncc|traffic/.test(s)) return 'network';
+  if (/devops|ci\/cd|terraform|kubernetes|prometheus|observability|monitor|logging|migrations/.test(s)) return 'devops';
+  if (/workspace|sheets|apps script|appsheet|google workspace/.test(s)) return 'workspace';
+  if (/api|app engine|app development|firebase|apigee|serverless|website|application|cloud run|functions/.test(s)) return 'apps';
+  return 'cloud';
+};
+const levelOf = (name: string) => {
+  const s = name.toLowerCase();
+  if (/get started|basics|kickstarting|first gemini|first language|3 ways|use apis|google sheets/.test(s)) return 'Beginner';
+  if (/multi-agent|kubernetes|architecture|migrations|security|terraform|network|bigtable|spanner|alloydb|vector search|prometheus|sensitive data|cloud sql|load balancing|agent development kit|devops|ci\/cd|predictive modeling/.test(s)) return 'Advanced';
+  return 'Intermediate';
+};
+const badges = (badgeNames as string[]).map((name, index) => ({
+  name, category: classify(name), level: levelOf(name), id: index + 1
+}));
+---
+<BaseLayout title="Google Cloud Skill Badge Directory | B Tecky" description="Explore 99 curated Google Cloud skill badges with visual topic artwork, suggested levels and links to the official Google Skills catalogue.">
+<main class="badge-directory">
+  <section class="badge-hero"><div class="container badge-hero__inner">
+    <p class="eyebrow">B TECKY / GOOGLE CLOUD LEARNING</p>
+    <h1 class="display">Find your next<br><span>skill badge.</span></h1>
+    <p>Explore a curated collection of Google Cloud skill badges, discover topics that match your goals, and choose a suggested learning level. Every badge links back to Google Skills for official requirements and availability.</p>
+    <a class="badge-official" href="https://www.skills.google/catalog" target="_blank" rel="noopener noreferrer">Browse official Google Skills catalogue <span>↗</span></a>
+    <div class="badge-hero__stats"><div><b>{badges.length}</b><span>Curated badges</span></div><div><b>3</b><span>Suggested levels</span></div><div><b>8</b><span>Learning topics</span></div></div>
+  </div></section>
+  <section class="container badge-tools">
+    <div class="badge-tools__head"><div><p class="eyebrow">EXPLORE THE CATALOGUE</p><h2 class="display">Choose a skill to build.</h2><p>Search by badge name or filter by suggested difficulty.</p></div><div class="badge-search"><label for="badge-search">Search skill badges</label><input id="badge-search" type="search" placeholder="Try BigQuery, Gemini, Kubernetes…" autocomplete="off"></div></div>
+    <div class="badge-filters" role="group" aria-label="Filter by suggested level"><button class="active" type="button" data-level="all">All badges</button><button type="button" data-level="Beginner">Beginner</button><button type="button" data-level="Intermediate">Intermediate</button><button type="button" data-level="Advanced">Advanced</button></div>
+    <div class="badge-results"><p class="badge-count" id="badge-count" aria-live="polite">{badges.length} skill badges</p><span class="badge-count">A curated snapshot · verify current availability on Google Skills</span></div>
+    <div class="badge-grid" id="badge-grid">
+      {badges.map((badge) => <article class="badge-card" data-name={badge.name.toLowerCase()} data-level={badge.level}>
+        <a class="badge-card__image" href="https://www.skills.google/catalog" target="_blank" rel="noopener noreferrer" aria-label={'Find '+badge.name+' on Google Skills'}>
+          <img src={'/assets/images/skill-badges/'+badge.category+'.svg'} alt="" loading="lazy" width="240" height="190" />
+          <span class="badge-card__image-tag">B TECKY TOPIC ART</span>
+        </a>
+        <div class="badge-card__body"><div class="badge-card__meta"><span class="badge-level">{badge.level}</span><span class="badge-index">#{String(badge.id).padStart(2,'0')}</span></div>
+          <h3>{badge.name}</h3><p class="badge-card__topic">{badge.category.replace('-', ' ')} learning</p>
+          <a class="badge-card__link" href="https://www.skills.google/catalog" target="_blank" rel="noopener noreferrer">View on Google Skills <span>↗</span></a>
+        </div>
+      </article>)}
+    </div>
+    <div class="badge-empty" id="badge-empty" hidden>No badges match your search. Try another keyword or choose a different level.</div>
+    <p class="badge-disclaimer">The artwork on these cards is original B Tecky topic illustration, not the official Google credential artwork. Difficulty labels are B Tecky suggestions, not official Google ratings. This curated list may not include every badge currently available; Google Skills is the source of truth for current badge details, prerequisites and availability.</p>
+  </section>
+</main>
+</BaseLayout>
+<style>
+.badge-directory{--badge-blue:#315efb;--badge-ink:#101a3a;--badge-muted:#667085;color:var(--badge-ink)}
+.badge-hero{position:relative;overflow:hidden;padding:76px 0 56px;background:radial-gradient(ellipse at 82% 28%,rgba(49,94,251,.16),transparent 34%),linear-gradient(135deg,#f3f6ff,#fff 68%)}
+.badge-hero:after{content:"";position:absolute;width:370px;height:370px;right:-120px;bottom:-230px;border:1px solid rgba(49,94,251,.16);border-radius:50%;box-shadow:0 0 0 35px rgba(49,94,251,.035),0 0 0 75px rgba(49,94,251,.025)}
+.badge-hero__inner{position:relative;z-index:1}
+.badge-hero h1{font-size:clamp(3rem,6vw,5.5rem);line-height:.96;letter-spacing:-.07em;margin:20px 0}
+.badge-hero h1 span{color:var(--badge-blue)}
+.badge-hero__inner>p:not(.eyebrow){max-width:690px;color:var(--badge-muted);font-size:1.05rem;line-height:1.8}
+.badge-official{display:inline-flex;align-items:center;gap:12px;margin-top:15px;padding:13px 17px;border-radius:11px;background:var(--badge-blue);color:#fff;font-weight:800;box-shadow:0 10px 24px rgba(49,94,251,.2)}
+.badge-official:hover{background:#2148d8;color:#fff}
+.badge-hero__stats{display:flex;gap:34px;margin-top:36px}
+.badge-hero__stats div{display:grid;gap:2px}
+.badge-hero__stats b{font:800 1.65rem var(--font-display);letter-spacing:-.04em}
+.badge-hero__stats span{font-size:.76rem;color:var(--badge-muted)}
+.badge-tools{padding-block:65px 90px}
+.badge-tools__head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:25px}
+.badge-tools__head h2{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.055em;margin:8px 0}
+.badge-tools__head p:not(.eyebrow){color:var(--badge-muted);margin:0}
+.badge-search{width:min(390px,100%);flex:0 1 390px}
+.badge-search label{display:block;font-size:.8rem;font-weight:800;margin-bottom:8px}
+.badge-search input{width:100%;padding:14px 16px;border:1px solid #d8deeb;border-radius:12px;background:#fff;color:#101828;font:500 .92rem var(--font-body);box-shadow:0 4px 16px rgba(16,26,58,.035)}
+.badge-search input:focus{outline:3px solid rgba(49,94,251,.15);border-color:var(--badge-blue)}
+.badge-filters{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 13px}
+.badge-filters button{border:1px solid #d8deeb;background:#fff;border-radius:999px;padding:9px 16px;color:#344054;font:700 .78rem var(--font-body);cursor:pointer;transition:.18s}
+.badge-filters button:hover{border-color:var(--badge-blue);color:var(--badge-blue)}
+.badge-filters button.active{background:var(--badge-ink);border-color:var(--badge-ink);color:#fff}
+.badge-results{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0 17px}
+.badge-count{font-size:.76rem;color:var(--badge-muted);margin:0}
+.badge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.badge-card{overflow:hidden;border:1px solid #e5eaf4;border-radius:17px;background:#fff;box-shadow:0 8px 28px rgba(16,26,58,.045);transition:transform .2s,border-color .2s,box-shadow .2s;display:flex;flex-direction:column;min-width:0}
+.badge-card:hover{transform:translateY(-4px);border-color:rgba(49,94,251,.35);box-shadow:0 17px 38px rgba(16,26,58,.1)}
+.badge-card[hidden]{display:none!important}
+.badge-card__image{position:relative;display:block;aspect-ratio:1.6;background:#101a3a;overflow:hidden}
+.badge-card__image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.badge-card:hover .badge-card__image img{transform:scale(1.04)}
+.badge-card__image-tag{position:absolute;left:12px;bottom:11px;padding:5px 8px;border:1px solid rgba(255,255,255,.24);border-radius:6px;background:rgba(12,23,50,.55);color:#fff;font-size:.55rem;font-weight:800;letter-spacing:.12em;backdrop-filter:blur(8px)}
+.badge-card__body{display:flex;flex:1;flex-direction:column;padding:17px}
+.badge-card__meta{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.badge-level{padding:5px 8px;border-radius:999px;background:#edf2ff;color:#315efb;font-size:.6rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+.badge-index{color:#98a2b3;font-size:.68rem;font-weight:700}
+.badge-card h3{font:800 1rem/1.38 var(--font-display);letter-spacing:-.025em;margin:12px 0 7px}
+.badge-card__topic{margin:0;color:#8792a6;font-size:.68rem;text-transform:capitalize}
+.badge-card__link{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:12px;border-top:1px solid #edf0f6;color:var(--badge-blue);font-size:.75rem;font-weight:800}
+.badge-empty{padding:24px;border:1px dashed #cbd5e1;border-radius:14px;color:#667085;text-align:center}
+.badge-disclaimer{max-width:900px;margin-top:30px;color:#667085;font-size:.78rem;line-height:1.75}
+@media(max-width:900px){.badge-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.badge-tools__head{align-items:stretch;flex-direction:column}.badge-search{width:100%;flex-basis:auto}}
+@media(max-width:560px){.badge-hero{padding:58px 0 42px}.badge-hero__stats{gap:22px}.badge-hero__stats b{font-size:1.4rem}.badge-tools{padding-block:42px 60px}.badge-grid{grid-template-columns:1fr}.badge-card__image{aspect-ratio:1.8}.badge-results{flex-direction:column}}
+</style>
+<script>
+const search = document.querySelector<HTMLInputElement>('#badge-search');
+const grid = document.querySelector<HTMLElement>('#badge-grid');
+const count = document.querySelector<HTMLElement>('#badge-count');
+const empty = document.querySelector<HTMLElement>('#badge-empty');
+const cards = Array.from(document.querySelectorAll<HTMLElement>('.badge-card'));
+const filters = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-level]'));
+let activeLevel = 'all';
+const render = () => {
+  const query = (search?.value || '').trim().toLowerCase();
+  let visible = 0;
+  cards.forEach((card) => {
+    const matchesName = (card.dataset.name || '').includes(query);
+    const matchesLevel = activeLevel === 'all' || card.dataset.level === activeLevel;
+    const show = matchesName && matchesLevel;
+    card.hidden = !show;
+    if (show) visible++;
+  });
+  if (count) count.textContent = visible + ' skill badge' + (visible === 1 ? '' : 's') + ' found';
+  if (empty) empty.hidden = visible !== 0;
+  if (grid) grid.setAttribute('aria-label', visible + ' matching skill badges');
+};
+search?.addEventListener('input', render);
+filters.forEach((button) => button.addEventListener('click', () => {
+  activeLevel = button.dataset.level || 'all';
+  filters.forEach((item) => {
+    const selected = item === button;
+    item.classList.toggle('active', selected);
+    item.setAttribute('aria-pressed', String(selected));
+  });
+  render();
+}));
+filters.forEach((button) => button.setAttribute('aria-pressed', String(button.classList.contains('active'))));
+</script>

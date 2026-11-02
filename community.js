@@ -21,12 +21,7 @@
     var a=el('<a class="btn btn-line mentor-link" href="'+LINKS.mentorship+'" target="_blank" rel="noopener noreferrer">Mentorship</a>');
     if(sub) nav.insertBefore(a,sub); else nav.appendChild(a);
   }
-  var footer=document.querySelector('footer');
-  if(footer&&!footer.querySelector('.community-footer-block')){
-    var wrap=el('<div class="community-footer-block"><div><p class="eyebrow">Stay connected</p><h2>Join the B Tecky community</h2><p>New videos, tech opportunities, learning resources and community updates.</p></div><div class="community-footer-links"></div></div>');
-    var links=wrap.querySelector('.community-footer-links');
-    [['linkedin','LinkedIn'],['telegram','Telegram'],['whatsapp','WhatsApp Channel'],['youtube','YouTube']].forEach(function(x){links.appendChild(el('<a href="'+LINKS[x[0]]+'" target="_blank" rel="noopener noreferrer"><span class="community-footer-icon">'+ICONS[x[0]]+'</span><span>'+x[1]+'</span></a>'));});
-    var footInner=footer.querySelector('.wrap')||footer.firstElementChild;
-    if(footInner) footInner.insertBefore(wrap,footInner.firstChild);
-  }
+  // Community links now live beneath the B Tecky brand in the shared footer.
+  // Do not inject a second footer grid item here: it breaks the shared footer layout.
+
 })();

@@ -46,3 +46,7 @@
 @media(max-width:480px){.site-header__inner{width:calc(100% - 28px);min-height:66px}.site-brand{font-size:1.12rem;gap:8px}.site-brand img{width:38px;height:38px}.site-tools{gap:0}.site-tool{width:34px;height:36px}.site-menu-toggle{width:38px;height:38px}.site-search__panel{padding:12px}.site-search__foot{gap:9px}.site-updates{right:8px}}
 @media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){[data-magnetic]{will-change:transform}}
 @media(prefers-reduced-motion:reduce){.site-header,.site-nav__link,.site-nav__item>a,.site-nav__chevron,.mega-menu,.mega-card,.site-tool,.site-header__cta,.site-menu-toggle span{transition:none!important}.site-header.is-hidden{transform:none!important}}
+
+/* The Products menu now contains exactly two tools. */
+.mega-menu__grid--products{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:980px){.mega-menu__grid--products{grid-template-columns:1fr}}

@@ -1,27 +1,4 @@
-/* Games and skill badges seen in the Facilitator reports (used by the calculator's checklist). Add names here if one is missing. */
-window.ARCADE_CATALOG={
- "games": [
-  "Arcade Adventure: Data Vault",
-  "Arcade Adventure: Low-Code Development",
-  "Arcade Adventure: Modern Cloud Architecture",
-  "Arcade Base Camp August 2026",
-  "Arcade Base Camp July 2026",
-  "Arcade Base Camp September 2026",
-  "Arcade Re-Trail: Vaults & Vectors",
-  "Arcade Simulator: Data Mesh Architect",
-  "Arcade Simulator: DevOps Engineer",
-  "Arcade Simulator: Network Security Engineer",
-  "Arcade Trail: Cloud Delivery Systems",
-  "Arcade Trail: Data Engineering and Security",
-  "Arcade Trail: Google Workspace Administration",
-  "Arcade Voyage: App Modernization",
-  "Arcade Voyage: Cloud Storage and Data Governance",
-  "Arcade Voyage: Google Sheets",
-  "Pitch Perfect",
-  "Safe Spaces",
-  "Spans and Plans"
- ],
- "badges": [
+[
   "Analyze and Reason on Multimodal Data with Gemini",
   "Analyze BigQuery Data in Connected Sheets",
   "Analyze Images with the Cloud Vision API",
@@ -121,5 +98,4 @@ window.ARCADE_CATALOG={
   "Use Functions, Formulas, and Charts in Google Sheets",
   "Use Machine Learning APIs on Google Cloud",
   "Using the Google Cloud Speech API"
- ]
-};
+]

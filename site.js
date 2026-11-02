@@ -14,10 +14,36 @@
     });
   }
 
+  /* ---- legacy navigation dropdowns (standalone calculator pages) ---- */
+  document.querySelectorAll(".nav-drop-toggle").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var dropdown = button.closest(".nav-dropdown");
+      var open = dropdown && !dropdown.classList.contains("open");
+      document.querySelectorAll(".nav-dropdown").forEach(function (item) {
+        item.classList.remove("open");
+        var trigger = item.querySelector(".nav-drop-toggle");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
+      });
+      if (dropdown && open) { dropdown.classList.add("open"); button.setAttribute("aria-expanded", "true"); }
+    });
+  });
+  document.addEventListener("click", function (event) {
+    if (!event.target.closest(".nav-dropdown")) document.querySelectorAll(".nav-dropdown").forEach(function (item) {
+      item.classList.remove("open");
+      var trigger = item.querySelector(".nav-drop-toggle");
+      if (trigger) trigger.setAttribute("aria-expanded", "false");
+    });
+  });
+
   /* ---- social links (from config.js) ---- */
   (function initSocial() {
     var S = window.BTECKY_SOCIAL || {};
     var defs = [["youtube", "YouTube"], ["linkedin", "LinkedIn"], ["instagram", "Instagram"], ["x", "X"], ["telegram", "Telegram"], ["whatsapp", "WhatsApp"], ["github", "GitHub"]];
+    var footer = document.querySelector("footer");
+    if (footer && !footer.querySelector("[data-social]") && !footer.querySelector(".footer-social")) {
+      var brandBlock = footer.querySelector(".footer-brand-block") || footer.querySelector(".wrap > div") || footer.querySelector(".wrap");
+      if (brandBlock) { var social = document.createElement("div"); social.className = "social"; social.setAttribute("data-social", ""); social.setAttribute("aria-label", "B Tecky on social media"); brandBlock.appendChild(social); }
+    }
     document.querySelectorAll("[data-social]").forEach(function (box) {
       box.innerHTML = "";
       defs.forEach(function (d) {
