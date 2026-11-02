@@ -23,7 +23,10 @@ for(const path of walk(root)){
  if(brand)html=html.replace(brand[0],canonicalHeader);
  else if(!html.includes('id="site-header"'))html=html.replace(/<body\b[^>]*>/i,m=>m+canonicalHeader);
  const footers=[...html.matchAll(/<footer\\b[^>]*>[\\s\\S]*?<\\/footer>/gi)];
- for(const footer of footers)html=html.replace(footer[0],'');
+ for(const footer of footers) {
+  if(/class=["'][^"']*\\barticle-footer\\b/.test(footer[0]))continue;
+  html=html.replace(footer[0],'');
+ }
  html=html.replace(/<\\/body>/i,canonicalFooter+'</body>');
  if(!html.includes('/assets/css/site-header.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/assets/css/site-header.css"></head>');
  if(!html.includes('/assets/css/site-footer.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/assets/css/site-footer.css"></head>');
