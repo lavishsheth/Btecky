@@ -2,12 +2,15 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import badgeNames from '../../data/skill-badges.json';
 
-const slugify = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-const entries = (badgeNames as string[]).map((name, index) => ({ name, id: index + 1, slug: String(index + 1) + '-' + slugify(name) }));
+type BadgeEntry = { name: string; id: number; slug: string };
 export function getStaticPaths() {
+  const entries = (badgeNames as string[]).map((name, index) => ({
+    name,
+    id: index + 1,
+    slug: String(index + 1) + '-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+  }));
   return entries.map((badge) => ({ params: { slug: badge.slug }, props: { badge } }));
 }
-type BadgeEntry = { name: string; id: number; slug: string };
 const { badge } = Astro.props as { badge: BadgeEntry };
 const text = badge.name.toLowerCase();
 const category = /gemini|agent|generative ai|machine learning|multimodal|imagen|vertex ai|ai studio|deepmind/.test(text) ? 'Artificial intelligence'
