@@ -13,7 +13,7 @@ const legacyPaths = [
   'write-lavii-9f21k2', 'blog', 'assets', 'snippets',
   'style.css', 'additions.css', 'data.js', 'config.js', 'site.js', 'community.js',
   'channel.js', 'dynamic-posts.js', 'posts.js',
-  'arcade.js', 'arcade-calculator.js',
+  'arcade.js', 'arcade-calculator.js', 'arcade-calc.js', 'arcade-catalog.js', 'arcade-rules.js',
   'blog.html', 'arcade.html', 'arcade-calculator.html',
   'privacy.html', 'robots.txt', 'sitemap.xml', 'sitemap-additions.xml', 'ads.txt',
 ];
