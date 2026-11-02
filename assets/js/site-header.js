@@ -47,14 +47,6 @@
   header.querySelectorAll('.site-nav__chevron').forEach((button) => {
     const item = button.closest('.site-nav__item');
     button.addEventListener('click', () => toggleMenu(item));
-    if (finePointer) {
-      item.addEventListener('mouseenter', () => {
-        if (window.innerWidth > 980) toggleMenu(item, true);
-      });
-      item.addEventListener('mouseleave', () => {
-        if (window.innerWidth > 980) toggleMenu(item, false);
-      });
-    }
   });
   header.querySelectorAll('[data-menu-toggle]').forEach((link) => {
     link.addEventListener('click', (event) => {
@@ -175,6 +167,8 @@
     if (!header.contains(event.target)) {
       updatesPanel.hidden = true; updatesToggle?.setAttribute('aria-expanded', 'false');
       closeMenus();
+    } else if (!event.target.closest('.site-nav__item')) {
+      closeMenus();
     }
   });
 
@@ -184,7 +178,7 @@
     const percent = max > 0 ? Math.min(100, Math.max(0, window.scrollY / max * 100)) : 0;
     if (progress) progress.style.width = percent + '%';
     const y = window.scrollY;
-    const menuOpen = nav?.classList.contains('is-open') || !updatesPanel.hidden || searchDialog?.open;
+    const menuOpen = nav?.classList.contains('is-open') || Boolean(header.querySelector('.site-nav__item.is-open')) || !updatesPanel.hidden || searchDialog?.open;
     if (!reducedMotion && !menuOpen && y > 140 && y > lastScrollY + 5) header.classList.add('is-hidden');
     else if (y < lastScrollY - 4 || y < 70 || menuOpen) header.classList.remove('is-hidden');
     lastScrollY = y;
