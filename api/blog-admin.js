@@ -1,7 +1,7 @@
 // B Tecky blog admin API. Shared-secret admin check; GitHub PAT remains server-side.
 const OWNER = process.env.GITHUB_OWNER || 'lavishsheth';
 const REPO = process.env.GITHUB_REPO || 'Btecky';
-const BRANCH = 'main'; // Blog Studio publishes directly to the production catalogue on main
+const BRANCH = 'feature/arcade-calculator-rebuild'; // Preview-only publishing; never write directly to production main.
 const API = 'https://api.github.com';
 
 const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
