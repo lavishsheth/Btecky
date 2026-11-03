@@ -44,12 +44,27 @@ if (missing.length) {
 } else {
   const homepage = readFileSync(join(dist, 'index.html'), 'utf8');
   const footerOf = (html) => html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/)?.[0]?.replace(/\s+/g, ' ').trim() || '';
+  const headerOf = (html) => html.match(/<header class="site-header" id="site-header">[\s\S]*?<\/header>/)?.[0]?.replace(/\s+/g, ' ').trim() || '';
   const expectedFooter = footerOf(homepage);
+  const expectedHeader = headerOf(homepage);
   const arcadePages = ['arcade.html', 'arcade-calculator.html'];
   const footerMismatches = arcadePages.filter((path) => {
     const file = join(dist, path);
     return !existsSync(file) || !expectedFooter || footerOf(readFileSync(file, 'utf8')) !== expectedFooter;
   });
+  const headerMismatches = arcadePages.filter((path) => {
+    const file = join(dist, path);
+    if (!existsSync(file)) return true;
+    const html = readFileSync(file, 'utf8');
+    return !expectedHeader || headerOf(html) !== expectedHeader ||
+      !html.includes('/assets/css/site-header.css') ||
+      !html.includes('/assets/js/site-header.js') ||
+      /<header class="site-head"/.test(html);
+  });
+  if (headerMismatches.length) {
+    console.error('Arcade pages do not use the exact homepage navigation:', headerMismatches.join(', '));
+    process.exitCode = 1;
+  }
   if (footerMismatches.length) {
     console.error('Arcade pages do not share the exact homepage footer:', footerMismatches.join(', '));
     process.exitCode = 1;
