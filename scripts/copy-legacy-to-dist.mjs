@@ -3,7 +3,7 @@
  * Astro owns generated routes (notably / and /blog); this copies legacy
  * pages, assets and data into dist without overwriting generated files.
  */
-import { cpSync, existsSync, mkdirSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
 const root = process.cwd();
@@ -13,12 +13,14 @@ const legacyPaths = [
   'write-lavii-9f21k2', 'blog', 'assets', 'snippets',
   'style.css', 'additions.css', 'data.js', 'config.js', 'site.js', 'community.js',
   'channel.js', 'dynamic-posts.js', 'posts.js',
-  'arcade.js', 'arcade-calculator.js',
+  'arcade.js', 'arcade-calculator.js', 'arcade-calc.js', 'arcade-catalog.js', 'arcade-rules.js',
   'blog.html', 'arcade.html', 'arcade-calculator.html',
   'privacy.html', 'robots.txt', 'sitemap.xml', 'sitemap-additions.xml', 'ads.txt',
 ];
 
 mkdirSync(output, { recursive: true });
+// Remove the retired Arcade Guides & Videos route, including stale files restored from build cache.
+rmSync(join(output, 'arcade', 'guide'), { recursive: true, force: true });
 let copied = 0;
 for (const relative of legacyPaths) {
   const source = join(root, relative);

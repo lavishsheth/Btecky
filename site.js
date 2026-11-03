@@ -1,39 +1,7 @@
 (function () {
   "use strict";
 
-  /* ---- mobile menu ---- */
-  var t = document.querySelector(".nav-toggle"), n = document.getElementById("nav");
-  if (t && n) {
-    t.addEventListener("click", function () {
-      var open = n.classList.toggle("open");
-      t.setAttribute("aria-expanded", open ? "true" : "false");
-      t.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    });
-    n.addEventListener("click", function (e) {
-      if (e.target.tagName === "A") { n.classList.remove("open"); t.setAttribute("aria-expanded", "false"); }
-    });
-  }
-
-  /* ---- legacy navigation dropdowns (standalone calculator pages) ---- */
-  document.querySelectorAll(".nav-drop-toggle").forEach(function (button) {
-    button.addEventListener("click", function () {
-      var dropdown = button.closest(".nav-dropdown");
-      var open = dropdown && !dropdown.classList.contains("open");
-      document.querySelectorAll(".nav-dropdown").forEach(function (item) {
-        item.classList.remove("open");
-        var trigger = item.querySelector(".nav-drop-toggle");
-        if (trigger) trigger.setAttribute("aria-expanded", "false");
-      });
-      if (dropdown && open) { dropdown.classList.add("open"); button.setAttribute("aria-expanded", "true"); }
-    });
-  });
-  document.addEventListener("click", function (event) {
-    if (!event.target.closest(".nav-dropdown")) document.querySelectorAll(".nav-dropdown").forEach(function (item) {
-      item.classList.remove("open");
-      var trigger = item.querySelector(".nav-drop-toggle");
-      if (trigger) trigger.setAttribute("aria-expanded", "false");
-    });
-  });
+  /* Shared homepage navigation is initialized by /assets/js/site-header.js. */
 
   /* ---- social links (from config.js) ---- */
   (function initSocial() {
@@ -290,56 +258,6 @@
     });
     if(neighbors.children.length) parent.appendChild(neighbors);
   }
-  function normalizePublicationNav(){
-    var header=document.querySelector(".site-head");
-    if(!header)return;
-    var wrap=header.querySelector(".wrap");
-    var nav=header.querySelector(".nav");
-    if(!wrap||!nav)return;
-    var existingToggle=wrap.querySelector(".nav-toggle");
-    var logo=wrap.querySelector(".brand");
-    if(!logo)return;
-    /* Legacy article headers can contain an old logo plus an injected mark.
-       Rebuild the brand consistently so there is exactly one icon and label. */
-    logo.innerHTML='<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#2456ff"/><g fill="#fff"><rect x="10" y="6" width="16" height="4"/><rect x="10" y="10" width="4" height="8"/><rect x="26" y="10" width="4" height="8"/><rect x="10" y="18" width="16" height="4"/><rect x="10" y="22" width="4" height="8"/><rect x="26" y="22" width="4" height="8"/><rect x="10" y="30" width="16" height="4"/></g></svg><span>B Tecky</span>';
-    var favicon=document.querySelector('link[rel~="icon"]');
-    if(!favicon){favicon=make("link");favicon.rel="icon";document.head.appendChild(favicon);}
-    favicon.type="image/svg+xml";
-    favicon.href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%232456ff'/%3E%3Ctext x='20' y='29' font-size='28' font-family='Arial' font-weight='bold' text-anchor='middle' fill='white'%3EB%3C/text%3E%3C/svg%3E";
-    nav.innerHTML=
-      '<a href="/">Home</a>'+
-      '<a href="/about">About</a>'+
-      '<a href="/#services">Services</a>'+
-      '<a href="/#products">Products</a>'+
-      '<a href="/blog" aria-label="Blog and guides">Blog</a>'+
-      '<div class="nav-dropdown"><button type="button" class="nav-drop-toggle" aria-expanded="false">Arcade <span aria-hidden="true">▾</span></button>'+
-      '<div class="nav-drop-menu"><a href="/arcade">Score Checker</a><a href="/arcade-calculator">Points Calculator</a><a href="/playlists">Learning Playlists</a></div></div>'+
-      '<a href="/partners">Partnerships</a>'+
-      '<a href="/contact">Contact</a>';
-    nav.id="nav";
-    if(!existingToggle){
-      existingToggle=make("button","nav-toggle");
-      existingToggle.type="button";
-      existingToggle.setAttribute("aria-label","Open menu");
-      existingToggle.setAttribute("aria-expanded","false");
-      existingToggle.setAttribute("aria-controls","nav");
-      existingToggle.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
-      logo.insertAdjacentElement("afterend",existingToggle);
-    }
-    existingToggle.onclick=function(){
-      var open=nav.classList.toggle("open");
-      existingToggle.setAttribute("aria-expanded",open?"true":"false");
-      existingToggle.setAttribute("aria-label",open?"Close menu":"Open menu");
-    };
-    nav.addEventListener("click",function(event){
-      if(event.target.tagName==="A"){nav.classList.remove("open");existingToggle.setAttribute("aria-expanded","false");}
-    });
-    var drop=nav.querySelector(".nav-drop-toggle");
-    if(drop)drop.addEventListener("click",function(){
-      var parent=drop.closest(".nav-dropdown"),open=parent.classList.toggle("open");
-      drop.setAttribute("aria-expanded",open?"true":"false");
-    });
-  }
   function promoteLegacyArticleHeadings(body){
     if(body.dataset.editorialHeadings==="true")return;
     body.dataset.editorialHeadings="true";
@@ -413,7 +331,7 @@
   }
   function enhance(root){
     root=root||document;
-    normalizePublicationNav();
+
     var shell=root.querySelector(".article-wrap") || root.querySelector("#post-root");
     if(!shell){
       var modernBody=root.querySelector(".article-body");
@@ -563,19 +481,10 @@
       fill.style.width=amount+"%";
     }
     window.addEventListener("scroll",update,{passive:true});window.addEventListener("resize",update);update();
-    var articleNav=document.querySelector(".site-head .nav");
-    if(articleNav && !document.querySelector(".site-head .nav-toggle")){
-      if(!articleNav.id) articleNav.id="nav";
-      var toggle=make("button","nav-toggle");toggle.type="button";toggle.setAttribute("aria-label","Open menu");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-controls",articleNav.id);
-      toggle.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>';
-      articleNav.parentNode.insertBefore(toggle,articleNav);
-      toggle.addEventListener("click",function(){var open=articleNav.classList.toggle("open");toggle.setAttribute("aria-expanded",open?"true":"false");toggle.setAttribute("aria-label",open?"Close menu":"Open menu");});
-      articleNav.addEventListener("click",function(event){if(event.target.tagName==="A"){articleNav.classList.remove("open");toggle.setAttribute("aria-expanded","false");}});
-    }
     return true;
   }
   function start(){
-    normalizePublicationNav();
+
     if(enhance(document)) return;
     var root=document.getElementById("post-root");
     if(root&&"MutationObserver" in window){

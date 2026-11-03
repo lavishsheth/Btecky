@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import badgeNames from '../../data/skill-badges.json';
+import officialBadgeLinks from '../../data/skill-badge-links.json';
 
 type BadgeCategory = 'ai' | 'data' | 'cloud' | 'security' | 'network' | 'devops' | 'apps' | 'workspace';
 const classify = (name: string): BadgeCategory => {
@@ -20,9 +21,14 @@ const levelOf = (name: string) => {
   if (/multi-agent|kubernetes|architecture|migrations|security|terraform|network|bigtable|spanner|alloydb|vector search|prometheus|sensitive data|cloud sql|load balancing|agent development kit|devops|ci\/cd|predictive modeling/.test(s)) return 'Advanced';
   return 'Intermediate';
 };
-const badges = (badgeNames as string[]).map((name, index) => ({
-  name, category: classify(name), level: levelOf(name), id: index + 1
-}));
+const badges = (badgeNames as string[]).map((name, index) => {
+  const courseLink = (officialBadgeLinks as Record<string, number | string>)[name];
+  return {
+    name, category: classify(name), level: levelOf(name), id: index + 1,
+    slug: `${index + 1}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`,
+    officialUrl: courseLink ? (typeof courseLink === 'number' ? `https://www.skills.google/course_templates/${courseLink}` : `https://www.skills.google${courseLink}`) : null,
+  };
+});
 ---
 <BaseLayout title="Google Cloud Skill Badge Directory | B Tecky" description="Explore 99 curated Google Cloud skill badges with visual topic artwork, suggested levels and links to the official Google Skills catalogue.">
 <main class="badge-directory">
@@ -39,13 +45,13 @@ const badges = (badgeNames as string[]).map((name, index) => ({
     <div class="badge-results"><p class="badge-count" id="badge-count" aria-live="polite">{badges.length} skill badges</p><span class="badge-count">A curated snapshot · verify current availability on Google Skills</span></div>
     <div class="badge-grid" id="badge-grid">
       {badges.map((badge) => <article class="badge-card" data-name={badge.name.toLowerCase()} data-level={badge.level}>
-        <a class="badge-card__image" href="https://www.skills.google/catalog" target="_blank" rel="noopener noreferrer" aria-label={'Find '+badge.name+' on Google Skills'}>
+        <a class="badge-card__image" href={badge.officialUrl || '/skill-badges/'+badge.slug} target={badge.officialUrl ? '_blank' : undefined} rel={badge.officialUrl ? 'noopener noreferrer' : undefined} aria-label={'Open official Google Skills page for '+badge.name}>
           <img src={'/assets/images/skill-badges/'+badge.category+'.svg'} alt="" loading="lazy" width="240" height="190" />
           <span class="badge-card__image-tag">B TECKY TOPIC ART</span>
         </a>
         <div class="badge-card__body"><div class="badge-card__meta"><span class="badge-level">{badge.level}</span><span class="badge-index">#{String(badge.id).padStart(2,'0')}</span></div>
           <h3>{badge.name}</h3><p class="badge-card__topic">{badge.category.replace('-', ' ')} learning</p>
-          <a class="badge-card__link" href="https://www.skills.google/catalog" target="_blank" rel="noopener noreferrer">View on Google Skills <span>↗</span></a>
+          <a class="badge-card__link" href={badge.officialUrl || '/skill-badges/'+badge.slug} target={badge.officialUrl ? '_blank' : undefined} rel={badge.officialUrl ? 'noopener noreferrer' : undefined}>{badge.officialUrl ? 'Open official badge page' : 'View badge details'} <span>↗</span></a>
         </div>
       </article>)}
     </div>

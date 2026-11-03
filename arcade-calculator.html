@@ -1,165 +1,250 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Arcade Points Calculator 2026 | B Tecky</title>
-<meta name="description" content="Calculate your Google Cloud Arcade 2026 points, track prize-tier progress and estimate your next milestone with the B Tecky calculator.">
-<meta name="theme-color" content="#101a3a"><link rel="canonical" href="https://btecky.tech/arcade-calculator">
-<meta property="og:title" content="Arcade Points Calculator 2026 | B Tecky"><meta property="og:description" content="Fetch your public Google Skills profile and track Arcade points, badges, milestones and prize-tier progress."><meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/additions.css">
-<style>
-/* Arcade calculator page styles */
-.arc-page{color:var(--ink);background:var(--paper)}
-.arc-wrap{width:min(1120px,calc(100% - 44px));margin-inline:auto}
-.arc-hero{padding:58px 0 42px;background:linear-gradient(135deg,#f4f6fb 0%,#eaf0ff 100%)}
-.arc-eyebrow{margin:0 0 12px;color:var(--blue);font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-.arc-hero h1{max-width:900px;font-size:clamp(2.5rem,5.5vw,4.4rem);line-height:1.02}
-.arc-lede{max-width:760px;margin:18px 0 0;color:var(--muted);font-size:1.12rem}
-.arc-section{padding:38px 0}
-.arc-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:22px;align-items:start}
-.arc-card,.arc-score{min-width:0;border:1px solid var(--line);border-radius:20px;padding:24px;background:#fff;box-shadow:0 12px 32px rgba(16,26,58,.06)}
-.arc-card h2,.arc-section h2{margin:0 0 16px}
-.arc-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.arc-field{display:grid;gap:7px;margin:15px 0}
-.arc-field label{font-weight:700;font-size:.95rem}
-.arc-field input,.arc-field select{width:100%;min-height:48px;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font:500 1rem var(--body)}
-.arc-field input:focus,.arc-field select:focus{outline:3px solid rgba(36,86,255,.15);border-color:var(--blue)}
-.arc-muted{margin:7px 0 0;color:var(--muted);font-size:.9rem}
-.arc-check{display:flex;gap:10px;align-items:flex-start;margin:18px 0;font-weight:600}
-.arc-check input{width:18px;height:18px;margin-top:3px;accent-color:var(--blue);flex:none}
-.arc-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.arc-btn{display:inline-flex;justify-content:center;align-items:center;min-height:44px;padding:11px 17px;border:0;border-radius:10px;background:var(--blue);color:#fff;font:700 .95rem var(--body);cursor:pointer}
-.arc-btn:hover{background:var(--blue-dark)}
-.arc-btn.secondary{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
-.arc-btn.secondary:hover{box-shadow:inset 0 0 0 1.5px var(--blue);color:var(--blue-dark)}
-.arc-score{background:var(--ink);color:#fff;border-color:var(--ink)}
-.arc-score .arc-eyebrow{color:#b9c8ff}
-.arc-score>strong{display:block;margin:8px 0;font:800 clamp(3.8rem,8vw,6rem)/1 var(--display);color:var(--yellow)}
-.arc-score .arc-muted{color:#c2cbed}
-.arc-progress{height:12px;margin:20px 0 10px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden}
-.arc-progress span{display:block;width:0;height:100%;border-radius:99px;background:var(--yellow);transition:width .2s}
-.arc-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:22px}
-.arc-kpi{padding:13px 10px;border-radius:12px;background:rgba(255,255,255,.09)}
-.arc-kpi b{display:block;font:800 1.45rem var(--display);color:#fff}
-.arc-kpi small{display:block;color:#c2cbed;font-size:.78rem}
-.arc-tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:20px}
-.arc-tier{display:grid;gap:9px;padding:18px;border:1px solid var(--line);border-radius:15px;background:#fff;transition:border-color .15s,transform .15s}
-.arc-tier.active{border:2px solid var(--blue);background:#eef3ff;transform:translateY(-2px)}
-.arc-tier strong{font:800 1.2rem var(--display)}
-.arc-tier .arc-muted{margin:0}
-.arc-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.arc-table th,.arc-table td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line)}
-.arc-table th{background:#edf1fb}
-.arc-table tr:last-child td{border-bottom:0}
-.arc-note{padding:14px 16px;border:1px solid #f0dfa7;border-radius:12px;background:#fff8e2;color:#695100}
-.arc-list{padding-left:20px}
-.arc-list li{margin:8px 0}
-.arc-faq details{margin:10px 0;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:#fff}
-.arc-faq summary{font-weight:700;cursor:pointer}
-.arc-faq details p{margin:10px 0 0;color:var(--muted)}
-.arc-link{font-weight:600}
-@media(max-width:800px){.arc-grid{grid-template-columns:1fr}.arc-tiers{grid-template-columns:repeat(2,1fr)}.arc-hero{padding:42px 0 30px}}
-@media(max-width:540px){.arc-wrap{width:min(100% - 28px,1120px)}.arc-card,.arc-score{padding:18px}.arc-two{grid-template-columns:1fr}.arc-tiers{grid-template-columns:1fr 1fr}.arc-kpis{grid-template-columns:repeat(3,1fr)}.arc-kpi{padding:10px 7px}.arc-kpi b{font-size:1.2rem}.arc-table th,.arc-table td{padding:10px 8px;font-size:.9rem}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arcade Points Calculator 2026: Total Points and Prize Tier | B Tecky</title>
+<meta name="description" content="Free Google Skills Arcade 2026 points calculator: add your games, skill badges and Facilitator bonuses, see your prize tier (Trooper to Legend) and plan the points you still need.">
+<meta name="theme-color" content="#101a3a">
+<link rel="canonical" href="https://bteckyweb.netlify.app/arcade-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="B Tecky">
+<meta property="og:title" content="Arcade Points Calculator 2026 | B Tecky">
+<meta property="og:description" content="Add up your Arcade points, see your prize tier and plan what is left. Free, no login.">
+<meta property="og:url" content="https://bteckyweb.netlify.app/arcade-calculator.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%232456ff'/%3E%3Cg fill='%23fff'%3E%3Crect x='10' y='6' width='16' height='4'/%3E%3Crect x='10' y='10' width='4' height='8'/%3E%3Crect x='26' y='10' width='4' height='8'/%3E%3Crect x='10' y='18' width='16' height='4'/%3E%3Crect x='10' y='22' width='4' height='8'/%3E%3Crect x='26' y='22' width='4' height='8'/%3E%3Crect x='10' y='30' width='16' height='4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/additions.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Arcade Points Calculator","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Calculate Google Skills Arcade 2026 points, prize tier and progress.","publisher":{"@type":"Organization","name":"B Tecky"}}</script>
+</head>
+<body>
+<!-- Shared homepage navigation is injected during the build. -->
+<main id="top">
 
-/* Keep the shared B Tecky shell styled on this standalone legacy page. */
-.site-head{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100}
-.site-head>.wrap{width:min(1120px,calc(100% - 44px));height:72px;margin:0 auto;padding:0;display:flex;align-items:center;gap:22px}
-.site-head .brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font:800 1.3rem/1 var(--display);white-space:nowrap}
-.site-head .brand svg{width:38px;height:38px;flex:none}
-.site-head .nav{display:flex;align-items:center;gap:3px;margin-left:auto}
-.site-head .nav>a,.site-head .nav .nav-drop-toggle{display:inline-flex;align-items:center;padding:10px 11px;border:0;border-radius:8px;background:transparent;color:var(--ink);font:600 .92rem var(--body);text-decoration:none;white-space:nowrap}
-.site-head .nav>a:hover,.site-head .nav .nav-drop-toggle:hover{background:#f1f4ff;color:var(--blue-dark)}
-.site-head .nav-dropdown{position:relative;display:flex;align-items:center}
-.site-head .nav-drop-menu{display:none;position:absolute;right:0;top:100%;min-width:220px;padding:8px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 48px rgba(16,26,58,.16);z-index:110}
-.site-head .nav-dropdown:hover .nav-drop-menu,.site-head .nav-dropdown:focus-within .nav-drop-menu,.site-head .nav-dropdown.open .nav-drop-menu{display:grid}
-.site-head .nav-drop-menu a{padding:10px 12px;border-radius:8px;color:var(--ink);text-decoration:none}
-.site-head .nav-drop-menu a:hover{background:#f1f4ff;color:var(--blue-dark)}
-.site-head .nav-toggle{display:none}
-.site-footer{background:var(--ink);color:#cbd4f1;padding:42px 0 24px;font-size:.9rem}
-.site-footer a{color:#fff;text-decoration:none}
-.site-footer a:hover{color:var(--yellow)}
-.site-footer .footer-inner{width:min(1120px,calc(100% - 44px));margin:0 auto;display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:28px 24px}
-.site-footer .footer-brand{display:inline-flex;align-items:center;gap:10px;color:#fff;font:800 1.3rem var(--display)}
-.site-footer .footer-brand img{width:40px;height:40px;object-fit:contain}
-.site-footer .footer-brand-block p{margin:12px 0 4px}
-.site-footer .footer-note{display:block;color:#9eacd6;font-size:.82rem}
-.site-footer .footer-social{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.site-footer .footer-social a{padding:6px 9px;border-radius:7px;background:rgba(255,255,255,.08);font-size:.8rem}
-.site-footer .footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-width:0}
-.site-footer .footer-column>b{margin-bottom:4px;color:#9eacd6;font-size:.75rem;letter-spacing:.1em}
-.site-footer .footer-column a{font-size:.85rem;line-height:1.45}
-.site-footer .footer-bottom{grid-column:1/-1;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);color:#9eacd6}
-.site-footer .footer-bottom a{color:#fff}
-@media(max-width:900px){.site-head>.wrap{height:auto;min-height:68px;flex-wrap:wrap;padding:10px 0}.site-head .nav{flex-wrap:wrap;justify-content:flex-end}.site-footer .footer-inner{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:620px){.site-head>.wrap{width:calc(100% - 28px)}.site-head .nav{width:100%;justify-content:flex-start;gap:2px}.site-head .nav>a,.site-head .nav .nav-drop-toggle{padding:8px 7px;font-size:.82rem}.site-footer .footer-inner{width:calc(100% - 28px);grid-template-columns:1fr 1fr;gap:24px 16px}.site-footer .footer-brand-block{grid-column:1/-1}.site-footer .footer-bottom{flex-direction:column;gap:8px}}
+  <section class="hero" aria-labelledby="h-calc" style="padding-bottom:10px">
+    <div class="wrap">
+      <p class="eyebrow">Free tool &middot; Google Skills Arcade 2026</p>
+      <h1 id="h-calc">Arcade Points Calculator</h1>
+      <p class="lede" style="margin-bottom:16px">Add up your games, skill badges and Facilitator bonuses, see which prize tier you are in, and plan the points you still need. It all runs in your browser.</p>
+      <div class="ac-note">Want your score from the Facilitator report instead? Use the <a href="arcade.html">Arcade Score Checker</a>. This calculator is a separate tool for working out your full season total.</div>
+    </div>
+  </section>
 
-</style>
-<header class="site-head"><div class="wrap">
-<a class="brand" href="/" aria-label="B Tecky home"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#2456ff"/><g fill="#fff"><rect x="10" y="6" width="16" height="4"/><rect x="10" y="10" width="4" height="8"/><rect x="26" y="10" width="4" height="8"/><rect x="10" y="18" width="16" height="4"/><rect x="10" y="22" width="4" height="8"/><rect x="26" y="22" width="4" height="8"/><rect x="10" y="30" width="16" height="4"/></g></svg><span>B Tecky</span></a>
-<button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
-<nav class="nav" id="nav" aria-label="Main">
-      <a href="/">Home</a>
-      <div class="nav-dropdown"><button type="button" class="nav-drop-toggle" aria-expanded="false">Products <span aria-hidden="true">▾</span></button><div class="nav-drop-menu">
-        <a href="/arcade">Arcade Score Checker</a><a href="/arcade-calculator.html">Arcade Points Calculator</a>
-      </div></div>
-      <a href="/blog">Blog</a>
-      <div class="nav-dropdown"><button type="button" class="nav-drop-toggle" aria-expanded="false">Arcade <span aria-hidden="true">▾</span></button><div class="nav-drop-menu">
-        <a href="/arcade/facilitator-calculator">Facilitator Score Calculator</a><a href="/arcade-calculator.html">Full Arcade Points Calculator</a><a href="/skill-badges">Skill Badge Directory</a>
-      </div></div>
-      <a href="/about">About</a>
-      <a href="/contact">Contact</a>
-    </nav>
-</div></header><main id="top" class="arc-page">
-<section class="arc-hero"><div class="arc-wrap">
-<p class="arc-eyebrow">B Tecky · Arcade toolkit</p><h1>Know your Arcade points. Plan your next milestone.</h1>
-<p class="arc-lede">A straightforward Google Cloud Arcade 2026 points calculator. Enter your eligible game badges, skill badges and verified Facilitator milestones to see your estimated score and prize-tier progress.</p>
-</div></section>
-<section class="arc-section"><div class="arc-wrap arc-grid">
-<div class="arc-card"><p class="arc-eyebrow">Your progress</p><h2>Calculate your points</h2>
-<div class="arc-two">
-<div class="arc-field"><label for="arc-games">Eligible Arcade game badges</label><input id="arc-games" type="number" min="0" max="999" step="1" value="0"></div>
-<div class="arc-field"><label for="arc-skills">Eligible skill badges</label><input id="arc-skills" type="number" min="0" max="999" step="1" value="0"></div>
-</div>
-<div class="arc-field"><label for="arc-fac">Verified Facilitator milestone</label><select id="arc-fac"><option value="0">No Facilitator milestone</option><option value="1">Milestone 1 · +5 points</option><option value="2">Milestone 2 · +15 points</option><option value="3">Milestone 3 · +25 points</option><option value="4">Ultimate Milestone · +35 points</option></select><p class="arc-muted">Select only the highest milestone you have officially qualified for. Milestone bonuses are not inferred from badge counts.</p></div>
-<label class="arc-check"><input id="arc-ai" type="checkbox"><span>I've completed and verified the separate AI Agent Bonus Milestone (+10 points).</span></label>
-<div class="arc-field"><label for="arc-extra">Other officially confirmed point adjustments</label><input id="arc-extra" type="number" min="0" max="999" step="0.5" value="0"><p class="arc-muted">Optional. Leave at 0 unless an official program record confirms an additional adjustment.</p></div>
-<div class="arc-actions"><button class="arc-btn" id="arc-reset" type="button">Reset calculator</button><button class="arc-btn secondary" id="arc-copy" type="button">Copy score summary</button></div>
-<p class="arc-muted" id="arc-save-status" aria-live="polite">Your entries are saved in this browser on this device.</p>
-</div>
-<div class="arc-score" aria-live="polite"><p class="arc-eyebrow" style="color:#b9c8ff">Estimated Arcade score</p><strong id="arc-total">0</strong><p class="arc-muted" id="arc-tier">Below Arcade Trooper</p>
-<div class="arc-progress"><span id="arc-fill"></span></div><p class="arc-muted" id="arc-next">50 points to Arcade Trooper</p>
-<div class="arc-kpis"><div class="arc-kpi"><b id="arc-game-points">0</b><small>Game points</small></div><div class="arc-kpi"><b id="arc-skill-points">0</b><small>Skill points</small></div><div class="arc-kpi"><b id="arc-bonus-points">0</b><small>Bonus points</small></div></div>
-</div>
-</div></section>
-<section class="arc-section" style="background:#f2f5fb"><div class="arc-wrap"><p class="arc-eyebrow">Prize counter</p><h2>2026 Arcade prize tiers</h2><p class="arc-muted">Your score shows which threshold you have reached. It does not guarantee a reward; prize availability and official eligibility rules apply.</p>
-<div class="arc-tiers" id="arc-tiers">
-<article class="arc-tier" data-tier="0"><b>🥾 Arcade Trooper</b><strong>50+ points</strong><span class="arc-muted">6,000 prize spots</span></article>
-<article class="arc-tier" data-tier="1"><b>🛡️ Arcade Ranger</b><strong>75+ points</strong><span class="arc-muted">4,000 prize spots</span></article>
-<article class="arc-tier" data-tier="2"><b>🏆 Arcade Champion</b><strong>95+ points</strong><span class="arc-muted">3,000 prize spots</span></article>
-<article class="arc-tier" data-tier="3"><b>👑 Arcade Legend</b><strong>120+ points</strong><span class="arc-muted">2,500 prize spots</span></article></div></div></section>
-<section class="arc-section"><div class="arc-wrap arc-grid"><div><p class="arc-eyebrow">How scoring works</p><h2>Simple, transparent point rules</h2><table class="arc-table"><thead><tr><th>Eligible activity</th><th>Points</th></tr></thead><tbody><tr><td>Arcade game badge</td><td>1 point each</td></tr><tr><td>Skill badge</td><td>0.5 points each</td></tr><tr><td>Facilitator milestone</td><td>+5 / +15 / +25 / +35</td></tr><tr><td>AI Agent Bonus Milestone</td><td>+10 points</td></tr></tbody></table>
-<p class="arc-note" style="margin-top:16px">This calculator is an estimate tool, not an official Google product. Count only activities that qualify under the current season rules. If a rule changes, Google's official announcement takes precedence.</p></div>
-<div class="arc-card"><h3>Example calculation</h3><p>8 eligible game badges and 20 eligible skill badges:</p><p><b>8 × 1 + 20 × 0.5 = 18 points</b></p><h3 style="margin-top:24px">Facilitator milestone guide</h3><ul class="arc-list"><li>Milestone 1: 6 games + 18 skill badges = +5</li><li>Milestone 2: 8 games + 34 skill badges = +15</li><li>Milestone 3: 10 games + 50 skill badges = +25</li><li>Ultimate: 12 games + 66 skill badges = +35</li></ul><p class="arc-muted">Only the highest qualifying milestone bonus applies. Confirm completion in your official Facilitator records.</p></div></div></section>
-<section class="arc-section arc-faq" style="background:#f2f5fb"><div class="arc-wrap"><p class="arc-eyebrow">Help centre</p><h2>Frequently asked questions</h2>
-<details><summary>Does this calculator automatically read my Google Skills profile?</summary><p>No. This clean rebuild uses manual counts so it does not depend on fragile page scraping, browser sessions, Google login access or a third-party profile parser. You can check your public profile separately and enter your eligible totals.</p></details>
-<details><summary>Are all badges on my profile eligible?</summary><p>No. Only badges and activities recognized by the current Arcade season rules count. Old, deprecated, duplicate or unrelated credentials may not qualify.</p></details>
-<details><summary>Can I include a Facilitator bonus?</summary><p>Yes, if you are an eligible Facilitator and have official confirmation of the milestone. Select the highest verified milestone only. The calculator does not decide eligibility.</p></details>
-<details><summary>Are prize tiers guaranteed?</summary><p>No. Thresholds indicate score bands. Prize inventory, timing, eligibility, regional rules and the official Prize Counter process may affect rewards.</p></details>
-<details><summary>Does the calculator save my progress?</summary><p>Your entered counts are saved locally in this browser on this device. They are not uploaded to B Tecky. Use Reset calculator to clear them.</p></details>
-<details><summary>Is B Tecky affiliated with Google?</summary><p>No. B Tecky is an independent community resource and is not affiliated with, endorsed by, or sponsored by Google LLC or Google Cloud.</p></details>
-<p style="margin-top:18px"><b>Official references:</b> <a class="arc-link" href="https://discuss.google.dev/t/google-skills-arcade-2026-tiers/371066" target="_blank" rel="noopener noreferrer">Arcade 2026 tiers</a> · <a class="arc-link" href="https://discuss.google.dev/t/what-s-changing-in-the-google-skills-arcade-from-april-2026/345557" target="_blank" rel="noopener noreferrer">April 2026 point changes</a> · <a class="arc-link" href="https://discuss.google.dev/t/arcade-facilitator-2026-bonus-milestone/386412" target="_blank" rel="noopener noreferrer">Facilitator bonus milestone</a> · <a class="arc-link" href="https://www.skills.google/" target="_blank" rel="noopener noreferrer">Google Skills profile</a></p>
-</div></section></main><footer class="site-footer">
-<div class="container footer-inner">
-<div class="footer-brand-block"><a class="footer-brand" href="/" aria-label="B Tecky home"><img src="/assets/images/btecky-logo.svg" alt="" width="40" height="40"><span>B Tecky</span></a><p>Practical technology, thoughtfully built.</p><span class="footer-note">Tools · Learning · Community</span><div class="footer-social" aria-label="B Tecky social links"><a href="https://www.youtube.com/@btecky" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://www.linkedin.com/in/lavish-sheth-163844215/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://t.me/bteckyls" target="_blank" rel="noopener noreferrer">Telegram</a><a href="https://whatsapp.com/channel/0029Va7uSWT7oQhlRVJKka1Q" target="_blank" rel="noopener noreferrer">WhatsApp Channel</a></div></div>
-<div class="footer-column"><b>EXPLORE</b><a href="/">Home</a><a href="/#explore">Products</a><a href="/arcade">Arcade Score Checker</a><a href="/arcade/facilitator-calculator">Facilitator Score Calculator</a><a href="/arcade-calculator.html">Full Arcade Points Calculator</a><a href="/skill-badges">Skill Badge Directory</a><a href="/about">About B Tecky</a></div>
-<div class="footer-column"><b>THE JOURNAL</b><a href="/blog">All stories</a><a href="/blog?type=video">Video blogs</a><a href="/blog?type=written">Written blogs</a><a href="/playlists">Learning Playlists</a></div>
-<div class="footer-column"><b>CONNECT</b><a href="/contact">Contact B Tecky</a><a href="https://www.youtube.com/@KalkaEngineer" target="_blank" rel="noopener noreferrer">YouTube · KalkaEngineer ↗</a><a href="https://www.youtube.com/@placeadda" target="_blank" rel="noopener noreferrer">YouTube · PlaceAdda ↗</a><a href="https://www.youtube.com/@Algorithm-Code" target="_blank" rel="noopener noreferrer">YouTube · Algorithms &amp; Code ↗</a><a href="https://www.instagram.com/kalkaengineeer/" target="_blank" rel="noopener noreferrer">Instagram · KalkaEngineer ↗</a><a href="https://www.instagram.com/lavish__sheth/" target="_blank" rel="noopener noreferrer">Instagram · Lavish ↗</a><a href="https://www.instagram.com/lavish_sheth_ls/" target="_blank" rel="noopener noreferrer">Instagram · Lavish LS ↗</a><a href="https://profile.google.com/@btecky" target="_blank" rel="noopener noreferrer">Google profile ↗</a></div>
-<div class="footer-column"><b>POLICIES</b><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms of Use</a><a href="/cookies/">Cookie Policy</a><a href="/advertising/">Advertising &amp; Ads</a><a href="/disclaimer/">Disclaimer</a><a href="/ads.txt">ads.txt (AdSense)</a></div>
-<div class="footer-bottom"><small>© 2026 B Tecky. All rights reserved.</small><span>Built with curiosity. Designed with purpose.</span><a href="#top">Back to top ↑</a></div>
-</div></footer><script src="/config.js"></script>
-<script src="/site.js"></script>
+  <section class="block" id="calc" style="padding-top:26px">
+    <div class="wrap ac-grid">
+
+      <div class="panel ac-panel">
+        <h2>Your progress</h2>
+        <p class="muted" style="margin:0">Type your numbers, or tick your badges in the <a href="#tracker">checklist</a> below.</p>
+
+        <div class="ac-field">
+          <label for="in-games">Arcade games completed</label>
+          <div class="stepper"><button type="button" data-step="-1" data-for="in-games" aria-label="One less game">&minus;</button><input id="in-games" type="number" inputmode="numeric" min="0" max="200" value="0"><button type="button" data-step="1" data-for="in-games" aria-label="One more game">+</button></div>
+          <small>1 point each.</small>
+        </div>
+        <div class="ac-field">
+          <label for="in-badges">Skill badges completed</label>
+          <div class="stepper"><button type="button" data-step="-1" data-for="in-badges" aria-label="One less badge">&minus;</button><input id="in-badges" type="number" inputmode="numeric" min="0" max="500" value="0"><button type="button" data-step="1" data-for="in-badges" aria-label="One more badge">+</button></div>
+          <small>0.5 points each, so every 2 badges make 1 point.</small>
+        </div>
+        <label class="ac-check" for="use-tracker"><input type="checkbox" id="use-tracker"><span>Use my checklist for games and skill badges <span class="muted">(<span id="trk-summary">0 games, 0 badges ticked</span>)</span></span></label>
+
+        <div class="ac-field">
+          <label for="in-extra">Other Arcade points <span class="muted" style="font-weight:400">(optional)</span></label>
+          <div class="stepper"><button type="button" data-step="-1" data-for="in-extra" aria-label="Less">&minus;</button><input id="in-extra" type="number" inputmode="decimal" min="0" step="0.5" value="0"><button type="button" data-step="1" data-for="in-extra" aria-label="More">+</button></div>
+          <small>For example points earned earlier in the year under the older rules, or any points Google Skills shows that are not counted above. Leave it at 0 if unsure.</small>
+        </div>
+
+        <hr class="ac-sep">
+        <h3>Facilitator program <span class="muted" style="font-weight:400;font-size:.95rem">(optional)</span></h3>
+        <label class="ac-check" for="fac"><input type="checkbox" id="fac"><span>I joined the 2026 Facilitator program</span></label>
+        <div id="fac-box" hidden>
+          <div class="ac-field">
+            <label for="ms">Milestone I reached</label>
+            <select id="ms"></select>
+            <p class="ac-hint" id="ms-hint"></p>
+          </div>
+          <label class="ac-check" for="bm"><input type="checkbox" id="bm"><span>I finished the AI agent Bonus Milestone <span class="muted">(+10 points)</span></span></label>
+          <p class="ac-warn" id="bm-warn" hidden>The official checklist needed Milestone 1 first, so double-check this one.</p>
+          <p class="ac-hint">The Facilitator program ended on 14 September 2026, so milestones are now locked. Only the highest milestone you earned gives its bonus.</p>
+        </div>
+
+        <div class="ac-actions">
+          <button type="button" class="btn btn-blue" id="share">Share my result</button>
+          <button type="button" class="btn btn-line" id="reset">Reset everything</button>
+        </div>
+      </div>
+
+      <aside class="ac-side" aria-label="Your result">
+        <div class="board" id="board" aria-live="polite">
+          <div class="board-top"><span>Estimated total</span><span class="chip" id="tier-chip">Below Trooper</span></div>
+          <div class="score" id="total">0</div>
+          <p class="score-cap" id="cap">points</p>
+          <div class="ac-progress">
+            <div class="ac-track"><div class="ac-fill" id="fill"></div></div>
+            <div class="ac-prog-labels"><span id="p-from">0</span><span id="p-to">Trooper 50</span></div>
+          </div>
+          <div class="stats3">
+            <div class="stat"><b id="s-games">0</b><span>Game points</span></div>
+            <div class="stat"><b id="s-badges">0</b><span>Badge points</span></div>
+            <div class="stat"><b id="s-bonus">0</b><span>Bonus points</span></div>
+          </div>
+          <ul class="ac-lines" id="lines"></ul>
+          <p class="board-foot">An estimate from the published 2026 rules. Your official total is the one in your Arcade Insider email and on Google Skills.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  
+
+  <section class="block" id="tiers" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Prize tiers for 2026</h2>
+        <p>There are four tiers this year and the Novice tier is gone. Prize spots are limited and given out first come, first served from the top tier down.</p>
+      </div>
+      <div class="ladder" id="ladder"></div>
+      <p class="fine" style="margin-top:16px">Waterfall system: if a tier's spots run out, your points move you to the next tier down instead of leaving you empty-handed. Reaching the points does not by itself guarantee a prize.</p>
+    </div>
+  </section>
+
+  <section class="block" id="planner" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Plan your next points</h2>
+        <p>Pick the tier you are aiming for and see what it takes, or test what happens if you keep a steady pace until the season ends.</p>
+      </div>
+      <div class="panel ac-panel">
+        <div class="ac-plan">
+          <div>
+            <h3 style="margin-top:0">Goal</h3>
+            <div class="ac-field" style="margin-top:8px"><label for="target">Tier I am aiming for</label><select id="target"></select></div>
+            <div class="ac-out" id="need"></div>
+          </div>
+          <div>
+            <h3 style="margin-top:0">What if I keep going?</h3>
+            <div class="ac-field" style="margin-top:8px">
+              <label for="gpm">Games I finish each month</label>
+              <div class="stepper"><button type="button" data-step="-1" data-for="gpm" aria-label="Fewer">&minus;</button><input id="gpm" type="number" inputmode="numeric" min="0" max="20" value="3"><button type="button" data-step="1" data-for="gpm" aria-label="More">+</button></div>
+            </div>
+            <div class="ac-field">
+              <label for="bpw">Skill badges I finish each week</label>
+              <div class="stepper"><button type="button" data-step="-1" data-for="bpw" aria-label="Fewer">&minus;</button><input id="bpw" type="number" inputmode="numeric" min="0" max="40" value="2"><button type="button" data-step="1" data-for="bpw" aria-label="More">+</button></div>
+            </div>
+            <div class="ac-out" id="proj"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="tracker" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Badge checklist</h2>
+        <p>Tick the games and skill badges you have finished. The calculator can use these counts for you, and your ticks are saved in this browser only.</p>
+      </div>
+      <div class="panel">
+        <div class="ac-trk-head">
+          <div class="ac-tabs" role="group" aria-label="List">
+            <button type="button" id="tab-games" aria-pressed="true">Games</button>
+            <button type="button" id="tab-badges" aria-pressed="false">Skill badges</button>
+          </div>
+          <input class="ac-input" id="trk-search" type="search" placeholder="Search by name" aria-label="Search the list">
+          <button type="button" class="btn btn-line" id="trk-all">Tick all shown</button>
+          <button type="button" class="btn btn-line" id="trk-none">Clear shown</button>
+        </div>
+        <ul class="ac-list" id="trk-list"></ul>
+        <p class="fine">The names come from the games and skill badges that appear in the Facilitator reports, so a few newer ones may be missing. If yours is not listed, just add it to the numbers above.</p>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <section class="block" id="rules" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>How the points work in 2026</h2>
+        <p>These are the rules this calculator uses. They were last checked on <span id="verified">20 September 2026</span>.</p>
+      </div>
+      <div class="rules">
+        <div class="rule"><div class="big">1 pt</div><h3>Every arcade game</h3><p class="muted" style="margin:8px 0 0">Since April 2026 every game is worth one Arcade point, whatever its topic.</p></div>
+        <div class="rule"><div class="big">0.5 pt</div><h3>Every skill badge</h3><p class="muted" style="margin:8px 0 0">Two skill badges make one Arcade point.</p></div>
+        <div class="rule"><div class="big">+10</div><h3>AI agent Bonus Milestone</h3><p class="muted" style="margin:8px 0 0">Facilitator participants who built their first AI agent got 10 extra points.</p></div>
+      </div>
+      <div class="panel" style="margin-top:18px">
+        <h3 style="margin-bottom:8px">Facilitator milestone bonuses</h3>
+        <div style="overflow-x:auto"><table id="ms-table"><thead><tr><th>Milestone</th><th>Arcade games</th><th>Skill badges</th><th>Bonus points</th></tr></thead><tbody></tbody></table></div>
+        <p class="fine">Only the highest milestone you earned gives its bonus. The milestone table comes from a community-run reference because Google's own Facilitator page could not be read; the tier numbers, game points and the 10-point Bonus Milestone come from Google's announcements.</p>
+      </div>
+      <div class="panel" style="margin-top:18px">
+        <h3 style="margin-bottom:8px">What changed in 2026</h3>
+        <ul style="margin:0;padding-left:1.2em">
+          <li>Sprints and the Certification Zone were retired from April, and every game became worth one point.</li>
+          <li>Points you earned earlier in 2026 were kept and count at the Prize Counter.</li>
+          <li>The Novice tier was removed, and each tier now has a limited number of prizes.</li>
+          <li>The Facilitator program ran from 13 July to 14 September 2026. The Prize Counter is due to open shortly after the 2026 season ends at the end of the year.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="block faq" id="faq" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head"><h2>Questions people ask</h2></div>
+      <details open><summary>Is this calculator official?</summary><p>No. It is an independent tool made by B Tecky and is not connected to Google. It works from the published rules, so your official total on Google Skills and in your Arcade Insider email is the one that counts.</p></details>
+      <details><summary>Why do I type my numbers instead of pasting a profile link?</summary><p>Some calculators read your public Google Skills profile from a server. This one is a plain web page with no server, so nothing about you leaves your device. You either type your numbers or tick your badges in the checklist, and it remembers them only in your own browser.</p></details>
+      <details><summary>Which tier am I in if I have exactly 95 points?</summary><p>Champion. Each tier starts at its listed number: Trooper 50, Ranger 75, Champion 95 and Legend 120. Points such as 94.5 are still in the tier below.</p></details>
+      <details><summary>What is the waterfall system?</summary><p>Each tier has a limited number of prizes: 2,500 for Legend, 3,000 for Champion, 4,000 for Ranger and 6,000 for Trooper. If your tier is full, your points move you down to the next tier instead of losing them. The earlier you reach your points, the better your place in the line.</p></details>
+      <details><summary>Do skill badges still count after the Facilitator program ended?</summary><p>Milestones and Facilitator bonus points were locked when the program ended on 14 September 2026. Community trackers report that badges finished later still count as normal Arcade points, which is how this calculator treats them.</p></details>
+      <details><summary>What if my number is different from Google Skills?</summary><p>Compare your counts first, then use the "Other Arcade points" box for anything this calculator does not cover, such as points from earlier in the year. If it is still different, trust Google Skills and check the official Arcade page.</p></details>
+    </div>
+  </section>
+
+  <section class="block" style="padding-top:0">
+    <div class="wrap">
+      <div class="panel">
+        <h3 style="margin-bottom:8px">Sources</h3>
+        <ul class="ac-src" id="sources"></ul>
+        <p class="fine">Independent creator tool. Not affiliated with or endorsed by Google. Google Cloud, Google Skills and Arcade are trademarks of Google LLC.</p>
+      </div>
+    </div>
+  </section>
+
+  
+</main>
+
+<div class="ac-mini" aria-hidden="true"><span id="mini-tier">Below Trooper</span><b id="mini-total">0</b></div>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p><b style="color:#fff">B Tecky</b> is a technology-led initiative exploring digital products, software solutions and practical technology services.</p>
+      <p>Independent creator site. Not affiliated with or endorsed by Google. Google Cloud, Google Skills and Arcade are trademarks of Google LLC.</p>
+      <div class="social" data-social aria-label="B Tecky on social media"></div>
+    </div>
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="blog.html">Blog</a>
+      <a href="arcade.html">Score Checker</a>
+      <a href="arcade-calculator.html">Points Calculator</a>
+      <a href="https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ/" target="_blank" rel="noopener">YouTube</a>
+      <a href="mailto:lavishsheth122@gmail.com">Contact</a>
+      <a href="privacy.html">Privacy policy</a>
+    </div>
+  </div>
+</footer>
+<script src="config.js"></script>
+<script src="arcade-rules.js"></script>
+<script src="arcade-catalog.js"></script>
+<script src="arcade-calc.js"></script>
+<script src="arcade-calculator.js"></script>
+<script src="site.js"></script>
 <script src="/community.js"></script>
-
-<script src="/arcade-calculator.js"></script>
-</body></html>
+</body>
+</html>
