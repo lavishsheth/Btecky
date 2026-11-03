@@ -132,15 +132,6 @@
 
 
 /* B Tecky business-first refresh */
-.nav{gap:clamp(8px,1.35vw,20px)!important}
-.nav a{white-space:nowrap}
-.nav-dropdown{position:relative;display:flex;align-items:center}
-.nav-drop-toggle{font:700 .96rem var(--body);color:var(--ink);border:0;background:transparent;padding:10px 4px;cursor:pointer}
-.nav-drop-toggle:hover{color:var(--blue)}
-.nav-drop-menu{display:none;position:absolute;right:0;top:calc(100% + 12px);min-width:220px;padding:8px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 48px rgba(16,26,58,.16);z-index:50}
-.nav-dropdown:hover .nav-drop-menu,.nav-dropdown:focus-within .nav-drop-menu,.nav-dropdown.open .nav-drop-menu{display:grid}
-.nav-drop-menu a{padding:11px 12px;border-radius:8px;text-decoration:none;color:var(--ink)}
-.nav-drop-menu a:hover{background:#f1f4ff;color:var(--blue-dark)}
 .business-hero{padding:72px 0 60px;background:radial-gradient(circle at 85% 20%,rgba(36,86,255,.12),transparent 32%),linear-gradient(135deg,#f8faff,#eef2ff)}
 .business-hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
 .business-hero .eyebrow{color:var(--blue-dark);font-weight:800;text-transform:uppercase;letter-spacing:.09em;font-size:.82rem}
@@ -164,8 +155,8 @@
 .partnership-cta{padding:34px;border-radius:22px;background:#101a3a;color:white;display:flex;justify-content:space-between;align-items:center;gap:24px}
 .partnership-cta p{color:#dbe4ff;margin:8px 0 0}
 .no-ads-spacer{display:none!important}
-@media(max-width:900px){.business-hero-grid{grid-template-columns:1fr;gap:28px}.founder-photo{max-width:330px;justify-self:start}.business-card-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:1fr}.nav{flex-wrap:wrap}.nav-drop-menu{left:0;right:auto}}
-@media(max-width:600px){.team-card{grid-template-columns:90px 1fr;padding:16px;gap:14px}.team-card img{width:90px;height:120px}.partnership-cta{display:block}.partnership-cta .btn{margin-top:20px}.nav{gap:4px!important}.nav a,.nav-drop-toggle{font-size:.86rem}}
+@media(max-width:900px){.business-hero-grid{grid-template-columns:1fr;gap:28px}.founder-photo{max-width:330px;justify-self:start}.business-card-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.team-card{grid-template-columns:90px 1fr;padding:16px;gap:14px}.team-card img{width:90px;height:120px}.partnership-cta{display:block}.partnership-cta .btn{margin-top:20px}}
 
 .team-initials{width:140px;height:170px;border-radius:14px;background:linear-gradient(135deg,#101a3a,#2456ff);display:grid;place-items:center;color:#fff;font:800 2rem var(--display)}
 @media(max-width:600px){.team-initials{width:90px;height:120px}}
@@ -480,7 +471,6 @@ body:has(.publication-shell){background:#fff}
 }
 .publication-back span:first-child{font-size:1.15rem;color:#2456ff}
 .publication-back:hover{background:#f5f7ff!important;border-color:#b9c8ff!important;transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,26,58,.07)!important}
-.publication-shell .site-head .wrap{max-width:1180px}
 .publication-shell .publication-mobile-toc{margin-bottom:26px}
 @media(max-width:900px){
   .publication-shell{width:calc(100% - 40px)!important;padding:26px 0 65px!important}
@@ -636,9 +626,6 @@ body:has(.publication-shell){background:#fff}
 .publication-callout--warning .publication-callout-icon{background:#fff0c9;color:#9a6500}
 .publication-callout--takeaway{background:#f2f5ff!important;border-color:#d8e1ff!important}
 .publication-callout--takeaway .publication-callout-icon{background:#e0e8ff;color:#214bd5}
-.publication-shell .site-head .brand{display:flex;align-items:center;gap:10px}
-.publication-shell .site-head .brand svg{display:block;width:40px;height:40px;flex:none}
-.publication-shell .site-head .wrap{max-width:1180px}
 @media(max-width:900px){
   .publication-shell{width:calc(100% - 40px)!important;padding:22px 0 65px!important}
   .publication-shell .publication-layout{grid-template-columns:1fr!important;grid-template-areas:"content"!important;gap:20px!important;max-width:800px!important}
