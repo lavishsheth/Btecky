@@ -22,11 +22,11 @@ const levelOf = (name: string) => {
   return 'Intermediate';
 };
 const badges = (badgeNames as string[]).map((name, index) => {
-  const courseId = (officialBadgeLinks as Record<string, number>)[name];
+  const courseLink = (officialBadgeLinks as Record<string, number | string>)[name];
   return {
     name, category: classify(name), level: levelOf(name), id: index + 1,
     slug: `${index + 1}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`,
-    officialUrl: courseId ? `https://www.skills.google/course_templates/${courseId}` : null,
+    officialUrl: courseLink ? (typeof courseLink === 'number' ? `https://www.skills.google/course_templates/${courseLink}` : `https://www.skills.google${courseLink}`) : null,
   };
 });
 ---
