@@ -14,8 +14,12 @@ for(const path of walk(root)){
  let html=readFileSync(path,'utf8');
  const blocks=[...html.matchAll(/<header\b[^>]*>[\s\S]*?<\/header>/gi)];
  const brand=blocks.find(m=>/class=["'][^"']*\bbrand\b/.test(m[0])&&/href=["']\//.test(m[0]));
- if(brand)html=html.replace(brand[0],canonicalHeader);
- else if(!html.includes('id="site-header"'))html=html.replace(/<body\b[^>]*>/i,m=>m+canonicalHeader);
+ const legacyNav=blocks.find(m=>/class=["'][^"']*\bsite-head\b/.test(m[0])||/id=["']nav["']/.test(m[0]));
+ const currentHeader=blocks.find(m=>/id=["']site-header["']/.test(m[0]));
+ const sourceHeader=brand||legacyNav||currentHeader;
+ if(sourceHeader)html=html.replace(sourceHeader[0],canonicalHeader);
+ else html=html.replace(/<body\b[^>]*>/i,m=>m+canonicalHeader);
+ html=html.replace(/<header\b(?=[^>]*(?:class=["'][^"']*\bsite-head\b|id=["']nav["']))[^>]*>[\s\S]*?<\/header>/gi,'');
  const siteFooters=[...html.matchAll(/<footer\b(?=[^>]*class=["'][^"']*\bsite-footer\b)[^>]*>[\s\S]*?<\/footer>/gi)];
  const allFooters=[...html.matchAll(/<footer\b[^>]*>[\s\S]*?<\/footer>/gi)];
  if(siteFooters.length) html=html.replace(siteFooters[0][0],canonicalFooter);
