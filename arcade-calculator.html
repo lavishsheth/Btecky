@@ -21,23 +21,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Arcade Points Calculator","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Calculate Google Skills Arcade 2026 points, prize tier and progress.","publisher":{"@type":"Organization","name":"B Tecky"}}</script>
 </head>
 <body>
-<header class="site-head">
-  <div class="wrap">
-    <a class="brand" href="/" aria-label="B Tecky home"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#2456ff"/><g fill="#fff"><rect x="10" y="6" width="16" height="4"/><rect x="10" y="10" width="4" height="8"/><rect x="26" y="10" width="4" height="8"/><rect x="10" y="18" width="16" height="4"/><rect x="10" y="22" width="4" height="8"/><rect x="26" y="22" width="4" height="8"/><rect x="10" y="30" width="16" height="4"/></g></svg><span>B Tecky</span></a>
-    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg></button>
-    <nav class="nav" id="nav" aria-label="Main">
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/#services">Services</a>
-      <a href="/#products">Products</a>
-      <div class="nav-dropdown"><button type="button" class="nav-drop-toggle" aria-expanded="false">Arcade <span aria-hidden="true">▾</span></button><div class="nav-drop-menu">
-        <a href="/arcade">Score Checker</a><a href="/arcade-calculator">Points Calculator</a><a href="/playlists">Learning Playlists</a><a href="/blog">Guides &amp; Blog</a>
-      </div></div>
-      <a href="/partners">Partnerships</a>
-      <a href="/contact">Contact</a>
-    </nav>
-  </div>
-</header>
+<!-- Shared homepage navigation is injected during the build. -->
 <main id="top">
 
   <section class="hero" aria-labelledby="h-calc" style="padding-bottom:10px">
@@ -262,5 +246,5 @@
 <script src="arcade-calculator.js"></script>
 <script src="site.js"></script>
 <script src="/community.js"></script>
-<script>document.querySelector('.nav-drop-toggle')?.addEventListener('click',function(){const d=this.closest('.nav-dropdown');d.classList.toggle('open');this.setAttribute('aria-expanded',d.classList.contains('open')?'true':'false')});</script></body>
+</body>
 </html>
