@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import badgeNames from '../../data/skill-badges.json';
+import officialBadgeLinks from '../../data/skill-badge-links.json';
 
 type BadgeEntry = { name: string; id: number; slug: string };
 export function getStaticPaths() {
@@ -22,7 +23,8 @@ const category = /gemini|agent|generative ai|machine learning|multimodal|imagen|
   : /api|app engine|firebase|apigee|serverless|website|application|cloud run|functions/.test(text) ? 'Application development' : 'Google Cloud';
 const level = /get started|basics|kickstarting|first gemini|first language|3 ways|use apis|google sheets/.test(text) ? 'Beginner'
   : /multi-agent|kubernetes|architecture|migrations|security|terraform|network|bigtable|spanner|alloydb|vector search|prometheus|sensitive data|cloud sql|load balancing|agent development kit|devops|ci.?cd|predictive modeling/.test(text) ? 'Advanced' : 'Intermediate';
-const officialUrl = 'https://www.skills.google/catalog?keywords=' + encodeURIComponent(badge.name);
+const officialCourseId = (officialBadgeLinks as Record<string, number>)[badge.name];
+const officialUrl = officialCourseId ? `https://www.skills.google/course_templates/${officialCourseId}` : null;
 ---
 <BaseLayout title={badge.name + ' Skill Badge | B Tecky'} description={'Explore the ' + badge.name + ' Google Cloud skill badge, its learning area, suggested level and official requirements.'}>
 <main class="container badge-detail">
@@ -33,7 +35,7 @@ const officialUrl = 'https://www.skills.google/catalog?keywords=' + encodeURICom
     <h1 class="display">{badge.name}</h1>
     <div class="badge-detail__meta"><span>{category}</span><span>{level} · Suggested level</span></div>
     <p>This learning path builds practical experience with {category.toLowerCase()} through the <strong>{badge.name}</strong> skill badge. It is focused on applied skills and hands-on activities rather than theory alone.</p>
-    <a class="badge-detail__cta" href={officialUrl} target="_blank" rel="noopener noreferrer">Check exact badge requirements on Google Skills ↗</a>
+    {officialUrl ? <a class="badge-detail__cta" href={officialUrl} target="_blank" rel="noopener noreferrer">Open this exact badge on Google Skills ↗</a> : <p class="badge-detail__note">The direct Google Skills page for this badge is not yet verified. Browse the official Google Skills catalogue to locate the credential by name.</p>}
   </section>
   <section class="badge-detail__content">
     <h2>What this badge covers</h2>
