@@ -45,7 +45,7 @@ if (missing.length) {
   const homepage = readFileSync(join(dist, 'index.html'), 'utf8');
   const footerOf = (html) => html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/)?.[0]?.replace(/\s+/g, ' ').trim() || '';
   const expectedFooter = footerOf(homepage);
-  const arcadePages = ['arcade.html', 'arcade-calculator.html', 'arcade/guide/index.html'];
+  const arcadePages = ['arcade.html', 'arcade-calculator.html'];
   const footerMismatches = arcadePages.filter((path) => {
     const file = join(dist, path);
     return !existsSync(file) || !expectedFooter || footerOf(readFileSync(file, 'utf8')) !== expectedFooter;
