@@ -23,8 +23,8 @@ const category = /gemini|agent|generative ai|machine learning|multimodal|imagen|
   : /api|app engine|firebase|apigee|serverless|website|application|cloud run|functions/.test(text) ? 'Application development' : 'Google Cloud';
 const level = /get started|basics|kickstarting|first gemini|first language|3 ways|use apis|google sheets/.test(text) ? 'Beginner'
   : /multi-agent|kubernetes|architecture|migrations|security|terraform|network|bigtable|spanner|alloydb|vector search|prometheus|sensitive data|cloud sql|load balancing|agent development kit|devops|ci.?cd|predictive modeling/.test(text) ? 'Advanced' : 'Intermediate';
-const officialCourseId = (officialBadgeLinks as Record<string, number>)[badge.name];
-const officialUrl = officialCourseId ? `https://www.skills.google/course_templates/${officialCourseId}` : null;
+const officialCourseLink = (officialBadgeLinks as Record<string, number | string>)[badge.name];
+const officialUrl = officialCourseLink ? (typeof officialCourseLink === 'number' ? `https://www.skills.google/course_templates/${officialCourseLink}` : `https://www.skills.google${officialCourseLink}`) : null;
 ---
 <BaseLayout title={badge.name + ' Skill Badge | B Tecky'} description={'Explore the ' + badge.name + ' Google Cloud skill badge, its learning area, suggested level and official requirements.'}>
 <main class="container badge-detail">
