@@ -29,11 +29,6 @@ h3{font-size:1.2rem;font-weight:700;letter-spacing:-.01em}
 p{margin:0 0 1em}
 .muted{color:var(--muted)}
 
-/* header */
-.site-head{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
-.site-head .wrap{display:flex;align-items:center;gap:18px;height:64px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:800 1.35rem/1 var(--display);letter-spacing:-.02em}
-.brand svg{width:34px;height:34px;flex:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:12px 20px;font:700 1rem/1 var(--body);cursor:pointer;text-decoration:none;transition:background .15s,transform .1s}
 .btn:active{transform:translateY(1px)}
 .btn-blue{background:var(--blue);color:#fff}
@@ -166,15 +161,6 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-bet
 footer p{margin:0 0 6px;max-width:44em}
 .foot-links{display:flex;gap:18px;flex-wrap:wrap}
 
-/* ---------- header / navigation ---------- */
-.site-head .wrap{position:relative}
-.nav{display:flex;gap:2px;margin-left:auto;align-items:center}
-.nav a:not(.btn){color:var(--ink);text-decoration:none;font-weight:500;padding:8px 12px;border-radius:8px;font-size:.95rem}
-.nav a:not(.btn):hover{background:var(--paper)}
-.nav a[aria-current="page"]:not(.btn){background:#e9eefc;color:var(--blue-dark);font-weight:700}
-.head-sub{padding:10px 16px;font-size:.92rem;margin-left:8px}
-.nav-toggle{display:none;margin-left:auto;background:#fff;border:1px solid var(--line);border-radius:10px;width:44px;height:44px;cursor:pointer;color:var(--ink);place-items:center}
-
 /* ---------- home ---------- */
 .eyebrow{display:inline-flex;gap:9px;align-items:center;font-weight:700;font-size:.92rem;color:var(--blue-dark);margin:0 0 16px}
 .eyebrow::before{content:"";width:10px;height:10px;background:var(--yellow);box-shadow:0 0 0 3px rgba(255,207,61,.3)}
@@ -270,12 +256,6 @@ footer p{margin:0 0 6px;max-width:44em}
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
-  .nav-toggle{display:grid}
-  .nav{display:none;position:absolute;left:0;right:0;top:64px;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 18px 30px -20px rgba(16,26,58,.4);padding:10px 22px 18px;flex-direction:column;align-items:stretch;gap:2px;margin:0}
-  .nav.open{display:flex}
-  .nav a:not(.btn){padding:13px 12px}
-  .head-sub{margin:8px 0 0;padding:14px 16px}
-  .site-head .wrap{gap:10px}
 }
 @media (max-width:860px){
   .hero-grid,.about,.res-grid,.fallback,.spot-grid{grid-template-columns:1fr}
