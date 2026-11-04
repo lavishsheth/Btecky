@@ -21,7 +21,6 @@ for(const path of walk(root)){
  const sourceHeader=currentHeader ? null : (brand||legacyNav);
  if(sourceHeader)html=html.replace(sourceHeader[0],canonicalHeader);
  else if(!currentHeader)html=html.replace(/<body\b[^>]*>/i,m=>m+canonicalHeader);
- else html=html.replace(/<body\b[^>]*>/i,m=>m+canonicalHeader);
  html=html.replace(/<header\b(?=[^>]*(?:class=["'][^"']*\bsite-head\b|id=["']nav["']))[^>]*>[\s\S]*?<\/header>/gi,'');
  const siteFooters=[...html.matchAll(/<footer\b(?=[^>]*class=["'][^"']*\bsite-footer\b)[^>]*>[\s\S]*?<\/footer>/gi)];
  const allFooters=[...html.matchAll(/<footer\b[^>]*>[\s\S]*?<\/footer>/gi)];
