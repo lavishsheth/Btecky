@@ -44,19 +44,31 @@ if (missing.length) {
 } else {
   const homepage = readFileSync(join(dist, 'index.html'), 'utf8');
   const footerOf = (html) => html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/)?.[0]?.replace(/\s+/g, ' ').trim() || '';
-  const headerOf = (html) => html.match(/<header class="site-header" id="site-header">[\s\S]*?<\/header>/)?.[0]?.replace(/\s+/g, ' ').trim() || '';
+  const headerOf = (html) => html.match(/<header class="site-header" id="site-header">[\s\S]*?<\/header>/)?.[0] || '';
   const expectedFooter = footerOf(homepage);
-  const expectedHeader = headerOf(homepage);
   const arcadePages = ['arcade.html', 'arcade-calculator.html'];
   const footerMismatches = arcadePages.filter((path) => {
     const file = join(dist, path);
     return !existsSync(file) || !expectedFooter || footerOf(readFileSync(file, 'utf8')) !== expectedFooter;
   });
+  const requiredNavigationParts = [
+    'class="site-brand"',
+    'id="primary-navigation"',
+    'data-menu="products"',
+    'data-menu="blog"',
+    'data-menu="arcade"',
+    'href="/about"',
+    'class="site-header__cta"',
+  ];
   const headerMismatches = arcadePages.filter((path) => {
     const file = join(dist, path);
     if (!existsSync(file)) return true;
     const html = readFileSync(file, 'utf8');
-    return !expectedHeader || headerOf(html) !== expectedHeader ||
+    const headers = [...html.matchAll(/<header\b[^>]*id="site-header"[^>]*>[\s\S]*?<\/header>/g)];
+    const header = headerOf(html);
+    return headers.length !== 1 ||
+      !header ||
+      requiredNavigationParts.some((part) => !header.includes(part)) ||
       !html.includes('/assets/css/site-header.css') ||
       !html.includes('/assets/js/site-header.js') ||
       /<header class="site-head"/.test(html);
