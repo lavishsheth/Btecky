@@ -141,42 +141,46 @@ import BaseLayout from '@layouts/BaseLayout.astro';
     @media(max-width:560px){.contact-page .container{width:calc(100% - 32px)}.contact-hero{padding-top:48px}.contact-aside{grid-template-columns:1fr}.contact-mentor{grid-column:auto}.contact-form-card{border-radius:17px}.contact-aside-card{padding:22px}}
   </style>
   <script>
-    const form = document.querySelector('#contact-form');
-    const status = document.querySelector('#contact-status');
-    const submitButton = form?.querySelector('button[type="submit"]');
-    const submitLabel = form?.querySelector('.contact-submit-label');
+    const form = document.querySelector<HTMLFormElement>('#contact-form');
+    const status = document.querySelector<HTMLElement>('#contact-status');
+    const submitButton = form?.querySelector<HTMLButtonElement>('button[type="submit"]') ?? null;
+    const submitLabel = form?.querySelector<HTMLElement>('.contact-submit-label') ?? null;
 
-    form?.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      if (!form.reportValidity()) return;
+    if (form && status && submitButton && submitLabel) {
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
 
-      const formData = new FormData(form);
-      const payload = Object.fromEntries(formData.entries());
-      submitButton.disabled = true;
-      submitLabel.textContent = 'Sending…';
-      status.className = 'contact-status';
-      status.textContent = '';
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+        submitButton.disabled = true;
+        submitLabel.textContent = 'Sending…';
+        status.className = 'contact-status';
+        status.textContent = '';
 
-      try {
-        const response = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const result = await response.json().catch(() => ({}));
-        if (!response.ok || !result.ok) {
-          throw new Error(result.error || 'Your message could not be sent. Please try again or email me directly.');
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok || !result.ok) {
+            throw new Error(result.error || 'Your message could not be sent. Please try again or email me directly.');
+          }
+          form.reset();
+          status.textContent = 'Thanks for reaching out! Your message has been sent successfully. I’ll reply to the email address you provided.';
+          status.className = 'contact-status is-visible is-success';
+        } catch (error) {
+          status.textContent = error instanceof Error
+            ? error.message
+            : 'Something went wrong. Please try again or email lavishsheth122@gmail.com directly.';
+          status.className = 'contact-status is-visible is-error';
+        } finally {
+          submitButton.disabled = false;
+          submitLabel.textContent = 'Send message';
         }
-        form.reset();
-        status.textContent = 'Thanks for reaching out! Your message has been sent successfully. I’ll reply to the email address you provided.';
-        status.className = 'contact-status is-visible is-success';
-      } catch (error) {
-        status.textContent = error.message || 'Something went wrong. Please try again or email lavishsheth122@gmail.com directly.';
-        status.className = 'contact-status is-visible is-error';
-      } finally {
-        submitButton.disabled = false;
-        submitLabel.textContent = 'Send message';
-      }
-    });
+      });
+    }
   </script>
 </BaseLayout>
