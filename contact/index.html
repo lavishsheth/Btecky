@@ -10,8 +10,8 @@
 <meta property="og:site_name" content="B Tecky">
 <meta property="og:title" content="Contact | B Tecky">
 <meta property="og:description" content="Get in touch with B Tecky for sponsorships, collaborations, corrections, or a quick question.">
-<meta property="og:url" content="https://bteckyweb.netlify.app/contact">
-<link rel="canonical" href="https://bteckyweb.netlify.app/contact">
+<meta property="og:url" content="https://www.btecky.tech/contact">
+<link rel="canonical" href="https://www.btecky.tech/contact">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%232456ff'/%3E%3Cg fill='%23fff'%3E%3Crect x='10' y='6' width='16' height='4'/%3E%3Crect x='10' y='10' width='4' height='8'/%3E%3Crect x='26' y='10' width='4' height='8'/%3E%3Crect x='10' y='18' width='16' height='4'/%3E%3Crect x='10' y='22' width='4' height='8'/%3E%3Crect x='26' y='22' width='4' height='8'/%3E%3Crect x='10' y='30' width='16' height='4'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,22 +51,16 @@
     <div class="wrap about">
       <div class="panel">
         <h3>Message me directly</h3>
-        <!-- Netlify Forms: no backend needed. Netlify detects this form at
-             deploy time because of data-netlify="true" and the hidden
-             form-name field. Submissions appear under
-             Site settings → Forms in the Netlify dashboard. -->
-        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="contact">
-          <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
+        <p>Fill in the details below. We'll open a ready-to-send Gmail draft addressed to B Tecky.</p>
+        <form id="contact-form">
+          <label for="contact-name" style="display:block;font-weight:700;font-size:.92rem;margin:0 0 6px">Name</label>
+          <input id="contact-name" type="text" name="name" autocomplete="name" required style="width:100%;font:500 1rem var(--body);padding:12px 14px;border-radius:10px;border:2px solid var(--line);margin-bottom:14px">
 
-          <label style="display:block;font-weight:700;font-size:.92rem;margin:0 0 6px">Name</label>
-          <input type="text" name="name" required style="width:100%;font:500 1rem var(--body);padding:12px 14px;border-radius:10px;border:2px solid var(--line);margin-bottom:14px">
+          <label for="contact-email" style="display:block;font-weight:700;font-size:.92rem;margin:0 0 6px">Your email</label>
+          <input id="contact-email" type="email" name="email" autocomplete="email" required style="width:100%;font:500 1rem var(--body);padding:12px 14px;border-radius:10px;border:2px solid var(--line);margin-bottom:14px">
 
-          <label style="display:block;font-weight:700;font-size:.92rem;margin:0 0 6px">Email</label>
-          <input type="email" name="email" required style="width:100%;font:500 1rem var(--body);padding:12px 14px;border-radius:10px;border:2px solid var(--line);margin-bottom:14px">
-
-          <label style="display:block;font-weight:700;font-size:.92rem;margin:0 0 6px">What's this about?</label>
-          <select name="topic" style="width:100%;font:500 1rem var(--body);padding:12px 14px;border-radius:10px;border:2px solid var(--line);margin-bottom:14px">
+          <label for="contact-topic" style="display:block;font-weight:700;font-size:.92rem;margin:0 0 6px">What's this about?</label>
+          <select id="contact-topic" name="topic" style="width:100%;font:500 1rem var(--body);padding:12px 14px;border-radius:10px;border:2px solid var(--line);margin-bottom:14px">
             <option>Sponsorship / collaboration</option>
             <option>Correction on a post</option>
             <option>Mentorship question</option>
@@ -74,10 +68,11 @@
             <option>Something else</option>
           </select>
 
-          <label style="display:block;font-weight:700;font-size:.92rem;margin:0 0 6px">Message</label>
-          <textarea name="message" required rows="5" style="width:100%;font:500 1rem var(--body);padding:12px 14px;border-radius:10px;border:2px solid var(--line);margin-bottom:18px"></textarea>
+          <label for="contact-message" style="display:block;font-weight:700;font-size:.92rem;margin:0 0 6px">Message</label>
+          <textarea id="contact-message" name="message" required rows="5" style="width:100%;font:500 1rem var(--body);padding:12px 14px;border-radius:10px;border:2px solid var(--line);margin-bottom:18px"></textarea>
 
-          <button class="btn btn-blue" type="submit">Send message</button>
+          <button class="btn btn-blue" type="submit">Open Gmail draft</button>
+          <p id="contact-form-help" role="status" aria-live="polite" style="margin-top:12px;font-size:.9rem">Your email app will open with the message filled in. Review it and press Send to deliver it.</p>
         </form>
       </div>
       <div class="panel">
@@ -124,5 +119,45 @@
   window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
-<script>document.querySelector('.nav-drop-toggle')?.addEventListener('click',function(){const d=this.closest('.nav-dropdown');d.classList.toggle('open');this.setAttribute('aria-expanded',d.classList.contains('open')?'true':'false')});</script></body>
+<script>
+  document.querySelector('.nav-drop-toggle')?.addEventListener('click', function () {
+    const dropdown = this.closest('.nav-dropdown');
+    dropdown.classList.toggle('open');
+    this.setAttribute('aria-expanded', dropdown.classList.contains('open') ? 'true' : 'false');
+  });
+
+  document.querySelector('#contact-form')?.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!form.reportValidity()) return;
+
+    const formData = new FormData(form);
+    const name = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const topic = String(formData.get('topic') || 'General enquiry').trim();
+    const message = String(formData.get('message') || '').trim();
+
+    const subject = '[B Tecky Contact] ' + topic;
+    const body = [
+      'Hello Lavish,',
+      '',
+      message,
+      '',
+      '---',
+      'Name: ' + name,
+      'Reply-to email: ' + email,
+      'Topic: ' + topic,
+      '',
+      'Sent from the B Tecky contact form (https://www.btecky.tech/contact).'
+    ].join('\n');
+
+    const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1'
+      + '&to=' + encodeURIComponent('lavishsheth122@gmail.com')
+      + '&su=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent(body);
+
+    window.location.assign(gmailUrl);
+  });
+</script>
+</body>
 </html>
