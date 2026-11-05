@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" role="img" aria-labelledby="title desc">
+<title id="title">A reader-first technical article workflow</title><desc id="desc">A technical article starts with a reader problem, explains the concept, demonstrates a worked example, tests the instructions, checks primary sources and publishes with limitations and next steps.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L9 3 L0 6 Z" fill="#315efb"/></marker></defs><rect width="1200" height="470" rx="28" fill="#f7f9ff"/>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<g stroke="#cdd8f4" stroke-width="3" fill="#fff"><rect x="35" y="125" width="170" height="130" rx="18"/><rect x="235" y="125" width="170" height="130" rx="18"/><rect x="435" y="125" width="170" height="130" rx="18"/><rect x="635" y="125" width="170" height="130" rx="18"/><rect x="835" y="125" width="150" height="130" rx="18"/><rect x="1015" y="125" width="150" height="130" rx="18"/></g>
+<g fill="#315efb" font-size="16" font-weight="700"><text x="120" y="160">01 · READER</text><text x="320" y="160">02 · EXPLAIN</text><text x="520" y="160">03 · DEMO</text><text x="720" y="160">04 · TEST</text><text x="910" y="160">05 · VERIFY</text><text x="1090" y="160">06 · PUBLISH</text></g>
+<g fill="#26334f" font-size="19"><text x="120" y="198">Define the</text><text x="120" y="223">problem</text><text x="320" y="198">Build clear</text><text x="320" y="223">understanding</text><text x="520" y="198">Show a real</text><text x="520" y="223">example</text><text x="720" y="198">Check steps</text><text x="720" y="223">and edge cases</text><text x="910" y="198">Use primary</text><text x="910" y="223">sources</text><text x="1090" y="198">State limits</text><text x="1090" y="223">and next steps</text></g>
+<g stroke="#315efb" stroke-width="4" fill="none" marker-end="url(#arrow)"><path d="M205 190 H225"/><path d="M405 190 H425"/><path d="M605 190 H625"/><path d="M805 190 H825"/><path d="M985 190 H1005"/></g>
+<rect x="210" y="315" width="780" height="82" rx="18" fill="#eaf0ff" stroke="#a9bcf7" stroke-width="2"/>
+<text x="600" y="349" fill="#2449c9" font-size="19" font-weight="700">QUALITY CHECK BEFORE RELEASE</text><text x="600" y="377" fill="#26334f" font-size="17">Accurate · original · accessible · useful on mobile · links tested</text>
+<path d="M910 255 V285 H600 V305" stroke="#8198d8" stroke-width="3" fill="none" stroke-dasharray="8 7"/>
+</g></svg>
