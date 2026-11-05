@@ -37,6 +37,10 @@ let activeType='all',activeTopic='all';
 const params=new URLSearchParams(window.location.search);
 const requestedType=params.get('type');
 if(requestedType==='video'||requestedType==='written') activeType=requestedType;
+const requestedTopic=(params.get('topic')||'').trim().toLowerCase();
+const requestedQuery=(params.get('q')||'').trim();
+if(requestedTopic && topics.some(topic=>topic.toLowerCase()===requestedTopic)) activeTopic=requestedTopic;
+if(search && requestedQuery) search.value=requestedQuery;
 function syncTabs(){typeTabs.forEach(tab=>tab.classList.toggle('is-active',tab.dataset.type===activeType));topicChips.forEach(chip=>chip.classList.toggle('is-active',chip.dataset.topic===activeTopic));}
 function filterPosts(){const term=(search?.value||'').trim().toLowerCase();let visible=0;for(const card of cards){const matchText=(card.dataset.title||'').includes(term);const matchType=activeType==='all'||card.dataset.format===activeType;const tags=(card.dataset.tags||'').split('|');const matchTopic=activeTopic==='all'||tags.includes(activeTopic);const show=matchText&&matchType&&matchTopic;card.hidden=!show;if(show)visible++;}if(count)count.textContent=visible+(visible===1?' story':' stories');if(empty)empty.hidden=visible!==0;}
 typeTabs.forEach(tab=>tab.addEventListener('click',()=>{activeType=tab.dataset.type||'all';syncTabs();filterPosts();const url=new URL(window.location.href);if(activeType==='all')url.searchParams.delete('type');else url.searchParams.set('type',activeType);history.replaceState({},'',url);}));
