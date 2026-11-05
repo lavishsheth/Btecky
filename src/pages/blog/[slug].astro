@@ -205,6 +205,18 @@ const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, '\\u003c')
 
       {post.videoUrl && <section class="video-section"><h2>Watch the video</h2><a href={post.videoUrl} target="_blank" rel="noopener noreferrer">Open the related video ↗</a></section>}
 
+      <section class="practice-panel" aria-labelledby="practice-title">
+        <p class="roadmap-kicker">ACTIVE LEARNING</p>
+        <h2 id="practice-title">Put this guide into practice</h2>
+        <p>Turn the ideas in this article into a small learning task. Tick each step as you complete it.</p>
+        <div class="practice-steps">
+          <label><input type="checkbox" class="practice-step" /><span><b>Explain the main idea</b><small>Summarize the central concept in your own words, without looking back at the article.</small></span></label>
+          <label><input type="checkbox" class="practice-step" /><span><b>Recreate one example</b><small>Try the example, command, workflow or checklist in a safe practice environment.</small></span></label>
+          <label><input type="checkbox" class="practice-step" /><span><b>Test a limitation</b><small>Identify one edge case, assumption or limitation and explain how you would handle it.</small></span></label>
+        </div>
+        <p class="practice-progress" id="practice-progress" aria-live="polite">0 of 3 steps complete</p>
+      </section>
+
       <aside class="author-card" aria-label="About the author">
         <div class="author-avatar" aria-hidden="true">{authorName.trim().charAt(0).toUpperCase()}</div>
         <div><p class="author-label">ABOUT THE AUTHOR</p><h2>{authorName}</h2><p>{authorBio}</p><a href="/about">More about B Tecky and its editorial approach ↗</a></div>
@@ -282,6 +294,16 @@ const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, '\\u003c')
 .article-body :global(th){background:#f4f6fc;color:#17233f;font-weight:800}.article-body :global(tr:last-child td){border-bottom:0}
 .video-section{max-width:780px;margin:42px auto 0;padding:22px;border:1px solid var(--color-border);border-radius:16px;background:#f9faff}
 .video-section h2{margin-top:0}.video-section a{color:var(--color-brand);font-weight:800}
+.practice-panel{max-width:780px;margin:44px auto 0;padding:22px;border:1px solid #dfe7f4;border-radius:16px;background:#f8faff}
+.practice-panel h2{font-size:1.25rem;letter-spacing:-.03em;margin:6px 0 8px;color:#17233f}
+.practice-panel>p:not(.roadmap-kicker):not(.practice-progress){font-size:.85rem;line-height:1.65;color:#667085;margin:0 0 15px}
+.practice-steps{display:grid;gap:10px}
+.practice-steps label{display:flex;align-items:flex-start;gap:11px;padding:12px;border:1px solid #e4eaf4;border-radius:11px;background:#fff;cursor:pointer}
+.practice-steps input{width:17px;height:17px;margin-top:3px;accent-color:var(--color-brand);flex:0 0 auto}
+.practice-steps b,.practice-steps small{display:block}
+.practice-steps b{font-size:.84rem;color:#273451}
+.practice-steps small{font-size:.76rem;line-height:1.5;color:#77839a;margin-top:3px}
+.practice-progress{font-size:.74rem;font-weight:900;color:var(--color-brand);margin:13px 0 0}
 .author-card{max-width:780px;display:flex;gap:17px;align-items:flex-start;margin:46px auto 0;padding:22px;border:1px solid #e3e9f3;border-radius:16px;background:#fbfcff}
 .author-avatar{flex:0 0 52px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#e9efff;color:var(--color-brand);font:800 1.3rem var(--font-display)}
 .author-card h2{font-size:1.2rem;margin:4px 0 7px}.author-card p:not(.author-label){font-size:.88rem;line-height:1.65;color:#667085;margin:0 0 9px}
@@ -318,6 +340,15 @@ function updateReadingProgress() {
 window.addEventListener('scroll', updateReadingProgress, { passive: true });
 window.addEventListener('resize', updateReadingProgress);
 updateReadingProgress();
+
+const practiceSteps = Array.from(document.querySelectorAll<HTMLInputElement>('.practice-step'));
+const practiceProgress = document.querySelector<HTMLElement>('#practice-progress');
+function updatePracticeProgress() {
+  const complete = practiceSteps.filter((step) => step.checked).length;
+  if (practiceProgress) practiceProgress.textContent = complete + ' of ' + practiceSteps.length + ' steps complete';
+}
+practiceSteps.forEach((step) => step.addEventListener('change', updatePracticeProgress));
+updatePracticeProgress();
 
 document.querySelectorAll<HTMLPreElement>('.article-body pre').forEach((pre) => {
   const code = pre.querySelector('code');
