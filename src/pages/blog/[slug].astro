@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import catalogue from '../../../blog/posts.json';
+
 type BlogPost = {
   slug: string;
   title: string;
@@ -18,12 +19,41 @@ type BlogPost = {
   seoDescription?: string;
   contentType?: string;
 };
+
 export function getStaticPaths() {
   return catalogue.posts
     .filter((post: BlogPost) => post.status !== 'draft')
     .map((post: BlogPost) => ({ params: { slug: post.slug }, props: { post } }));
 }
+
 const { post } = Astro.props as { post: BlogPost };
+const publishedPosts = catalogue.posts
+  .filter((item: BlogPost) => item.status !== 'draft')
+  .sort((a: BlogPost, b: BlogPost) => String(b.date || '').localeCompare(String(a.date || '')));
+const currentIndex = publishedPosts.findIndex((item: BlogPost) => item.slug === post.slug);
+const previousPost = currentIndex >= 0 ? publishedPosts[currentIndex + 1] : undefined;
+const nextPost = currentIndex > 0 ? publishedPosts[currentIndex - 1] : undefined;
+const relatedPosts = publishedPosts
+  .filter((item: BlogPost) => item.slug !== post.slug)
+  .map((item: BlogPost) => ({
+    ...item,
+    relevance: (item.tags || []).filter((tag: string) =>
+      (post.tags || []).some((currentTag: string) => currentTag.toLowerCase() === tag.toLowerCase())
+    ).length,
+  }))
+  .filter((item: BlogPost & { relevance: number }) => item.relevance > 0)
+  .sort((a: BlogPost & { relevance: number }, b: BlogPost & { relevance: number }) =>
+    b.relevance - a.relevance || String(b.date || '').localeCompare(String(a.date || '')))
+  .slice(0, 3);
+
+const authorName = post.author || catalogue.settings?.author || 'B Tecky Editorial';
+const authorBio = catalogue.settings?.bio || 'The B Tecky team publishes practical technology learning resources.';
+const coverImage = post.videoThumbnail || post.cover || '';
+const coverSrc = coverImage
+  ? (coverImage.startsWith('/') ? coverImage : '/' + coverImage)
+  : '';
+const wordCount = String(post.body || '').trim().split(/\s+/).filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.ceil(wordCount / 210));
 
 const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -78,9 +108,7 @@ function renderMarkdown(source: string): string {
     if (heading) {
       const level = heading[1].length;
       const headingId = heading[2].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      html.push(level === 2
-        ? `<h2 id="${headingId}">${renderInline(heading[2])}</h2>`
-        : `<h${level}>${renderInline(heading[2])}</h${level}>`);
+      html.push(`<h${level} id="${headingId}">${renderInline(heading[2])}</h${level}>`);
       i++; continue;
     }
     if (/^\s*([-*_])\1\1+\s*$/.test(line)) { html.push('<hr>'); i++; continue; }
@@ -111,26 +139,203 @@ function renderMarkdown(source: string): string {
   }
   return html.join('\n');
 }
+
 const articleHtml = renderMarkdown(post.body || '');
-const tableOfContents = [...String(post.body || '').matchAll(/^##\s+(.+)$/gm)].map(match => ({title:match[1].trim(),id:match[1].trim().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}));
-const wordCount = String(post.body || '').trim().split(/\s+/).filter(Boolean).length;
-const readingMinutes = Math.max(1, Math.ceil(wordCount / 210));
+const tableOfContents = [...String(post.body || '').matchAll(/^##\s+(.+)$/gm)].map(match => ({
+  title: match[1].trim(),
+  id: match[1].trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
+}));
+const roadmapItems = tableOfContents.slice(0, 4);
+const canonicalUrl = new URL(`/blog/${post.slug}`, Astro.site).href;
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  description: post.seoDescription || post.summary || post.title,
+  datePublished: post.date || undefined,
+  mainEntityOfPage: canonicalUrl,
+  author: { '@type': 'Person', name: authorName, url: new URL('/about', Astro.site).href },
+  publisher: {
+    '@type': 'Organization',
+    name: 'B Tecky',
+    url: Astro.site?.href || 'https://btecky.tech',
+    logo: { '@type': 'ImageObject', url: new URL('/assets/images/btecky-logo.svg', Astro.site).href },
+  },
+  image: coverSrc ? new URL(coverSrc, Astro.site).href : undefined,
+};
+const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, '\\u003c');
 ---
-<BaseLayout title={post.seoTitle || post.title+' | B Tecky'} description={post.seoDescription || post.summary || post.title}>
+<BaseLayout title={post.seoTitle || post.title + ' | B Tecky'} description={post.seoDescription || post.summary || post.title} image={coverSrc || undefined}>
+<script type="application/ld+json" set:html={articleSchemaJson}></script>
+<div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
 <main class="container article-page">
-<a class="back-link" href="/blog">← Back to the learning library</a>
-<article class="article-shell">
-<header class="article-head"><p class="eyebrow">{post.date || 'B TECKY'}{post.tags?.length ? ' · '+post.tags.join(' · ') : ''}</p><h1 class="display">{post.title}</h1><p class="summary">{post.summary}</p><p class="reading-time"><span>⏱ {readingMinutes} min read</span>{post.author ? <span>By {post.author}</span> : <span>By B Tecky Editorial</span>}</p></header>
-<div class="article-card">
-{(post.videoThumbnail || post.cover) && <img class="cover" src={post.videoThumbnail || (post.cover!.startsWith('/') ? post.cover : '/'+post.cover)} alt={post.coverAlt || post.title} />}
-{tableOfContents.length >= 4 && <nav class="article-toc" aria-label="On this page"><details open><summary>In this guide <span>{tableOfContents.length} sections</span></summary><ol>{tableOfContents.map(item => <li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol></details></nav>}
-<div class="article-body" set:html={articleHtml}></div>
-{post.videoUrl && <section class="video-section"><h2>Watch the video</h2><a href={post.videoUrl} target="_blank" rel="noopener noreferrer">Open the related video ↗</a></section>}
-</div>
-</article>
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a><span aria-hidden="true">/</span><a href="/blog">Journal</a><span aria-hidden="true">/</span><span aria-current="page">{post.title}</span>
+  </nav>
+  <article class="article-shell">
+    <header class="article-head">
+      <p class="eyebrow">{post.tags?.length ? post.tags.join(' · ') : 'B TECKY JOURNAL'}</p>
+      <h1 class="display">{post.title}</h1>
+      {post.summary && <p class="summary">{post.summary}</p>}
+      <div class="reading-time">
+        <span>⏱ {readingMinutes} min read</span>
+        {post.date && <time datetime={post.date}>{new Date(post.date + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</time>}
+        <span>By <a href="/about">{authorName}</a></span>
+      </div>
+    </header>
+
+    <div class="article-card">
+      {coverSrc && <figure class="cover-figure"><img class="cover" src={coverSrc} alt={post.coverAlt || `Illustration for ${post.title}`} fetchpriority="high" /><figcaption>{post.coverAlt || `Article illustration: ${post.title}`}</figcaption></figure>}
+
+      {roadmapItems.length >= 2 && <section class="article-roadmap" aria-labelledby="roadmap-title">
+        <p class="roadmap-kicker">YOUR READING PATH</p>
+        <h2 id="roadmap-title">How this guide is structured</h2>
+        <ol>{roadmapItems.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><b>{item.title}</b></li>)}</ol>
+        {tableOfContents.length > roadmapItems.length && <p class="roadmap-note">…and {tableOfContents.length - roadmapItems.length} more sections below.</p>}
+      </section>}
+
+      {tableOfContents.length >= 2 && <nav class="article-toc" aria-label="On this page">
+        <details open>
+          <summary>In this guide <span>{tableOfContents.length} sections</span></summary>
+          <ol>{tableOfContents.map(item => <li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol>
+        </details>
+      </nav>}
+
+      <div class="article-body" set:html={articleHtml}></div>
+
+      {post.videoUrl && <section class="video-section"><h2>Watch the video</h2><a href={post.videoUrl} target="_blank" rel="noopener noreferrer">Open the related video ↗</a></section>}
+
+      <aside class="author-card" aria-label="About the author">
+        <div class="author-avatar" aria-hidden="true">{authorName.trim().charAt(0).toUpperCase()}</div>
+        <div><p class="author-label">ABOUT THE AUTHOR</p><h2>{authorName}</h2><p>{authorBio}</p><a href="/about">More about B Tecky and its editorial approach ↗</a></div>
+      </aside>
+
+      <section class="article-feedback" aria-label="Article feedback">
+        <p><strong>Was this guide useful?</strong></p>
+        <p>Use the contact page to suggest a correction, ask a follow-up question, or recommend a topic for a future guide.</p>
+        <a href="/contact?subject=Article%20feedback">Send article feedback ↗</a>
+      </section>
+    </div>
+  </article>
+
+  {relatedPosts.length > 0 && <section class="related-section" aria-labelledby="related-title">
+    <div class="section-heading"><p class="eyebrow">KEEP LEARNING</p><h2 id="related-title">Related articles</h2><p>More published guides sharing topics with this article.</p></div>
+    <div class="related-grid">{relatedPosts.map(item => <article class="related-card">
+      <p>{item.tags?.[0] || 'B TECKY JOURNAL'}{item.date ? ` · ${item.date}` : ''}</p>
+      <h3><a href={`/blog/${item.slug}`}>{item.title}</a></h3>
+      <p class="related-summary">{item.summary || 'Explore this related technology guide.'}</p>
+      <a class="related-link" href={`/blog/${item.slug}`}>Read article ↗</a>
+    </article>)}</div>
+  </section>}
+
+  {(previousPost || nextPost) && <nav class="article-pagination" aria-label="More articles">
+    {previousPost ? <a class="pagination-link previous" href={`/blog/${previousPost.slug}`}><span>← OLDER ARTICLE</span><b>{previousPost.title}</b></a> : <span></span>}
+    {nextPost ? <a class="pagination-link next" href={`/blog/${nextPost.slug}`}><span>NEWER ARTICLE →</span><b>{nextPost.title}</b></a> : <span></span>}
+  </nav>}
+  <a class="back-to-journal" href="/blog">← Explore all articles in the B Tecky Journal</a>
 </main>
 </BaseLayout>
+
 <style>
-.article-page{max-width:1040px;padding-block:44px 110px}.back-link{display:inline-flex;align-items:center;gap:8px;color:var(--color-muted);font-weight:700;font-size:.9rem;margin-bottom:22px}.article-shell{max-width:900px;margin-inline:auto}.article-head{padding:20px 0 34px}.article-head .eyebrow{font-size:.72rem;letter-spacing:.08em;font-weight:800;color:var(--color-brand)}.article-head h1{font-size:clamp(2.5rem,6vw,4.65rem);line-height:1.02;letter-spacing:-.065em;margin:18px 0 22px;max-width:850px}.summary{font-size:1.18rem;line-height:1.75;color:var(--color-muted);white-space:pre-line;max-width:790px}.reading-time{display:flex;gap:18px;flex-wrap:wrap;font-size:.82rem;color:#77839a;margin-top:18px;font-weight:700}.article-card{background:#fff;border:1px solid #dce4f3;border-radius:24px;padding:clamp(20px,4vw,46px);box-shadow:0 18px 55px rgba(22,39,82,.055)}.cover{display:block;width:100%;max-height:470px;object-fit:cover;border-radius:16px;margin:0 auto 38px}.article-toc{max-width:760px;margin:0 auto 42px;padding:20px 22px;border:1px solid #e5eaf4;border-radius:15px;background:#f7f9ff}.article-toc summary{cursor:pointer;font-weight:900;color:#17233f;list-style:none}.article-toc summary::-webkit-details-marker{display:none}.article-toc summary span{float:right;font-size:.72rem;color:#8993a5;font-weight:700}.article-toc ol{columns:2;column-gap:35px;margin:15px 0 0;padding-left:20px}.article-toc li{break-inside:avoid;margin:7px 0;font-size:.86rem}.article-toc a{color:var(--color-brand);text-decoration:none}.article-toc a:hover{text-decoration:underline}.article-body{max-width:760px;margin-inline:auto;font-size:1.06rem;line-height:1.9;color:#344054;overflow-wrap:anywhere}.article-body :global(p){margin:0 0 1.35em}.article-body :global(h2){font-family:var(--font-display);font-size:clamp(1.55rem,3vw,2rem);line-height:1.2;letter-spacing:-.04em;color:var(--color-ink);margin:2.15em 0 .7em;padding-bottom:.45em;border-bottom:1px solid #edf0f6}.article-body :global(h3){font-family:var(--font-display);font-size:1.35rem;line-height:1.3;color:var(--color-ink);margin:1.8em 0 .6em}.article-body :global(ul),.article-body :global(ol){padding-left:1.5em;margin:0 0 1.5em}.article-body :global(li){padding-left:.35em;margin:.45em 0}.article-body :global(a){color:var(--color-brand);text-decoration:underline;text-underline-offset:3px}.article-body :global(blockquote){border-left:4px solid var(--color-brand);padding:.35em 1.2em;margin:1.7em 0;border-radius:0 12px 12px 0;background:#f5f7ff;color:#475467}.article-body :global(pre){overflow:auto;padding:20px;border-radius:14px;background:#101828;color:#f8fafc;font-size:.9rem;line-height:1.65}.article-body :global(.article-figure){margin:2.2em 0}.article-body :global(.article-figure img){display:block;width:100%;height:auto;border-radius:14px;border:1px solid #e4e9f2}.article-body :global(figcaption){font-size:.84rem;color:#667085;text-align:center;margin-top:.65em}.article-body :global(.article-table-wrap){overflow-x:auto;margin:1.7em 0;border:1px solid #e4e9f2;border-radius:13px}.article-body :global(code){font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:#f0f3f9;padding:.12em .35em;border-radius:5px}.article-body :global(pre code){background:transparent!important;color:#f8fafc!important;padding:0}.article-body :global(hr){border:0;border-top:1px solid var(--color-border);margin:2em 0}.article-table-wrap{overflow-x:auto;margin:1.7em 0;border:1px solid #e4e9f2;border-radius:13px}.article-body :global(table){width:100%;border-collapse:collapse;font-size:.92rem}.article-body :global(th),.article-body :global(td){padding:13px 15px;text-align:left;vertical-align:top;border-bottom:1px solid #e9edf4}.article-body :global(th){background:#f4f6fc;color:#17233f;font-weight:800}.article-body :global(tr:last-child td){border-bottom:0}.video-section{max-width:760px;margin:45px auto 0;padding:24px;border:1px solid var(--color-border);border-radius:16px;background:#f9faff}.video-section h2{margin-top:0}.video-section a{color:var(--color-brand);font-weight:800}
-@media(max-width:640px){.article-page{padding-block:30px 72px}.article-head{padding:16px 0 25px}.article-card{padding:18px;border-radius:17px}.article-body{font-size:1rem}.cover{border-radius:12px;margin-bottom:28px}.article-toc ol{columns:1}}
+.article-page{max-width:1080px;padding-block:32px 100px}
+.reading-progress{position:fixed;inset:0 0 auto;height:3px;background:transparent;z-index:1200;pointer-events:none}
+.reading-progress span{display:block;width:0;height:100%;background:var(--color-brand);transition:width .08s linear}
+.breadcrumbs{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin:0 0 26px;color:#8792a6;font-size:.78rem}
+.breadcrumbs a{color:var(--color-brand);font-weight:700}.breadcrumbs [aria-current]{max-width:min(55vw,480px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.article-shell{max-width:900px;margin-inline:auto}.article-head{padding:12px 0 32px}
+.article-head .eyebrow,.author-label,.roadmap-kicker{font-size:.68rem;letter-spacing:.12em;font-weight:900;color:var(--color-brand);text-transform:uppercase}
+.article-head h1{font-size:clamp(2.35rem,6vw,4.5rem);line-height:1.04;letter-spacing:-.065em;margin:16px 0 18px;max-width:850px}
+.summary{font-size:1.14rem;line-height:1.75;color:var(--color-muted);white-space:pre-line;max-width:790px}
+.reading-time{display:flex;gap:16px;flex-wrap:wrap;font-size:.8rem;color:#77839a;margin-top:18px;font-weight:700}
+.reading-time a{color:var(--color-brand);text-decoration:underline;text-underline-offset:3px}
+.article-card{background:#fff;border:1px solid #dce4f3;border-radius:24px;padding:clamp(20px,4vw,46px);box-shadow:0 18px 55px rgba(22,39,82,.055)}
+.cover-figure{margin:0 auto 34px}.cover{display:block;width:100%;max-height:470px;object-fit:cover;border-radius:16px}.cover-figure figcaption{font-size:.78rem;color:#8792a6;text-align:center;margin-top:10px}
+.article-roadmap{max-width:780px;margin:0 auto 32px;padding:22px;border:1px solid #e4eaf5;border-radius:16px;background:linear-gradient(135deg,#f8faff,#fff)}
+.article-roadmap h2{font-size:1.15rem;letter-spacing:-.025em;margin:6px 0 17px;color:#17233f}
+.article-roadmap ol{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;list-style:none;margin:0;padding:0}
+.article-roadmap li{position:relative;min-width:0;display:flex;flex-direction:column;gap:8px;padding:13px;border:1px solid #e1e8f5;border-radius:11px;background:#fff}
+.article-roadmap li:not(:last-child)::after{content:'→';position:absolute;right:-11px;top:50%;z-index:2;color:var(--color-brand);font-weight:900}
+.article-roadmap li span{font-size:.66rem;color:var(--color-brand);font-weight:900;letter-spacing:.08em}
+.article-roadmap li b{font-size:.78rem;line-height:1.35;color:#273451}
+.roadmap-note{font-size:.75rem;color:#77839a;margin:12px 0 0}
+.article-toc{max-width:780px;margin:0 auto 38px;padding:20px 22px;border:1px solid #e5eaf4;border-radius:15px;background:#f7f9ff}
+.article-toc summary{cursor:pointer;font-weight:900;color:#17233f;list-style:none}.article-toc summary::-webkit-details-marker{display:none}
+.article-toc summary span{float:right;font-size:.72rem;color:#8993a5;font-weight:700}
+.article-toc ol{columns:2;column-gap:35px;margin:15px 0 0;padding-left:20px}.article-toc li{break-inside:avoid;margin:7px 0;font-size:.86rem}
+.article-toc a{color:var(--color-brand);text-decoration:none}.article-toc a:hover{text-decoration:underline}
+.article-body{max-width:780px;margin-inline:auto;font-size:1.06rem;line-height:1.9;color:#344054;overflow-wrap:anywhere}
+.article-body :global(p){margin:0 0 1.35em}.article-body :global(h2){scroll-margin-top:100px;font-family:var(--font-display);font-size:clamp(1.55rem,3vw,2rem);line-height:1.2;letter-spacing:-.04em;color:var(--color-ink);margin:2.15em 0 .7em;padding-bottom:.45em;border-bottom:1px solid #edf0f6}
+.article-body :global(h3){scroll-margin-top:100px;font-family:var(--font-display);font-size:1.35rem;line-height:1.3;color:var(--color-ink);margin:1.8em 0 .6em}
+.article-body :global(ul),.article-body :global(ol){padding-left:1.5em;margin:0 0 1.5em}.article-body :global(li){padding-left:.35em;margin:.45em 0}
+.article-body :global(a){color:var(--color-brand);text-decoration:underline;text-underline-offset:3px}
+.article-body :global(blockquote){border-left:4px solid var(--color-brand);padding:.35em 1.2em;margin:1.7em 0;border-radius:0 12px 12px 0;background:#f5f7ff;color:#475467}
+.article-body :global(pre){position:relative;overflow:auto;padding:20px;border-radius:14px;background:#101828;color:#f8fafc;font-size:.9rem;line-height:1.65}
+.article-body :global(.copy-code){position:absolute;right:9px;top:9px;border:1px solid #475467;border-radius:7px;padding:6px 9px;background:#263247;color:#fff;font-size:.68rem;font-weight:800;cursor:pointer}
+.article-body :global(.article-figure){margin:2.2em 0}.article-body :global(.article-figure img){display:block;width:100%;height:auto;border-radius:14px;border:1px solid #e4e9f2}
+.article-body :global(figcaption){font-size:.84rem;color:#667085;text-align:center;margin-top:.65em}
+.article-body :global(.article-table-wrap){overflow-x:auto;margin:1.7em 0;border:1px solid #e4e9f2;border-radius:13px}
+.article-body :global(code){font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:#f0f3f9;padding:.12em .35em;border-radius:5px}
+.article-body :global(pre code){background:transparent!important;color:#f8fafc!important;padding:0}
+.article-body :global(hr){border:0;border-top:1px solid var(--color-border);margin:2em 0}
+.article-table-wrap{overflow-x:auto;margin:1.7em 0;border:1px solid #e4e9f2;border-radius:13px}
+.article-body :global(table){width:100%;border-collapse:collapse;font-size:.92rem}.article-body :global(th),.article-body :global(td){padding:13px 15px;text-align:left;vertical-align:top;border-bottom:1px solid #e9edf4}
+.article-body :global(th){background:#f4f6fc;color:#17233f;font-weight:800}.article-body :global(tr:last-child td){border-bottom:0}
+.video-section{max-width:780px;margin:42px auto 0;padding:22px;border:1px solid var(--color-border);border-radius:16px;background:#f9faff}
+.video-section h2{margin-top:0}.video-section a{color:var(--color-brand);font-weight:800}
+.author-card{max-width:780px;display:flex;gap:17px;align-items:flex-start;margin:46px auto 0;padding:22px;border:1px solid #e3e9f3;border-radius:16px;background:#fbfcff}
+.author-avatar{flex:0 0 52px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#e9efff;color:var(--color-brand);font:800 1.3rem var(--font-display)}
+.author-card h2{font-size:1.2rem;margin:4px 0 7px}.author-card p:not(.author-label){font-size:.88rem;line-height:1.65;color:#667085;margin:0 0 9px}
+.author-card a,.article-feedback a{font-size:.82rem;color:var(--color-brand);font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.author-card .author-label{margin:0}
+.article-feedback{max-width:780px;margin:16px auto 0;padding:18px 20px;border-radius:13px;background:#f6f8fc}
+.article-feedback p{font-size:.82rem;line-height:1.6;color:#667085;margin:0 0 7px}.article-feedback strong{color:#273451}
+.related-section{max-width:900px;margin:62px auto 0}.section-heading{margin-bottom:20px}.section-heading h2{font-size:clamp(1.8rem,4vw,2.5rem);letter-spacing:-.05em;margin:8px 0}.section-heading>p:last-child{color:var(--color-muted);font-size:.9rem}
+.related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.related-card{display:flex;flex-direction:column;padding:18px;border:1px solid #e3e9f3;border-radius:15px;background:#fff;min-width:0}
+.related-card>p:first-child{font-size:.66rem;color:#8792a6;font-weight:800}.related-card h3{font-size:1.05rem;line-height:1.35;letter-spacing:-.025em;margin:9px 0}
+.related-card h3 a:hover{color:var(--color-brand)}.related-summary{font-size:.8rem;line-height:1.6;color:#667085;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.related-link{margin-top:auto;padding-top:13px;color:var(--color-brand);font-size:.78rem;font-weight:900}
+.article-pagination{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:38px auto 20px;max-width:900px}
+.pagination-link{display:flex;flex-direction:column;gap:9px;padding:17px;border:1px solid #e3e9f3;border-radius:13px;background:#fff;min-width:0}
+.pagination-link span{font-size:.62rem;letter-spacing:.1em;color:#8792a6;font-weight:900}.pagination-link b{font-size:.88rem;line-height:1.4}.pagination-link.next{text-align:right}
+.back-to-journal{display:inline-block;margin-top:18px;color:var(--color-brand);font-weight:900;font-size:.85rem}
+@media(max-width:720px){.article-roadmap ol{grid-template-columns:repeat(2,minmax(0,1fr))}.article-roadmap li:nth-child(2)::after{display:none}.related-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.article-page{padding-block:24px 65px}.article-head{padding:8px 0 24px}.article-card{padding:17px;border-radius:17px}.article-body{font-size:1rem}.cover{border-radius:12px}.article-toc ol{columns:1}.author-card{padding:17px}.related-grid{grid-template-columns:1fr}.article-pagination{grid-template-columns:1fr}.pagination-link.next{text-align:left}}
+@media(prefers-reduced-motion:reduce){.reading-progress span{transition:none}}
 </style>
+
+<script>
+const progressBar = document.querySelector<HTMLElement>('#reading-progress-bar');
+const articleBody = document.querySelector<HTMLElement>('.article-body');
+
+function updateReadingProgress() {
+  if (!progressBar || !articleBody) return;
+  const rect = articleBody.getBoundingClientRect();
+  const total = articleBody.offsetHeight - window.innerHeight * 0.55;
+  const travelled = Math.max(0, Math.min(total, -rect.top + window.innerHeight * 0.35));
+  progressBar.style.width = (total > 0 ? travelled / total * 100 : 0) + '%';
+}
+
+window.addEventListener('scroll', updateReadingProgress, { passive: true });
+window.addEventListener('resize', updateReadingProgress);
+updateReadingProgress();
+
+document.querySelectorAll<HTMLPreElement>('.article-body pre').forEach((pre) => {
+  const code = pre.querySelector('code');
+  if (!code) return;
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'copy-code';
+  button.textContent = 'Copy';
+  button.setAttribute('aria-label', 'Copy code example');
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(code.innerText);
+      button.textContent = 'Copied';
+    } catch {
+      button.textContent = 'Select code';
+    }
+    window.setTimeout(() => { button.textContent = 'Copy'; }, 1600);
+  });
+  pre.append(button);
+});
+</script>
