@@ -180,7 +180,7 @@ const articleSchema = {
 };
 const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, '\\u003c');
 ---
-<BaseLayout title={post.seoTitle || post.title + ' | B Tecky'} description={post.seoDescription || post.summary || post.title} image={coverSrc || undefined}>
+<BaseLayout title={post.seoTitle || post.title + ' | B Tecky'} description={post.seoDescription || post.summary || post.title} image={coverSrc || undefined} type="article">
 <script type="application/ld+json" set:html={articleSchemaJson}></script>
 <div class="reading-progress" aria-hidden="true"><span id="reading-progress-bar"></span></div>
 <main class="container article-page">
