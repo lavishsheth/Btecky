@@ -147,6 +147,12 @@ const tableOfContents = [...String(post.body || '').matchAll(/^##\s+(.+)$/gm)].m
 }));
 const roadmapItems = tableOfContents.slice(0, 4);
 const diagramsBySlug: Record<string, { src: string; alt: string; title: string; caption: string }> = {
+  'what-is-retrieval-augmented-generation-rag-a-practical-guide': {
+    src: '/assets/images/blog-diagrams/rag-architecture.svg',
+    alt: 'RAG architecture showing document ingestion, chunking, embeddings and indexing, followed by query retrieval, reranking, permission filtering and grounded answer generation',
+    title: 'How a RAG application retrieves evidence',
+    caption: 'Document ingestion builds the searchable index; each user question retrieves evidence at request time. Permission checks and source validation belong in the application, not in the language model alone.',
+  },
   'what-is-an-ai-agent-beginner-guide': {
     src: '/assets/images/blog-diagrams/ai-agent-workflow.svg',
     alt: 'AI agent workflow from goal setting and planning through tool use, observation and evaluation, with safety and human oversight',
