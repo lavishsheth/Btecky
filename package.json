@@ -7,7 +7,8 @@
     "build": "astro check && astro build && node scripts/copy-legacy-to-dist.mjs && node scripts/unify-legacy-shell.mjs && node scripts/verify-site-output.mjs",
     "preview": "astro preview",
     "check": "astro check",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "audit:blog": "node scripts/audit-blog-content.mjs --write"
   },
   "dependencies": {
     "@astrojs/react": "4.2.1",
