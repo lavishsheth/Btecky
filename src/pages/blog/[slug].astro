@@ -146,6 +146,21 @@ const tableOfContents = [...String(post.body || '').matchAll(/^##\s+(.+)$/gm)].m
   id: match[1].trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
 }));
 const roadmapItems = tableOfContents.slice(0, 4);
+const diagramsBySlug: Record<string, { src: string; alt: string; title: string; caption: string }> = {
+  'what-is-an-ai-agent-beginner-guide': {
+    src: '/assets/images/blog-diagrams/ai-agent-workflow.svg',
+    alt: 'AI agent workflow from goal setting and planning through tool use, observation and evaluation, with safety and human oversight',
+    title: 'The AI agent loop',
+    caption: 'An agent observes the outcome of each action and continues only while more work is needed. Safety checks and human approval should guard sensitive actions.',
+  },
+  'how-to-plan-a-technical-blog-post-that-helps-readers': {
+    src: '/assets/images/blog-diagrams/technical-article-workflow.svg',
+    alt: 'Reader-first technical article workflow from defining a problem through explanation, demonstration, testing, source verification and publication',
+    title: 'A reader-first article workflow',
+    caption: 'A useful technical article moves from a real reader problem to a tested example, verified sources and clear limitations.',
+  },
+};
+const customDiagram = diagramsBySlug[post.slug];
 const canonicalUrl = new URL(`/blog/${post.slug}`, Astro.site).href;
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -200,6 +215,12 @@ const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, '\\u003c')
           <ol>{tableOfContents.map(item => <li><a href={`#${item.id}`}>{item.title}</a></li>)}</ol>
         </details>
       </nav>}
+
+      {customDiagram && <figure class="concept-diagram" aria-label={customDiagram.title}>
+        <h2>{customDiagram.title}</h2>
+        <img src={customDiagram.src} alt={customDiagram.alt} loading="lazy" decoding="async" />
+        <figcaption>{customDiagram.caption}</figcaption>
+      </figure>}
 
       <div class="article-body" set:html={articleHtml}></div>
 
@@ -275,6 +296,10 @@ const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, '\\u003c')
 .article-toc summary span{float:right;font-size:.72rem;color:#8993a5;font-weight:700}
 .article-toc ol{columns:2;column-gap:35px;margin:15px 0 0;padding-left:20px}.article-toc li{break-inside:avoid;margin:7px 0;font-size:.86rem}
 .article-toc a{color:var(--color-brand);text-decoration:none}.article-toc a:hover{text-decoration:underline}
+.concept-diagram{max-width:860px;margin:36px auto;padding:20px;border:1px solid #e3e9f3;border-radius:16px;background:#fbfcff}
+.concept-diagram h2{font-size:1.12rem;margin:0 0 14px;color:#17233f}
+.concept-diagram img{display:block;width:100%;height:auto;border-radius:10px}
+.concept-diagram figcaption{font-size:.78rem;line-height:1.55;color:#667085;text-align:center;margin-top:12px}
 .article-body{max-width:780px;margin-inline:auto;font-size:1.06rem;line-height:1.9;color:#344054;overflow-wrap:anywhere}
 .article-body :global(p){margin:0 0 1.35em}.article-body :global(h2){scroll-margin-top:100px;font-family:var(--font-display);font-size:clamp(1.55rem,3vw,2rem);line-height:1.2;letter-spacing:-.04em;color:var(--color-ink);margin:2.15em 0 .7em;padding-bottom:.45em;border-bottom:1px solid #edf0f6}
 .article-body :global(h3){scroll-margin-top:100px;font-family:var(--font-display);font-size:1.35rem;line-height:1.3;color:var(--color-ink);margin:1.8em 0 .6em}
