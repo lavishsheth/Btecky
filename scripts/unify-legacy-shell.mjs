@@ -32,10 +32,10 @@ for(const path of walk(root)){
  // Keep the AdSense account verification and loader available on every public page.
  // Insert once in <head>, covering Astro output and copied legacy pages.
  if(!html.includes('name="google-adsense-account"')){
-  html=html.replace(/<\\/head>/i,'<meta name="google-adsense-account" content="ca-pub-2101092613299647"></head>');
+  html=html.replace(/<\/head>/i,'<meta name="google-adsense-account" content="ca-pub-2101092613299647"></head>');
  }
- if(!/script\\s[^>]*src=["'][^"']*pagead\\/js\\/adsbygoogle\\.js/i.test(html)){
-  html=html.replace(/<\\/head>/i,'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2101092613299647" crossorigin="anonymous"></script></head>');
+ if(!/script\s[^>]*src=["'][^"']*pagead\/js\/adsbygoogle\.js/i.test(html)){
+  html=html.replace(/<\/head>/i,'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2101092613299647" crossorigin="anonymous"></script></head>');
  }
  writeFileSync(path,html);updated++;
 }
