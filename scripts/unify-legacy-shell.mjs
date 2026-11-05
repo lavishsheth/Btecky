@@ -29,6 +29,21 @@ for(const path of walk(root)){
  if(!html.includes('/assets/css/site-footer.css'))html=html.replace(/<\/head>/i,'<link rel="stylesheet" href="/assets/css/site-footer.css"></head>');
  if(!html.includes('/assets/js/site-header.js'))html=html.replace(/<\/body>/i,'<script src="/assets/js/site-header.js" defer></script></body>');
 
+ // Keep the AdSense account verification and loader available on every public page.
+ // Insert once in <head>, covering Astro output and copied legacy pages.
+ const headClose = html.toLowerCase().indexOf('</head>');
+ if (headClose !== -1) {
+  const head = html.slice(0, headClose);
+  const tail = html.slice(headClose);
+  let additions = '';
+  if (!head.includes('name="google-adsense-account"')) {
+   additions += '<meta name="google-adsense-account" content="ca-pub-2101092613299647">';
+  }
+  if (!head.includes('pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')) {
+   additions += '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2101092613299647" crossorigin="anonymous"></script>';
+  }
+  html = head + additions + tail;
+ }
  writeFileSync(path,html);updated++;
 }
 console.log('Applied the shared B Tecky header and footer to '+updated+' legacy pages.');

@@ -69,6 +69,16 @@ if (missing.length) {
     console.error('Arcade pages do not share the exact homepage footer:', footerMismatches.join(', '));
     process.exitCode = 1;
   }
+  const adCodePages = ['index.html', 'about/index.html', 'arcade.html', 'arcade-calculator.html', 'blog/index.html'];
+  const missingAdCode = adCodePages.filter((path) => {
+    const html = readFileSync(join(dist, path), 'utf8');
+    return !html.includes('name="google-adsense-account"') ||
+      !html.includes('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2101092613299647');
+  });
+  if (missingAdCode.length) {
+    console.error('AdSense account code is missing from generated pages:', missingAdCode.join(', '));
+    process.exitCode = 1;
+  }
   const ads = readFileSync(join(dist, 'ads.txt'), 'utf8');
   if (!/^google\.com,\s*pub-\d+,\s*DIRECT,\s*[a-f0-9]{16}$/m.test(ads)) {
     console.error('ads.txt is present but its Google publisher record is invalid or missing.');
