@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+<title id="title">How an AI agent works</title><desc id="desc">An AI agent receives a goal, plans steps, uses tools, observes results, evaluates progress and either repeats or completes the task. Safety checks and human approval can gate important actions.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L9 3 L0 6 Z" fill="#315efb"/></marker><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f3f6ff"/><stop offset="1" stop-color="#fff"/></linearGradient></defs>
+<rect width="1200" height="620" rx="28" fill="url(#bg)"/>
+<g font-family="Arial,sans-serif" text-anchor="middle">
+<g fill="#fff" stroke="#cdd8f4" stroke-width="3">
+<rect x="45" y="190" width="170" height="112" rx="18"/><rect x="265" y="190" width="170" height="112" rx="18"/><rect x="485" y="190" width="170" height="112" rx="18"/><rect x="705" y="190" width="170" height="112" rx="18"/><rect x="925" y="190" width="230" height="112" rx="18"/>
+</g>
+<g fill="#315efb" font-size="17" font-weight="700"><text x="130" y="225">01 · GOAL</text><text x="350" y="225">02 · PLAN</text><text x="570" y="225">03 · USE TOOLS</text><text x="790" y="225">04 · OBSERVE</text><text x="1040" y="225">05 · EVALUATE</text></g>
+<g fill="#23314d" font-size="20"><text x="130" y="260">Understand</text><text x="130" y="284">the task</text><text x="350" y="260">Choose steps</text><text x="350" y="284">and priorities</text><text x="570" y="260">Call APIs or</text><text x="570" y="284">other tools</text><text x="790" y="260">Read outputs</text><text x="790" y="284">and state</text><text x="1040" y="260">Check result</text><text x="1040" y="284">against goal</text></g>
+<g stroke="#315efb" stroke-width="4" fill="none" marker-end="url(#arrow)"><path d="M215 246 H255"/><path d="M435 246 H475"/><path d="M655 246 H695"/><path d="M875 246 H915"/></g>
+<rect x="410" y="390" width="380" height="86" rx="18" fill="#e9efff" stroke="#9fb4ff" stroke-width="3"/>
+<text x="600" y="423" fill="#2449c9" font-size="18" font-weight="700">SAFETY & HUMAN OVERSIGHT</text><text x="600" y="451" fill="#23314d" font-size="17">Validate inputs · limit permissions · approve risky actions</text>
+<path d="M570 302 V350 H600 V380 M790 302 V350 H600" stroke="#8298d9" stroke-width="3" fill="none" stroke-dasharray="8 7"/>
+<path d="M1040 302 V530 H350 V310" stroke="#315efb" stroke-width="3" fill="none" stroke-dasharray="9 7" marker-end="url(#arrow)"/>
+<rect x="825" y="490" width="300" height="64" rx="16" fill="#e8f8f0" stroke="#8fd3b1" stroke-width="2"/>
+<text x="975" y="529" fill="#16734a" font-size="19" font-weight="700">Goal achieved → respond</text>
+<text x="600" y="590" fill="#64728d" font-size="15">If the goal is not met, the agent uses the observation to plan another step.</text>
+</g></svg>

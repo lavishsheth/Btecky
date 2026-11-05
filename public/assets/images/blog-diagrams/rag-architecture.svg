@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 690" role="img" aria-labelledby="title desc">
+<title id="title">Retrieval-Augmented Generation system architecture</title>
+<desc id="desc">A RAG architecture with a document ingestion and indexing path, a question and retrieval path, a language model answer grounded in retrieved passages, and security controls that filter documents by user permissions.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L9 3 L0 6 Z" fill="#315efb"/></marker><marker id="greenArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L9 3 L0 6 Z" fill="#16835b"/></marker></defs>
+<rect width="1200" height="690" rx="28" fill="#f7f9ff"/>
+<g font-family="Arial,sans-serif">
+<text x="55" y="55" fill="#2449c9" font-size="17" font-weight="700" letter-spacing="2">DOCUMENT INGESTION · INDEX ONCE, UPDATE WHEN SOURCES CHANGE</text>
+<g fill="#fff" stroke="#cdd8f4" stroke-width="3">
+<rect x="55" y="95" width="190" height="100" rx="16"/><rect x="315" y="95" width="190" height="100" rx="16"/><rect x="575" y="95" width="190" height="100" rx="16"/><rect x="835" y="95" width="280" height="100" rx="16"/>
+</g>
+<g fill="#315efb" font-size="17" font-weight="700" text-anchor="middle"><text x="150" y="130">SOURCE FILES</text><text x="410" y="130">EXTRACT & CHUNK</text><text x="670" y="130">CREATE EMBEDDINGS</text><text x="975" y="130">VECTOR / SEARCH INDEX</text></g>
+<g fill="#293750" font-size="16" text-anchor="middle"><text x="150" y="161">Docs · PDFs · Web</text><text x="410" y="161">Text + metadata</text><text x="670" y="161">Text → vectors</text><text x="975" y="161">Vectors + source IDs</text></g>
+<g stroke="#315efb" stroke-width="4" fill="none" marker-end="url(#arrow)"><path d="M245 145 H305"/><path d="M505 145 H565"/><path d="M765 145 H825"/></g>
+<path d="M55 235 H1145" stroke="#dbe3f2" stroke-width="2" stroke-dasharray="8 8"/>
+<text x="55" y="285" fill="#16835b" font-size="17" font-weight="700" letter-spacing="2">QUESTION ANSWERING · RETRIEVE FRESH EVIDENCE FOR EACH QUESTION</text>
+<g fill="#fff" stroke="#b9dfce" stroke-width="3">
+<rect x="55" y="330" width="175" height="105" rx="16"/><rect x="280" y="330" width="190" height="105" rx="16"/><rect x="520" y="330" width="190" height="105" rx="16"/><rect x="760" y="330" width="170" height="105" rx="16"/><rect x="980" y="330" width="165" height="105" rx="16"/>
+</g>
+<g fill="#16835b" font-size="16" font-weight="700" text-anchor="middle"><text x="142" y="365">USER QUESTION</text><text x="375" y="365">QUERY + SEARCH</text><text x="615" y="365">RERANK / FILTER</text><text x="845" y="365">GROUNDED</text><text x="1062" y="365">ANSWER +</text></g>
+<g fill="#293750" font-size="15" text-anchor="middle"><text x="142" y="395">Natural language</text><text x="375" y="395">Find candidate chunks</text><text x="615" y="395">Permissions + relevance</text><text x="845" y="395">MODEL PROMPT</text><text x="1062" y="395">CITATIONS</text></g>
+<g stroke="#16835b" stroke-width="4" fill="none" marker-end="url(#greenArrow)"><path d="M230 382 H270"/><path d="M470 382 H510"/><path d="M710 382 H750"/><path d="M930 382 H970"/></g>
+<path d="M975 195 V285 H375 V320" stroke="#315efb" stroke-width="3" stroke-dasharray="8 7" fill="none" marker-end="url(#arrow)"/>
+<text x="760" y="272" fill="#315efb" font-size="14" text-anchor="middle">Indexed passages available to retrieval</text>
+<rect x="250" y="500" width="700" height="105" rx="18" fill="#fff5e9" stroke="#edc58d" stroke-width="2"/>
+<text x="600" y="535" fill="#9a5b13" font-size="17" font-weight="700" text-anchor="middle">CROSS-CUTTING SAFETY CONTROLS</text>
+<text x="600" y="568" fill="#4a3a26" font-size="16" text-anchor="middle">Enforce user permissions · treat retrieved text as untrusted data</text>
+<text x="600" y="590" fill="#4a3a26" font-size="16" text-anchor="middle">Validate citations · handle missing evidence · monitor index freshness</text>
+<path d="M615 435 V490" stroke="#d49a43" stroke-width="3" stroke-dasharray="7 7"/>
+<text x="600" y="650" fill="#64728d" font-size="14" text-anchor="middle">Retrieval supplies evidence; it does not guarantee that the generated answer is correct.</text>
+</g></svg>

@@ -2,15 +2,15 @@
 import SiteHeader from '@components/SiteHeader.astro';
 import SiteFooter from '@components/SiteFooter.astro';
 import '@styles/global.css';
-interface Props { title?: string; description?: string; image?: string; }
-const { title = 'B Tecky — Practical technology, thoughtfully built', description = 'B Tecky builds practical digital products, software experiences and technology learning resources.', image = '/assets/images/blog-covers/btecky.svg' } = Astro.props;
+interface Props { title?: string; description?: string; image?: string; type?: 'website' | 'article'; }
+const { title = 'B Tecky — Practical technology, thoughtfully built', description = 'B Tecky builds practical digital products, software experiences and technology learning resources.', image = '/assets/images/blog-covers/btecky.svg', type = 'website' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const socialImage = new URL(image, Astro.site);
 ---
 <!doctype html><html lang="en"><head>
 <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content={description} /><meta name="theme-color" content="#ffffff" />
-<meta property="og:type" content="website" /><meta property="og:site_name" content="B Tecky" />
+<meta property="og:type" content={type} /><meta property="og:site_name" content="B Tecky" />
 <meta property="og:title" content={title} /><meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} /><meta property="og:image" content={socialImage} />
 <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} />
