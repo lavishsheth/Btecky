@@ -161,6 +161,7 @@ const diagramsBySlug: Record<string, { src: string; alt: string; title: string; 
   },
 };
 const customDiagram = diagramsBySlug[post.slug];
+const hasRagPlayground = post.slug === 'what-is-retrieval-augmented-generation-rag-a-practical-guide';
 const canonicalUrl = new URL(`/blog/${post.slug}`, Astro.site).href;
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -221,6 +222,26 @@ const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, '\\u003c')
         <img src={customDiagram.src} alt={customDiagram.alt} loading="lazy" decoding="async" />
         <figcaption>{customDiagram.caption}</figcaption>
       </figure>}
+
+      {hasRagPlayground && <section class="rag-lab" aria-labelledby="rag-lab-title">
+        <div class="rag-lab-heading">
+          <p class="roadmap-kicker">INTERACTIVE LEARNING LAB</p>
+          <h2 id="rag-lab-title">Try a mini document retrieval system</h2>
+          <p>Ask a question about the sample course notes. The demo ranks passages using simple keyword overlap so you can inspect what retrieval does before an AI model writes an answer.</p>
+        </div>
+        <label class="rag-query-label" for="rag-query">Your question</label>
+        <textarea id="rag-query" rows="2" maxlength="240" placeholder="Example: How do I keep document permissions safe?">How should a RAG app protect private documents?</textarea>
+        <div class="rag-example-queries" aria-label="Example questions">
+          <button type="button" data-rag-query="How should a RAG app protect private documents?">Document security</button>
+          <button type="button" data-rag-query="How can I measure whether retrieval finds the right passages?">Evaluate retrieval</button>
+          <button type="button" data-rag-query="What should happen when the documents do not contain an answer?">Missing evidence</button>
+        </div>
+        <button type="button" id="rag-search" class="rag-search-button">Retrieve relevant passages</button>
+        <div class="rag-results" id="rag-results" aria-live="polite" aria-atomic="true">
+          <p class="rag-empty">Choose a question or write your own, then run the retrieval demo.</p>
+        </div>
+        <p class="rag-method-note"><strong>Important:</strong> This teaching demo uses transparent keyword overlap, not embeddings, vector search, a reranker or an LLM. A high score is not proof that a passage answers the question. Production RAG systems need evaluation, source checks and access-control filtering.</p>
+      </section>}
 
       <div class="article-body" set:html={articleHtml}></div>
 
@@ -296,6 +317,28 @@ const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, '\\u003c')
 .article-toc summary span{float:right;font-size:.72rem;color:#8993a5;font-weight:700}
 .article-toc ol{columns:2;column-gap:35px;margin:15px 0 0;padding-left:20px}.article-toc li{break-inside:avoid;margin:7px 0;font-size:.86rem}
 .article-toc a{color:var(--color-brand);text-decoration:none}.article-toc a:hover{text-decoration:underline}
+.rag-lab{max-width:860px;margin:38px auto;padding:clamp(18px,3vw,28px);border:1px solid #dbe5f7;border-radius:18px;background:linear-gradient(145deg,#f5f8ff,#fff)}
+.rag-lab-heading h2{font-size:clamp(1.3rem,3vw,1.7rem);letter-spacing:-.04em;color:#17233f;margin:7px 0}
+.rag-lab-heading>p:last-child{font-size:.86rem;line-height:1.65;color:#667085;margin:0 0 20px}
+.rag-query-label{display:block;font-size:.8rem;font-weight:900;color:#273451;margin:0 0 7px}
+.rag-lab textarea{display:block;width:100%;resize:vertical;min-height:76px;padding:12px 14px;border:1px solid #cfd9eb;border-radius:11px;background:#fff;color:#17233f;font:inherit;font-size:.9rem;line-height:1.5}
+.rag-lab textarea:focus-visible,.rag-lab button:focus-visible{outline:3px solid rgba(49,94,251,.28);outline-offset:2px}
+.rag-example-queries{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+.rag-example-queries button{padding:7px 10px;border:1px solid #d9e2f2;border-radius:999px;background:#fff;color:#41516e;font-size:.72rem;font-weight:800;cursor:pointer}
+.rag-search-button{padding:11px 16px;border:0;border-radius:10px;background:var(--color-brand);color:#fff;font-size:.82rem;font-weight:900;cursor:pointer}
+.rag-results{display:grid;gap:10px;margin-top:20px}
+.rag-results-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.8rem;font-weight:900;color:#273451}
+.rag-result{padding:14px;border:1px solid #e1e8f4;border-radius:12px;background:#fff}
+.rag-result-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px}
+.rag-result-source{font-size:.68rem;letter-spacing:.04em;font-weight:900;color:#315efb}
+.rag-result-score{font-size:.7rem;font-weight:900;color:#16734a;white-space:nowrap}
+.rag-result h3{font-size:.92rem;line-height:1.35;margin:0 0 6px;color:#25324d}
+.rag-result p{font-size:.8rem;line-height:1.6;margin:0;color:#667085}
+.rag-score-track{height:6px;margin-top:11px;border-radius:999px;background:#edf1f8;overflow:hidden}
+.rag-score-track span{display:block;height:100%;border-radius:999px;background:#315efb}
+.rag-empty{font-size:.83rem;color:#77839a;padding:15px;border:1px dashed #cfd9eb;border-radius:11px;background:#fff}
+.rag-method-note{font-size:.76rem;line-height:1.6;color:#667085;margin:18px 0 0;padding-top:14px;border-top:1px solid #e1e8f4}
+.rag-method-note strong{color:#273451}
 .concept-diagram{max-width:860px;margin:36px auto;padding:20px;border:1px solid #e3e9f3;border-radius:16px;background:#fbfcff}
 .concept-diagram h2{font-size:1.12rem;margin:0 0 14px;color:#17233f}
 .concept-diagram img{display:block;width:100%;height:auto;border-radius:10px}
@@ -374,6 +417,94 @@ function updatePracticeProgress() {
 }
 practiceSteps.forEach((step) => step.addEventListener('change', updatePracticeProgress));
 updatePracticeProgress();
+
+const ragQuery = document.querySelector<HTMLTextAreaElement>('#rag-query');
+const ragSearch = document.querySelector<HTMLButtonElement>('#rag-search');
+const ragResults = document.querySelector<HTMLElement>('#rag-results');
+const ragDocuments = [
+  { id: 'DOC-01', title: 'Document permissions and private data', text: 'Apply document permissions before a passage reaches the language model. Filter by the current user access rights during retrieval. Do not retrieve every private document and ask the model to decide who may see it.' },
+  { id: 'DOC-02', title: 'Measuring retrieval quality', text: 'Evaluate retrieval separately from answer generation. Recall at K checks whether relevant passages appear in the first K results. Precision at K measures how many retrieved passages are relevant. Inspect real failure examples.' },
+  { id: 'DOC-03', title: 'When evidence is missing', text: 'If the available documents do not contain the answer, the assistant should explain that the evidence is missing rather than inventing a resolution. Test questions that are not answered by the source collection.' },
+  { id: 'DOC-04', title: 'Chunking and document context', text: 'Split documents around headings and paragraphs. Very small chunks can lose context, while very large chunks may mix unrelated topics. Preserve source identity, headings and useful metadata.' },
+  { id: 'DOC-05', title: 'Embeddings and semantic search', text: 'An embedding model converts text into a numerical vector. Semantic retrieval can find related meaning even when the query uses different wording. Similarity alone does not prove that a passage answers the question.' },
+  { id: 'DOC-06', title: 'Hybrid retrieval and reranking', text: 'Combine vector search with keyword search when exact product names, error codes or identifiers matter. A reranker can score candidate passages against the question and move useful evidence higher.' },
+  { id: 'DOC-07', title: 'Prompt injection in retrieved content', text: 'Treat retrieved documents as untrusted data, not application instructions. Keep system instructions separate, restrict tools and validate actions in application code.' }
+];
+const ragStopWords = new Set(['a','an','and','are','as','at','be','before','by','can','do','does','for','from','how','i','in','into','is','it','of','on','or','should','the','this','to','what','when','where','which','with','you','your']);
+function ragTokens(value: string) {
+  return new Set((value.toLowerCase().match(/[a-z0-9]+/g) || []).filter((word) => word.length > 1 && !ragStopWords.has(word)));
+}
+function runRagDemo() {
+  if (!ragQuery || !ragResults) return;
+  const query = ragQuery.value.trim();
+  ragResults.replaceChildren();
+  if (!query) {
+    const empty = document.createElement('p');
+    empty.className = 'rag-empty';
+    empty.textContent = 'Enter a question first so the demo can compare it with the sample passages.';
+    ragResults.append(empty);
+    return;
+  }
+  const queryTerms = ragTokens(query);
+  const ranked = ragDocuments.map((doc) => {
+    const docTerms = ragTokens(doc.title + ' ' + doc.text);
+    const matches = [...queryTerms].filter((term) => docTerms.has(term));
+    return { ...doc, matches, score: queryTerms.size ? matches.length / queryTerms.size : 0 };
+  }).filter((doc) => doc.score > 0).sort((a, b) => b.score - a.score || b.matches.length - a.matches.length).slice(0, 4);
+
+  const heading = document.createElement('div');
+  heading.className = 'rag-results-heading';
+  heading.textContent = ranked.length ? 'Retrieved candidate passages' : 'No matching passages found';
+  const count = document.createElement('span');
+  count.textContent = ranked.length + ' / ' + ragDocuments.length + ' matches';
+  heading.append(count);
+  ragResults.append(heading);
+
+  if (!ranked.length) {
+    const empty = document.createElement('p');
+    empty.className = 'rag-empty';
+    empty.textContent = 'The keyword demo found no overlapping terms. Try a different phrase. A real semantic retriever may still find related wording.';
+    ragResults.append(empty);
+    return;
+  }
+  ranked.forEach((doc) => {
+    const card = document.createElement('article');
+    card.className = 'rag-result';
+    const top = document.createElement('div');
+    top.className = 'rag-result-top';
+    const source = document.createElement('span');
+    source.className = 'rag-result-source';
+    source.textContent = doc.id + ' · ' + doc.matches.length + ' matched terms';
+    const score = document.createElement('span');
+    score.className = 'rag-result-score';
+    score.textContent = Math.round(doc.score * 100) + '% query-term overlap';
+    top.append(source, score);
+    const title = document.createElement('h3');
+    title.textContent = doc.title;
+    const excerpt = document.createElement('p');
+    excerpt.textContent = doc.text;
+    const track = document.createElement('div');
+    track.className = 'rag-score-track';
+    track.setAttribute('role', 'img');
+    track.setAttribute('aria-label', Math.round(doc.score * 100) + ' percent query-term overlap');
+    const fill = document.createElement('span');
+    fill.style.width = Math.round(doc.score * 100) + '%';
+    track.append(fill);
+    card.append(top, title, excerpt, track);
+    ragResults.append(card);
+  });
+}
+ragSearch?.addEventListener('click', runRagDemo);
+document.querySelectorAll<HTMLButtonElement>('[data-rag-query]').forEach((button) => {
+  button.addEventListener('click', () => {
+    if (ragQuery) ragQuery.value = button.dataset.ragQuery || '';
+    runRagDemo();
+  });
+});
+ragQuery?.addEventListener('keydown', (event) => {
+  if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') runRagDemo();
+});
+if (ragQuery?.value.trim()) runRagDemo();
 
 document.querySelectorAll<HTMLPreElement>('.article-body pre').forEach((pre) => {
   const code = pre.querySelector('code');
