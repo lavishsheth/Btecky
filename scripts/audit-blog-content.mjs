@@ -21,9 +21,44 @@ const findings = posts.map((post) => {
   if (!post.cover && !post.videoThumbnail) issues.push('No cover/thumbnail');
   return { slug: post.slug, title: post.title, words: count, type: post.contentType || 'unclassified', date: post.date || '', issues };
 });
-const report = { generatedAt: new Date().toISOString(), totalPublished: posts.length, flaggedCount: findings.filter((item) => item.issues.length).length, findings };
-console.log('Audited ' + posts.length + ' published posts; ' + report.flaggedCount + ' need editorial review.');
+const flagged = findings.filter((item) => item.issues.length);
+const categories = [...new Set(posts.flatMap((post) => post.tags || []))].sort();
+const countIssue = (text) => findings.filter((item) => item.issues.some((issue) => issue.includes(text))).length;
+const markdown = [
+  '# B Tecky content quality audit', '', 'Generated: ' + new Date().toISOString(), '',
+  '> Automated editorial triage only. This is not a factual accuracy, originality, policy-compliance or AdSense eligibility verdict. Word-count bands are internal signals, not Google requirements.', '',
+  '## Catalogue overview', '',
+  '- Published posts reviewed: **' + posts.length + '**',
+  '- Opportunity announcements: **' + posts.filter((post) => post.contentType === 'events').length + '**',
+  '- Posts with one or more review flags: **' + flagged.length + '**',
+  '- Under 300 words: **' + countIssue('Very short body') + '**',
+  '- Under 600 words: **' + findings.filter((item) => item.words < 600).length + '**',
+  '- No source link detected: **' + countIssue('No source link') + '**',
+  '- Opportunities needing a checked update date: **' + countIssue('checked update date') + '**',
+  '- Topic labels: **' + categories.length + '**', '',
+  '## Priority review list', '', '| Article | Words | Type | Editorial flags |', '|---|---:|---|---|',
+  ...flagged.sort((a, b) => a.words - b.words).map((item) => '| [' + String(item.title || item.slug).replace(/\|/g, '\\|') + '](https://www.btecky.tech/blog/' + item.slug + '/) | ' + item.words + ' | ' + item.type + ' | ' + item.issues.join('; ').replace(/\|/g, '\\|') + ' |'),
+  '', '## Human review checklist', '',
+  '- Does the page answer a specific reader question with enough detail to act?',
+  '- Are claims, code, commands, calculations and version-specific details correct?',
+  '- Are external claims linked to primary documentation, official announcements or original research?',
+  '- Does the article add original explanation, testing, comparison, examples or practical context?',
+  '- Are opportunities checked against the organizer/employer page, with eligibility, deadline, geography and reward conditions stated?',
+  '- Are older opportunity pages clearly marked as potentially expired or updated after checking?',
+  '- Are similar articles genuinely distinct, or should they be consolidated with redirects?',
+  '- Do images, links, code samples, interactive examples and mobile layouts work?',
+  '- Would the page remain useful if it received no search traffic or advertising?', '',
+  '## Handling findings', '',
+  'Do not automatically delete, noindex or expand flagged articles. Review each page. Improve useful pages with real examples and primary sources; consolidate overlapping pages with redirects; clearly mark expired opportunities; remove or noindex pages only after editorial review. Never add filler to reach a word count.', '',
+  '## Topic labels', '', ...categories.map((category) => '- ' + category), ''
+].join('\\n');
+const report = { generatedAt: new Date().toISOString(), totalPublished: posts.length, flaggedCount: flagged.length, findings };
+console.log('Audited ' + posts.length + ' published posts; ' + flagged.length + ' need editorial review.');
 if (process.argv.includes('--write')) {
-  const output = resolve('reports/blog-content-audit.json'); mkdirSync(dirname(output), { recursive: true });
-  writeFileSync(output, JSON.stringify(report, null, 2) + '\n'); console.log('Wrote ' + output);
+  const markdownPath = resolve('reports/blog-content-audit.md');
+  const jsonPath = resolve('reports/blog-content-audit.json');
+  mkdirSync(dirname(markdownPath), { recursive: true });
+  writeFileSync(markdownPath, markdown + '\\n');
+  writeFileSync(jsonPath, JSON.stringify(report, null, 2) + '\\n');
+  console.log('Wrote ' + markdownPath + ' and ' + jsonPath);
 }
