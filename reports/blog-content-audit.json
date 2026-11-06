@@ -1,8 +1,7 @@
 {
   "generatedAt": "2026-11-06",
   "totalPublished": 173,
-  "opportunityCount": 32,
-  "flaggedCount": 141,
+  "flaggedCount": 137,
   "findings": [
     {
       "slug": "salesforce-agentforce-service-agents-quest-2026",
@@ -200,7 +199,7 @@
       "type": "tech",
       "date": "2026-10-20",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (445 words)",
         "No source link detected"
       ]
     },
@@ -241,7 +240,7 @@
       "type": "tech",
       "date": "2026-10-19",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -280,7 +279,7 @@
       "type": "tech",
       "date": "2026-10-18",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (439 words)",
         "No source link detected"
       ]
     },
@@ -291,7 +290,7 @@
       "type": "tech",
       "date": "2026-10-17",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (543 words)"
       ]
     },
     {
@@ -301,7 +300,7 @@
       "type": "tech",
       "date": "2026-10-17",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (585 words)"
       ]
     },
     {
@@ -311,7 +310,7 @@
       "type": "tech",
       "date": "2026-10-17",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -332,7 +331,7 @@
       "type": "tech",
       "date": "2026-10-16",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (507 words)"
       ]
     },
     {
@@ -342,7 +341,7 @@
       "type": "tech",
       "date": "2026-10-16",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (441 words)",
         "No source link detected"
       ]
     },
@@ -353,7 +352,7 @@
       "type": "tech",
       "date": "2026-10-15",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
@@ -372,7 +371,7 @@
       "type": "tech",
       "date": "2026-10-15",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (472 words)"
       ]
     },
     {
@@ -382,7 +381,7 @@
       "type": "tech",
       "date": "2026-10-14",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -403,7 +402,7 @@
       "type": "tech",
       "date": "2026-10-14",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (491 words)"
       ]
     },
     {
@@ -421,7 +420,7 @@
       "type": "tech",
       "date": "2026-10-13",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (554 words)"
       ]
     },
     {
@@ -431,7 +430,7 @@
       "type": "tech",
       "date": "2026-10-13",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (431 words)",
         "No source link detected"
       ]
     },
@@ -442,7 +441,7 @@
       "type": "tech",
       "date": "2026-10-12",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (468 words)"
       ]
     },
     {
@@ -452,7 +451,7 @@
       "type": "tech",
       "date": "2026-10-12",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (443 words)"
       ]
     },
     {
@@ -462,7 +461,7 @@
       "type": "tech",
       "date": "2026-10-12",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (437 words)",
         "No source link detected"
       ]
     },
@@ -473,7 +472,7 @@
       "type": "tech",
       "date": "2026-10-11",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (437 words)",
         "No source link detected"
       ]
     },
@@ -484,7 +483,7 @@
       "type": "tech",
       "date": "2026-10-11",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (596 words)"
       ]
     },
     {
@@ -518,7 +517,7 @@
       "type": "tech",
       "date": "2026-10-10",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -529,7 +528,7 @@
       "type": "tech",
       "date": "2026-10-09",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -540,7 +539,7 @@
       "type": "tech",
       "date": "2026-10-09",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (596 words)"
       ]
     },
     {
@@ -558,7 +557,7 @@
       "type": "tech",
       "date": "2026-10-08",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -569,7 +568,7 @@
       "type": "tech",
       "date": "2026-10-08",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (583 words)"
       ]
     },
     {
@@ -579,7 +578,7 @@
       "type": "tech",
       "date": "2026-10-08",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (592 words)"
       ]
     },
     {
@@ -599,7 +598,7 @@
       "type": "tech",
       "date": "2026-10-07",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (586 words)"
       ]
     },
     {
@@ -609,7 +608,7 @@
       "type": "tech",
       "date": "2026-10-07",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
@@ -620,7 +619,7 @@
       "type": "tech",
       "date": "2026-10-06",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (556 words)"
       ]
     },
     {
@@ -630,7 +629,7 @@
       "type": "tech",
       "date": "2026-10-06",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (437 words)",
         "No source link detected"
       ]
     },
@@ -657,7 +656,7 @@
       "type": "tech",
       "date": "2026-10-05",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
@@ -668,7 +667,7 @@
       "type": "tech",
       "date": "2026-10-05",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (597 words)"
       ]
     },
     {
@@ -678,7 +677,7 @@
       "type": "tech",
       "date": "2026-10-04",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (437 words)",
         "No source link detected"
       ]
     },
@@ -689,7 +688,7 @@
       "type": "tech",
       "date": "2026-10-04",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (560 words)"
       ]
     },
     {
@@ -699,7 +698,7 @@
       "type": "tech",
       "date": "2026-10-04",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (542 words)"
       ]
     },
     {
@@ -729,7 +728,7 @@
       "type": "tech",
       "date": "2026-10-03",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (550 words)"
       ]
     },
     {
@@ -739,7 +738,7 @@
       "type": "tech",
       "date": "2026-10-03",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (586 words)"
       ]
     },
     {
@@ -749,7 +748,7 @@
       "type": "tech",
       "date": "2026-10-03",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
@@ -808,7 +807,7 @@
       "type": "tech",
       "date": "2026-10-02",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (431 words)",
         "No source link detected"
       ]
     },
@@ -819,7 +818,7 @@
       "type": "tech",
       "date": "2026-10-02",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (548 words)"
       ]
     },
     {
@@ -837,7 +836,7 @@
       "type": "tech",
       "date": "2026-10-02",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (553 words)"
       ]
     },
     {
@@ -857,7 +856,7 @@
       "type": "tech",
       "date": "2026-10-01",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (537 words)"
       ]
     },
     {
@@ -877,7 +876,7 @@
       "type": "tech",
       "date": "2026-10-01",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (556 words)"
       ]
     },
     {
@@ -887,7 +886,7 @@
       "type": "tech",
       "date": "2026-10-01",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -919,7 +918,7 @@
       "type": "tech",
       "date": "2026-09-30",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (554 words)"
       ]
     },
     {
@@ -929,7 +928,7 @@
       "type": "tech",
       "date": "2026-09-30",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -995,7 +994,7 @@
       "type": "tech",
       "date": "2026-09-29",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (358 words)"
       ]
     },
     {
@@ -1013,7 +1012,7 @@
       "type": "tech",
       "date": "2026-09-29",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (431 words)",
         "No source link detected"
       ]
     },
@@ -1024,7 +1023,7 @@
       "type": "tech",
       "date": "2026-09-28",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (594 words)"
       ]
     },
     {
@@ -1034,7 +1033,7 @@
       "type": "tech",
       "date": "2026-09-28",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (429 words)",
         "No source link detected"
       ]
     },
@@ -1089,7 +1088,7 @@
       "type": "tech",
       "date": "2026-09-26",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (573 words)"
       ]
     },
     {
@@ -1107,7 +1106,7 @@
       "type": "tech",
       "date": "2026-09-25",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -1118,7 +1117,7 @@
       "type": "tech",
       "date": "2026-09-24",
       "issues": [
-        "Very short body"
+        "Very short body (249 words)"
       ]
     },
     {
@@ -1128,7 +1127,7 @@
       "type": "tech",
       "date": "2026-09-24",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
@@ -1139,7 +1138,7 @@
       "type": "tech",
       "date": "2026-09-23",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
@@ -1158,7 +1157,7 @@
       "type": "tech",
       "date": "2026-09-22",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -1169,7 +1168,7 @@
       "type": "tech",
       "date": "2026-09-21",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (431 words)",
         "No source link detected"
       ]
     },
@@ -1180,7 +1179,7 @@
       "type": "tech",
       "date": "2026-09-20",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (394 words)"
       ]
     },
     {
@@ -1190,7 +1189,7 @@
       "type": "tech",
       "date": "2026-09-20",
       "issues": [
-        "Very short body"
+        "Very short body (224 words)"
       ]
     },
     {
@@ -1200,7 +1199,7 @@
       "type": "tech",
       "date": "2026-09-20",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (392 words)"
       ]
     },
     {
@@ -1210,7 +1209,7 @@
       "type": "tech",
       "date": "2026-09-20",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (344 words)"
       ]
     },
     {
@@ -1220,7 +1219,7 @@
       "type": "tech",
       "date": "2026-09-20",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (431 words)",
         "No source link detected"
       ]
     },
@@ -1231,7 +1230,7 @@
       "type": "tech",
       "date": "2026-09-20",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (358 words)"
       ]
     },
     {
@@ -1241,18 +1240,18 @@
       "type": "tech",
       "date": "2026-09-19",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
     {
       "slug": "how-to-use-the-arcade-score-checker",
       "title": "How to check your Arcade score on B Tecky (no login)",
-      "words": 232,
+      "words": 563,
       "type": "tech",
       "date": "2026-09-19",
       "issues": [
-        "Very short body",
+        "Short body; review usefulness (563 words)",
         "No source link detected"
       ]
     },
@@ -1263,7 +1262,7 @@
       "type": "tech",
       "date": "2026-09-18",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
@@ -1274,7 +1273,7 @@
       "type": "tech",
       "date": "2026-09-18",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (331 words)"
       ]
     },
     {
@@ -1284,7 +1283,7 @@
       "type": "tech",
       "date": "2026-09-17",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
@@ -1295,7 +1294,7 @@
       "type": "tech",
       "date": "2026-09-16",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (431 words)",
         "No source link detected"
       ]
     },
@@ -1306,7 +1305,7 @@
       "type": "tech",
       "date": "2026-09-15",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -1317,7 +1316,7 @@
       "type": "tech",
       "date": "2026-09-14",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (437 words)",
         "No source link detected"
       ]
     },
@@ -1328,7 +1327,7 @@
       "type": "tech",
       "date": "2026-09-13",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (432 words)",
         "No source link detected"
       ]
     },
@@ -1339,7 +1338,7 @@
       "type": "tech",
       "date": "2026-09-12",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (431 words)",
         "No source link detected"
       ]
     },
@@ -1350,7 +1349,7 @@
       "type": "tech",
       "date": "2026-09-11",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -1361,7 +1360,7 @@
       "type": "tech",
       "date": "2026-09-10",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (431 words)",
         "No source link detected"
       ]
     },
@@ -1372,7 +1371,7 @@
       "type": "tech",
       "date": "2026-09-09",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (431 words)",
         "No source link detected"
       ]
     },
@@ -1383,7 +1382,7 @@
       "type": "tech",
       "date": "2026-09-08",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
@@ -1394,7 +1393,7 @@
       "type": "tech",
       "date": "2026-09-07",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -1405,7 +1404,7 @@
       "type": "tech",
       "date": "2026-09-06",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (433 words)",
         "No source link detected"
       ]
     },
@@ -1424,7 +1423,7 @@
       "type": "tech",
       "date": "2026-09-05",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (439 words)",
         "No source link detected"
       ]
     },
@@ -1435,7 +1434,7 @@
       "type": "tech",
       "date": "2026-09-04",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -1446,7 +1445,7 @@
       "type": "tech",
       "date": "2026-09-03",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (435 words)",
         "No source link detected"
       ]
     },
@@ -1457,7 +1456,7 @@
       "type": "tech",
       "date": "2026-09-02",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (434 words)",
         "No source link detected"
       ]
     },
@@ -1468,7 +1467,7 @@
       "type": "tech",
       "date": "2026-09-01",
       "issues": [
-        "Short body; review usefulness",
+        "Short body; review usefulness (439 words)",
         "No source link detected"
       ]
     },
@@ -1479,7 +1478,7 @@
       "type": "tech",
       "date": "2026-10-26",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (305 words)"
       ]
     },
     {
@@ -1489,38 +1488,32 @@
       "type": "tech",
       "date": "2026-10-22",
       "issues": [
-        "Very short body"
+        "Very short body (298 words)"
       ]
     },
     {
       "slug": "openai-agents-biological-data-research",
       "title": "How AI Agents Are Helping Researchers Explore Complex Biological Data",
-      "words": 282,
+      "words": 632,
       "type": "tech",
       "date": "2026-10-21",
-      "issues": [
-        "Very short body"
-      ]
+      "issues": []
     },
     {
       "slug": "openai-low-resource-programming-languages",
       "title": "AI Coding Assistants for COBOL, SQLite and Other Low-Resource Languages",
-      "words": 274,
+      "words": 679,
       "type": "tech",
       "date": "2026-10-19",
-      "issues": [
-        "Very short body"
-      ]
+      "issues": []
     },
     {
       "slug": "openai-frontier-training-security",
       "title": "How Frontier AI Training Environments Are Secured",
-      "words": 280,
+      "words": 614,
       "type": "tech",
       "date": "2026-10-23",
-      "issues": [
-        "Very short body"
-      ]
+      "issues": []
     },
     {
       "slug": "openai-frontier-model-misalignment-detection",
@@ -1529,7 +1522,7 @@
       "type": "tech",
       "date": "2026-10-29",
       "issues": [
-        "Very short body"
+        "Very short body (274 words)"
       ]
     },
     {
@@ -1539,7 +1532,7 @@
       "type": "tech",
       "date": "2026-11-02",
       "issues": [
-        "Very short body"
+        "Very short body (291 words)"
       ]
     },
     {
@@ -1549,7 +1542,7 @@
       "type": "tech",
       "date": "2026-10-07",
       "issues": [
-        "Very short body"
+        "Very short body (289 words)"
       ]
     },
     {
@@ -1559,7 +1552,7 @@
       "type": "tech",
       "date": "2026-10-26",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (312 words)"
       ]
     },
     {
@@ -1569,7 +1562,7 @@
       "type": "tech",
       "date": "2026-10-27",
       "issues": [
-        "Very short body"
+        "Very short body (272 words)"
       ]
     },
     {
@@ -1579,7 +1572,7 @@
       "type": "tech",
       "date": "2026-10-08",
       "issues": [
-        "Very short body"
+        "Very short body (287 words)"
       ]
     },
     {
@@ -1589,7 +1582,7 @@
       "type": "tech",
       "date": "2026-10-08",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (300 words)"
       ]
     },
     {
@@ -1599,7 +1592,7 @@
       "type": "tech",
       "date": "2026-10-15",
       "issues": [
-        "Very short body"
+        "Very short body (283 words)"
       ]
     },
     {
@@ -1609,7 +1602,7 @@
       "type": "tech",
       "date": "2026-10-15",
       "issues": [
-        "Very short body"
+        "Very short body (292 words)"
       ]
     },
     {
@@ -1619,7 +1612,7 @@
       "type": "tech",
       "date": "2026-10-15",
       "issues": [
-        "Very short body"
+        "Very short body (276 words)"
       ]
     },
     {
@@ -1629,18 +1622,16 @@
       "type": "tech",
       "date": "2026-10-14",
       "issues": [
-        "Very short body"
+        "Very short body (279 words)"
       ]
     },
     {
       "slug": "ibm-agent-identity-trust-agentic-era",
       "title": "IBM Agent Identity: Giving AI Agents Verifiable Identity and Access",
-      "words": 279,
+      "words": 669,
       "type": "tech",
       "date": "2026-10-26",
-      "issues": [
-        "Very short body"
-      ]
+      "issues": []
     },
     {
       "slug": "ibm-quantum-safe-post-quantum-migration",
@@ -1649,7 +1640,7 @@
       "type": "tech",
       "date": "2026-10-27",
       "issues": [
-        "Very short body"
+        "Very short body (278 words)"
       ]
     },
     {
@@ -1659,7 +1650,7 @@
       "type": "tech",
       "date": "2026-10-21",
       "issues": [
-        "Very short body"
+        "Very short body (269 words)"
       ]
     },
     {
@@ -1669,7 +1660,7 @@
       "type": "tech",
       "date": "2026-10-28",
       "issues": [
-        "Very short body"
+        "Very short body (268 words)"
       ]
     },
     {
@@ -1679,7 +1670,7 @@
       "type": "tech",
       "date": "2026-10-27",
       "issues": [
-        "Very short body"
+        "Very short body (273 words)"
       ]
     },
     {
@@ -1689,7 +1680,7 @@
       "type": "tech",
       "date": "2026-10-27",
       "issues": [
-        "Very short body"
+        "Very short body (286 words)"
       ]
     },
     {
@@ -1699,7 +1690,7 @@
       "type": "tech",
       "date": "2026-10-28",
       "issues": [
-        "Very short body"
+        "Very short body (271 words)"
       ]
     },
     {
@@ -1709,7 +1700,7 @@
       "type": "tech",
       "date": "2026-10-29",
       "issues": [
-        "Very short body"
+        "Very short body (290 words)"
       ]
     },
     {
@@ -1719,7 +1710,7 @@
       "type": "tech",
       "date": "2026-10-15",
       "issues": [
-        "Short body; review usefulness"
+        "Short body; review usefulness (310 words)"
       ]
     }
   ]
