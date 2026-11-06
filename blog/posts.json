@@ -13,7 +13,7 @@
     {
       "slug": "salesforce-agentforce-service-agents-quest-2026",
       "title": "SALESFORCE IS GIVING AWAY $200 CERTIFICATION VOUCHERS! 🎁 || Activate Agentforce Service Agents Quest 2026 || 600+ Points!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-06",
       "updatedAt": "2026-11-06",
       "tags": [
@@ -33,7 +33,7 @@
     {
       "slug": "openai-is-looking-for-ambassadors-codex-ambassador-student-collective-2026-apply-now",
       "title": "OPENAI IS LOOKING FOR AMBASSADORS! 🚀 || Codex Ambassador & Student Collective 2026 || Apply Now!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-06",
       "updatedAt": "2026-11-06",
       "tags": [
@@ -53,7 +53,7 @@
     {
       "slug": "build-projects-get-free-hack-club-swags-goodies-half-life-challenge-2026-register-now",
       "title": "BUILD PROJECTS & GET FREE HACK CLUB SWAGS & GOODIES! || Half Life Challenge 2026 || Register Now!!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-04",
       "updatedAt": "2026-11-04",
       "tags": [
@@ -73,7 +73,7 @@
     {
       "slug": "win-a-macbook-neo-for-free-learn-earn-ai-quiz-challenge-2026-ai-gadgets-free-goodies",
       "title": "WIN A MACBOOK NEO FOR FREE?! || Learn & Earn AI Quiz Challenge 2026 || AI Gadgets & FREE Goodies!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-04",
       "updatedAt": "2026-11-04",
       "tags": [
@@ -93,7 +93,7 @@
     {
       "slug": "aws-just-dropped-4-big-updates-free-rewards-worth-579-new-opportunities-for-developers",
       "title": "🚨 AWS JUST DROPPED 4 BIG UPDATES! 😱 | FREE Rewards Worth $579 + New Opportunities for Developers!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-03",
       "updatedAt": "2026-11-03",
       "tags": [
@@ -113,7 +113,7 @@
     {
       "slug": "aws-is-giving-away-free-swags-aws-student-builder-challenge-2026-earn-bag-hoodie-goodies",
       "title": "AWS IS GIVING AWAY FREE SWAGS! || AWS Student Builder Challenge 2026 || Earn Bag, Hoodie & Goodies!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-02",
       "updatedAt": "2026-11-02",
       "tags": [
@@ -133,7 +133,7 @@
     {
       "slug": "google-is-giving-away-free-swags-again-student-ambassador-2026-10-000-exciting-rewards",
       "title": "🚨 GOOGLE IS GIVING AWAY FREE SWAGS AGAIN! 😱 | Student Ambassador 2026 | ₹10,000 + EXCITING REWARDS!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-02",
       "updatedAt": "2026-11-02",
       "tags": [
@@ -153,7 +153,7 @@
     {
       "slug": "win-aws-swags-bundle-aws-november-student-challenge-2026-aws-student-builder-register-no",
       "title": "WIN AWS Swags Bundle! || AWS November Student Challenge 2026 || AWS Student Builder || Register Now!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-01",
       "updatedAt": "2026-11-01",
       "tags": [
@@ -173,7 +173,7 @@
     {
       "slug": "google-is-giving-free-swags-again-google-learn-with-communities-x-gdg-2026-hurry-up",
       "title": "GOOGLE IS GIVING FREE SWAGS AGAIN! || GOOGLE Learn With Communities X GDG 2026 || Hurry Up!!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-01",
       "updatedAt": "2026-11-01",
       "tags": [
@@ -193,7 +193,7 @@
     {
       "slug": "microsoft-is-giving-free-swags-certification-voucher-fabric-day-program-2026-hurry-up",
       "title": "Microsoft Is Giving FREE Swags & Certification Voucher || Fabric Day Program 2026 || Hurry Up",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-01",
       "updatedAt": "2026-11-01",
       "tags": [
@@ -256,7 +256,7 @@
       "cover": "/assets/images/blog-covers/github-universe-2026-is-here-free-virtual-registration-in-person-tickets-sold-out.svg",
       "author": "Lavish Sheth",
       "status": "published",
-      "contentType": "events"
+      "contentType": "tech"
     },
     {
       "slug": "pixabay-india-photo-contest-2026-win-200-free-swags-goodies-canva-pro-skillshare-rewards",
@@ -476,7 +476,7 @@
       "videoThumbnail": "",
       "author": "Lavish Sheth",
       "status": "published",
-      "contentType": "events"
+      "contentType": "tech"
     },
     {
       "slug": "ai-agents-vs-workflows-how-to-choose-the-right-approach",
@@ -1749,7 +1749,7 @@
       "videoThumbnail": "https://img.youtube.com/vi/GbLMGlCiyMk/maxresdefault.jpg",
       "author": "Lavish Sheth",
       "status": "published",
-      "contentType": "events"
+      "contentType": "tech"
     },
     {
       "slug": "if-you-re-a-student-developer-cloud-enthusiast-devops-learner-or-someone-explori",
@@ -2171,7 +2171,7 @@
       "summary": "The four 2026 Arcade prize tiers, how many prizes each one has, how the waterfall system works, and what changed from last year.",
       "cover": "/assets/images/blog-covers/google-skills-arcade-2026-prize-tiers-explained.svg",
       "body": "Google announced the Google Skills Arcade 2026 prize tiers on 10 June 2026. If you are collecting points this year, these are the numbers to plan around.\n\n## The four tiers\n\n| Tier | Arcade points | Prize spots |\n|---|---|---|\n| Trooper | 50 to 74 | 6,000 |\n| Ranger | 75 to 94 | 4,000 |\n| Champion | 95 to 119 | 3,000 |\n| Legend | 120 or more | 2,500 |\n\n## What is different this year\n\n- **The Novice tier is gone.** Google says the season lasts a full year, so the rewards now focus on the four tiers above.\n- **Each tier has a limit.** For the first time, only a set number of players can receive prizes in each tier. Google says the limits are well above the number of prizes claimed last year.\n\n## How the waterfall works\n\nThe Prize Counter works on a first come, first served basis, starting at the Legend tier. Suppose you have 120 or more points but the 2,500 Legend spots are already taken. Your points then move you to the front of the line for Champion prizes. If Champion is full, you roll down to Ranger, and then to Trooper.\n\nThe practical lesson is simple: the earlier you lock in your points, the higher up the waterfall you stay.\n\n## When do the prizes arrive?\n\nThe Prize Counter is due to open shortly after the 2026 season ends at the end of the year. Google also said in April that all the Arcade points you have earned during 2026 are safe and will count when the counter opens.\n\n## Where the points come from\n\n- **Arcade games:** one point each. Since April 2026 every game is worth the same.\n- **Skill badges:** half a point each, so two badges make one point.\n- **Facilitator program:** bonus points from milestones. The 2026 program ran from 13 July to 14 September.\n\n## Work out where you stand\n\nType your numbers into the [Arcade Points Calculator](../arcade-calculator.html) to see your current tier, what you still need for the next one, and what a steady pace could give you by the end of the year.\n\n> Rules can change, so always confirm the details on Google's official announcement: [Google Skills Arcade 2026 Tiers](https://discuss.google.dev/t/google-skills-arcade-2026-tiers/371066). Points and tiers on this website are estimates.",
-      "contentType": "events"
+      "contentType": "tech"
     },
     {
       "slug": "first-ai-agent-google-cloud-bonus-milestone",
