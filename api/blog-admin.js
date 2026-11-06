@@ -271,9 +271,13 @@ async function commitFiles(files, message) {
 
 module.exports = async (req, res) => {
   if (req.method === 'OPTIONS') return res.status(204).end();
-  const key = req.headers['x-btecky-key'] || (req.body && req.body.key);
-  if (!process.env.BLOG_ADMIN_PASSWORD) return res.status(503).json({error:'BLOG_ADMIN_PASSWORD is not configured in Vercel.'});
-  if (key !== process.env.BLOG_ADMIN_PASSWORD) return res.status(401).json({error:'Invalid passphrase.'});
+  const suppliedKey = req.headers['x-btecky-key'] || (req.body && req.body.key) || '';
+  const configuredPassword = process.env.BLOG_ADMIN_PASSWORD || '';
+  if (!configuredPassword.trim()) return res.status(503).json({error:'BLOG_ADMIN_PASSWORD is not configured in Vercel.'});
+  // Trim accidental whitespace/newlines copied into Vercel's secret field.
+  if (String(suppliedKey).trim() !== configuredPassword.trim()) {
+    return res.status(401).json({error:'Invalid passphrase. Check the BLOG_ADMIN_PASSWORD value in Vercel Production and redeploy.'});
+  }
   try {
     if (req.method === 'GET') {
       const file = await readRepoFile('blog/posts.json');
