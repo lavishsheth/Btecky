@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // Preview-first foundation; production routing is not switched during migration.
 export default defineConfig({
-  site: 'https://btecky-sigma.vercel.app',
+  site: 'https://www.btecky.tech',
   output: 'static',
   integrations: [react()],
   vite: { plugins: [tailwindcss()] },
