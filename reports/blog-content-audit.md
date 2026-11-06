@@ -2,18 +2,18 @@
 
 Generated: 6 November 2026
 
-> Automated editorial triage only. This is not a factual accuracy, originality, policy-compliance or AdSense eligibility verdict. Word-count bands are internal review signals, not Google requirements.
+> Automated editorial triage only. This is not a factual accuracy, originality, policy-compliance or AdSense eligibility verdict. Word-count bands are internal signals, not Google requirements.
 
 ## Catalogue overview
 
 - Published posts reviewed: **173**
-- Opportunity announcements: **26**
-- Technical/educational posts: **147**
-- Posts with one or more review flags: **142**
+- Opportunity announcements: **32**
+- Technical/educational posts: **141**
+- Posts with one or more review flags: **141**
 - Under 300 words: **24**
 - Under 600 words: **108**
 - No source link detected: **63**
-- Opportunities needing a checked update date: **26**
+- Opportunities needing a checked update date: **22**
 - Topic labels: **52**
 
 ## Priority review list
@@ -52,7 +52,7 @@ Generated: 6 November 2026
 | [Build your first AI agent on Google Cloud: what the 2026 Bonus Milestone taught](https://www.btecky.tech/blog/first-ai-agent-google-cloud-bonus-milestone/) | 344 | tech | Short body; review usefulness |
 | [NVIDIA launches Open Agent Safety Platform: what developers should know](https://www.btecky.tech/blog/nvidia-open-agent-safety-platform-ai-agent-security-september-2026/) | 358 | tech | Short body; review usefulness |
 | [A free roadmap to learn Google Cloud as a beginner in 2026](https://www.btecky.tech/blog/free-google-cloud-roadmap-for-beginners-2026/) | 358 | tech | Short body; review usefulness |
-| [Google Skills Arcade 2026 prize tiers explained: points, prize spots and the waterfall](https://www.btecky.tech/blog/google-skills-arcade-2026-prize-tiers-explained/) | 392 | events | Short body; review usefulness; Opportunity needs a checked update date |
+| [Google Skills Arcade 2026 prize tiers explained: points, prize spots and the waterfall](https://www.btecky.tech/blog/google-skills-arcade-2026-prize-tiers-explained/) | 392 | tech | Short body; review usefulness |
 | [What is an AI agent? A beginner-friendly guide](https://www.btecky.tech/blog/what-is-an-ai-agent-beginner-guide/) | 394 | tech | Short body; review usefulness |
 | [Kubernetes Fundamentals](https://www.btecky.tech/blog/kubernetes-fundamentals/) | 429 | tech | Short body; review usefulness; No source link detected |
 | [Edge Computing Explained](https://www.btecky.tech/blog/edge-computing-explained/) | 431 | tech | Short body; review usefulness; No source link detected |
@@ -77,7 +77,7 @@ Generated: 6 November 2026
 | [Prompt Engineering Best Practices](https://www.btecky.tech/blog/prompt-engineering-best-practices/) | 433 | tech | Short body; review usefulness; No source link detected |
 | [MCP Explained for Developers](https://www.btecky.tech/blog/mcp-explained-for-developers/) | 433 | tech | Short body; review usefulness; No source link detected |
 | [RAG Explained: How AI Applications Retrieve Knowledge](https://www.btecky.tech/blog/rag-explained-how-ai-applications-retrieve-knowledge/) | 434 | tech | Short body; review usefulness; No source link detected |
-| [Finding and Evaluating Technology Internships](https://www.btecky.tech/blog/finding-and-evaluating-technology-internships/) | 435 | events | Short body; review usefulness; No source link detected; Opportunity needs a checked update date |
+| [Finding and Evaluating Technology Internships](https://www.btecky.tech/blog/finding-and-evaluating-technology-internships/) | 435 | tech | Short body; review usefulness; No source link detected |
 | [Building a Strong Developer Portfolio](https://www.btecky.tech/blog/building-a-strong-developer-portfolio/) | 435 | tech | Short body; review usefulness; No source link detected |
 | [WebAssembly and Its Use Cases](https://www.btecky.tech/blog/webassembly-and-its-use-cases/) | 435 | tech | Short body; review usefulness; No source link detected |
 | [How to Secure REST APIs](https://www.btecky.tech/blog/how-to-secure-rest-apis/) | 435 | tech | Short body; review usefulness; No source link detected |
@@ -134,7 +134,7 @@ Generated: 6 November 2026
 | [🚨 Reliance GET Recruitment 2027 \| All India Hiring for Graduate Engineers \| Freshers Apply Now!](https://www.btecky.tech/blog/reliance-get-recruitment-2027-all-india-hiring-for-graduate-engineers-freshers-apply-now/) | 870 | events | No source link detected; Opportunity needs a checked update date |
 | [🚨 Pixabay India Photo Contest 2026 🇮🇳 \| WIN $200 + FREE Swags & Goodies! 🎁 \| Canva Pro & Skillshare Rewards](https://www.btecky.tech/blog/pixabay-india-photo-contest-2026-win-200-free-swags-goodies-canva-pro-skillshare-rewards/) | 884 | events | Opportunity needs a checked update date |
 | [💰 Unstop Lakhpati Internship 2026 \| ₹1 Lakh Stipend Opportunity! 🔥 \| Apply Now](https://www.btecky.tech/blog/unstop-lakhpati-internship-2026-1-lakh-stipend-opportunity-apply-now/) | 928 | events | Opportunity needs a checked update date |
-| [Biggest Google Skills Arcade 2026 Prize Tier Update \| Is Your Arcade Swag Tier Fixed?](https://www.btecky.tech/blog/biggest-google-skills-arcade-2026-prize-tier-update-is-your-arcade-swag-tier-fix/) | 1045 | events | No source link detected; Opportunity needs a checked update date |
+| [Biggest Google Skills Arcade 2026 Prize Tier Update \| Is Your Arcade Swag Tier Fixed?](https://www.btecky.tech/blog/biggest-google-skills-arcade-2026-prize-tier-update-is-your-arcade-swag-tier-fix/) | 1045 | tech | No source link detected |
 | [🎁 EARN GOOGLE SWAGS! 🔥 GFG × Google Cloud 2026 — Complete A to Z Guide](https://www.btecky.tech/blog/earn-google-swags-gfg-google-cloud-2026-complete-a-to-z-guide/) | 1078 | events | Opportunity needs a checked update date |
 | [Earn FREE Pixabay Swags & Goodies \| Pixabay Creation Contest 2026 \| $200 Prizes + More!](https://www.btecky.tech/blog/earn-free-pixabay-swags-goodies-pixabay-creation-contest-2026-200-prizes-more/) | 1120 | events | Opportunity needs a checked update date |
 | [🎁 EARN FREE APPWRITE SWAGS! 🔥 \| Appwrite Databases Hackathon 2026 \| Complete A to Z Guide](https://www.btecky.tech/blog/earn-free-appwrite-swags-appwrite-databases-hackathon-2026-complete-a-to-z-guide/) | 1121 | events | Opportunity needs a checked update date |
@@ -144,7 +144,6 @@ Generated: 6 November 2026
 | [Docker for Beginners](https://www.btecky.tech/blog/docker-for-beginners/) | 1200 | tech | No source link detected |
 | [🔥 Flip the Switch Program 2026 \| FREE Swags & Goodies 🎁 \| Everyone Gets Something!](https://www.btecky.tech/blog/flip-the-switch-program-2026-free-swags-goodies-everyone-gets-something/) | 1212 | events | Opportunity needs a checked update date |
 | [Python Virtual Environments and Dependency Management](https://www.btecky.tech/blog/python-virtual-environments-and-dependency-management/) | 1261 | tech | No source link detected |
-| [🚨 GitHub Universe 2026 Is Here! 🔥 \| FREE Virtual Registration \| In-Person Tickets SOLD OUT!](https://www.btecky.tech/blog/github-universe-2026-is-here-free-virtual-registration-in-person-tickets-sold-out/) | 1285 | events | Opportunity needs a checked update date |
 | [REST APIs vs. GraphQL](https://www.btecky.tech/blog/rest-apis-vs-graphql/) | 1297 | tech | No source link detected |
 | [Java Streams: map, filter, reduce, and Collectors](https://www.btecky.tech/blog/java-streams-map-filter-reduce-and-collectors/) | 1309 | tech | No source link detected |
 | [🚀 GitHub Dev Days 2026: FREE GitHub Swags & Goodies? \| Here's What You Need to Know!](https://www.btecky.tech/blog/github-dev-days-2026-free-github-swags-goodies-here-s-what-you-need-to-know/) | 1319 | events | Opportunity needs a checked update date |
