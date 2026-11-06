@@ -51,14 +51,14 @@ const markdown = [
   '## Handling findings', '',
   'Do not automatically delete, noindex or expand flagged articles. Review each page. Improve useful pages with real examples and primary sources; consolidate overlapping pages with redirects; clearly mark expired opportunities; remove or noindex pages only after editorial review. Never add filler to reach a word count.', '',
   '## Topic labels', '', ...categories.map((category) => '- ' + category), ''
-].join('\\n');
+].join('\n');
 const report = { generatedAt: new Date().toISOString(), totalPublished: posts.length, flaggedCount: flagged.length, findings };
 console.log('Audited ' + posts.length + ' published posts; ' + flagged.length + ' need editorial review.');
 if (process.argv.includes('--write')) {
   const markdownPath = resolve('reports/blog-content-audit.md');
   const jsonPath = resolve('reports/blog-content-audit.json');
   mkdirSync(dirname(markdownPath), { recursive: true });
-  writeFileSync(markdownPath, markdown + '\\n');
-  writeFileSync(jsonPath, JSON.stringify(report, null, 2) + '\\n');
+  writeFileSync(markdownPath, markdown + '\n');
+  writeFileSync(jsonPath, JSON.stringify(report, null, 2) + '\n');
   console.log('Wrote ' + markdownPath + ' and ' + jsonPath);
 }
