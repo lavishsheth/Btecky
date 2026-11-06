@@ -36,6 +36,7 @@ const required = [
   'robots.txt',
   'ads.txt',
   'sitemap.xml',
+  'editorial-policy/index.html',
 ];
 const missing = required.filter((path) => !existsSync(join(dist, path)));
 if (missing.length) {
@@ -77,6 +78,12 @@ if (missing.length) {
   });
   if (missingAdCode.length) {
     console.error('AdSense account code is missing from generated pages:', missingAdCode.join(', '));
+    process.exitCode = 1;
+  }
+  const robots = readFileSync(join(dist, 'robots.txt'), 'utf8');
+  const sitemap = readFileSync(join(dist, 'sitemap.xml'), 'utf8');
+  if (!robots.includes('https://www.btecky.tech/sitemap.xml') || !sitemap.includes('https://www.btecky.tech/')) {
+    console.error('Robots.txt or sitemap.xml does not use the canonical production domain.');
     process.exitCode = 1;
   }
   const ads = readFileSync(join(dist, 'ads.txt'), 'utf8');

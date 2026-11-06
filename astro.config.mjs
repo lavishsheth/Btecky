@@ -2,9 +2,9 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
-// Preview-first foundation; production routing is not switched during migration.
+// Use the public production origin for canonical URLs, Open Graph metadata and sitemap generation.
 export default defineConfig({
-  site: 'https://btecky-sigma.vercel.app',
+  site: 'https://www.btecky.tech',
   output: 'static',
   integrations: [react()],
   vite: { plugins: [tailwindcss()] },

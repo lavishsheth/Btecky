@@ -13,7 +13,7 @@
     {
       "slug": "salesforce-agentforce-service-agents-quest-2026",
       "title": "SALESFORCE IS GIVING AWAY $200 CERTIFICATION VOUCHERS! 🎁 || Activate Agentforce Service Agents Quest 2026 || 600+ Points!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-06",
       "updatedAt": "2026-11-06",
       "tags": [
@@ -33,7 +33,7 @@
     {
       "slug": "openai-is-looking-for-ambassadors-codex-ambassador-student-collective-2026-apply-now",
       "title": "OPENAI IS LOOKING FOR AMBASSADORS! 🚀 || Codex Ambassador & Student Collective 2026 || Apply Now!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-06",
       "updatedAt": "2026-11-06",
       "tags": [
@@ -53,7 +53,7 @@
     {
       "slug": "build-projects-get-free-hack-club-swags-goodies-half-life-challenge-2026-register-now",
       "title": "BUILD PROJECTS & GET FREE HACK CLUB SWAGS & GOODIES! || Half Life Challenge 2026 || Register Now!!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-04",
       "updatedAt": "2026-11-04",
       "tags": [
@@ -73,7 +73,7 @@
     {
       "slug": "win-a-macbook-neo-for-free-learn-earn-ai-quiz-challenge-2026-ai-gadgets-free-goodies",
       "title": "WIN A MACBOOK NEO FOR FREE?! || Learn & Earn AI Quiz Challenge 2026 || AI Gadgets & FREE Goodies!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-04",
       "updatedAt": "2026-11-04",
       "tags": [
@@ -93,7 +93,7 @@
     {
       "slug": "aws-just-dropped-4-big-updates-free-rewards-worth-579-new-opportunities-for-developers",
       "title": "🚨 AWS JUST DROPPED 4 BIG UPDATES! 😱 | FREE Rewards Worth $579 + New Opportunities for Developers!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-03",
       "updatedAt": "2026-11-03",
       "tags": [
@@ -113,7 +113,7 @@
     {
       "slug": "aws-is-giving-away-free-swags-aws-student-builder-challenge-2026-earn-bag-hoodie-goodies",
       "title": "AWS IS GIVING AWAY FREE SWAGS! || AWS Student Builder Challenge 2026 || Earn Bag, Hoodie & Goodies!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-02",
       "updatedAt": "2026-11-02",
       "tags": [
@@ -133,7 +133,7 @@
     {
       "slug": "google-is-giving-away-free-swags-again-student-ambassador-2026-10-000-exciting-rewards",
       "title": "🚨 GOOGLE IS GIVING AWAY FREE SWAGS AGAIN! 😱 | Student Ambassador 2026 | ₹10,000 + EXCITING REWARDS!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-02",
       "updatedAt": "2026-11-02",
       "tags": [
@@ -153,7 +153,7 @@
     {
       "slug": "win-aws-swags-bundle-aws-november-student-challenge-2026-aws-student-builder-register-no",
       "title": "WIN AWS Swags Bundle! || AWS November Student Challenge 2026 || AWS Student Builder || Register Now!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-01",
       "updatedAt": "2026-11-01",
       "tags": [
@@ -173,7 +173,7 @@
     {
       "slug": "google-is-giving-free-swags-again-google-learn-with-communities-x-gdg-2026-hurry-up",
       "title": "GOOGLE IS GIVING FREE SWAGS AGAIN! || GOOGLE Learn With Communities X GDG 2026 || Hurry Up!!",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-01",
       "updatedAt": "2026-11-01",
       "tags": [
@@ -193,7 +193,7 @@
     {
       "slug": "microsoft-is-giving-free-swags-certification-voucher-fabric-day-program-2026-hurry-up",
       "title": "Microsoft Is Giving FREE Swags & Certification Voucher || Fabric Day Program 2026 || Hurry Up",
-      "contentType": "tech",
+      "contentType": "events",
       "date": "2026-11-01",
       "updatedAt": "2026-11-01",
       "tags": [
@@ -223,7 +223,8 @@
       "videoThumbnail": "https://img.youtube.com/vi/VOVBXNbAFtA/hqdefault.jpg",
       "cover": "/assets/images/blog-covers/win-an-iphone-duo-get-1-month-of-wispr-pro-free-wemakedevs-offers-2026.svg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "win-100-for-your-hackathon-project-mlh-dev-writing-challenge-october-2026-submit-now",
@@ -238,7 +239,8 @@
       "videoThumbnail": "https://img.youtube.com/vi/kWv8PCsQ2Hc/hqdefault.jpg",
       "cover": "/assets/images/blog-covers/win-100-for-your-hackathon-project-mlh-dev-writing-challenge-october-2026-submit-now.svg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "github-universe-2026-is-here-free-virtual-registration-in-person-tickets-sold-out",
@@ -253,7 +255,8 @@
       "videoThumbnail": "https://img.youtube.com/vi/m4IhHzWyZao/hqdefault.jpg",
       "cover": "/assets/images/blog-covers/github-universe-2026-is-here-free-virtual-registration-in-person-tickets-sold-out.svg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "pixabay-india-photo-contest-2026-win-200-free-swags-goodies-canva-pro-skillshare-rewards",
@@ -268,7 +271,8 @@
       "videoThumbnail": "https://img.youtube.com/vi/FSI-nDCNz8Q/hqdefault.jpg",
       "cover": "/assets/images/blog-covers/pixabay-india-photo-contest-2026-win-200-free-swags-goodies-canva-pro-skillshare-rewards.svg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "unstop-lakhpati-internship-2026-1-lakh-stipend-opportunity-apply-now",
@@ -283,7 +287,8 @@
       "videoThumbnail": "https://img.youtube.com/vi/ZMdP7B69Vm0/hqdefault.jpg",
       "cover": "/assets/images/blog-covers/unstop-lakhpati-internship-2026-1-lakh-stipend-opportunity-apply-now.svg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "reliance-get-recruitment-2027-all-india-hiring-for-graduate-engineers-freshers-apply-now",
@@ -298,7 +303,8 @@
       "videoThumbnail": "",
       "cover": "/assets/images/blog-covers/reliance-get-recruitment-2027-all-india-hiring-for-graduate-engineers-freshers-apply-now.svg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "flip-the-switch-program-2026-free-swags-goodies-everyone-gets-something",
@@ -313,7 +319,8 @@
       "videoThumbnail": "https://img.youtube.com/vi/EKn8584uvbw/hqdefault.jpg",
       "cover": "/assets/images/blog-covers/flip-the-switch-program-2026-free-swags-goodies-everyone-gets-something.svg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "earn-free-appwrite-swags-appwrite-databases-hackathon-2026-complete-a-to-z-guide",
@@ -328,7 +335,8 @@
       "videoThumbnail": "https://img.youtube.com/vi/CZMLkJ3kmoc/hqdefault.jpg",
       "cover": "/assets/images/blog-covers/earn-free-appwrite-swags-appwrite-databases-hackathon-2026-complete-a-to-z-guide.svg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "free-google-cloud-security-swags-hack-the-box-ctf-2026-operation-cymbal-cold-room",
@@ -343,7 +351,8 @@
       "videoThumbnail": "https://img.youtube.com/vi/r7h3LmB83Bk/hqdefault.jpg",
       "cover": "/assets/images/blog-covers/free-google-cloud-security-swags-hack-the-box-ctf-2026-operation-cymbal-cold-room.svg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "what-is-retrieval-augmented-generation-rag-a-practical-guide",
@@ -362,7 +371,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "seoDescription": "A complete practical guide to Retrieval-Augmented Generation: document ingestion, chunking, embeddings, retrieval, reranking, grounded generation, evaluation, security and a small project architecture.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "llms-explained-tokens-context-windows-and-temperature",
@@ -381,7 +391,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "seoDescription": "A practical, in-depth guide to tokenization, context-window budgeting, temperature, sampling controls, and experiments for building more reliable LLM applications.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-build-real-projects-instead-of-only-following-tutorials",
@@ -396,7 +407,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "earn-google-swags-gfg-google-cloud-2026-complete-a-to-z-guide",
@@ -411,7 +423,8 @@
       "videoUrl": "https://youtu.be/HnxrlmxmpnU",
       "videoThumbnail": "https://img.youtube.com/vi/HnxrlmxmpnU/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "seva-first-innovation-challenge-2026-complete-guide",
@@ -426,7 +439,8 @@
       "videoUrl": "https://youtu.be/h9zLY9mr6Ok",
       "videoThumbnail": "https://img.youtube.com/vi/h9zLY9mr6Ok/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "how-to-evaluate-ai-answers-with-a-small-test-set",
@@ -445,7 +459,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "seoDescription": "An AI feature can produce a few impressive answers and still fail when real users depend on it. A demo usually contains friendly inputs and carefully chosen examples. Production traffic contains ambiguous requests, missing information, unusual formats, adversarial content and questions the system should not answer. A small, repeatable evaluation set helps you see whether a change actually improves the system.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "finding-and-evaluating-technology-internships",
@@ -460,7 +475,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "ai-agents-vs-workflows-how-to-choose-the-right-approach",
@@ -478,7 +494,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "python-virtual-environments-and-dependency-management",
@@ -497,7 +514,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "seoDescription": "Learn how Python virtual environments isolate project dependencies, how to create and activate them on Windows and macOS/Linux, manage requirements, reproduce setups, and troubleshoot common environment problems.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "prompt-injection-a-practical-security-guide-for-ai-apps",
@@ -516,7 +534,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "seoDescription": "Prompt injection is a security risk that appears when an AI application reads untrusted text and can also follow instructions or use tools. A malicious instruction may be placed in a user message, a retrieved document, an email, a web page, a support ticket or a tool result. The text may tell the model to ignore its rules, disclose private information or perform an unrelated action.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-write-a-better-technical-resume",
@@ -531,7 +550,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "python-type-hints-make-small-programs-easier-to-maintain",
@@ -549,7 +569,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "python-list-set-tuple-and-dictionary-when-to-use-each",
@@ -567,7 +588,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "building-a-strong-developer-portfolio",
@@ -582,7 +604,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "python-exceptions-handle-errors-without-hiding-bugs",
@@ -601,7 +624,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "seoDescription": "Exceptions are Python's way of reporting that an operation could not complete normally. A file may not exist, a network request may time out, or user input may not match the expected format. Handling these failures deliberately makes an application more reliable. Catching every error and ignoring it, however, can hide bugs and leave the program in an invalid state.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "python-asyncio-when-asynchronous-code-helps",
@@ -619,7 +643,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-prepare-for-a-software-developer-interview",
@@ -634,7 +659,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "understanding-modern-web-performance",
@@ -649,7 +675,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "python-testing-with-pytest-a-beginner-friendly-workflow",
@@ -668,7 +695,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "seoDescription": "Tests give developers confidence that code behaves as expected and that future changes do not silently break existing features. pytest is a popular Python testing framework because it has a simple test-discovery model, readable assertions, fixtures and a large plugin ecosystem.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "build-a-rest-api-with-python-and-fastapi",
@@ -686,7 +714,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "webassembly-and-its-use-cases",
@@ -701,7 +730,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "java-streams-map-filter-reduce-and-collectors",
@@ -720,7 +750,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "seoDescription": "A practical deep dive into Java Streams, covering lazy pipelines, map, filter, reduce, collectors, grouping, optional values, debugging, performance and when a loop is clearer.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "java-records-a-clean-way-to-model-data",
@@ -738,7 +769,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "spring-boot-configuration-profiles-and-externalized-settings",
@@ -757,7 +789,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "updatedAt": "2026-11-05",
-      "editorialReview": "expanded-original-guide-v1"
+      "editorialReview": "expanded-original-guide-v1",
+      "contentType": "tech"
     },
     {
       "slug": "java-collections-big-o-and-practical-trade-offs",
@@ -775,7 +808,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "edge-computing-explained",
@@ -790,7 +824,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "spring-boot-validation-reject-bad-requests-early",
@@ -808,7 +843,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "java-dependency-injection-constructor-injection-in-practice",
@@ -826,7 +862,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-evaluate-ai-model-performance",
@@ -842,7 +879,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "the-rise-of-ai-powered-developer-tools",
@@ -857,7 +895,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "java-vs-python-for-backend-development",
@@ -874,7 +913,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "java-memory-basics-stack-heap-and-garbage-collection",
@@ -892,7 +932,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "train-test-split-and-data-leakage-explained",
@@ -910,7 +951,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "machine-learning-vs-deep-learning-vs-generative-ai",
@@ -928,7 +970,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-secure-rest-apis",
@@ -943,7 +986,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "what-is-zero-trust-security",
@@ -958,7 +1002,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "feature-engineering-for-tabular-machine-learning",
@@ -976,7 +1021,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "classification-metrics-precision-recall-f1-and-roc-auc",
@@ -994,7 +1040,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "understanding-passkeys-and-modern-authentication",
@@ -1009,7 +1056,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "overfitting-and-underfitting-a-visual-intuition",
@@ -1027,7 +1075,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "a-beginner-roadmap-for-learning-data-science",
@@ -1045,7 +1094,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "sql-joins-explained-with-a-student-database",
@@ -1063,7 +1113,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "seoDescription": "SQL joins combine rows from related tables. They are essential when an application stores information in separate tables but a report or screen needs fields from more than one place. A student record might live in one table, course information in another, and enrollment details in a third.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "sql-indexes-when-they-help-and-when-they-hurt",
@@ -1080,7 +1131,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "cybersecurity-fundamentals-for-developers",
@@ -1095,7 +1147,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "redis-caching-keys-ttls-and-cache-invalidation",
@@ -1113,7 +1166,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-contribute-to-open-source",
@@ -1128,7 +1182,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "database-transactions-and-acid-for-application-developers",
@@ -1146,7 +1201,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "updatedAt": "2026-11-05",
-      "editorialReview": "expanded-original-guide-v1"
+      "editorialReview": "expanded-original-guide-v1",
+      "contentType": "tech"
     },
     {
       "slug": "message-queues-vs-direct-api-calls",
@@ -1164,7 +1220,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "git-and-github-workflows",
@@ -1179,7 +1236,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "designing-idempotent-apis-for-safe-retries",
@@ -1197,7 +1255,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-build-a-serverless-application",
@@ -1212,7 +1271,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "docker-volumes-ports-and-environment-variables",
@@ -1230,7 +1290,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "api-pagination-offset-vs-cursor-pagination",
@@ -1248,7 +1309,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "earn-cool-aws-student-builder-leader-swags-aws-student-builder-program-2026-regi",
@@ -1263,7 +1325,8 @@
       "videoUrl": "https://youtu.be/tDf_Vy0GXD8",
       "videoThumbnail": "https://img.youtube.com/vi/tDf_Vy0GXD8/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "free-aws-re-2026-ticket-aws-user-groups-contest-how-to-win-complete-guide",
@@ -1278,7 +1341,8 @@
       "videoUrl": "https://youtu.be/3PxSYsZ6wCg",
       "videoThumbnail": "https://img.youtube.com/vi/3PxSYsZ6wCg/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "monitoring-and-logging-what-to-measure-first",
@@ -1296,7 +1360,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "kubernetes-pods-deployments-and-services",
@@ -1314,7 +1379,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "google-cloud-for-beginners",
@@ -1329,7 +1395,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "google-cloud-learn-with-communities",
@@ -1344,7 +1411,8 @@
       "videoUrl": "https://youtu.be/U09ycJPhP24",
       "videoThumbnail": "https://img.youtube.com/vi/U09ycJPhP24/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "google-promptwars-indian-premier-league-2026-free-swags-goodies-build-with-ai-wi",
@@ -1359,7 +1427,8 @@
       "videoUrl": "https://youtu.be/PFUYrVkGvzU",
       "videoThumbnail": "https://img.youtube.com/vi/PFUYrVkGvzU/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "everyone-gets-free-swags-kestra-hacktober-2026-how-to-participate-prizes",
@@ -1374,7 +1443,8 @@
       "videoUrl": "https://youtu.be/e_h3CE-_ci8",
       "videoThumbnail": "https://img.youtube.com/vi/e_h3CE-_ci8/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "github-dev-days-2026-free-github-swags-goodies-here-s-what-you-need-to-know",
@@ -1389,7 +1459,8 @@
       "videoUrl": "https://youtu.be/1lrFqiPZIxI",
       "videoThumbnail": "https://img.youtube.com/vi/1lrFqiPZIxI/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "canva-world-tour-2026-free-swags-goodies-complete-guide-everything-you-need-to-k",
@@ -1404,7 +1475,8 @@
       "videoUrl": "https://youtu.be/npRlTLJ30yw",
       "videoThumbnail": "https://img.youtube.com/vi/npRlTLJ30yw/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "understanding-cloud-iam",
@@ -1419,7 +1491,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "open-source-contributions-find-a-good-first-issue",
@@ -1436,7 +1509,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "google-gemini-at-work-2026-complete-a-to-z-guide-free-access-what-you-need-to-kn",
@@ -1451,7 +1525,8 @@
       "videoUrl": "https://youtu.be/H1xN8L2Lvno",
       "videoThumbnail": "https://img.youtube.com/vi/H1xN8L2Lvno/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "git-branching-and-pull-requests-for-solo-developers",
@@ -1469,7 +1544,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-register-in-hacktoberfest-2026-zero-to-hero-beginner-guide-free-swags-mus",
@@ -1484,7 +1560,8 @@
       "videoUrl": "https://youtu.be/7prQlNLFWvc",
       "videoThumbnail": "https://img.youtube.com/vi/7prQlNLFWvc/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "git-merge-vs-rebase-a-practical-explanation",
@@ -1502,7 +1579,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "earn-free-pixabay-swags-goodies-pixabay-creation-contest-2026-200-prizes-more",
@@ -1517,7 +1595,8 @@
       "videoUrl": "https://youtu.be/tp2yOJTyZAg",
       "videoThumbnail": "https://img.youtube.com/vi/tp2yOJTyZAg/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "cybersecurity-for-beginners-threat-modeling-a-web-app",
@@ -1535,7 +1614,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "cloud-run-vs-cloud-functions",
@@ -1550,7 +1630,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "google-build-with-gemini-2026-free-swags-goodies-complete-a-to-z-guide",
@@ -1565,7 +1646,8 @@
       "videoUrl": "https://youtu.be/yBrHdWgzSUY",
       "videoThumbnail": "https://img.youtube.com/vi/yBrHdWgzSUY/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "will-everyone-get-free-swags-at-google-devfest-2026-complete-a-to-z-guide",
@@ -1580,7 +1662,8 @@
       "videoUrl": "https://youtu.be/kWLOARdcNh4",
       "videoThumbnail": "https://img.youtube.com/vi/kWLOARdcNh4/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "web-accessibility-basics-keyboard-contrast-and-semantics",
@@ -1598,7 +1681,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "terraform-and-infrastructure-as-code",
@@ -1613,7 +1697,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "hacktoberfest-2026-complete-0-to-hero-guide-free-swags-goodies",
@@ -1628,7 +1713,8 @@
       "videoUrl": "https://youtu.be/OjHGe8nNpLc",
       "videoThumbnail": "https://img.youtube.com/vi/OjHGe8nNpLc/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "core-web-vitals-improve-speed-without-guesswork",
@@ -1646,7 +1732,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "updatedAt": "2026-11-05",
-      "editorialReview": "expanded-original-guide-v1"
+      "editorialReview": "expanded-original-guide-v1",
+      "contentType": "tech"
     },
     {
       "slug": "biggest-google-skills-arcade-2026-prize-tier-update-is-your-arcade-swag-tier-fix",
@@ -1661,7 +1748,8 @@
       "videoUrl": "https://youtu.be/GbLMGlCiyMk",
       "videoThumbnail": "https://img.youtube.com/vi/GbLMGlCiyMk/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "if-you-re-a-student-developer-cloud-enthusiast-devops-learner-or-someone-explori",
@@ -1676,7 +1764,8 @@
       "videoUrl": "https://youtu.be/9n4AyA0ri7w",
       "videoThumbnail": "https://img.youtube.com/vi/9n4AyA0ri7w/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "react-state-vs-props-a-simple-mental-model",
@@ -1694,7 +1783,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "paytm-is-hiring-design-interns-for-a-5-month-internship-product-design-visual-de",
@@ -1709,7 +1799,8 @@
       "videoUrl": "https://youtu.be/OEp8oZeqaFk",
       "videoThumbnail": "https://img.youtube.com/vi/OEp8oZeqaFk/maxresdefault.jpg",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "events"
     },
     {
       "slug": "nvidia-open-agent-safety-platform-ai-agent-security-september-2026",
@@ -1724,7 +1815,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "javascript-promises-and-async-await-error-handling-patterns",
@@ -1743,7 +1835,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "updatedAt": "2026-11-05",
-      "editorialReview": "expanded-original-guide-v1"
+      "editorialReview": "expanded-original-guide-v1",
+      "contentType": "tech"
     },
     {
       "slug": "ci-cd-pipelines-explained",
@@ -1758,7 +1851,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "python-data-visualization-choose-the-right-chart",
@@ -1776,7 +1870,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "kubernetes-fundamentals",
@@ -1791,7 +1886,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-plan-a-technical-blog-post-that-helps-readers",
@@ -1809,7 +1905,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "responsible-use-of-public-datasets-for-student-projects",
@@ -1827,7 +1924,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "javascript-modules-organize-code-with-import-and-export",
@@ -1846,7 +1944,8 @@
       "status": "published",
       "editorialType": "evergreen-guide",
       "updatedAt": "2026-11-05",
-      "editorialReview": "expanded-original-guide-v1"
+      "editorialReview": "expanded-original-guide-v1",
+      "contentType": "tech"
     },
     {
       "slug": "docker-for-beginners",
@@ -1863,7 +1962,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "seoDescription": "Docker packages an application and its runtime dependencies into an image that can be run as a container. It helps developers create more consistent environments across laptops, CI systems and servers. Instead of manually installing every dependency on every machine, a team can describe the environment and build an image from that definition.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "rest-apis-vs-graphql",
@@ -1880,7 +1980,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "seoDescription": "REST and GraphQL are two common ways for applications to exchange data over HTTP. Both can support web and mobile products, but they organize requests differently. REST commonly exposes resources through multiple endpoints. GraphQL commonly exposes a typed schema through which a client asks for the fields it needs.",
-      "updatedAt": "2026-10-31"
+      "updatedAt": "2026-10-31",
+      "contentType": "tech"
     },
     {
       "slug": "progressive-enhancement-make-web-tools-work-reliably",
@@ -1898,7 +1999,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "career-roadmaps-turn-a-goal-into-weekly-deliverables",
@@ -1916,7 +2018,8 @@
       "author": "Lavish Sheth",
       "status": "published",
       "editorialType": "evergreen-guide",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "understanding-the-javascript-event-loop",
@@ -1931,7 +2034,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "microsoft-security-september-2026-ai-agents-security",
@@ -1946,7 +2050,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "javascript-promises-and-async-await",
@@ -1961,7 +2066,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "typescript-for-java-developers",
@@ -1976,7 +2082,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "github-yale-developer-efficiency-september-2026",
@@ -1992,7 +2099,8 @@
       "videoThumbnail": "",
       "author": "Lavish Sheth",
       "status": "published",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "react-vs-angular-which-should-you-learn",
@@ -2007,7 +2115,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "react-hooks-explained",
@@ -2022,7 +2131,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "what-is-an-ai-agent-beginner-guide",
@@ -2034,7 +2144,8 @@
       ],
       "summary": "AI agents are everywhere in tech news. Here is a plain explanation of what they are, how they differ from chatbots, and how to start building one.",
       "cover": "/assets/images/blog-covers/what-is-an-ai-agent-beginner-guide.svg",
-      "body": "You have probably seen the phrase \"AI agent\" in the news and in Google Cloud's learning content. It sounds complicated, but the idea is simple.\n\n## Chatbot versus agent\n\nA chatbot answers your question and stops. An **AI agent** is given a goal, decides which steps to take, uses tools to carry them out, and keeps going until the goal is done or it needs your help.\n\nFor example, a chatbot can explain how to book a meeting room. An agent could check the calendar, pick a free slot, send the invite and tell you it is done.\n\n## The main parts of an agent\n\n- **A model:** the language model that reads instructions and decides what to do next.\n- **Instructions:** a plain description of the agent's job and its limits.\n- **Tools:** things the agent is allowed to use, such as searching a database, calling an API or reading a file.\n- **A loop:** the agent thinks, acts, looks at the result, and repeats.\n\n## Why \"multi-agent\" matters\n\nBigger systems often use several agents with different roles. One agent might gather data, another might check it, and a third might write the final answer. Google Skills has skill badges on exactly this, including engineering agents with the Agent Development Kit, deploying multi-agent architectures, and orchestrating multi-agent workflows.\n\n## Keep agents on a short leash\n\nBecause an agent can take actions, it should only be given the access it truly needs. Read what it plans to do, test it on sample data first, and never share secrets you would not put in a document. Even the 2026 Arcade Facilitator bonus project asked learners to give access to a single verifier account rather than opening everything up.\n\n## How to start building\n\n1. Learn the basics with hands-on labs on [Google Skills](https://www.skills.google/).\n2. Try the agent-related skill badges to see the tools in action.\n3. Use the Google Cloud free trial for your own small project. Google describes it as 90 days with $300 in credits, and says it will not charge your card automatically when the trial ends.\n4. Start with something tiny, like an agent that answers questions from a short document, and grow from there.\n\nRead the next post to see how Google turned this into a real project for Arcade Facilitator learners: [Build your first AI agent on Google Cloud](first-ai-agent-google-cloud-bonus-milestone.html)."
+      "body": "You have probably seen the phrase \"AI agent\" in the news and in Google Cloud's learning content. It sounds complicated, but the idea is simple.\n\n## Chatbot versus agent\n\nA chatbot answers your question and stops. An **AI agent** is given a goal, decides which steps to take, uses tools to carry them out, and keeps going until the goal is done or it needs your help.\n\nFor example, a chatbot can explain how to book a meeting room. An agent could check the calendar, pick a free slot, send the invite and tell you it is done.\n\n## The main parts of an agent\n\n- **A model:** the language model that reads instructions and decides what to do next.\n- **Instructions:** a plain description of the agent's job and its limits.\n- **Tools:** things the agent is allowed to use, such as searching a database, calling an API or reading a file.\n- **A loop:** the agent thinks, acts, looks at the result, and repeats.\n\n## Why \"multi-agent\" matters\n\nBigger systems often use several agents with different roles. One agent might gather data, another might check it, and a third might write the final answer. Google Skills has skill badges on exactly this, including engineering agents with the Agent Development Kit, deploying multi-agent architectures, and orchestrating multi-agent workflows.\n\n## Keep agents on a short leash\n\nBecause an agent can take actions, it should only be given the access it truly needs. Read what it plans to do, test it on sample data first, and never share secrets you would not put in a document. Even the 2026 Arcade Facilitator bonus project asked learners to give access to a single verifier account rather than opening everything up.\n\n## How to start building\n\n1. Learn the basics with hands-on labs on [Google Skills](https://www.skills.google/).\n2. Try the agent-related skill badges to see the tools in action.\n3. Use the Google Cloud free trial for your own small project. Google describes it as 90 days with $300 in credits, and says it will not charge your card automatically when the trial ends.\n4. Start with something tiny, like an agent that answers questions from a short document, and grow from there.\n\nRead the next post to see how Google turned this into a real project for Arcade Facilitator learners: [Build your first AI agent on Google Cloud](first-ai-agent-google-cloud-bonus-milestone.html).",
+      "contentType": "tech"
     },
     {
       "slug": "welcome-to-btecky-start-here",
@@ -2046,7 +2157,8 @@
       ],
       "summary": "Meet the B Tecky YouTube channel and its official website: what I make, who it is for, and the best places to start.",
       "cover": "/assets/images/blog-covers/welcome-to-btecky-start-here.svg",
-      "body": "Hi, I'm Lavish, a computer science student pursuing a B-Tech degree, and I'm passionate about technology. **B Tecky** is my YouTube channel, and this website is its official home.\n\n## What the channel covers\n\n- Google Cloud and the Qwiklabs program\n- Coverage of events and programs, including the Google Cloud Arcade\n- Programming videos, tips and tricks\n- Interviews and internship advice, and more\n\nThe goal is simple: useful content you can apply to your own learning, whether you are collecting skill badges or preparing for your first tech job.\n\n## Where to start\n\n1. **Watch the videos.** The latest uploads and playlists appear in the [videos section](../index.html#videos) of the home page, and you can subscribe on [YouTube](https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ?sub_confirmation=1).\n2. **Read the blog.** Guides and news, like [how Arcade points work](how-google-cloud-arcade-points-work.html) and [a free Google Cloud roadmap](free-google-cloud-roadmap-for-beginners-2026.html).\n3. **Try the tools.** The [Arcade Score Checker](../arcade.html) shows your Facilitator report score, and the [Arcade Points Calculator](../arcade-calculator.html) works out your points and prize tier.\n\n## Find me online\n\nYou can find me on [LinkedIn](https://www.linkedin.com/in/lavish-sheth-163844215) and on YouTube, and more links are in the footer of this site.\n\n## Work with me\n\nFor business queries, sponsorships or collaborations, email [lavishsheth122@gmail.com](mailto:lavishsheth122@gmail.com).\n\nThank you for spending your time here. If you enjoy the content, subscribe to the channel and share the site with a friend who is learning tech."
+      "body": "Hi, I'm Lavish, a computer science student pursuing a B-Tech degree, and I'm passionate about technology. **B Tecky** is my YouTube channel, and this website is its official home.\n\n## What the channel covers\n\n- Google Cloud and the Qwiklabs program\n- Coverage of events and programs, including the Google Cloud Arcade\n- Programming videos, tips and tricks\n- Interviews and internship advice, and more\n\nThe goal is simple: useful content you can apply to your own learning, whether you are collecting skill badges or preparing for your first tech job.\n\n## Where to start\n\n1. **Watch the videos.** The latest uploads and playlists appear in the [videos section](../index.html#videos) of the home page, and you can subscribe on [YouTube](https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ?sub_confirmation=1).\n2. **Read the blog.** Guides and news, like [how Arcade points work](how-google-cloud-arcade-points-work.html) and [a free Google Cloud roadmap](free-google-cloud-roadmap-for-beginners-2026.html).\n3. **Try the tools.** The [Arcade Score Checker](../arcade.html) shows your Facilitator report score, and the [Arcade Points Calculator](../arcade-calculator.html) works out your points and prize tier.\n\n## Find me online\n\nYou can find me on [LinkedIn](https://www.linkedin.com/in/lavish-sheth-163844215) and on YouTube, and more links are in the footer of this site.\n\n## Work with me\n\nFor business queries, sponsorships or collaborations, email [lavishsheth122@gmail.com](mailto:lavishsheth122@gmail.com).\n\nThank you for spending your time here. If you enjoy the content, subscribe to the channel and share the site with a friend who is learning tech.",
+      "contentType": "tech"
     },
     {
       "slug": "google-skills-arcade-2026-prize-tiers-explained",
@@ -2058,7 +2170,8 @@
       ],
       "summary": "The four 2026 Arcade prize tiers, how many prizes each one has, how the waterfall system works, and what changed from last year.",
       "cover": "/assets/images/blog-covers/google-skills-arcade-2026-prize-tiers-explained.svg",
-      "body": "Google announced the Google Skills Arcade 2026 prize tiers on 10 June 2026. If you are collecting points this year, these are the numbers to plan around.\n\n## The four tiers\n\n| Tier | Arcade points | Prize spots |\n|---|---|---|\n| Trooper | 50 to 74 | 6,000 |\n| Ranger | 75 to 94 | 4,000 |\n| Champion | 95 to 119 | 3,000 |\n| Legend | 120 or more | 2,500 |\n\n## What is different this year\n\n- **The Novice tier is gone.** Google says the season lasts a full year, so the rewards now focus on the four tiers above.\n- **Each tier has a limit.** For the first time, only a set number of players can receive prizes in each tier. Google says the limits are well above the number of prizes claimed last year.\n\n## How the waterfall works\n\nThe Prize Counter works on a first come, first served basis, starting at the Legend tier. Suppose you have 120 or more points but the 2,500 Legend spots are already taken. Your points then move you to the front of the line for Champion prizes. If Champion is full, you roll down to Ranger, and then to Trooper.\n\nThe practical lesson is simple: the earlier you lock in your points, the higher up the waterfall you stay.\n\n## When do the prizes arrive?\n\nThe Prize Counter is due to open shortly after the 2026 season ends at the end of the year. Google also said in April that all the Arcade points you have earned during 2026 are safe and will count when the counter opens.\n\n## Where the points come from\n\n- **Arcade games:** one point each. Since April 2026 every game is worth the same.\n- **Skill badges:** half a point each, so two badges make one point.\n- **Facilitator program:** bonus points from milestones. The 2026 program ran from 13 July to 14 September.\n\n## Work out where you stand\n\nType your numbers into the [Arcade Points Calculator](../arcade-calculator.html) to see your current tier, what you still need for the next one, and what a steady pace could give you by the end of the year.\n\n> Rules can change, so always confirm the details on Google's official announcement: [Google Skills Arcade 2026 Tiers](https://discuss.google.dev/t/google-skills-arcade-2026-tiers/371066). Points and tiers on this website are estimates."
+      "body": "Google announced the Google Skills Arcade 2026 prize tiers on 10 June 2026. If you are collecting points this year, these are the numbers to plan around.\n\n## The four tiers\n\n| Tier | Arcade points | Prize spots |\n|---|---|---|\n| Trooper | 50 to 74 | 6,000 |\n| Ranger | 75 to 94 | 4,000 |\n| Champion | 95 to 119 | 3,000 |\n| Legend | 120 or more | 2,500 |\n\n## What is different this year\n\n- **The Novice tier is gone.** Google says the season lasts a full year, so the rewards now focus on the four tiers above.\n- **Each tier has a limit.** For the first time, only a set number of players can receive prizes in each tier. Google says the limits are well above the number of prizes claimed last year.\n\n## How the waterfall works\n\nThe Prize Counter works on a first come, first served basis, starting at the Legend tier. Suppose you have 120 or more points but the 2,500 Legend spots are already taken. Your points then move you to the front of the line for Champion prizes. If Champion is full, you roll down to Ranger, and then to Trooper.\n\nThe practical lesson is simple: the earlier you lock in your points, the higher up the waterfall you stay.\n\n## When do the prizes arrive?\n\nThe Prize Counter is due to open shortly after the 2026 season ends at the end of the year. Google also said in April that all the Arcade points you have earned during 2026 are safe and will count when the counter opens.\n\n## Where the points come from\n\n- **Arcade games:** one point each. Since April 2026 every game is worth the same.\n- **Skill badges:** half a point each, so two badges make one point.\n- **Facilitator program:** bonus points from milestones. The 2026 program ran from 13 July to 14 September.\n\n## Work out where you stand\n\nType your numbers into the [Arcade Points Calculator](../arcade-calculator.html) to see your current tier, what you still need for the next one, and what a steady pace could give you by the end of the year.\n\n> Rules can change, so always confirm the details on Google's official announcement: [Google Skills Arcade 2026 Tiers](https://discuss.google.dev/t/google-skills-arcade-2026-tiers/371066). Points and tiers on this website are estimates.",
+      "contentType": "tech"
     },
     {
       "slug": "first-ai-agent-google-cloud-bonus-milestone",
@@ -2070,7 +2183,8 @@
       ],
       "summary": "A recap of the Arcade Facilitator 2026 Bonus Milestone: the checklist, the four skill badges, and the steps to build and submit your first AI agent.",
       "cover": "/assets/images/blog-covers/first-ai-agent-google-cloud-bonus-milestone.svg",
-      "body": "The Arcade Facilitator 2026 program added a new Bonus Milestone. Instead of only collecting badges, learners built and deployed a working AI agent on Google Cloud, and earned **10 extra Arcade points** for it. The Facilitator program itself ended on 14 September 2026, but the project is a great template for learning the same skills.\n\n## Who could take part\n\nAccording to Google's announcement, you needed to:\n\n- be enrolled in the Arcade Facilitator 2026 cohort\n- hold both the GEAR badge and the Arcade GEAR badge on your Google Developer Profile\n- have unlocked Milestone 1 in the Facilitator program\n\n## The four steps\n\n### 1. Finish four GEAR skill badges\n\n- Create Your First Gemini Enterprise Application\n- Engineer AI Agents with ADK\n- Deploy Multi-Agent Architectures\n- Orchestrate Multi-agent Workflows\n\nGoogle noted that these also counted toward the normal Arcade milestones, so the work paid off twice.\n\n### 2. Start your Google Cloud free trial\n\nLearners signed up for the 90-day trial with $300 in credits, using the email address enrolled in the program. Anyone who already had an active billing account on that email could skip this step.\n\n### 3. Build the agent\n\nFollow the project instructions to build your first agent with Google Cloud's Vertex AI platform. The last step is to give access to the verifier email address so your project can be checked.\n\n### 4. Submit your details\n\nFill in the verification form with your Project ID and your 18-character Billing Account ID from the Google Cloud console.\n\n## Tips from the community\n\nSeveral learners in Google's forum reported problems setting up billing during the trial sign-up, so start early and read Google's free trial FAQs if something fails.\n\n## Why this project is worth copying\n\nBuilding a real agent teaches more than watching a demo. If you want the ideas behind it first, read [What is an AI agent?](what-is-an-ai-agent-beginner-guide.html). To see how those 10 points fit into your prize tier, use the [Arcade Points Calculator](../arcade-calculator.html).\n\nSource: [Arcade Facilitator 2026 Bonus Milestone](https://discuss.google.dev/t/arcade-facilitator-2026-bonus-milestone/386412) on the Google Developer forums."
+      "body": "The Arcade Facilitator 2026 program added a new Bonus Milestone. Instead of only collecting badges, learners built and deployed a working AI agent on Google Cloud, and earned **10 extra Arcade points** for it. The Facilitator program itself ended on 14 September 2026, but the project is a great template for learning the same skills.\n\n## Who could take part\n\nAccording to Google's announcement, you needed to:\n\n- be enrolled in the Arcade Facilitator 2026 cohort\n- hold both the GEAR badge and the Arcade GEAR badge on your Google Developer Profile\n- have unlocked Milestone 1 in the Facilitator program\n\n## The four steps\n\n### 1. Finish four GEAR skill badges\n\n- Create Your First Gemini Enterprise Application\n- Engineer AI Agents with ADK\n- Deploy Multi-Agent Architectures\n- Orchestrate Multi-agent Workflows\n\nGoogle noted that these also counted toward the normal Arcade milestones, so the work paid off twice.\n\n### 2. Start your Google Cloud free trial\n\nLearners signed up for the 90-day trial with $300 in credits, using the email address enrolled in the program. Anyone who already had an active billing account on that email could skip this step.\n\n### 3. Build the agent\n\nFollow the project instructions to build your first agent with Google Cloud's Vertex AI platform. The last step is to give access to the verifier email address so your project can be checked.\n\n### 4. Submit your details\n\nFill in the verification form with your Project ID and your 18-character Billing Account ID from the Google Cloud console.\n\n## Tips from the community\n\nSeveral learners in Google's forum reported problems setting up billing during the trial sign-up, so start early and read Google's free trial FAQs if something fails.\n\n## Why this project is worth copying\n\nBuilding a real agent teaches more than watching a demo. If you want the ideas behind it first, read [What is an AI agent?](what-is-an-ai-agent-beginner-guide.html). To see how those 10 points fit into your prize tier, use the [Arcade Points Calculator](../arcade-calculator.html).\n\nSource: [Arcade Facilitator 2026 Bonus Milestone](https://discuss.google.dev/t/arcade-facilitator-2026-bonus-milestone/386412) on the Google Developer forums.",
+      "contentType": "tech"
     },
     {
       "slug": "apache-kafka-explained",
@@ -2085,7 +2199,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "free-google-cloud-roadmap-for-beginners-2026",
@@ -2097,7 +2212,8 @@
       ],
       "summary": "A simple step-by-step plan to start learning Google Cloud for free with Google Skills, Arcade games, skill badges and small projects.",
       "cover": "/assets/images/blog-covers/free-google-cloud-roadmap-for-beginners-2026.svg",
-      "body": "Google Cloud can look huge when you are starting out. This roadmap breaks it into small steps you can follow for free, one at a time.\n\n## Step 1: Create your Google Skills account\n\nGoogle Skills is where the hands-on labs, courses and skill badges live. Sign up on [skills.google](https://www.skills.google/) and set up your public profile so your badges are recorded.\n\n## Step 2: Play the monthly Arcade games\n\nEach month the Google Skills Arcade releases new hands-on games. Every game is worth one Arcade point, and the access code for each game is on the official Arcade page. Games are short, so they are a friendly way to get used to the console.\n\n## Step 3: Earn skill badges\n\nSkill badges go deeper than games. Each badge is worth half an Arcade point, and together they build proof of your skills. Pick a theme and stay with it for a while, for example storage and data, or AI and agents, rather than jumping between topics.\n\n## Step 4: Use the free trial for your own projects\n\nGoogle offers a 90-day trial with $300 in credits, and says it will not charge your card automatically when the trial ends. Use it for small projects that are not part of a lab.\n\n## Step 5: Build tiny projects\n\nAfter each topic, build something small on your own:\n\n- store files in Cloud Storage\n- deploy a simple app to Cloud Run\n- query a sample dataset in BigQuery\n- try a Vertex AI example\n\n## Step 6: Take notes and repeat\n\nWrite down commands, mistakes and useful links after every lab. Try repeating a lab from memory a few days later. Thirty to sixty minutes a day beats one huge weekend.\n\n## Step 7: Join the community\n\nThe [Google Developer forums](https://discuss.google.dev/c/google-cloud/14) are full of learners sharing tips and asking questions.\n\n## Track your progress\n\nKeep count of your games and badges with the [Arcade Points Calculator](../arcade-calculator.html). It has a checklist that remembers your progress and shows which prize tier you are heading for.\n\nWant to see these steps done live? Watch the walkthroughs on the [B Tecky YouTube channel](https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ)."
+      "body": "Google Cloud can look huge when you are starting out. This roadmap breaks it into small steps you can follow for free, one at a time.\n\n## Step 1: Create your Google Skills account\n\nGoogle Skills is where the hands-on labs, courses and skill badges live. Sign up on [skills.google](https://www.skills.google/) and set up your public profile so your badges are recorded.\n\n## Step 2: Play the monthly Arcade games\n\nEach month the Google Skills Arcade releases new hands-on games. Every game is worth one Arcade point, and the access code for each game is on the official Arcade page. Games are short, so they are a friendly way to get used to the console.\n\n## Step 3: Earn skill badges\n\nSkill badges go deeper than games. Each badge is worth half an Arcade point, and together they build proof of your skills. Pick a theme and stay with it for a while, for example storage and data, or AI and agents, rather than jumping between topics.\n\n## Step 4: Use the free trial for your own projects\n\nGoogle offers a 90-day trial with $300 in credits, and says it will not charge your card automatically when the trial ends. Use it for small projects that are not part of a lab.\n\n## Step 5: Build tiny projects\n\nAfter each topic, build something small on your own:\n\n- store files in Cloud Storage\n- deploy a simple app to Cloud Run\n- query a sample dataset in BigQuery\n- try a Vertex AI example\n\n## Step 6: Take notes and repeat\n\nWrite down commands, mistakes and useful links after every lab. Try repeating a lab from memory a few days later. Thirty to sixty minutes a day beats one huge weekend.\n\n## Step 7: Join the community\n\nThe [Google Developer forums](https://discuss.google.dev/c/google-cloud/14) are full of learners sharing tips and asking questions.\n\n## Track your progress\n\nKeep count of your games and badges with the [Arcade Points Calculator](../arcade-calculator.html). It has a checklist that remembers your progress and shows which prize tier you are heading for.\n\nWant to see these steps done live? Watch the walkthroughs on the [B Tecky YouTube channel](https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ).",
+      "contentType": "tech"
     },
     {
       "slug": "redis-caching-for-beginners",
@@ -2112,7 +2228,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-use-the-arcade-score-checker",
@@ -2124,7 +2241,9 @@
       ],
       "summary": "Step by step: use the free B Tecky Arcade Score Checker to see your points, milestone and rank from your email.",
       "cover": "/assets/images/blog-covers/how-to-use-the-arcade-score-checker.svg",
-      "body": "The [Arcade Score Checker](../arcade.html) is a free tool on this website. You type the email you used for the Facilitator program and it shows where you stand. There is nothing to sign in to and nothing to install.\n\n## How to use it\n\n1. Open the [Arcade Score Checker](../arcade.html).\n2. Type the email address linked to your Google Skills account.\n3. Press **Check my score**.\n4. Read your estimated total, your milestone and your rank, and see which games and skill badges are counted.\n\n## What you will see\n\n- Your **estimated total points**, made from games, skill badges and milestone bonuses.\n- Your **milestone**, and how far you are from the next one.\n- Your **rank** among everyone in the report.\n- The names of the arcade games and skill badges you have completed.\n\n## Good to know\n\n- Capital letters do not matter, and for Gmail addresses dots and `+tags` are ignored.\n- Your email is matched inside your own browser. It is never sent to a server or saved.\n- Scores come from a report with a date shown on the page, so newer progress may not appear until the report is refreshed.\n- If your email is not found, check for typos and make sure you joined through the batches in that report.\n\nWant to know how the points are worked out? Read [How Google Cloud Arcade points work](how-google-cloud-arcade-points-work.html)."
+      "body": "The [Arcade Score Checker](../arcade.html) is a free tool on this website. You type the email you used for the Facilitator program and it shows where you stand. There is nothing to sign in to and nothing to install.\n\n## How to use it\n\n1. Open the [Arcade Score Checker](../arcade.html).\n2. Type the email address linked to your Google Skills account.\n3. Press **Check my score**.\n4. Read your estimated total, your milestone and your rank, and see which games and skill badges are counted.\n\n## What you will see\n\n- Your **estimated total points**, made from games, skill badges and milestone bonuses.\n- Your **milestone**, and how far you are from the next one.\n- Your **rank** among everyone in the report.\n- The names of the arcade games and skill badges you have completed.\n\n## Good to know\n\n- Capital letters do not matter, and for Gmail addresses dots and `+tags` are ignored.\n- Your email is matched inside your own browser. It is never sent to a server or saved.\n- Scores come from a report with a date shown on the page, so newer progress may not appear until the report is refreshed.\n- If your email is not found, check for typos and make sure you joined through the batches in that report.\n\nWant to know how the points are worked out? Read [How Google Cloud Arcade points work](how-google-cloud-arcade-points-work.html).\n\n## Troubleshooting a missing or unexpected score\n\nIf the checker cannot find your record, first confirm that you entered the same email address associated with the relevant Google Skills or Arcade participation. A school or work account is not interchangeable with a personal Gmail address. Check for accidental spaces before or after the address, and try the exact account used when you completed the activities.\n\nIf the checker finds you but the total looks lower than expected, remember that a report is a snapshot. Activities completed after its collection date may not be included. Also check whether the activity is part of the program and reporting period covered by that particular dataset. A badge or course completion is not automatically equivalent to Arcade points.\n\nThe checker is an independent convenience tool, not Google's official account ledger. Its displayed totals, milestones and rankings should be treated as estimates based on the report available on the page. For a disputed completion or an official program rule, use the Google Skills profile and the program's own support or FAQ channels.\n\n## Protect your account information\n\nOnly enter the email address needed to match the report. Never enter your Google password, one-time verification code, recovery code or payment details into a score checker. A legitimate score lookup does not need those credentials. If a page asks for them, stop and verify that you are using the intended service.\n\n## How the checker works at a high level\n\nThe tool compares the email you enter with records in the score dataset available to the page, then calculates and displays the matching record's reported points and progress. The page explains that matching happens in your browser. This is different from signing in to Google or requesting live account data.\n\nFor the most reliable result, note the report date shown by the checker, use the correct account, and compare the displayed activities with your official learning profile. If the two disagree, the official program record should take precedence.\n",
+      "contentType": "tech",
+      "updatedAt": "2026-11-06"
     },
     {
       "slug": "sql-vs-nosql-databases",
@@ -2139,7 +2258,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "how-google-cloud-arcade-points-work",
@@ -2151,7 +2271,8 @@
       ],
       "summary": "A plain-English guide to arcade game points, skill badge points, milestone bonuses and the AI agent bonus in the 2026 Facilitator program.",
       "cover": "/assets/images/blog-covers/how-google-cloud-arcade-points-work.svg",
-      "body": "If you are collecting points in the Google Cloud Arcade Facilitator program, it helps to know exactly where every point comes from. Here is the simple version.\n\n## Points from games and skill badges\n\n- **Arcade games:** each completed arcade game gives **1 point**. Since April 2026 every game is worth the same single point.\n- **Skill badges:** every **2 skill badges** give **1 point**, so each badge is worth 0.5 points. Completing 18 badges is worth 9 points.\n\n## Milestone bonuses\n\nReaching a milestone adds a bonus on top of your game and badge points. You only receive the bonus for the milestone you reach, not for the ones before it.\n\n| Milestone | Arcade games | Skill badges | Bonus points |\n|---|---|---|---|\n| Milestone 1 | 6 | 18 | 5 |\n| Milestone 2 | 8 | 34 | 15 |\n| Milestone 3 | 10 | 50 | 25 |\n| Ultimate Milestone | 12 | 66 | 35 |\n\n## The AI agent bonus\n\nThere is also a bonus milestone for an AI agent project. Earning it adds **10 points**.\n\n## A worked example\n\nSay you have completed 7 arcade games and 24 skill badges, and you have reached Milestone 1.\n\n- Games: 7 points\n- Skill badges: 24 x 0.5 = 12 points\n- Milestone 1 bonus: 5 points\n- **Total: 24 points**\n\n> The rules can change between programs, so always check the official Google Skills page for the latest details. Points shown on this website are estimates.\n\n## Plan your points\n\nWant to see your prize tier and what is left to earn? Use the [Arcade Points Calculator](../arcade-calculator.html). It adds up your games, badges and bonuses and shows how far you are from each tier.\n\n## Check your Facilitator score\n\nEnter your email in the free [Arcade Score Checker](../arcade.html) to see your estimated points, milestone and rank in seconds. No login is needed.\n\nWant more walkthroughs? Subscribe to the [B Tecky channel](https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ)."
+      "body": "If you are collecting points in the Google Cloud Arcade Facilitator program, it helps to know exactly where every point comes from. Here is the simple version.\n\n## Points from games and skill badges\n\n- **Arcade games:** each completed arcade game gives **1 point**. Since April 2026 every game is worth the same single point.\n- **Skill badges:** every **2 skill badges** give **1 point**, so each badge is worth 0.5 points. Completing 18 badges is worth 9 points.\n\n## Milestone bonuses\n\nReaching a milestone adds a bonus on top of your game and badge points. You only receive the bonus for the milestone you reach, not for the ones before it.\n\n| Milestone | Arcade games | Skill badges | Bonus points |\n|---|---|---|---|\n| Milestone 1 | 6 | 18 | 5 |\n| Milestone 2 | 8 | 34 | 15 |\n| Milestone 3 | 10 | 50 | 25 |\n| Ultimate Milestone | 12 | 66 | 35 |\n\n## The AI agent bonus\n\nThere is also a bonus milestone for an AI agent project. Earning it adds **10 points**.\n\n## A worked example\n\nSay you have completed 7 arcade games and 24 skill badges, and you have reached Milestone 1.\n\n- Games: 7 points\n- Skill badges: 24 x 0.5 = 12 points\n- Milestone 1 bonus: 5 points\n- **Total: 24 points**\n\n> The rules can change between programs, so always check the official Google Skills page for the latest details. Points shown on this website are estimates.\n\n## Plan your points\n\nWant to see your prize tier and what is left to earn? Use the [Arcade Points Calculator](../arcade-calculator.html). It adds up your games, badges and bonuses and shows how far you are from each tier.\n\n## Check your Facilitator score\n\nEnter your email in the free [Arcade Score Checker](../arcade.html) to see your estimated points, milestone and rank in seconds. No login is needed.\n\nWant more walkthroughs? Subscribe to the [B Tecky channel](https://www.youtube.com/channel/UCS9BcPpwy1W5Xorp0KU23aQ).",
+      "contentType": "tech"
     },
     {
       "slug": "hibernate-and-jpa-explained",
@@ -2167,7 +2288,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "spring-security-fundamentals",
@@ -2183,7 +2305,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "spring-boot-dependency-injection-explained",
@@ -2199,7 +2322,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "spring-boot-rest-apis-from-scratch",
@@ -2215,7 +2339,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "java-collections-a-practical-guide",
@@ -2231,7 +2356,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "understanding-java-streams",
@@ -2247,7 +2373,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "java-records-explained-with-examples",
@@ -2263,7 +2390,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "fine-tuning-vs-rag",
@@ -2279,7 +2407,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "vector-databases-explained",
@@ -2295,7 +2424,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "prompt-engineering-best-practices",
@@ -2311,7 +2441,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "how-ai-coding-assistants-work",
@@ -2326,7 +2457,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "mcp-explained-for-developers",
@@ -2342,7 +2474,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "openai-coding-agents-research-acceleration-september-2026",
@@ -2358,7 +2491,8 @@
       "videoThumbnail": "",
       "author": "Lavish Sheth",
       "status": "published",
-      "updatedAt": "2026-11-05"
+      "updatedAt": "2026-11-05",
+      "contentType": "tech"
     },
     {
       "slug": "how-to-build-your-first-ai-powered-application",
@@ -2374,7 +2508,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "ai-agents-vs-traditional-chatbots",
@@ -2390,7 +2525,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "llms-explained-without-the-jargon",
@@ -2406,7 +2542,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "rag-explained-how-ai-applications-retrieve-knowledge",
@@ -2422,7 +2559,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "what-are-ai-agents-a-beginner-friendly-guide",
@@ -2438,7 +2576,8 @@
       "videoUrl": "",
       "videoThumbnail": "",
       "author": "Lavish Sheth",
-      "status": "published"
+      "status": "published",
+      "contentType": "tech"
     },
     {
       "slug": "gpt-61-terra-computer-use-developers",
@@ -2480,13 +2619,13 @@
       "slug": "openai-agents-biological-data-research",
       "title": "How AI Agents Are Helping Researchers Explore Complex Biological Data",
       "date": "2026-10-21",
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-06",
       "tags": [
         "AI Research"
       ],
       "contentType": "tech",
       "summary": "OpenAI described research using thousands of AI agents to identify leads in large biological datasets. We unpack the agent workflow, scientific validation and what developers can learn from it.",
-      "body": "# How AI Agents Are Helping Researchers Explore Complex Biological Data\n\n> **B Tecky analysis · 2026-10-21** — AI agents can help search and organize research hypotheses, but experimental evidence and expert review remain essential.\n\nLarge biological datasets contain patterns that are difficult to inspect manually. A distributed agent workflow can divide a research question into smaller searches, examine different subsets, summarize candidate signals and bring promising leads to human researchers. The value is in expanding exploration—not replacing scientific judgment.\n\nA safe scientific workflow needs provenance. Each candidate should retain the dataset version, filters, analysis code, model version and reasoning trail that produced it. Researchers must be able to reproduce the result and test whether a signal survives independent analysis. Correlation is not causation, and a model-generated hypothesis is not a validated discovery.\n\nFor software teams, the architecture resembles a controlled multi-agent pipeline: task decomposition, bounded parallel work, evidence collection, deduplication, ranking and expert review. Agents should return structured evidence rather than unsupported conclusions.\n\n```python\nfrom dataclasses import dataclass\n\n@dataclass\nclass Candidate:\n    claim: str\n    dataset_version: str\n    evidence_ids: list[str]\n    confidence: float\n\n\ndef eligible_for_review(item: Candidate) -> bool:\n    return bool(item.evidence_ids) and 0 <= item.confidence <= 1\n```\n\nThe important metrics are not simply the number of agents or ideas generated. Measure reproducibility, evidence coverage, false-positive rate, time saved for experts and the fraction of leads that survive follow-up validation. Protect sensitive data and follow institutional review requirements where applicable.\n\n**What this means:** the strongest agentic research systems combine broad machine-assisted exploration with narrow permissions, transparent evidence and human-led validation.\n\nSource: [OpenAI Research](https://openai.com/news/research/).\n\n## Further reading and primary sources\n\n- [Official announcement / primary source](https://openai.com/news/research/)\n- [B Tecky technology learning library](/blog)\n\n## Editorial note\n\nThis article explains the announcement and its technical context. Product availability, pricing, supported regions and specifications can change; verify current details with the linked primary source before making implementation or purchasing decisions.",
+      "body": "# How AI Agents Are Helping Researchers Explore Complex Biological Data\n\n> **B Tecky analysis · 2026-10-21** — AI agents can help search and organize research hypotheses, but experimental evidence and expert review remain essential.\n\nLarge biological datasets contain patterns that are difficult to inspect manually. A distributed agent workflow can divide a research question into smaller searches, examine different subsets, summarize candidate signals and bring promising leads to human researchers. The value is in expanding exploration—not replacing scientific judgment.\n\nA safe scientific workflow needs provenance. Each candidate should retain the dataset version, filters, analysis code, model version and reasoning trail that produced it. Researchers must be able to reproduce the result and test whether a signal survives independent analysis. Correlation is not causation, and a model-generated hypothesis is not a validated discovery.\n\nFor software teams, the architecture resembles a controlled multi-agent pipeline: task decomposition, bounded parallel work, evidence collection, deduplication, ranking and expert review. Agents should return structured evidence rather than unsupported conclusions.\n\n```python\nfrom dataclasses import dataclass\n\n@dataclass\nclass Candidate:\n    claim: str\n    dataset_version: str\n    evidence_ids: list[str]\n    confidence: float\n\n\ndef eligible_for_review(item: Candidate) -> bool:\n    return bool(item.evidence_ids) and 0 <= item.confidence <= 1\n```\n\nThe important metrics are not simply the number of agents or ideas generated. Measure reproducibility, evidence coverage, false-positive rate, time saved for experts and the fraction of leads that survive follow-up validation. Protect sensitive data and follow institutional review requirements where applicable.\n\n**What this means:** the strongest agentic research systems combine broad machine-assisted exploration with narrow permissions, transparent evidence and human-led validation.\n\nSource: [OpenAI Research](https://openai.com/news/research/).\n\n## Further reading and primary sources\n\n- [Official announcement / primary source](https://openai.com/news/research/)\n- [B Tecky technology learning library](/blog)\n\n## Editorial note\n\nThis article explains the announcement and its technical context. Product availability, pricing, supported regions and specifications can change; verify current details with the linked primary source before making implementation or purchasing decisions.\n\n## A practical architecture for evidence-first research agents\n\nA research workflow can be separated into distinct stages so that each result remains traceable:\n\n1. **Question framing:** a researcher defines the question, inclusion criteria and what would count as useful evidence.\n2. **Dataset registration:** record the dataset identifier, version, license, collection method and any access restrictions.\n3. **Task decomposition:** a coordinator creates bounded analysis tasks rather than allowing agents to invent an unlimited research agenda.\n4. **Analysis:** specialist tools perform searches, statistical summaries or transformations on approved data.\n5. **Evidence capture:** every candidate finding includes the source record, transformation steps, parameters and code version.\n6. **Independent review:** a researcher checks the evidence and attempts to reproduce the result before treating it as a lead.\n\nThis structure makes it possible to distinguish a genuine observation from an agent's summary of an observation. It also makes failures easier to investigate: a team can identify whether an issue came from the source data, a preprocessing step, a statistical method or a generated interpretation.\n\n## Scientific safeguards that matter\n\nBiological data can be noisy, incomplete and biased toward the populations or conditions represented in the dataset. Multiple testing can produce apparently interesting patterns by chance. Data leakage can make a model appear more predictive than it really is. A robust workflow therefore needs held-out validation, appropriate statistical controls and independent replication where possible.\n\nResearchers should also consider privacy, consent, licensing and governance before sending data to an external model or agent service. Sensitive genomic, health or participant data may have legal and institutional restrictions. Use approved environments, minimize the data shared, and involve the relevant ethics and data-governance teams.\n\n## How to evaluate the workflow\n\nUseful measures include reproducibility, false-positive rate, evidence completeness, time required for expert review, and the proportion of proposed leads that survive independent validation. Count the time spent checking incorrect suggestions as well as the time saved generating ideas. More agents or more hypotheses do not automatically mean better science.\n\nThe central principle is simple: agents can widen the search space, but scientific claims still need methods, evidence and expert scrutiny.\n",
       "cover": "/assets/images/blog-covers/openai-agents-biological-data-research.svg",
       "coverAlt": "Original B Tecky editorial illustration for How AI Agents Are Helping Researchers Explore Complex Biological Data",
       "author": "B Tecky Editorial",
@@ -2498,13 +2637,13 @@
       "slug": "openai-low-resource-programming-languages",
       "title": "AI Coding Assistants for COBOL, SQLite and Other Low-Resource Languages",
       "date": "2026-10-19",
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-06",
       "tags": [
         "Software Development"
       ],
       "contentType": "tech",
       "summary": "OpenAI highlighted work to improve coding assistance for low-resource programming languages. We explain why benchmarks, migration safety and domain-specific tests matter.",
-      "body": "# AI Coding Assistants for COBOL, SQLite and Other Low-Resource Languages\n\n> **B Tecky analysis · 2026-10-19** — Code assistants need to understand legacy ecosystems, not just popular modern frameworks.\n\nLow-resource programming languages and legacy systems often have less training data, fewer public examples and specialized conventions. This makes code generation harder: an assistant may produce plausible syntax that does not compile in a particular compiler, runtime or enterprise environment.\n\nA useful evaluation must go beyond trivia questions. Include real repository tasks, compiler feedback, database behavior, dependency constraints, security checks and maintainability. For migration work, compare behavior before and after each change using regression tests and representative production-like data.\n\nA practical workflow is to ask the assistant to explain the existing code first, identify dependencies, propose a small change, write tests, and only then implement. Require a human reviewer for data migrations, financial calculations and changes to critical systems.\n\n```bash\n# A cautious legacy-code change loop\nmake test\nmake lint\nmake build\n# Review the diff before committing\n git diff --check\n```\n\nFor teams maintaining COBOL, SQL or older business systems, AI can help document unfamiliar modules, generate test scaffolding and explain control flow. It should not be allowed to rewrite large sections without traceable tests. Keep compiler versions, runtime assumptions and data formats explicit.\n\n**Practical recommendation:** use coding assistants as pair programmers and documentation helpers. Evaluate them on your own codebase and measure defects introduced—not only lines of code generated.\n\nSource: [OpenAI Research](https://openai.com/news/research/).\n\n## Further reading and primary sources\n\n- [Official announcement / primary source](https://openai.com/news/research/)\n- [B Tecky technology learning library](/blog)\n\n## Editorial note\n\nThis article explains the announcement and its technical context. Product availability, pricing, supported regions and specifications can change; verify current details with the linked primary source before making implementation or purchasing decisions.",
+      "body": "# AI Coding Assistants for COBOL, SQLite and Other Low-Resource Languages\n\n> **B Tecky analysis · 2026-10-19** — Code assistants need to understand legacy ecosystems, not just popular modern frameworks.\n\nLow-resource programming languages and legacy systems often have less training data, fewer public examples and specialized conventions. This makes code generation harder: an assistant may produce plausible syntax that does not compile in a particular compiler, runtime or enterprise environment.\n\nA useful evaluation must go beyond trivia questions. Include real repository tasks, compiler feedback, database behavior, dependency constraints, security checks and maintainability. For migration work, compare behavior before and after each change using regression tests and representative production-like data.\n\nA practical workflow is to ask the assistant to explain the existing code first, identify dependencies, propose a small change, write tests, and only then implement. Require a human reviewer for data migrations, financial calculations and changes to critical systems.\n\n```bash\n# A cautious legacy-code change loop\nmake test\nmake lint\nmake build\n# Review the diff before committing\n git diff --check\n```\n\nFor teams maintaining COBOL, SQL or older business systems, AI can help document unfamiliar modules, generate test scaffolding and explain control flow. It should not be allowed to rewrite large sections without traceable tests. Keep compiler versions, runtime assumptions and data formats explicit.\n\n**Practical recommendation:** use coding assistants as pair programmers and documentation helpers. Evaluate them on your own codebase and measure defects introduced—not only lines of code generated.\n\nSource: [OpenAI Research](https://openai.com/news/research/).\n\n## Further reading and primary sources\n\n- [Official announcement / primary source](https://openai.com/news/research/)\n- [B Tecky technology learning library](/blog)\n\n## Editorial note\n\nThis article explains the announcement and its technical context. Product availability, pricing, supported regions and specifications can change; verify current details with the linked primary source before making implementation or purchasing decisions.\n\n## Why low-resource code is difficult for an assistant\n\nA language may be syntactically simple and still be difficult for an AI assistant to use reliably. The model needs examples that resemble the codebase, the exact compiler or interpreter version, the libraries available in the environment, and the conventions used by the team. A generic answer can be valid in one dialect and fail in another.\n\nCOBOL is a useful example: fixed-format source, compiler-specific extensions, copybooks, record layouts and batch-job assumptions can all affect whether a proposed change is safe. SQLite introduces a different set of constraints, including transaction behavior, type affinity, locking, query plans and differences between SQLite and server database engines. Treating every SQL dialect as interchangeable can cause subtle data errors.\n\n## A safer evaluation workflow\n\n1. **Build a representative task set.** Include bug fixes, code explanation, test generation, query optimization and small maintenance changes from the real environment.\n2. **Pin the environment.** Record compiler/runtime versions, flags, database version, schema and dependency constraints.\n3. **Capture a baseline.** Run existing tests and preserve representative input/output fixtures before changing code.\n4. **Ask for a plan first.** Have the assistant identify files, dependencies and risks before it edits anything.\n5. **Make narrow changes.** Prefer one behavior change at a time and keep the patch easy to review.\n6. **Run independent checks.** Compile, test, lint, inspect query plans and compare outputs against the baseline.\n7. **Review data safety.** For migrations, test on a copy, check rollback, and verify row counts and constraints.\n\n## Example: test a SQL change before rollout\n\nFor a database query, compare the old and new query against the same fixture dataset. Check returned rows, ordering where it matters, NULL handling, duplicate behavior and performance on realistic table sizes. A query that passes a tiny sample can still become slow or incorrect at production scale.\n\n## Where assistants help most\n\nGood starting tasks include explaining unfamiliar modules, drafting documentation, generating test cases, identifying likely edge cases and proposing small refactors. Keep final approval with an engineer who understands the business rules. Do not let generated code directly alter financial records, customer data or production schemas without normal review and release controls.\n\n## Further reading\n\nUse the official documentation for the exact environment: the compiler vendor's COBOL manual, the SQLite documentation, and the database engine or runtime documentation used by your team. The general workflow above is not a substitute for those version-specific references.\n",
       "cover": "/assets/images/blog-covers/openai-low-resource-programming-languages.svg",
       "coverAlt": "Original B Tecky editorial illustration for AI Coding Assistants for COBOL, SQLite and Other Low-Resource Languages",
       "author": "B Tecky Editorial",
@@ -2516,13 +2655,13 @@
       "slug": "openai-frontier-training-security",
       "title": "How Frontier AI Training Environments Are Secured",
       "date": "2026-10-23",
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-06",
       "tags": [
         "AI Security"
       ],
       "contentType": "tech",
       "summary": "OpenAI published details about strengthening security around frontier model training and evaluation. We explain isolation, access control, logging and defense-in-depth for sensitive compute.",
-      "body": "# How Frontier AI Training Environments Are Secured\n\n> **B Tecky analysis · 2026-10-23** — High-value AI infrastructure requires layered controls around people, workloads, data and the software supply chain.\n\nTraining environments concentrate valuable model weights, datasets, credentials and compute. A compromise can expose intellectual property or undermine the integrity of evaluations. Security therefore needs more than a network firewall: teams must control who can access systems, what workloads can reach, and how sensitive artifacts move between environments.\n\nCommon defensive layers include identity verification, least-privilege roles, segmented networks, hardened build systems, restricted egress, secrets management, immutable audit logs and incident response exercises. Evaluation environments should be protected from untrusted code and data. Temporary access should expire automatically and privileged actions should be reviewed.\n\nA simple threat-modeling exercise asks: what assets matter, who might attack them, which trust boundaries exist, how could credentials be stolen, and how would defenders detect unauthorized access? Map each threat to a preventive and detective control.\n\n```text\nDeveloper identity -> approved workstation -> isolated build\n       |                    |                    |\n   MFA + roles          device checks       signed artifacts\n       |                    |                    |\n   audit log          restricted network     controlled release\n```\n\nFor ordinary development teams, the same principles apply to CI/CD secrets, production data and model endpoints. Never place API keys in source code; use short-lived credentials and rotate them after suspected exposure. Restrict outbound network access for untrusted build jobs.\n\n**Takeaway:** security is a system property. Combine identity, isolation, monitoring and tested recovery rather than relying on a single security product.\n\nSource: [OpenAI Research and Security updates](https://openai.com/news/research/).\n\n## Further reading and primary sources\n\n- [Official announcement / primary source](https://openai.com/news/research/)\n- [B Tecky technology learning library](/blog)\n\n## Editorial note\n\nThis article explains the announcement and its technical context. Product availability, pricing, supported regions and specifications can change; verify current details with the linked primary source before making implementation or purchasing decisions.",
+      "body": "# How Frontier AI Training Environments Are Secured\n\n> **B Tecky analysis · 2026-10-23** — High-value AI infrastructure requires layered controls around people, workloads, data and the software supply chain.\n\nTraining environments concentrate valuable model weights, datasets, credentials and compute. A compromise can expose intellectual property or undermine the integrity of evaluations. Security therefore needs more than a network firewall: teams must control who can access systems, what workloads can reach, and how sensitive artifacts move between environments.\n\nCommon defensive layers include identity verification, least-privilege roles, segmented networks, hardened build systems, restricted egress, secrets management, immutable audit logs and incident response exercises. Evaluation environments should be protected from untrusted code and data. Temporary access should expire automatically and privileged actions should be reviewed.\n\nA simple threat-modeling exercise asks: what assets matter, who might attack them, which trust boundaries exist, how could credentials be stolen, and how would defenders detect unauthorized access? Map each threat to a preventive and detective control.\n\n```text\nDeveloper identity -> approved workstation -> isolated build\n       |                    |                    |\n   MFA + roles          device checks       signed artifacts\n       |                    |                    |\n   audit log          restricted network     controlled release\n```\n\nFor ordinary development teams, the same principles apply to CI/CD secrets, production data and model endpoints. Never place API keys in source code; use short-lived credentials and rotate them after suspected exposure. Restrict outbound network access for untrusted build jobs.\n\n**Takeaway:** security is a system property. Combine identity, isolation, monitoring and tested recovery rather than relying on a single security product.\n\nSource: [OpenAI Research and Security updates](https://openai.com/news/research/).\n\n## Further reading and primary sources\n\n- [Official announcement / primary source](https://openai.com/news/research/)\n- [B Tecky technology learning library](/blog)\n\n## Editorial note\n\nThis article explains the announcement and its technical context. Product availability, pricing, supported regions and specifications can change; verify current details with the linked primary source before making implementation or purchasing decisions.\n\n## Turning the threat model into controls\n\nA practical security review starts by listing the assets that would cause harm if exposed or modified: model weights, training datasets, evaluation prompts, source code, build artifacts, signing keys, credentials and experiment results. For each asset, identify its owner, storage location, permitted users and retention period.\n\nThen map the trust boundaries. A research workstation, shared notebook service, training cluster, artifact registry and production deployment should not automatically trust one another. Access should be granted for a defined task and removed when that task ends. Separate human identity from workload identity so that automated jobs do not need to reuse a developer's personal token.\n\nControls should be layered:\n\n- **Identity:** phishing-resistant multi-factor authentication for privileged users, role-based access and periodic access reviews.\n- **Workload isolation:** separate sensitive training jobs from untrusted code execution and evaluation of external inputs.\n- **Secrets:** short-lived credentials, centralized secret storage and automated rotation.\n- **Network:** restrict unnecessary outbound connections and segment services by sensitivity.\n- **Artifacts:** verify build provenance, protect registries and sign release artifacts.\n- **Monitoring:** collect tamper-resistant logs for access, data movement and privileged actions.\n- **Recovery:** rehearse credential revocation, workload shutdown and restoration from known-good artifacts.\n\n## A developer-level example\n\nA CI job that runs pull-request code should not receive the same secrets as a deployment job. Run untrusted tests in an isolated environment with no production credentials. Only after review and trusted checks should a separate release workflow receive narrowly scoped deployment permission. This reduces the damage a malicious dependency or test script can cause.\n\n## Measure whether controls work\n\nTrack privileged access, unusual data transfers, failed authentication, secret exposure, policy exceptions and time to revoke access. Run tabletop exercises that simulate a compromised developer account, poisoned dependency or leaked artifact. A policy that has never been tested may not work during an incident.\n\nThe same principles apply to ordinary cloud projects: protect data and credentials, isolate untrusted workloads, log sensitive actions and make recovery part of the design.\n",
       "cover": "/assets/images/blog-covers/openai-frontier-training-security.svg",
       "coverAlt": "Original B Tecky editorial illustration for How Frontier AI Training Environments Are Secured",
       "author": "B Tecky Editorial",
@@ -2732,13 +2871,13 @@
       "slug": "ibm-agent-identity-trust-agentic-era",
       "title": "IBM Agent Identity: Giving AI Agents Verifiable Identity and Access",
       "date": "2026-10-26",
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-06",
       "tags": [
         "AI Security"
       ],
       "contentType": "tech",
       "summary": "IBM announced general availability of Agent Identity. We explain workload identity, delegated authority, short-lived credentials and audit trails for autonomous agents.",
-      "body": "# IBM Agent Identity: Giving AI Agents Verifiable Identity and Access\n\n> **B Tecky analysis · 2026-10-26** — An AI agent should not inherit a developer's broad credentials; it needs its own identity and narrowly scoped authorization.\n\nTraditional applications authenticate users and services. Autonomous agents add a new actor: software that can plan and call tools on behalf of a person or organization. If an agent uses a shared API key or a human's session, it becomes difficult to determine which actions it performed and whether those actions were authorized.\n\nAn agent identity model assigns each agent a distinct identity, ties it to an owner and use case, and grants only the permissions needed for a task. Delegation should be explicit: a user may authorize an agent to read a folder without authorizing it to share the folder externally. Credentials should be short-lived, revocable and scoped to specific resources.\n\nA secure design logs the initiating user, agent identity, tool, requested action, policy decision and outcome. When the task ends, temporary grants should expire. For sensitive actions, require step-up approval.\n\n```text\nUser approval -> agent identity -> policy check\n      -> short-lived token -> scoped tool call -> audit event\n```\n\nDevelopers should avoid embedding long-lived secrets in prompts or agent memory. Use a secrets manager and service identity framework, and rotate credentials after suspected compromise.\n\n**Takeaway:** identity is the foundation of agent security. Treat agents as first-class workloads with owners, permissions and audit trails.\n\nSource: [IBM News](https://www.ibm.com/new/).\n\n## Further reading and primary sources\n\n- [Official announcement / primary source](https://www.ibm.com/new)\n- [B Tecky technology learning library](/blog)\n\n## Editorial note\n\nThis article explains the announcement and its technical context. Product availability, pricing, supported regions and specifications can change; verify current details with the linked primary source before making implementation or purchasing decisions.",
+      "body": "# IBM Agent Identity: Giving AI Agents Verifiable Identity and Access\n\n> **B Tecky analysis · 2026-10-26** — An AI agent should not inherit a developer's broad credentials; it needs its own identity and narrowly scoped authorization.\n\nTraditional applications authenticate users and services. Autonomous agents add a new actor: software that can plan and call tools on behalf of a person or organization. If an agent uses a shared API key or a human's session, it becomes difficult to determine which actions it performed and whether those actions were authorized.\n\nAn agent identity model assigns each agent a distinct identity, ties it to an owner and use case, and grants only the permissions needed for a task. Delegation should be explicit: a user may authorize an agent to read a folder without authorizing it to share the folder externally. Credentials should be short-lived, revocable and scoped to specific resources.\n\nA secure design logs the initiating user, agent identity, tool, requested action, policy decision and outcome. When the task ends, temporary grants should expire. For sensitive actions, require step-up approval.\n\n```text\nUser approval -> agent identity -> policy check\n      -> short-lived token -> scoped tool call -> audit event\n```\n\nDevelopers should avoid embedding long-lived secrets in prompts or agent memory. Use a secrets manager and service identity framework, and rotate credentials after suspected compromise.\n\n**Takeaway:** identity is the foundation of agent security. Treat agents as first-class workloads with owners, permissions and audit trails.\n\nSource: [IBM News](https://www.ibm.com/new/).\n\n## Further reading and primary sources\n\n- [Official announcement / primary source](https://www.ibm.com/new)\n- [B Tecky technology learning library](/blog)\n\n## Editorial note\n\nThis article explains the announcement and its technical context. Product availability, pricing, supported regions and specifications can change; verify current details with the linked primary source before making implementation or purchasing decisions.\n\n## A simple authorization model for an agent\n\nA useful way to reason about an agent is to separate four identities and decisions:\n\n- **Human principal:** the person who requested the work.\n- **Agent workload:** the specific automated process performing the task.\n- **Resource owner:** the person or service that controls the data or system being accessed.\n- **Policy decision:** the rule that determines whether this agent may perform this action on this resource for this purpose.\n\nThe agent should receive only the delegated authority required for the current task. A request to summarize a folder may allow read access to that folder, but it should not silently grant permission to delete files, invite collaborators or send the contents outside the organization.\n\n## Design a permission boundary\n\nBefore a tool call, validate the agent identity, the initiating user, the requested operation and the target resource. Apply policy in deterministic application code rather than asking the language model whether it is allowed to proceed. Issue a short-lived token scoped to the minimum resource and action. Record the decision and the outcome.\n\nFor sensitive operations, use an approval step that clearly describes what will happen. The approval should be bound to the exact action and resource, not a vague instruction such as \"continue.\" If the task changes materially, request authorization again.\n\n## What should an audit event contain?\n\nA useful event records the user who initiated the task, agent/workload identity, tool name, resource identifier, requested action, policy result, timestamp, token or session reference, and outcome. Avoid logging secrets or unnecessary personal data. Logs should be protected from modification and retained according to the organization's policy.\n\n## Common implementation mistakes\n\n- Reusing a developer's personal API key for every agent.\n- Giving an agent broad access because its future tasks are not yet known.\n- Treating model-generated reasoning as an authorization decision.\n- Keeping credentials in prompts, chat history or long-lived memory.\n- Failing to revoke delegated access when a task is complete.\n- Recording only that an agent ran, without recording what resource it touched.\n\nAgent identity is not just a label. It becomes useful when identity, delegated permissions, policy enforcement and audit evidence work together. Start with one low-risk tool and a narrow scope, test denial paths as carefully as successful calls, and expand only when monitoring and revocation are reliable.\n",
       "cover": "/assets/images/blog-covers/ibm-agent-identity-trust-agentic-era.svg",
       "coverAlt": "Original B Tecky editorial illustration for IBM Agent Identity: Giving AI Agents Verifiable Identity and Access",
       "author": "B Tecky Editorial",

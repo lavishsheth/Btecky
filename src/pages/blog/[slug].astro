@@ -18,6 +18,7 @@ type BlogPost = {
   seoTitle?: string;
   seoDescription?: string;
   contentType?: string;
+  updatedAt?: string;
 };
 
 export function getStaticPaths() {
@@ -54,6 +55,7 @@ const coverSrc = coverImage
   : '';
 const wordCount = String(post.body || '').trim().split(/\s+/).filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.ceil(wordCount / 210));
+const isOpportunity = post.contentType === 'events';
 
 const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -206,6 +208,8 @@ const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, '\\u003c')
       </div>
     </header>
 
+    {isOpportunity && <aside class="opportunity-notice" aria-label="Opportunity information notice"><strong>Opportunity announcement</strong><p>Eligibility, availability, deadlines and rewards can change. Check the official organizer or employer page and its current terms before applying or sharing personal information. Participation does not guarantee selection or a reward. B Tecky is an independent publisher and is not affiliated with the organizer unless explicitly stated.</p>{post.updatedAt && <small>Article information last updated: <time datetime={post.updatedAt}>{new Date(post.updatedAt + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</time></small>}</aside>}
+
     <div class="article-card">
       {coverSrc && <figure class="cover-figure"><img class="cover" src={coverSrc} alt={post.coverAlt || `Illustration for ${post.title}`} fetchpriority="high" /><figcaption>{post.coverAlt || `Article illustration: ${post.title}`}</figcaption></figure>}
 
@@ -308,6 +312,7 @@ const articleSchemaJson = JSON.stringify(articleSchema).replace(/</g, '\\u003c')
 .summary{font-size:1.14rem;line-height:1.75;color:var(--color-muted);white-space:pre-line;max-width:790px}
 .reading-time{display:flex;gap:16px;flex-wrap:wrap;font-size:.8rem;color:#77839a;margin-top:18px;font-weight:700}
 .reading-time a{color:var(--color-brand);text-decoration:underline;text-underline-offset:3px}
+.opportunity-notice{max-width:900px;margin:0 auto 20px;padding:17px 20px;border:1px solid #f0d9a1;border-left:4px solid #d69a25;border-radius:12px;background:#fffaf0;color:#684d1d}.opportunity-notice strong{display:block;font-size:.88rem}.opportunity-notice p{margin:7px 0;color:#725d37;font-size:.84rem;line-height:1.65}.opportunity-notice small{font-size:.74rem;color:#7d6845}
 .article-card{background:#fff;border:1px solid #dce4f3;border-radius:24px;padding:clamp(20px,4vw,46px);box-shadow:0 18px 55px rgba(22,39,82,.055)}
 .cover-figure{margin:0 auto 34px}.cover{display:block;width:100%;max-height:470px;object-fit:cover;border-radius:16px}.cover-figure figcaption{font-size:.78rem;color:#8792a6;text-align:center;margin-top:10px}
 .article-roadmap{max-width:780px;margin:0 auto 32px;padding:22px;border:1px solid #e4eaf5;border-radius:16px;background:linear-gradient(135deg,#f8faff,#fff)}
