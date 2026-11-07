@@ -1,9 +1,9 @@
 export type LessonSection = { title: string; body: string; code?: string; note?: string };
 export type Lesson = { slug: string; title: string; summary: string; minutes: number; objectives: string[]; sections: LessonSection[]; exercise: { prompt: string; requirements: string[]; solution: string }; quiz: { question: string; options: string[]; answer: number; explanation: string }[]; references: { label: string; url: string }[] };
-export type Course = { slug: string; title: string; category: string; level: string; summary: string; description: string; prerequisites: string[]; outcomes: string[]; lessons: Lesson[]; project: { title: string; brief: string; requirements: string[] } };
+export type Course = { id: string; categoryId: string; slug: string; title: string; category: string; level: string; summary: string; description: string; prerequisites: string[]; outcomes: string[]; lessons: Lesson[]; project: { title: string; brief: string; requirements: string[] } };
 
 export const courses: Course[] = [{
-slug:"html",title:"HTML Foundations",category:"Web development",level:"Beginner",
+id:"html-foundations",categoryId:"web-development",slug:"html",title:"HTML Foundations",category:"Web development",level:"Beginner",
 summary:"Learn to structure clear, accessible web pages with semantic HTML.",
 description:"A practical introduction to HTML: how browsers interpret documents, how to organise content, how links and images work, and how to build meaningful page structure and forms.",
 prerequisites:["No programming experience required.","A modern browser and a code editor such as VS Code."],
