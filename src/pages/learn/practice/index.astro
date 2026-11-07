@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { courses } from '@data/learn/courses';
+import { courses } from '../../../data/learn/courses';
 const lessons=courses.flatMap(course=>course.lessons.map(lesson=>({course,lesson})));
 ---
 <BaseLayout title="Practice centre — B Tecky LearnLab" description="Reinforce technical concepts with short knowledge checks and practical exercises in B Tecky LearnLab.">
