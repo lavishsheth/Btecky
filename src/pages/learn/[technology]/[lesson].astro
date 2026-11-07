@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { courses } from '../../../data/learn/courses';
-export function getStaticPaths() { return courses.flatMap((course) => course.lessons.map((lesson) => ({ params: { technology: course.slug, lesson: lesson.slug }, props: { course, lesson } }))); }
-const { course, lesson } = Astro.props;
-const index = course.lessons.findIndex((item) => item.slug === lesson.slug);
+import { courses, type Course, type Lesson } from '../../../data/learn/courses';
+export function getStaticPaths() { return courses.flatMap((course: Course) => course.lessons.map((lesson: Lesson) => ({ params: { technology: course.slug, lesson: lesson.slug }, props: { course, lesson } }))); }
+const { course, lesson } = Astro.props as { course: Course; lesson: Lesson };
+const index = course.lessons.findIndex((item: Lesson) => item.slug === lesson.slug);
 const previous = course.lessons[index - 1];
 const next = course.lessons[index + 1];
 ---
