@@ -164,10 +164,10 @@ const featuredCourses = courses.map((course) => ({
     </section>
   </main>
   <script>
-    const searchInput = document.querySelector('#ll-course-search');
-    const filterButtons = [...document.querySelectorAll('[data-course-filter]')];
-    const courseCards = [...document.querySelectorAll('[data-course-card]')];
-    const noResults = document.querySelector('#ll-no-results');
+    const searchInput = document.querySelector<HTMLInputElement>('#ll-course-search');
+    const filterButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-course-filter]')];
+    const courseCards = [...document.querySelectorAll<HTMLElement>('[data-course-card]')];
+    const noResults = document.querySelector<HTMLElement>('#ll-no-results');
     let activeCategory = 'all';
 
     function updateCourses() {
