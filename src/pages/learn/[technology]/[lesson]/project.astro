@@ -58,7 +58,7 @@ const next = course.lessons[index + 1];
 const editor=document.querySelector('#project-code');
 const preview=document.querySelector('[data-preview]');
 const gutter=document.querySelector('[data-line-gutter]');
-const storageKey='btecky.learnlab.project.v2.'+courseSlug;
+const storageKey=courseSlug==='html'?'btecky.learnlab.connected-project.html.v1':courseSlug==='css'?'btecky.learnlab.connected-project.css.v1':'btecky.learnlab.connected-project.javascript.v1';
 const progressKey=sharedProgressKey;
 const sharedHtmlKey='btecky.learnlab.connected-html.v1';
 const sharedCssKey='btecky.learnlab.connected-css.v1';
