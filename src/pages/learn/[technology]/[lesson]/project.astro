@@ -35,6 +35,7 @@ const phase = course.slug === 'html' ? (phases[index] || {
   checks: course.slug === 'css' ? ['<style', 'color', 'font-size'] : ['<script', 'addEventListener', 'function']
 };
 const next = course.lessons[index + 1];
+const nextCourse = course.slug === 'html' ? courses.find((item) => item.slug === 'css') : course.slug === 'css' ? courses.find((item) => item.slug === 'javascript') : undefined;
 ---
 <BaseLayout title={phase.title + ' — LearnLab Project Workspace'} description={phase.goal}>
 <main class="workspace"><div class="workspace-wrap">
@@ -45,7 +46,7 @@ const next = course.lessons[index + 1];
 <section class="brief-panel"><p class="eyebrow">YOUR CHALLENGE</p><h2>{course.project.title}</h2><p>{phase.task}</p><div class="hint-card"><div><b>Need a nudge?</b><span>Reveal hints one at a time. Try to solve each step before opening the next.</span></div><button type="button" data-hint>Show first hint</button><ol data-hints>{phase.hints.map((hint)=><li hidden>{hint}</li>)}</ol></div><div class="check-card"><b>Phase checklist</b><p>Your project carries forward from phase to phase. Checks are learning aids, not a full validator.</p><ul>{phase.checks.map((check)=><li>{check}</li>)}</ul><button type="button" data-check>Check my work</button><p class="check-result" data-check-result aria-live="polite"></p></div><a class="lesson-link" href={'/learn/'+course.slug+'/'+lesson.slug+'/'}>Review the lesson explanation ↗</a></section>
 <section class="editor-panel"><div class="editor-top"><div><b>Code editor</b><span>One shared Web Development project · HTML, CSS and JavaScript · Saved on this device</span></div><div class="editor-actions"><button type="button" data-download>↓ Download</button><button type="button" data-reset>Reset all</button><button type="button" class="run" data-run>▶ Run</button></div></div><div class="file-tabs" role="tablist" aria-label="Project files"><button type="button" role="tab" data-file="html">index.html</button><button type="button" role="tab" data-file="css">styles.css</button><button type="button" role="tab" data-file="js">script.js</button></div><label class="sr-only" for="project-code">Write your code</label><div class="editor-shell"><div class="line-gutter" data-line-gutter aria-hidden="true">1</div><textarea id="project-code" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Code editor" wrap="off" autocorrect="off"></textarea></div><div class="preview-head"><b>Live preview</b><span>Sandboxed browser preview</span></div><iframe title="Your project preview" sandbox="allow-scripts" data-preview></iframe><p class="preview-note">Your code runs only in this isolated browser preview. It is not uploaded to our server.</p></section>
 </div>
-<footer class="workspace-footer"><a href={'/learn/'+course.slug+'/'+lesson.slug+'/'}>← Return to lesson</a>{next?<a class="next-phase" href={'/learn/'+course.slug+'/'+next.slug+'/project/'}>Continue to phase {index+2}: {next.title} →</a>:<a class="next-phase" href={'/learn/'+course.slug+'/'}>Review your finished project →</a>}</footer>
+<footer class="workspace-footer"><a href={'/learn/'+course.slug+'/'+lesson.slug+'/'}>← Return to lesson</a>{next?<a class="next-phase" href={'/learn/'+course.slug+'/'+next.slug+'/project/'}>Continue to phase {index+2}: {next.title} →</a>:nextCourse?<a class="next-phase" href={'/learn/'+nextCourse.slug+'/'+nextCourse.lessons[0].slug+'/project/'}>Continue your same project with {nextCourse.title} →</a>:<a class="next-phase" href={'/learn/'+course.slug+'/'}>Review your finished project →</a>}</footer>
 </div></main>
 <script define:vars={{courseSlug:course.slug,lessonSlug:lesson.slug,starter:phase.starter,checks:phase.checks,index,lessonSlugs:course.lessons.map((item)=>item.slug),totalLessons:course.lessons.length}}>
 const editor=document.querySelector('#project-code');
@@ -65,6 +66,13 @@ let activeFile=courseSlug==='css'?'css':courseSlug==='javascript'?'js':'html';
 try{
  const saved=JSON.parse(localStorage.getItem(sharedKey)||'null');
  if(saved&&typeof saved==='object') project={...project,...saved};
+ else {
+   const oldHtml=localStorage.getItem('btecky.learnlab.project.v2.html');
+   if(oldHtml) project.html=oldHtml;
+   const oldCourseCode=localStorage.getItem('btecky.learnlab.project.v2.'+courseSlug);
+   if(oldCourseCode&&courseSlug==='css') project.css=oldCourseCode;
+   if(oldCourseCode&&courseSlug==='javascript') project.js=oldCourseCode;
+ }
 }catch{}
 if(courseSlug==='html'&&!localStorage.getItem(sharedKey)){project.html=starter||defaults.html;}
 const updateGutter=()=>{if(!editor||!gutter)return;const count=editor.value.split('\n').length;gutter.textContent=Array.from({length:count},(_,i)=>i+1).join('\n');gutter.scrollTop=editor.scrollTop;};
