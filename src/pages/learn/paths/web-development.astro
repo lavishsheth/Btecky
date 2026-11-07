@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { courses } from '../../../data/learn/courses';
+import { courses, type Course } from '../../../data/learn/courses';
 import '../../../styles/learn-web-development.css';
-const stages = ['html','css','javascript'].map((slug,index)=>({course:courses.find((item)=>item.slug===slug),index})).filter((item)=>item.course);
+const stages = ['html','css','javascript'].map((slug,index)=>({course:courses.find((item)=>item.slug===slug),index})).filter((item): item is { course: Course; index: number } => Boolean(item.course));
 ---
 <BaseLayout title="Complete Web Development Path — B Tecky LearnLab" description="Build one real website from HTML structure to CSS design and JavaScript interaction in one connected, cumulative project.">
 <main class="web-path"><div class="wrap">
