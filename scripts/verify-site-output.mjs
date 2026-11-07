@@ -38,6 +38,14 @@ const required = [
   'sitemap.xml',
   'editorial-policy/index.html',
   'learn/index.html',
+  'learn/paths/index.html',
+  'learn/practice/index.html',
+  'learn/html/index.html',
+  'learn/html/html-document-structure/index.html',
+  'learn/html/headings-paragraphs-lists/index.html',
+  'learn/html/links-and-images/index.html',
+  'learn/html/semantic-html/index.html',
+  'learn/html/forms-and-labels/index.html',
 ];
 const missing = required.filter((path) => !existsSync(join(dist, path)));
 if (missing.length) {
@@ -96,7 +104,7 @@ if (missing.length) {
   }
   const robots = readFileSync(join(dist, 'robots.txt'), 'utf8');
   const sitemap = readFileSync(join(dist, 'sitemap.xml'), 'utf8');
-  if (!robots.includes('https://www.btecky.tech/sitemap.xml') || !sitemap.includes('https://www.btecky.tech/') || !sitemap.includes('https://www.btecky.tech/learn/')) {
+  if (!robots.includes('https://www.btecky.tech/sitemap.xml') || !sitemap.includes('https://www.btecky.tech/') || !sitemap.includes('https://www.btecky.tech/learn/') || !sitemap.includes('https://www.btecky.tech/learn/html/html-document-structure/')) {
     console.error('Robots.txt or sitemap.xml does not use the canonical production domain.');
     process.exitCode = 1;
   }
