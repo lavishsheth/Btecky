@@ -93,6 +93,7 @@
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   })[char]);
   const staticResults = [
+    { title: 'B Tecky LearnLab', summary: 'Structured technical courses, learning paths, practice and projects', url: '/learn', kind: 'Learning' },
     { title: 'About B Tecky', summary: 'Learn about the team and our work', url: '/about', kind: 'Company' },
     { title: 'Arcade Score Checker', summary: 'Check your Google Cloud Arcade progress', url: '/arcade', kind: 'Tool' },
     { title: 'Facilitator Score Calculator', summary: 'Calculate your Facilitator milestone and bonus score', url: '/arcade/facilitator-calculator', kind: 'Tool' },
