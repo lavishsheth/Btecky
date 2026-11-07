@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { courses } from '@data/learn/courses';
+import { courses } from '../../../data/learn/courses';
 export function getStaticPaths() { return courses.map((course) => ({ params: { technology: course.slug }, props: { course } })); }
 const { course } = Astro.props;
 ---
