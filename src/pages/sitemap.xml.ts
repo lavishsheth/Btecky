@@ -20,7 +20,7 @@ export function GET() {
     });
   const learnUrls = courses.flatMap((course) => [
     `  <url><loc>${origin}/learn/${course.slug}/</loc></url>`,
-    ...course.lessons.map((lesson) => `  <url><loc>${origin}/learn/${course.slug}/${lesson.slug}/</loc></url>`),
+    ...course.lessons.flatMap((lesson) => [\n      `  <url><loc>${origin}/learn/${course.slug}/${lesson.slug}/</loc></url>`,\n      `  <url><loc>${origin}/learn/${course.slug}/${lesson.slug}/project/</loc></url>`,\n    ]),
   ]);
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...staticUrls, ...articleUrls, ...learnUrls].join('\n')}\n</urlset>`;
   return new Response(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } });
