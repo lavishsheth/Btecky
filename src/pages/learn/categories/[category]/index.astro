@@ -1,0 +1,24 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { learningCategories } from '../../../../data/learn/categories';
+import { catalogueCourses, assertValidLearnLabCatalogue } from '../../../../data/learn/catalogue';
+
+assertValidLearnLabCatalogue();
+export function getStaticPaths() {
+  return learningCategories.map((category) => ({
+    params: { category: category.slug },
+    props: { category, courses: catalogueCourses.filter((course) => course.categoryId === category.id) },
+  }));
+}
+const { category, courses } = Astro.props;
+---
+<BaseLayout title={category.title+' courses — B Tecky LearnLab'} description={category.description}>
+<main class="category-page"><div class="category-wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="/learn/">LearnLab</a><span>/</span><a href="/learn/courses/">Courses</a><span>/</span><span>{category.title}</span></nav>
+<header class="category-hero"><p class="eyebrow">LEARNLAB CATEGORY</p><span class:list={['status',category.status]}>{category.status==='published'?'COURSES AVAILABLE':'IN DEVELOPMENT'}</span><h1>{category.title}</h1><p>{category.description}</p><div class="category-count">{courses.length} {courses.length===1?'course':'courses'} currently published</div></header>
+{courses.length?<section class="category-courses"><h2>Explore {category.title}</h2><div class="course-grid">{courses.map((course)=><a href={'/learn/'+course.slug+'/'} class="course-card"><span class="level">{course.level}</span><h3>{course.title}</h3><p>{course.summary}</p><div><span>{course.lessons.length} lessons</span><b>View course ↗</b></div></a>)}</div></section>:<section class="empty-category"><span>✳</span><h2>We're preparing this subject.</h2><p>We're building useful, carefully structured lessons for this category. In the meantime, explore the courses already available in LearnLab.</p><a href="/learn/courses/">Browse all courses ↗</a></section>}
+<a class="back-link" href="/learn/courses/">← Back to all courses</a></div></main>
+</BaseLayout>
+<style>
+.category-page{background:#f8f9fc;min-height:70vh;padding:28px 0 90px;color:#17213b}.category-wrap{width:min(1100px,calc(100% - 40px));margin:auto}.crumbs{display:flex;gap:10px;flex-wrap:wrap;color:#7b8498;font-size:.78rem}.crumbs a{color:#315efb;font-weight:800}.category-hero{position:relative;padding:65px 0 45px;max-width:760px}.eyebrow{color:#315efb;font-size:.67rem;font-weight:900;letter-spacing:.14em}.status{display:inline-block;margin-top:17px;padding:6px 10px;border-radius:20px;background:#e8f7ef;color:#16834d;font-size:.6rem;font-weight:900;letter-spacing:.08em}.status.planned{background:#f0f2f7;color:#788398}.category-hero h1{margin:15px 0;font-size:clamp(3rem,6vw,5.2rem);letter-spacing:-.07em;line-height:1}.category-hero>p:not(.eyebrow){max-width:650px;color:#667085;font-size:.96rem;line-height:1.8}.category-count{margin-top:20px;color:#7b8498;font-size:.75rem;font-weight:700}.category-courses h2,.empty-category h2{font-size:1.7rem;letter-spacing:-.05em}.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.course-card{display:flex;flex-direction:column;min-height:210px;padding:21px;border:1px solid #e5e9f2;border-radius:14px;background:#fff;color:inherit}.level{align-self:flex-start;padding:6px 9px;border-radius:20px;background:#edf1ff;color:#315efb;font-size:.6rem;font-weight:800}.course-card h3{margin:17px 0 7px;font-size:1.15rem;letter-spacing:-.04em}.course-card p{color:#6d788b;font-size:.78rem;line-height:1.65}.course-card>div{display:flex;justify-content:space-between;gap:10px;margin-top:auto;padding-top:15px;color:#8993a5;font-size:.65rem}.course-card b{color:#315efb}.course-card:hover{border-color:#cbd6ff;box-shadow:0 12px 30px #17213b0c}.empty-category{padding:35px;border:1px solid #e5e9f2;border-radius:16px;background:#fff}.empty-category>span{color:#315efb;font-size:1.5rem}.empty-category p{max-width:620px;color:#6d788b;font-size:.86rem;line-height:1.8}.empty-category a,.back-link{display:inline-block;margin-top:12px;color:#315efb;font-size:.8rem;font-weight:900}.back-link{margin-top:35px}
+@media(max-width:800px){.course-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.category-wrap{width:calc(100% - 30px)}.category-hero{padding:45px 0 30px}.course-grid{grid-template-columns:1fr}}
+</style>
