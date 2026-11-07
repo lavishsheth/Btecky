@@ -117,24 +117,9 @@ const featuredCourses = courses.map((course) => ({
           <span class="ll-course-category">{course.category}</span><h3>{course.title}</h3><p>{course.summary}</p>
           <div class="ll-course-card__meta"><span>{course.lessons} lessons</span><span>~{course.minutes} min</span><b>Explore course ↗</b></div>
         </a>)}
-        <article class="ll-course-card ll-course-card--coming" data-course-card data-category="Programming" data-search="programming fundamentals python java javascript problem solving">
-          <div class="ll-course-card__top"><span class="ll-course-card__icon ll-course-card__icon--soft">⌘</span><span class="ll-course-level">In development</span></div>
-          <span class="ll-course-category">Programming</span><h3>Programming fundamentals</h3><p>Build confidence with logic, variables, conditions, loops and problem-solving.</p>
-          <div class="ll-course-card__meta"><span>Course roadmap</span><span></span><b>Coming soon</b></div>
-        </article>
-        <article class="ll-course-card ll-course-card--coming" data-course-card data-category="Databases" data-search="databases sql mysql data">
-          <div class="ll-course-card__top"><span class="ll-course-card__icon ll-course-card__icon--soft">▦</span><span class="ll-course-level">Planned</span></div>
-          <span class="ll-course-category">Databases</span><h3>Database foundations</h3><p>Explore how applications organise, store and retrieve information.</p>
-          <div class="ll-course-card__meta"><span>Course roadmap</span><span></span><b>Coming soon</b></div>
-        </article>
-        <article class="ll-course-card ll-course-card--coming" data-course-card data-category="Cloud & DevOps" data-search="cloud devops git docker deployment">
-          <div class="ll-course-card__top"><span class="ll-course-card__icon ll-course-card__icon--soft">⌁</span><span class="ll-course-level">Planned</span></div>
-          <span class="ll-course-category">Cloud &amp; DevOps</span><h3>Developer workflow</h3><p>Discover version control, collaboration and the tools behind shipping software.</p>
-          <div class="ll-course-card__meta"><span>Course roadmap</span><span></span><b>Coming soon</b></div>
-        </article>
       </div>
       <p class="ll-no-results" id="ll-no-results" hidden>No courses match that search yet. Try another topic or choose a different filter.</p>
-      <div class="ll-catalogue__foot"><span>New topics and courses will be added as LearnLab grows.</span><a class="ll-text-link" href="/learn/paths/">See learning paths <span>↗</span></a></div>
+      <div class="ll-catalogue__foot"><span>New topics and courses will be added as LearnLab grows.</span><div><a class="ll-text-link" href="/learn/paths/">See learning paths <span>↗</span></a><a class="ll-text-link" href="/learn/courses/">Browse all courses <span>↗</span></a></div></div>
     </section>
 
     <section class="ll-practice">
@@ -292,7 +277,7 @@ const featuredCourses = courses.map((course) => ({
   .ll-course-card__meta{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:17px;color:#8993a5;font-size:.62rem}.ll-course-card__meta b{margin-left:auto;color:var(--color-brand);font-size:.65rem;white-space:nowrap}
   .ll-course-card--coming{background:#fbfcfe}.ll-course-card--coming .ll-course-card__meta b{color:#8993a5}
   .ll-no-results{padding:24px;text-align:center;border:1px dashed #cfd6e4;border-radius:12px;color:#667085;font-size:.82rem}
-  .ll-catalogue__foot{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:20px;padding-top:17px;border-top:1px solid #e8ebf2;color:#8792a5;font-size:.7rem}.ll-catalogue__foot .ll-text-link{margin:0}
+  .ll-catalogue__foot{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:20px;padding-top:17px;border-top:1px solid #e8ebf2;color:#8792a5;font-size:.7rem}.ll-catalogue__foot>div{display:flex;gap:22px}.ll-catalogue__foot .ll-text-link{margin:0}
   .ll-practice{padding:75px 0;background:#f7f8fc;border-block:1px solid #edf0f5}
   .ll-practice__grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:75px}
   .ll-practice__visual{position:relative;min-height:345px;display:grid;place-items:center}
