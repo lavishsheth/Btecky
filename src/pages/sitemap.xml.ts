@@ -8,7 +8,7 @@ export function GET() {
     '/', '/about/', '/contact/', '/terms/', '/playlists/',
     '/arcade.html', '/arcade-calculator.html', '/skill-badges/',
     '/privacy/', '/cookies/', '/advertising/', '/disclaimer/',
-    '/editorial-policy/', '/blog/', '/learn/', '/learn/paths/', '/learn/practice/',
+    '/editorial-policy/', '/blog/', '/learn/', '/learn/paths/', '/learn/paths/web-development/', '/learn/practice/',
   ];
   const staticUrls = [...new Set(staticPaths)].map((path) => `  <url><loc>${origin}${path}</loc></url>`);
   const articleUrls = catalogue.posts
