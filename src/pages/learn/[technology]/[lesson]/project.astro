@@ -76,8 +76,16 @@ try{
       if(previous){saved=previous;break;}
     }
   }
-  editor.value=saved??starter;
+  const stageStarter = courseSlug==='css'
+    ? '/* Style the existing HTML profile in styles.css */\nbody { font-family: system-ui, sans-serif; line-height: 1.6; color: #17213b; }\n'
+    : courseSlug==='javascript'
+      ? '// Add behaviour to the existing website in app.js\n// Use querySelector and addEventListener.\n'
+      : starter;
+  editor.value=saved??stageStarter;
   if(saved){localStorage.setItem(storageKey,editor.value);}
+  else if(courseSlug==='html'){localStorage.setItem(sharedHtmlKey,editor.value);}
+  else if(courseSlug==='css'){localStorage.setItem(sharedCssKey,editor.value);}
+  else if(courseSlug==='javascript'){localStorage.setItem(sharedJsKey,editor.value);}
 }catch{editor.value=starter;}
 updateGutter();
 editor?.addEventListener('input',()=>{save();updateGutter();});
