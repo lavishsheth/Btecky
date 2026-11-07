@@ -430,3 +430,125 @@ Make these decisions only when the corresponding feature needs them and after se
 Phase 1 is complete when the product vision, audience, URL structure, curriculum model, content schema direction, rendering approach, progress model, practice model, playground threat boundaries, search, design, SEO, governance, testing and rollout gates are documented.
 
 This specification is the implementation baseline. Later changes should be deliberate and recorded rather than introducing inconsistent patterns across courses.
+
+
+---
+
+## 19. Agreed rebuild decisions — 7 November 2026
+
+This section records the decisions confirmed for the incremental LearnLab rebuild. Where this section differs from earlier proposals in this document, **this section takes precedence for the first release**.
+
+### 19.1 Discovery: learning paths and course catalogue
+
+LearnLab has two equally important discovery routes, backed by one canonical course catalogue:
+
+- **Learning paths** are curated sequences for learners who want guidance. A path references courses by stable course ID/slug and defines their order and relationship.
+- **Course catalogue** is the independent browse experience. Learners can discover any published course by subject, technology, level or keyword without joining a path first.
+- **Categories** organise courses for browsing. A category does not own or duplicate course content.
+- A course may appear in multiple paths and in its category catalogue, but its content and canonical URL exist only once.
+
+The homepage should expose both routes clearly. A path page should link to canonical course pages rather than creating duplicate lesson URLs.
+
+### 19.2 Lesson progression: sequential completion unlock
+
+The agreed first-release rule is **complete the current lesson to unlock the next lesson**.
+
+- The first lesson in a course is available immediately.
+- Completing lesson N unlocks lesson N+1.
+- A quiz is a learning aid with feedback and explanations; passing it is not a prerequisite for unlocking the next lesson.
+- Lesson completion is an explicit learner action after working through the lesson. Merely opening a page or answering a quiz does not mark it complete.
+- Progress is stored locally in the browser for the first release. It is not account-synchronised and must not be described as synced across devices.
+- Since the first release is static and local-first, this is a learning progression experience, not access control for confidential material. A direct URL must show a clear prerequisite/locked state when the prior lesson is incomplete; it must not silently mark earlier lessons complete.
+- The learner can revisit completed lessons. Revisit access must not be removed by sequential unlocking.
+
+### 19.3 Projects: lesson practice plus an integrated path capstone
+
+Both project scales are required:
+
+1. **Lesson practice:** small, focused exercises attached to individual lessons. These help learners apply one concept immediately and are not all required to be full coding workspaces.
+2. **Integrated path capstone:** one substantial project that combines the skills from the complete path. It has milestones that correspond to the path's courses, but remains one project with shared artefacts.
+
+For the Web Development path, the capstone is one website:
+- HTML creates and owns the semantic document structure.
+- CSS styles that same HTML project; it must not replace it with an unrelated demo page.
+- JavaScript adds behaviour to the same website; it must not start a separate portfolio project.
+
+A learner may also complete course-specific practice projects, but those do not replace the integrated path capstone. The first release should explain browser-local file persistence and its device/browser boundary. Do not imply cloud sync or account sync.
+
+### 19.4 Canonical information model
+
+Use one source of truth and explicit relationships:
+
+- **Category:** stable ID/slug, title, description and ordering metadata.
+- **Course:** stable ID/slug, category reference, title, summary, level, prerequisites, outcomes, publication state and ordered modules/lessons.
+- **Learning path:** stable ID/slug, title, audience/level, description and ordered course references.
+- **Lesson:** stable ID/slug, course reference, order, objectives, content sections, examples, practice tasks, optional quiz and references.
+- **Practice task:** lesson reference, task type, prompt, requirements, hints and evaluation approach.
+- **Path capstone:** path reference, brief, shared project identity, milestone-to-course mapping and completion criteria.
+- **Progress record:** version, course/lesson completion IDs, last visited item and optional practice/capstone state. Do not store secrets or sensitive personal data.
+
+Relationships are references, not copied content. A course remains independently discoverable even if it is not yet included in a learning path. A path may reference planned courses, but those steps must be visibly marked as planned until the referenced course is published.
+
+### 19.5 Implementation direction for this rebuild
+
+The existing site is Astro 5, TypeScript and static output. The current LearnLab content is a typed TypeScript course array, and the current build has no Zod or content-collection dependency.
+
+For the first rebuild steps:
+- Keep the existing Astro static-first architecture and shared BaseLayout.
+- Establish typed category, course and path data modules with stable IDs and references.
+- Add build-time validation for duplicate slugs, missing category/course references, invalid ordering and path references to unpublished courses.
+- Keep canonical lesson content in one place; do not duplicate lesson data into path definitions or homepage arrays.
+- Do not introduce a new framework, database, authentication provider or code-execution service in this step.
+- Defer any migration to Astro Content Collections until the authoring workflow and validation requirements have been proven against the first complete curricula. This supersedes the earlier Section 7 proposal to migrate immediately.
+
+### 19.6 Repository audit baseline
+
+The read-only audit of the current `main` branch found:
+
+| Area | Current repository state | Rebuild implication |
+|---|---|---|
+| Runtime/build | Astro 5, TypeScript, static output | Retain the existing stack |
+| Course data | `src/data/learn/courses.ts` contains one HTML course | Make the course catalogue the canonical source |
+| Categories | Category labels are hardcoded in the LearnLab homepage | Move category metadata to shared data |
+| Learning paths | Path cards are hardcoded separately in the homepage and `src/pages/learn/paths/index.astro` | Move path definitions to shared data |
+| Course pages | Generated from the course array at `/learn/[technology]/` | Keep course pages canonical |
+| Lesson pages | Generated from each course's lesson array | Preserve canonical lesson URLs |
+| Progress | A browser-local completion toggle exists | Replace it with explicit sequential progression |
+| Quizzes | Answers and feedback are client-side; quiz results do not gate lessons | Keep quiz feedback separate from completion |
+| Practice | `/learn/practice/` links to lesson exercises and quizzes | Reuse lesson practice data |
+| Projects | Existing project route creates a workspace per lesson and starts each technology with a separate template | Redesign later around lesson exercises and one path-level capstone |
+| Output checks | `scripts/verify-site-output.mjs` asserts the current HTML course routes | Extend only when new published courses/routes are introduced |
+
+At audit time, the current `main` branch contains the HTML course. CSS and JavaScript are referenced as future steps in the learning-path presentation but are not present as published courses in the canonical course data. The path and category lists are duplicated between pages.
+
+PR #36 (homepage redesign) and PR #37 (CSS/JavaScript workspace phase) were both open and unmerged during this audit. The rebuild must not depend on either branch or silently merge their unfinished implementation. The rebuild branch starts from `main`.
+
+### 19.7 Incremental delivery boundaries
+
+The rebuild is intentionally divided into small, testable steps:
+
+| Step | Scope | Explicitly out of scope |
+|---|---|---|
+| 1. Architecture baseline | This decision record, repository audit and acceptance criteria | UI redesign, course expansion, workspace changes |
+| 2. Canonical learning data | Shared types, category data, course metadata, path definitions and relationship validation | Homepage redesign |
+| 3. Discovery experience | Homepage, category browsing, path listing and path overview backed by canonical data | Lesson engine changes |
+| 4. Course experience | Course overview, prerequisites, outcomes and curriculum navigation | New interactive workspace |
+| 5. Lesson and progression | Lesson content rendering, completion state and sequential unlock behaviour | Path capstone execution |
+| 6. Practice system | Reusable lesson exercises and quiz feedback | Remote code judging |
+| 7. Integrated capstone | Path-level project brief, milestones and shared project files | Account/cloud synchronisation |
+| 8. Release quality | Regression, accessibility, SEO, responsive QA and preview verification | Automatic production merge |
+
+Each step must have a reviewable diff and its own acceptance checks. Do not start the next step until the current step's checks pass and the user approves moving forward. Do not merge or deploy to production without explicit approval.
+
+### 19.8 Step 1 acceptance criteria
+
+Step 1 is complete when:
+
+- The two discovery routes (learning paths and independent course catalogue) are documented.
+- Lesson N+1 unlocks only after lesson N is explicitly completed; quiz passing is not a gate.
+- Lesson practice and the integrated path capstone are defined as separate but connected project layers.
+- Canonical entities and their relationships are documented without duplicated course/lesson content.
+- Existing repository gaps and the unmerged PR boundary are recorded.
+- No application UI, course content or workspace behaviour has been changed as part of Step 1.
+
+The next implementation step is Step 2: create the canonical typed learning data and relationship validation. It must be reviewed and tested before any homepage or lesson UI work begins.
