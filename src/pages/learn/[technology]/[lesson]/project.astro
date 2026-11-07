@@ -34,6 +34,13 @@ const phase = course.slug === 'html' ? (phases[index] || {
     : '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>JavaScript Portfolio</title>\n</head>\n<body>\n<h1>My Interactive Portfolio</h1>\n<button id="action" type="button">Try it</button>\n<script>\n// Write your JavaScript here\n</script>\n</body>\n</html>',
   checks: course.slug === 'css' ? ['<style', 'color', 'font-size'] : ['<script', 'addEventListener', 'function']
 };
+// Stage metadata for the connected HTML → CSS → JavaScript curriculum.
+const stageOrder = ["html", "css", "javascript"];
+const stageIndex = stageOrder.indexOf(course.slug);
+const nextStageSlug = stageOrder[stageIndex + 1];
+const previousStageSlug = stageOrder[stageIndex - 1];
+const sharedProjectKey = "btecky.learnlab.connected-project.v1";
+const sharedProgressKey = "btecky.learnlab.connected-progress.v1";
 const next = course.lessons[index + 1];
 ---
 <BaseLayout title={phase.title + ' — LearnLab Project Workspace'} description={phase.goal}>
