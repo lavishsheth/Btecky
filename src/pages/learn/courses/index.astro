@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { catalogueCourses, assertValidLearnLabCatalogue } from '../../data/learn/catalogue';
-import { learningCategories } from '../../data/learn/categories';
+import { catalogueCourses, assertValidLearnLabCatalogue } from '../../../data/learn/catalogue';
+import { learningCategories } from '../../../data/learn/categories';
 
 assertValidLearnLabCatalogue();
 const courses = [...catalogueCourses].sort((a, b) => a.title.localeCompare(b.title));
@@ -37,7 +37,7 @@ const count=document.querySelector<HTMLElement>('#result-count');
 const empty=document.querySelector<HTMLElement>('#empty-state');
 let category='all';let level='all';
 function update(){const q=search?.value.trim().toLowerCase()||'';let shown=0;cards.forEach(card=>{const visible=(category==='all'||card.dataset.category===category)&&(level==='all'||card.dataset.level===level)&&(!q||(card.dataset.search||'').includes(q));card.hidden=!visible;if(visible)shown++;});if(count)count.textContent=shown+' '+(shown===1?'result':'results');if(empty)empty.hidden=shown>0;}
-function activate(buttons,selected){buttons.forEach(button=>{const active=button===selected;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});}
+function activate(buttons: HTMLButtonElement[],selected: HTMLButtonElement){buttons.forEach((button: HTMLButtonElement)=>{const active=button===selected;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});}
 search?.addEventListener('input',update);
 categoryButtons.forEach(button=>button.addEventListener('click',()=>{category=button.dataset.filter||'all';activate(categoryButtons,button);update();}));
 levelButtons.forEach(button=>button.addEventListener('click',()=>{level=button.dataset.level||'all';activate(levelButtons,button);update();}));
