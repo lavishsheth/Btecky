@@ -17,13 +17,22 @@ const phases = [
   { title: 'Use semantic page landmarks', goal: 'Make the profile page easier to navigate with meaningful HTML elements.', task: 'Organise the page using header, nav, main and footer. Put the main profile content inside main.', hints: ['Use header for introductory/site content.', 'Use nav for a group of important navigation links.', 'Keep the primary page content inside one main element.'], starter: '<!doctype html>\n<html lang="en">\n<head><meta charset="UTF-8"><title>My Profile</title></head>\n<body>\n  <!-- Add header, nav, main and footer landmarks -->\n</body>\n</html>', checks: ['<header', '<nav', '<main', '</main>', '<footer'] },
   { title: 'Build an accessible contact form', goal: 'Finish the profile project with a clearly labelled contact form.', task: 'Add a form with a labelled name input, an email input and a submit button.', hints: ['Every input needs a label associated using matching for and id values.', 'Use type="email" for an email address field.', 'Use a button with type="submit" to submit the form.'], starter: '<!doctype html>\n<html lang="en">\n<head><meta charset="UTF-8"><title>My Profile</title></head>\n<body>\n  <h1>My Profile</h1>\n  <!-- Add your accessible contact form -->\n</body>\n</html>', checks: ['<form', '<label', 'for=', '<input', 'type="email"', '<button', 'type="submit"'] }
 ];
-const phase = phases[index] || {
+const phase = course.slug === 'html' ? (phases[index] || {
   title: 'Project practice: ' + lesson.title,
   goal: 'Apply the concepts from this lesson to your personal profile website.',
   task: lesson.exercise.prompt,
   hints: [...lesson.objectives, ...lesson.exercise.requirements.slice(0, 2)],
   starter: '<!doctype html>\\n<html lang="en">\\n<head>\\n  <meta charset="UTF-8">\\n  <meta name="viewport" content="width=device-width, initial-scale=1">\\n  <title>My Profile Project</title>\\n</head>\\n<body>\\n  <header><h1>My Profile</h1></header>\\n  <main>\\n    <!-- Apply the lesson concepts here -->\\n  </main>\\n</body>\\n</html>',
   checks: ['<html', '<head', '<body']
+}) : {
+  title: 'Project practice: ' + lesson.title,
+  goal: 'Apply this lesson to your ' + course.title + ' portfolio project.',
+  task: lesson.exercise.prompt,
+  hints: [...lesson.objectives, ...lesson.exercise.requirements.slice(0, 2)],
+  starter: course.slug === 'css'
+    ? '<!doctype html>\\n<html lang="en">\\n<head>\\n<meta charset="UTF-8">\\n<title>CSS Portfolio</title>\\n<style>\\n/* Write your CSS here */\\n</style>\\n</head>\\n<body>\\n<h1>My Portfolio</h1>\\n<p>Design this page with CSS.</p>\\n</body>\\n</html>'
+    : '<!doctype html>\\n<html lang="en">\\n<head>\\n<meta charset="UTF-8">\\n<title>JavaScript Portfolio</title>\\n</head>\\n<body>\\n<h1>My Interactive Portfolio</h1>\\n<button id="action" type="button">Try it</button>\\n<script>\\n// Write your JavaScript here\\n</script>\\n</body>\\n</html>',
+  checks: course.slug === 'css' ? ['<style', 'color', 'font-size'] : ['<script', 'addEventListener', 'function']
 };
 const next = course.lessons[index + 1];
 ---
@@ -34,7 +43,7 @@ const next = course.lessons[index + 1];
 <div class="phase-track">{course.lessons.map((item,i)=><a class:list={{current:i===index}} href={'/learn/'+course.slug+'/'+item.slug+'/project/'}><span>{i+1}</span><small>{item.title}</small></a>)}</div>
 <div class="workspace-grid">
 <section class="brief-panel"><p class="eyebrow">YOUR CHALLENGE</p><h2>{course.project.title}</h2><p>{phase.task}</p><div class="hint-card"><div><b>Need a nudge?</b><span>Reveal hints one at a time. Try to solve each step before opening the next.</span></div><button type="button" data-hint>Show first hint</button><ol data-hints>{phase.hints.map((hint)=><li hidden>{hint}</li>)}</ol></div><div class="check-card"><b>Phase checklist</b><p>These quick checks look for the key HTML elements in your code. They are learning aids, not a full validator.</p><ul>{phase.checks.map((check)=><li>{check}</li>)}</ul><button type="button" data-check>Check my work</button><p class="check-result" data-check-result aria-live="polite"></p></div><a class="lesson-link" href={'/learn/'+course.slug+'/'+lesson.slug+'/'}>Review the lesson explanation ↗</a></section>
-<section class="editor-panel"><div class="editor-top"><div><b>Code editor</b><span>HTML · Your work is saved on this device</span></div><div class="editor-actions"><button type="button" data-reset>Reset</button><button type="button" class="run" data-run>▶ Run</button></div></div><label class="sr-only" for="project-code">Write your HTML code</label><textarea id="project-code" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="HTML code editor"></textarea><div class="preview-head"><b>Live preview</b><span>Sandboxed browser preview</span></div><iframe title="Your project preview" sandbox="allow-scripts" data-preview></iframe><p class="preview-note">Your code runs only in this isolated browser preview. It is not uploaded to our server.</p></section>
+<section class="editor-panel"><div class="editor-top"><div><b>Code editor</b><span>{course.title} · Your work is saved on this device</span></div><div class="editor-actions"><button type="button" data-reset>Reset</button><button type="button" class="run" data-run>▶ Run</button></div></div><label class="sr-only" for="project-code">Write your code</label><textarea id="project-code" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="HTML code editor"></textarea><div class="preview-head"><b>Live preview</b><span>Sandboxed browser preview</span></div><iframe title="Your project preview" sandbox="allow-scripts" data-preview></iframe><p class="preview-note">Your code runs only in this isolated browser preview. It is not uploaded to our server.</p></section>
 </div>
 <footer class="workspace-footer"><a href={'/learn/'+course.slug+'/'+lesson.slug+'/'}>← Return to lesson</a>{next?<a class="next-phase" href={'/learn/'+course.slug+'/'+next.slug+'/project/'}>Continue to phase {index+2}: {next.title} →</a>:<a class="next-phase" href={'/learn/'+course.slug+'/'}>Review your finished project →</a>}</footer>
 </div></main>
