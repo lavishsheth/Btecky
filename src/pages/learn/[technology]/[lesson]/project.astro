@@ -80,7 +80,7 @@ const save=()=>{try{localStorage.setItem(sharedKey,JSON.stringify(project));}cat
 const render=()=>{
  if(!preview)return;
  const source=project.html.replace('</head>', '<style>'+project.css.replace(/<\/style/gi,'<\\/style')+'</style></head>');
- const withScript=source.includes('</body>')?source.replace('</body>','<script>'+project.js.replace(/<\/script/gi,'<\\/script')+'<\\/script></body>'):source+'<script>'+project.js+'<\\/script>';
+ const withScript=source.includes('</body>')?source.replace('</body>','<script>'+project.js.replace(/<\/script/gi,'<\\/script')+'</scr'+'ipt></body>'):source+'<script>'+project.js+'</scr'+'ipt>';
  preview.srcdoc=withScript;
 };
 const showFile=(file)=>{
@@ -102,7 +102,7 @@ render();
 let hintIndex=0;
 document.querySelector('[data-hint]')?.addEventListener('click',(event)=>{const hints=[...document.querySelectorAll('[data-hints] li')];if(hintIndex<hints.length){hints[hintIndex].hidden=false;hintIndex++;event.currentTarget.textContent=hintIndex<hints.length?'Show next hint':'All hints shown';}else event.currentTarget.textContent='All hints shown';});
 document.querySelector('[data-check]')?.addEventListener('click',()=>{if(editor)project[activeFile]=editor.value;save();const code=(project.html+'\n'+project.css+'\n'+project.js).toLowerCase();const missing=checks.filter(item=>!code.includes(item.toLowerCase()));const result=document.querySelector('[data-check-result]');if(result){if(missing.length){result.textContent='Not quite yet. Review: '+missing.join(', ')+'. Use the hints if you need help.';}else{result.textContent='Phase '+(index+1)+' complete — your HTML, CSS and JavaScript project is saved together. Continue to build on these same files.';try{const done=new Set(JSON.parse(localStorage.getItem(progressKey)||'[]'));done.add(courseSlug+':'+lessonSlug);localStorage.setItem(progressKey,JSON.stringify([...done]));}catch{}}}});
-document.querySelector('[data-download]')?.addEventListener('click',()=>{if(editor)project[activeFile]=editor.value;save();const combined=project.html.replace('</head>','<style>'+project.css+'</style></head>').replace('</body>','<script>'+project.js+'<\\/script></body>');const blob=new Blob([combined],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='btecky-web-development-project.html';link.click();URL.revokeObjectURL(url);});
+document.querySelector('[data-download]')?.addEventListener('click',()=>{if(editor)project[activeFile]=editor.value;save();const combined=project.html.replace('</head>','<style>'+project.css+'</style></head>').replace('</body>','<script>'+project.js+'</scr'+'ipt></body>');const blob=new Blob([combined],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='btecky-web-development-project.html';link.click();URL.revokeObjectURL(url);});
 </script>
 </BaseLayout>
 <style>
