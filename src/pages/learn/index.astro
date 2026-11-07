@@ -1,7 +1,11 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { courses } from '../../data/learn/courses';
+import { learningCategories } from '../../data/learn/categories';
+import { assertValidLearnLabCatalogue } from '../../data/learn/catalogue';
 
+assertValidLearnLabCatalogue();
+const availableCategories = learningCategories.filter((category) => courses.some((course) => course.category === category.title)).sort((a, b) => a.sortOrder - b.sortOrder);
 const featuredCourses = courses.map((course) => ({
   slug: course.slug,
   title: course.title,
@@ -104,8 +108,7 @@ const featuredCourses = courses.map((course) => ({
         <label class="ll-search"><span aria-hidden="true">⌕</span><input id="ll-course-search" type="search" placeholder="Search courses or topics..." aria-label="Search courses" /><kbd>/</kbd></label>
         <div class="ll-filters" role="group" aria-label="Filter courses">
           <button class="is-active" type="button" data-course-filter="all" aria-pressed="true">All courses</button>
-          <button type="button" data-course-filter="Web development" aria-pressed="false">Web development</button>
-          <button type="button" data-course-filter="Programming" aria-pressed="false">Programming</button>
+          {availableCategories.map((category) => <button type="button" data-course-filter={category.title} aria-pressed="false">{category.title}</button>)}
         </div>
       </div>
       <div class="ll-course-grid" id="ll-course-grid">
