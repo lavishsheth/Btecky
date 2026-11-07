@@ -53,8 +53,7 @@ const preview=document.querySelector('[data-preview]');
 const gutter=document.querySelector('[data-line-gutter]');
 const storageKey='btecky.learnlab.project.v1.'+courseSlug+'.'+lessonSlug;
 let runTimer;
-const escapeHtml=(value)=>value.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
-const updateGutter=()=>{if(!editor||!gutter)return;const count=editor.value.split('\\n').length;gutter.textContent=Array.from({length:count},(_,i)=>i+1).join('\\n');gutter.scrollTop=editor.scrollTop;};
+const updateGutter=()=>{if(!editor||!gutter)return;const count=editor.value.split('\n').length;gutter.textContent=Array.from({length:count},(_,i)=>i+1).join('\n');gutter.scrollTop=editor.scrollTop;};
 const run=()=>{if(preview&&editor)preview.srcdoc=editor.value;};
 const save=()=>{try{localStorage.setItem(storageKey,editor.value)}catch{}};
 try{const saved=localStorage.getItem(storageKey);editor.value=saved??starter;}catch{editor.value=starter;}
