@@ -25,10 +25,11 @@ const next = course.lessons[index + 1];
 </div></div></main>
 <script define:vars={{courseSlug:course.slug,lessonSlug:lesson.slug,total:course.lessons.length,quiz:lesson.quiz}}>
 const key='btecky.learnlab.progress.v1';
+const projectProgressKey='btecky.learnlab.connected-progress.v1';
 const readProgress=()=>{try{return JSON.parse(localStorage.getItem(key)||'{}')}catch{return {}}};
 const button=document.querySelector('[data-complete-lesson]');
 const completed=()=>((readProgress()[courseSlug]||[]).includes(lessonSlug));
-const updateProgress=()=>{const items=readProgress()[courseSlug]||[];const label=document.querySelector('[data-progress-label]');const bar=document.querySelector('[data-progress-bar]');if(label)label.textContent=items.length+' / '+total+' complete';if(bar)bar.style.width=(Math.min(100,items.length/total*100))+'%'};
+const updateProgress=()=>{const items=readProgress()[courseSlug]||[];const workspaceState=(()=>{try{return JSON.parse(localStorage.getItem(projectProgressKey)||'{}')}catch{return {}}})();const workspaceItems=workspaceState[courseSlug]||[];const combined=new Set([...items,...workspaceItems]);const label=document.querySelector('[data-progress-label]');const bar=document.querySelector('[data-progress-bar]');if(label)label.textContent=combined.size+' / '+total+' complete';if(bar)bar.style.width=(Math.min(100,combined.size/total*100))+'%'};
 const updateButton=()=>{if(button){button.textContent=completed()?'Completed ✓':'Mark as complete';button.classList.toggle('is-complete',completed())}};
 updateButton();updateProgress();
 button?.addEventListener('click',()=>{const all=readProgress();const items=new Set(all[courseSlug]||[]);if(items.has(lessonSlug))items.delete(lessonSlug);else items.add(lessonSlug);all[courseSlug]=Array.from(items);try{localStorage.setItem(key,JSON.stringify(all));updateButton();updateProgress()}catch{button.textContent='Storage unavailable'}});
