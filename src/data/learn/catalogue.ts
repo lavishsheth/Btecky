@@ -2,16 +2,7 @@ import { learningCategories } from './categories';
 import { learningPaths } from './paths';
 import { courses } from './courses';
 
-export type CatalogueCourse = (typeof courses)[number] & {
-  id: string;
-  categoryId: string;
-};
-
-export const catalogueCourses: CatalogueCourse[] = courses.map((course) => ({
-  ...course,
-  id: course.slug === 'html' ? 'html-foundations' : course.slug,
-  categoryId: course.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
-}));
+export const catalogueCourses = courses;
 
 export function validateLearnLabCatalogue(): string[] {
   const errors: string[] = [];
