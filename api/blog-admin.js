@@ -245,7 +245,21 @@ async function gh(path, options = {}) {
 
 async function readRepoFile(path) {
   const data = await gh('/repos/' + OWNER + '/' + REPO + '/contents/' + path + '?ref=' + BRANCH);
-  return {sha:data.sha,text:Buffer.from(data.content.replace(/\n/g,''),'base64').toString('utf8')};
+  // GitHub's Contents API omits inline content for larger files. Blog posts
+  // grow over time, so fall back to the Git Blobs API instead of decoding an
+  // empty string and failing later with "Unexpected end of JSON input".
+  let encoded = String(data.content || '').replace(/\s/g, '');
+  if (!encoded) {
+    if (!data.sha) throw new Error('GitHub did not return content or a blob SHA for ' + path + '.');
+    const blob = await gh('/repos/' + OWNER + '/' + REPO + '/git/blobs/' + data.sha);
+    if (blob.encoding !== 'base64' || !blob.content) {
+      throw new Error('GitHub returned an unsupported or empty blob for ' + path + '.');
+    }
+    encoded = String(blob.content).replace(/\s/g, '');
+  }
+  const text = Buffer.from(encoded, 'base64').toString('utf8');
+  if (!text.trim()) throw new Error('GitHub returned an empty file for ' + path + '.');
+  return {sha:data.sha,text};
 }
 
 async function commitFiles(files, message) {
