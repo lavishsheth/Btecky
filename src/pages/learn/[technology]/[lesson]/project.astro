@@ -30,9 +30,9 @@ const phase = course.slug === 'html' ? (phases[index] || {
   task: lesson.exercise.prompt,
   hints: [...lesson.objectives, ...lesson.exercise.requirements.slice(0, 2)],
   starter: course.slug === 'css'
-    ? '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>CSS Portfolio</title>\n<style>\n/* Write your CSS here */\n</style>\n</head>\n<body>\n<h1>My Portfolio</h1>\n<p>Design this page with CSS.</p>\n</body>\n</html>'
-    : '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>JavaScript Portfolio</title>\n</head>\n<body>\n<h1>My Interactive Portfolio</h1>\n<button id="action" type="button">Try it</button>\n<script>\n// Write your JavaScript here\n</script>\n</body>\n</html>',
-  checks: course.slug === 'css' ? ['<style', 'color', 'font-size'] : ['<script', 'addEventListener', 'function']
+    ? '/* Style the shared HTML project */\nbody { font-family: system-ui, sans-serif; line-height: 1.6; color: #17213b; }\n'
+    : '// Add behaviour to the shared HTML and CSS project\n// Use querySelector and addEventListener.\n',
+  checks: course.slug === 'css' ? ['body', 'color', 'font-family'] : ['querySelector', 'addEventListener']
 };
 // Stage metadata for the connected HTML → CSS → JavaScript curriculum.
 const stageOrder = ["html", "css", "javascript"];
