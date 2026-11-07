@@ -59,17 +59,20 @@ const editor=document.querySelector('#project-code');
 const preview=document.querySelector('[data-preview]');
 const gutter=document.querySelector('[data-line-gutter]');
 const storageKey='btecky.learnlab.project.v2.'+courseSlug;
-const progressKey='btecky.learnlab.project.progress.v1.'+courseSlug;
+const progressKey='btecky.learnlab.connected-progress.v1';
+const sharedHtmlKey='btecky.learnlab.connected-html.v1';
+const sharedCssKey='btecky.learnlab.connected-css.v1';
+const sharedJsKey='btecky.learnlab.connected-js.v1';
 const allLessonSlugs=lessonSlugs;
 let runTimer;
 const updateGutter=()=>{if(!editor||!gutter)return;const count=editor.value.split('\n').length;gutter.textContent=Array.from({length:count},(_,i)=>i+1).join('\n');gutter.scrollTop=editor.scrollTop;};
-const run=()=>{if(preview&&editor)preview.srcdoc=editor.value;};
-const save=()=>{try{localStorage.setItem(storageKey,editor.value)}catch{}};
+const run=()=>{if(!preview||!editor)return;const html=courseSlug==='html'?editor.value:(localStorage.getItem(sharedHtmlKey)||'<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>My Profile</title></head><body><h1>My Profile</h1><p>Continue your website project.</p></body></html>');const css=courseSlug==='css'?editor.value:(localStorage.getItem(sharedCssKey)||'');const js=courseSlug==='javascript'?editor.value:(localStorage.getItem(sharedJsKey)||'');const style=css?'<style>'+css+'</style>':'';const script=js?'<script>'+js+'<\\/script>':'';preview.srcdoc=html.replace('</head>',style+'</head>').replace('</body>',script+'</body>');};
+const save=()=>{try{localStorage.setItem(storageKey,editor.value);if(courseSlug==='html')localStorage.setItem(sharedHtmlKey,editor.value);if(courseSlug==='css')localStorage.setItem(sharedCssKey,editor.value);if(courseSlug==='javascript')localStorage.setItem(sharedJsKey,editor.value)}catch{}};
 try{
   let saved=localStorage.getItem(storageKey);
   if(!saved){
     for(const slug of allLessonSlugs){
-      const previous=localStorage.getItem('btecky.learnlab.project.v1.'+courseSlug+'.'+slug);
+      const previous=localStorage.getItem(storageKey);
       if(previous){saved=previous;break;}
     }
   }
@@ -82,7 +85,7 @@ editor?.addEventListener('scroll',()=>{if(gutter)gutter.scrollTop=editor.scrollT
 editor?.addEventListener('keydown',(event)=>{if(event.key==='Tab'){event.preventDefault();const start=editor.selectionStart,end=editor.selectionEnd;editor.setRangeText('  ',start,end,'end');save();updateGutter();}});
 document.querySelector('[data-run]')?.addEventListener('click',run);
 document.querySelector('[data-reset]')?.addEventListener('click',()=>{if(!confirm('Reset the entire '+courseSlug.toUpperCase()+' project? This clears work from every phase on this device.'))return;editor.value=starter;save();try{localStorage.removeItem(progressKey)}catch{};updateGutter();run();});
-document.querySelector('[data-download]')?.addEventListener('click',()=>{const blob=new Blob([editor.value],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=courseSlug+'-portfolio-project.html';link.click();URL.revokeObjectURL(url);});
+document.querySelector('[data-download]')?.addEventListener('click',()=>{const mime=courseSlug==='css'?'text/css':courseSlug==='javascript'?'text/javascript':'text/html';const extension=courseSlug==='css'?'css':courseSlug==='javascript'?'js':'html';const blob=new Blob([editor.value],{type:mime+';charset=utf-8'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=courseSlug==='html'?'index.html':courseSlug==='css'?'styles.css':'app.js';link.click();URL.revokeObjectURL(url);});
 editor?.addEventListener('input',()=>{clearTimeout(runTimer);runTimer=setTimeout(run,900);});
 run();
 let hintIndex=0;
@@ -91,7 +94,7 @@ document.querySelector('[data-check]')?.addEventListener('click',()=>{const code
  if(missing.length){result.textContent='Not quite yet. Review: '+missing.join(', ')+'. Use the hints if you need help.';}
  else{
    result.textContent='Phase '+(index+1)+' complete — your work is saved in the shared '+courseSlug.toUpperCase()+' project. Continue to the next lesson to build on this same file.';
-   try{const done=new Set(JSON.parse(localStorage.getItem(progressKey)||'[]'));done.add(lessonSlug);localStorage.setItem(progressKey,JSON.stringify([...done]));}catch{}
+   try{const state=JSON.parse(localStorage.getItem(progressKey)||'{}');const done=new Set(state[courseSlug]||[]);done.add(lessonSlug);state[courseSlug]=[...done];localStorage.setItem(progressKey,JSON.stringify(state));}catch{}
  }
 }});
 </script>
