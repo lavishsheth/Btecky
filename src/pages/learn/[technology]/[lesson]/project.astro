@@ -17,7 +17,14 @@ const phases = [
   { title: 'Use semantic page landmarks', goal: 'Make the profile page easier to navigate with meaningful HTML elements.', task: 'Organise the page using header, nav, main and footer. Put the main profile content inside main.', hints: ['Use header for introductory/site content.', 'Use nav for a group of important navigation links.', 'Keep the primary page content inside one main element.'], starter: '<!doctype html>\n<html lang="en">\n<head><meta charset="UTF-8"><title>My Profile</title></head>\n<body>\n  <!-- Add header, nav, main and footer landmarks -->\n</body>\n</html>', checks: ['<header', '<nav', '<main', '</main>', '<footer'] },
   { title: 'Build an accessible contact form', goal: 'Finish the profile project with a clearly labelled contact form.', task: 'Add a form with a labelled name input, an email input and a submit button.', hints: ['Every input needs a label associated using matching for and id values.', 'Use type="email" for an email address field.', 'Use a button with type="submit" to submit the form.'], starter: '<!doctype html>\n<html lang="en">\n<head><meta charset="UTF-8"><title>My Profile</title></head>\n<body>\n  <h1>My Profile</h1>\n  <!-- Add your accessible contact form -->\n</body>\n</html>', checks: ['<form', '<label', 'for=', '<input', 'type="email"', '<button', 'type="submit"'] }
 ];
-const phase = phases[index] || phases[0];
+const phase = phases[index] || {
+  title: 'Project practice: ' + lesson.title,
+  goal: 'Apply the concepts from this lesson to your personal profile website.',
+  task: lesson.exercise.prompt,
+  hints: [...lesson.objectives, ...lesson.exercise.requirements.slice(0, 2)],
+  starter: '<!doctype html>\\n<html lang="en">\\n<head>\\n  <meta charset="UTF-8">\\n  <meta name="viewport" content="width=device-width, initial-scale=1">\\n  <title>My Profile Project</title>\\n</head>\\n<body>\\n  <header><h1>My Profile</h1></header>\\n  <main>\\n    <!-- Apply the lesson concepts here -->\\n  </main>\\n</body>\\n</html>',
+  checks: ['<html', '<head', '<body']
+};
 const next = course.lessons[index + 1];
 ---
 <BaseLayout title={phase.title + ' — LearnLab Project Workspace'} description={phase.goal}>
