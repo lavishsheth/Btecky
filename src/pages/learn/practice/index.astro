@@ -1,0 +1,12 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { courses } from '../../../data/learn/courses';
+const lessons=courses.flatMap(course=>course.lessons.map(lesson=>({course,lesson})));
+---
+<BaseLayout title="Practice centre — B Tecky LearnLab" description="Reinforce technical concepts with short knowledge checks and practical exercises in B Tecky LearnLab.">
+<main class="practice-page"><div class="practice-wrap"><nav><a href="/learn/">LearnLab</a><span>/</span>Practice</nav><header><p class="eyebrow">RECALL. APPLY. IMPROVE.</p><h1>Practice centre</h1><p>Choose a lesson to revisit its exercise and knowledge check. Practice is linked to the course that teaches each concept, so you can review the explanation whenever you need it.</p></header><div class="practice-grid">{lessons.map(({course,lesson},i)=><a href={'/learn/'+course.slug+'/'+lesson.slug+'/#practice'}><span>QUESTION SET / {String(i+1).padStart(2,'0')}</span><h2>{lesson.title}</h2><p>{lesson.summary}</p><small>{course.title} · {lesson.quiz.length} questions</small><b>Open practice ↗</b></a>)}</div></div></main>
+</BaseLayout>
+<style>
+.practice-page{background:#f8f9fc;min-height:70vh;padding:28px 0 90px;color:#17213b}.practice-wrap{width:min(1080px,calc(100% - 40px));margin:auto}.practice-wrap nav{display:flex;gap:10px;color:#7b8498;font-size:.78rem}.practice-wrap nav a{color:#315efb;font-weight:800}.practice-page header{max-width:700px;padding:65px 0 35px}.eyebrow{font-size:.68rem;color:#315efb;font-weight:900;letter-spacing:.13em}.practice-page h1{font-size:clamp(3rem,6vw,5rem);letter-spacing:-.07em;margin:12px 0}.practice-page header>p:last-child{color:#667085;line-height:1.8}.practice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.practice-grid a{display:flex;flex-direction:column;min-height:220px;padding:22px;border:1px solid #e5e9f2;border-radius:15px;background:#fff;color:#17213b}.practice-grid a>span{font-size:.6rem;color:#8993a5;font-weight:900;letter-spacing:.1em}.practice-grid h2{font-size:1.2rem;letter-spacing:-.03em;margin:22px 0 7px}.practice-grid p{font-size:.8rem;line-height:1.65;color:#667085}.practice-grid small{margin-top:auto;color:#8993a5;font-size:.68rem}.practice-grid b{margin-top:12px;color:#315efb;font-size:.76rem}
+@media(max-width:850px){.practice-grid{grid-template-columns:1fr 1fr}}@media(max-width:580px){.practice-grid{grid-template-columns:1fr}.practice-wrap{width:calc(100% - 30px)}}
+</style>
