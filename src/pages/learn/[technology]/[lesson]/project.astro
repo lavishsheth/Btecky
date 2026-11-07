@@ -56,7 +56,7 @@ let runTimer;
 const updateGutter=()=>{if(!editor||!gutter)return;const count=editor.value.split('\n').length;gutter.textContent=Array.from({length:count},(_,i)=>i+1).join('\n');gutter.scrollTop=editor.scrollTop;};
 const run=()=>{if(preview&&editor)preview.srcdoc=editor.value;};
 const save=()=>{try{localStorage.setItem(storageKey,editor.value)}catch{}};
-try{const saved=localStorage.getItem(storageKey);editor.value=saved??starter;}catch{editor.value=starter;}
+try{const saved=localStorage.getItem(storageKey);editor.value=saved??starter;if(saved&&saved.startsWith('<!doctype')&&saved.includes('\\\\n')){editor.value=saved.replaceAll('\\\\n','\\n');localStorage.setItem(storageKey,editor.value);}}catch{editor.value=starter;}
 updateGutter();
 editor?.addEventListener('input',()=>{save();updateGutter();});
 editor?.addEventListener('scroll',()=>{if(gutter)gutter.scrollTop=editor.scrollTop;});
