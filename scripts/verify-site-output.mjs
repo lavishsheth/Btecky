@@ -44,6 +44,19 @@ if (missing.length) {
   console.error('Missing required site output:', missing.join(', '));
   process.exitCode = 1;
 } else {
+  // Private Blog Studio is an isolated legacy application. Its source and built
+  // output must remain byte-for-byte identical; shared shell/SEO transforms
+  // must never rewrite this private workspace.
+  const privateStudioPath = 'write-lavii-9f21k2/index.html';
+  const privateStudioSource = readFileSync(join(root, privateStudioPath), 'utf8');
+  const privateStudioOutput = readFileSync(join(dist, privateStudioPath), 'utf8');
+  if (privateStudioOutput !== privateStudioSource) {
+    console.error('Private Blog Studio was modified during the build. Its output must exactly match its isolated source file.');
+    process.exitCode = 1;
+  } else {
+    console.log('Private Blog Studio isolation verified: source and built output are byte-for-byte identical.');
+  }
+
   const homepage = readFileSync(join(dist, 'index.html'), 'utf8');
   const footerOf = (html) => html.match(/<footer class="site-footer">[\s\S]*?<\/footer>/)?.[0]?.replace(/\s+/g, ' ').trim() || '';
   const headerOf = (html) => html.match(/<header class="site-header" id="site-header">[\s\S]*?<\/header>/)?.[0]?.replace(/\s+/g, ' ').trim() || '';
