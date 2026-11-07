@@ -22,7 +22,7 @@ const phase = course.slug === 'html' ? (phases[index] || {
   goal: 'Apply the concepts from this lesson to your personal profile website.',
   task: lesson.exercise.prompt,
   hints: [...lesson.objectives, ...lesson.exercise.requirements.slice(0, 2)],
-  starter: '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1">\n  <title>My Profile Project</title>\n</head>\n<body>\n  <header><h1>My Profile</h1></header>\n  <main>\n    <!-- Apply the lesson concepts here -->\n  </main>\n</body>\n</html>',
+  starter: '<!doctype html>\\n<html lang="en">\\n<head>\\n<meta charset="UTF-8">\\n<meta name="viewport" content="width=device-width, initial-scale=1">\\n<title>My Profile Project</title>\\n</head>\\n<body>\\n<header><h1>My Profile</h1></header>\\n<main><!-- Apply this lesson here --></main>\\n</body>\\n</html>',
   checks: ['<html', '<head', '<body']
 }) : {
   title: 'Project practice: ' + lesson.title,
@@ -30,8 +30,8 @@ const phase = course.slug === 'html' ? (phases[index] || {
   task: lesson.exercise.prompt,
   hints: [...lesson.objectives, ...lesson.exercise.requirements.slice(0, 2)],
   starter: course.slug === 'css'
-    ? '/* Style the shared HTML project */\nbody { font-family: system-ui, sans-serif; line-height: 1.6; color: #17213b; }\n'
-    : '// Add behaviour to the shared HTML and CSS project\n// Use querySelector and addEventListener.\n',
+    ? '/* Style the shared HTML project */\\nbody { font-family: system-ui, sans-serif; line-height: 1.6; color: #17213b; }\\n'
+    : '// Add behaviour to the shared HTML and CSS project\\n// Use querySelector and addEventListener.\\n',
   checks: course.slug === 'css' ? ['body', 'color', 'font-family'] : ['querySelector', 'addEventListener']
 };
 // Stage metadata for the connected HTML → CSS → JavaScript curriculum.
