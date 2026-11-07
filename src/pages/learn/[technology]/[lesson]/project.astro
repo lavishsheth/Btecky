@@ -39,8 +39,6 @@ const stageOrder = ["html", "css", "javascript"];
 const stageIndex = stageOrder.indexOf(course.slug);
 const nextStageSlug = stageOrder[stageIndex + 1];
 const previousStageSlug = stageOrder[stageIndex - 1];
-const sharedProjectKey = "btecky.learnlab.connected-project.v1";
-const sharedProgressKey = "btecky.learnlab.connected-progress.v1";
 const next = course.lessons[index + 1];
 ---
 <BaseLayout title={phase.title + ' — LearnLab Project Workspace'} description={phase.goal}>
@@ -59,7 +57,7 @@ const editor=document.querySelector('#project-code');
 const preview=document.querySelector('[data-preview]');
 const gutter=document.querySelector('[data-line-gutter]');
 const storageKey=courseSlug==='html'?'btecky.learnlab.connected-project.html.v1':courseSlug==='css'?'btecky.learnlab.connected-project.css.v1':'btecky.learnlab.connected-project.javascript.v1';
-const progressKey=sharedProgressKey;
+const progressKey="btecky.learnlab.connected-progress.v1";
 const sharedHtmlKey='btecky.learnlab.connected-html.v1';
 const sharedCssKey='btecky.learnlab.connected-css.v1';
 const sharedJsKey='btecky.learnlab.connected-js.v1';
