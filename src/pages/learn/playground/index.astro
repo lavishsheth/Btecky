@@ -9,12 +9,13 @@ html:'<main>\n  <h1>Hello, learner!</h1>\n  <p>Change this HTML and run it.</p>\
 css:'body {\n  font-family: system-ui, sans-serif;\n  padding: 32px;\n  background: #f2f5ff;\n  color: #17213b;\n}\nh1 { color: #315efb; }\nbutton {\n  padding: 10px 16px;\n  border: 0;\n  border-radius: 8px;\n  background: #315efb;\n  color: white;\n  cursor: pointer;\n}',
 js:"document.querySelector('#hello')?.addEventListener('click', () => {\n  document.querySelector('#output').textContent = 'Your JavaScript is running!';\n});"
 };
-let active='html';const values={...samples};const code=document.querySelector('#play-code');const tabs=[...document.querySelectorAll('[data-tab]')];
+let active='';const values={...samples};const code=document.querySelector('#play-code');const tabs=[...document.querySelectorAll('[data-tab]')];
 function choose(tab){if(active)values[active]=code.value;active=tab;code.value=values[tab];tabs.forEach(item=>item.classList.toggle('active',item.dataset.tab===tab));}
 function run(){values[active]=code.value;const doc='<!doctype html><html><head><meta charset="utf-8"><style>'+values.css+'</style></head><body>'+values.html+'<script>'+values.js.split('</script').join('<\\/script')+'<\\/script></body></html>';document.querySelector('#result').srcdoc=doc;document.querySelector('#message').textContent='Code executed in preview';}
 tabs.forEach(tab=>tab.addEventListener('click',()=>choose(tab.dataset.tab)));
 document.querySelector('#run').addEventListener('click',run);
-document.querySelector('#reset').addEventListener('click',()=>{choose(active);run();});
+document.querySelector('#reset').addEventListener('click',()=>{values[active]=samples[active];choose(active);run();});
+try{const seed=sessionStorage.getItem('btecky.learnlab.playground.seed.v1');if(seed){values.html=seed;sessionStorage.removeItem('btecky.learnlab.playground.seed.v1');}}catch{}
 choose('html');run();
 </script>
 </BaseLayout>
