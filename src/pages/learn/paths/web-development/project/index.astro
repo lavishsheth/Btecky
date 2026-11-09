@@ -9,7 +9,6 @@ const path = learningPaths.find((item) => item.slug === 'web-development');
 <header class="hero"><p class="eyebrow">YOUR CONNECTED LEARNING PROJECT</p><h1>One website.<br/><em>Built step by step.</em></h1><p>Everything you learn across the Web Development path comes together here. Your HTML, CSS and JavaScript work on the same website — and the project is ready to grow into React when that course is available.</p><div class="hero-actions"><button type="button" id="download-project" class="primary">Download my project ↓</button><a href="/learn/playground/" class="secondary">Open example playground ↗</a></div><p class="privacy-note">Your edits are saved in this browser on this device. No account or cloud sync is required.</p></header>
 <section class="stage-strip" aria-label="Project learning stages">
 {(path?.stages ?? []).map((stage,index)=><div class="stage"><span>0{index+1}</span><b>{stage.title}</b><small>{stage.status==='available'?'Available course':'Course coming soon'}</small></div>)}
-<div class="stage"><span>04</span><b>React — Component architecture</b><small>Planned next stage</small></div>
 </section>
 <div class="workspace-grid">
 <section class="editor-panel"><div class="panel-heading"><div><p class="eyebrow">PROJECT FILES</p><h2>Code editor</h2></div><span class="saved" id="save-status">Saved locally</span></div>
