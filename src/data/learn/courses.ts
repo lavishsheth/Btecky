@@ -4,6 +4,7 @@ export type Course = { id: string; categoryId: string; slug: string; title: stri
 
 import { cssFoundationsCourse } from './css-course';
 import { javascriptFoundationsCourse } from './javascript-course';
+import { reactFoundationsCourse } from './react-course';
 
 const htmlFoundationsCourse: Course = {
 id:"html-foundations",categoryId:"web-development",slug:"html",title:"HTML Foundations",category:"Web development",level:"Beginner",
@@ -55,6 +56,6 @@ quiz:[{question:"How should a label be associated with an input?",options:["Give
 references:[{label:"MDN: Your first form",url:"https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Your_first_form"},{label:"W3C WAI: Forms concepts",url:"https://www.w3.org/WAI/tutorials/forms/"}]}
 ]};
 
-export const courses: Course[] = [htmlFoundationsCourse, cssFoundationsCourse, javascriptFoundationsCourse];
+export const courses: Course[] = [htmlFoundationsCourse, cssFoundationsCourse, javascriptFoundationsCourse, reactFoundationsCourse];
 
 export const findCourse = (slug: string) => courses.find((course) => course.slug === slug);
