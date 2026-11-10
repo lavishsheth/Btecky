@@ -30,6 +30,9 @@ const topics: LearnTopic[] = [
   { id: 'ai-machine-learning', slug: 'ai-machine-learning', title: 'AI & machine learning', description: 'Discover data-driven systems, machine learning concepts and applied AI.', availability: 'coming-soon', sortOrder: 7 },
   { id: 'cybersecurity', slug: 'cybersecurity', title: 'Cybersecurity', description: 'Understand security principles, common risks and safer software practices.', availability: 'coming-soon', sortOrder: 8 },
   { id: 'developer-tools', slug: 'developer-tools', title: 'Developer tools', description: 'Get comfortable with the tools and workflows used to build software.', availability: 'coming-soon', sortOrder: 9 },
+  { id: 'google-cloud-arcade', slug: 'google-cloud-arcade', title: 'Google Cloud & Arcade', description: 'Build cloud skills through Google Cloud learning resources and Arcade challenges.', availability: 'coming-soon', sortOrder: 10 },
+  { id: 'dsa-placement', slug: 'dsa-placement', title: 'DSA & placement preparation', description: 'Practise data structures, algorithms and problem-solving patterns for technical interviews.', availability: 'coming-soon', sortOrder: 11 },
+  { id: 'data-ai-basics', slug: 'data-ai-basics', title: 'Data & AI basics', description: 'Explore data literacy, AI fundamentals and practical machine learning concepts.', availability: 'coming-soon', sortOrder: 12 },
 ];
 
 const paths: LearnPath[] = [
