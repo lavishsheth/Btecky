@@ -12,10 +12,10 @@ js:"document.querySelector('#hello')?.addEventListener('click', () => {\n  docum
 };
 let active: PlaygroundTab='html';const values: Record<PlaygroundTab,string>={...samples};const code=document.querySelector<HTMLTextAreaElement>('#play-code')!;const tabs=[...document.querySelectorAll<HTMLButtonElement>('[data-tab]')];
 function choose(tab: PlaygroundTab){if(active)values[active]=code.value;active=tab;code.value=values[tab];tabs.forEach(item=>item.classList.toggle('active',item.dataset.tab===tab));}
-function run(){values[active]=code.value;const doc='<!doctype html><html><head><meta charset="utf-8"><style>'+values.css+'</style></head><body>'+values.html+'<script>'+values.js.split('</script').join('<\\/script')+'<\\/script></body></html>';document.querySelector<HTMLIFrameElement>('#result')!.srcdoc=doc;document.querySelector<HTMLElement>('#message')!.textContent='Code executed in preview';}
-tabs.forEach(tab=>tab.addEventListener('click',()=>{const name=tab.dataset.tab as PlaygroundTab|undefined;if(name)choose(name)}));
-document.querySelector('#run').addEventListener('click',run);
-document.querySelector('#reset').addEventListener('click',()=>{values[active]=samples[active];code.value=samples[active];run();});
+function run(){values[active]=code.value;const scriptOpen='<'+'script>';const scriptClose='<'+'/script>';const safeJs=values.js.split(scriptClose).join('<\\/script');const doc='<!doctype html><html><head><meta charset="utf-8"><style>'+values.css+'</style></head><body>'+values.html+scriptOpen+safeJs+scriptClose+'</body></html>';document.querySelector<HTMLIFrameElement>('#result')!.srcdoc=doc;document.querySelector<HTMLElement>('#message')!.textContent='Code executed in preview';}
+tabs.forEach(tab=>tab.addEventListener('click',()=>{const name=tab.dataset.tab;if(name==='html'||name==='css'||name==='js')choose(name)}));
+document.querySelector<HTMLButtonElement>('#run')!.addEventListener('click',run);
+document.querySelector<HTMLButtonElement>('#reset')!.addEventListener('click',()=>{values[active]=samples[active];code.value=samples[active];run();});
 try{const seed=sessionStorage.getItem('btecky.learnlab.playground.seed.v1');if(seed){values.html=seed;sessionStorage.removeItem('btecky.learnlab.playground.seed.v1');}}catch{}
 choose('html');run();
 </script>
