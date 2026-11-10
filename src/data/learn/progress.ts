@@ -18,7 +18,9 @@ export type ProgressCourseMap = Record<string, {
   lessonSlugs: string[];
 }>;
 
-let memoryProgress: LearnLabProgress = { version: 2, lastPathId: null, courses: {} };\n\nfunction isRecord(value: unknown): value is Record<string, unknown> {
+let memoryProgress: LearnLabProgress = { version: 2, lastPathId: null, courses: {} };
+
+function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 function findCourse(courseMap: ProgressCourseMap, identifier: string) {
