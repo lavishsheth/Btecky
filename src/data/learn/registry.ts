@@ -101,6 +101,7 @@ const courseMetadata: LearnCourse[] = courseDefinitions.map((definition) => {
   if (!content) throw new Error('Registry course "' + definition.id + '" has no lesson content module');
   return {
     ...definition,
+    prerequisites: [...definition.prerequisites],
     availability: 'available',
     durationMinutes: content.lessons.reduce((total, lesson) => total + lesson.minutes, 0),
     lessonIds: content.lessons.map((lesson) => definition.id + ':' + lesson.slug),
