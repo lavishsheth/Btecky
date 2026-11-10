@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { learnRegistry, validateLearnRegistry } from '../../../../data/learn/registry';
-import { courses } from '../../../../data/learn/courses';
+const courses = learnRegistry.courseContent;
 const registryErrors = validateLearnRegistry();
 if (registryErrors.length) throw new Error(registryErrors.join('; '));
 export function getStaticPaths() {
