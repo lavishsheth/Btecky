@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { learnRegistry } from '../../data/learn/registry';
-import { courses } from '../../data/learn/courses';
+const courses = learnRegistry.courseContent;
 import { assertValidLearnLabCatalogue } from '../../data/learn/catalogue';
 assertValidLearnLabCatalogue();
 const categories = learnRegistry.topics.filter((topic) => courses.some((course) => course.categoryId === topic.id));
