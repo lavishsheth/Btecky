@@ -18,7 +18,7 @@ export type ProgressCourseMap = Record<string, {
   lessonSlugs: string[];
 }>;
 
-function isRecord(value: unknown): value is Record<string, unknown> {
+let memoryProgress: LearnLabProgress = { version: 2, lastPathId: null, courses: {} };\n\nfunction isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 function findCourse(courseMap: ProgressCourseMap, identifier: string) {
@@ -71,9 +71,9 @@ export function migrateLegacyProgress(value: unknown, courseMap: ProgressCourseM
 export function readProgress(courseMap: ProgressCourseMap): LearnLabProgress {
   try {
     const current = localStorage.getItem(LEARNLAB_PROGRESS_KEY);
-    if (current) return normaliseProgress(JSON.parse(current), courseMap);
+    if (current) { memoryProgress = normaliseProgress(JSON.parse(current), courseMap); return memoryProgress; }
     const legacy = localStorage.getItem(LEGACY_LEARNLAB_PROGRESS_KEY);
-    if (!legacy) return createEmptyProgress();
+    if (!legacy) return memoryProgress;
     const migrated = migrateLegacyProgress(JSON.parse(legacy), courseMap);
     writeProgress(migrated);
     return migrated;
@@ -83,11 +83,13 @@ export function readProgress(courseMap: ProgressCourseMap): LearnLabProgress {
 }
 
 export function writeProgress(progress: LearnLabProgress): boolean {
+  memoryProgress = progress;
   try {
     localStorage.setItem(LEARNLAB_PROGRESS_KEY, JSON.stringify(progress));
     window.dispatchEvent(new CustomEvent('learnlab:progress-change', { detail: progress }));
     return true;
   } catch {
+    window.dispatchEvent(new CustomEvent('learnlab:progress-change', { detail: progress }));
     return false;
   }
 }
@@ -140,12 +142,14 @@ export function importProgress(json: string, courseMap: ProgressCourseMap): Lear
   }
 }
 export function resetProgress(): boolean {
+  memoryProgress = createEmptyProgress();
   try {
     localStorage.removeItem(LEARNLAB_PROGRESS_KEY);
     localStorage.removeItem(LEGACY_LEARNLAB_PROGRESS_KEY);
-    window.dispatchEvent(new CustomEvent('learnlab:progress-change', { detail: createEmptyProgress() }));
+    window.dispatchEvent(new CustomEvent('learnlab:progress-change', { detail: memoryProgress }));
     return true;
   } catch {
+    window.dispatchEvent(new CustomEvent('learnlab:progress-change', { detail: memoryProgress }));
     return false;
   }
 }
