@@ -3,7 +3,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { type Course, type Lesson } from '../../../data/learn/courses';
 import { learnRegistry } from '../../../data/learn/registry';
 const courses = learnRegistry.courseContent;
-export function getStaticPaths() { return courses.flatMap((course: Course) => course.lessons.map((lesson: Lesson) => ({ params: { technology: course.slug, lesson: lesson.slug }, props: { course, lesson } }))); }
+export function getStaticPaths() { return learnRegistry.courseContent.flatMap((course: Course) => course.lessons.map((lesson: Lesson) => ({ params: { technology: course.slug, lesson: lesson.slug }, props: { course, lesson } }))); }
 const { course, lesson } = Astro.props as { course: Course; lesson: Lesson };
 const index = course.lessons.findIndex((item: Lesson) => item.slug === lesson.slug);
 const previous = course.lessons[index - 1];
