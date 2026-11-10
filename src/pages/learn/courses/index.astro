@@ -25,7 +25,7 @@ const publishedCategories = learningCategories.filter((category) => courses.some
       </div>
       <p id="empty-state" class="empty-state" hidden>No courses match those filters. Try another search or clear a filter.</p>
     </section>
-    <section class="category-directory"><div class="directory-heading"><div><p class="eyebrow">EXPLORE BY SUBJECT</p><h2>Browse categories</h2></div><p>Some subjects are still in development. We'll add courses as their learning material is ready.</p></div><div class="category-grid">{learningCategories.map((category)=><a class="category-card" href={'/learn/categories/'+category.slug+'/'}><span>{category.status==='published'?'AVAILABLE':'IN DEVELOPMENT'}</span><b>{category.title}</b><small>{category.description}</small><i>Explore category ↗</i></a>)}</div></section>
+    <section class="category-directory"><div class="directory-heading"><div><p class="eyebrow">EXPLORE BY SUBJECT</p><h2>Browse categories</h2></div><p>Some subjects are still in development. We'll add courses as their learning material is ready.</p></div><div class="category-grid">{learningCategories.map((category)=>category.status==='published'&&courses.some((course)=>course.categoryId===category.id)?<a class="category-card" href={'/learn/categories/'+category.slug+'/'}><span>AVAILABLE</span><b>{category.title}</b><small>{category.description}</small><i>Explore category ↗</i></a>:<div class="category-card category-card--soon"><span>COMING SOON</span><b>{category.title}</b><small>{category.description}</small><i>Curriculum in development</i></div>)}</div></section>
   </div>
 </main>
 <script>
