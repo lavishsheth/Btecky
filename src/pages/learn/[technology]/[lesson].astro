@@ -13,7 +13,7 @@ const progressCourseMap = Object.fromEntries(courses.map((item) => [item.id, { i
 <main class="lesson-page" data-course-id={course.id} data-lesson-slug={lesson.slug} data-lesson-index={index} data-total-lessons={course.lessons.length} data-lesson-ids={JSON.stringify(course.lessons.map((item) => course.id + ':' + item.slug))}><div class="lesson-shell">
 <nav class="lesson-crumbs" aria-label="Breadcrumb"><a href="/learn/">LearnLab</a><span>/</span><a href={'/learn/'+course.slug+'/'}>{course.title}</a><span>/</span><span>{lesson.title}</span></nav>
 <div class="lesson-layout">
-<details class="lesson-sidebar"><summary>Course lessons · {course.lessons.length} lessons</summary><a class="back-course" href={'/learn/'+course.slug+'/'}>← Course overview</a><p class="sidebar-label">YOUR CURRICULUM</p><ol>{course.lessons.map((item,i)=><li class:list={{active:item.slug===lesson.slug}} data-sidebar-lesson={item.slug}><a href={'/learn/'+course.slug+'/'+item.slug+'/'}><span>{String(i+1).padStart(2,'0')}</span>{item.title}</a></li>)}</ol><div class="sidebar-progress"><span>YOUR PROGRESS</span><b data-progress-label>0 / {course.lessons.length} complete</b><div class="progress-track"><i data-progress-bar></i></div></div></details>
+<details class="lesson-sidebar"><summary>Course lessons · {course.lessons.length} lessons</summary><a class="back-course" href={'/learn/'+course.slug+'/'}>← Course overview</a><p class="sidebar-label">YOUR CURRICULUM</p><ol>{course.lessons.map((item,i)=><li class:list={{active:item.slug===lesson.slug}} data-sidebar-lesson={item.slug}><a href={'/learn/'+course.slug+'/'+item.slug+'/'}><span>{String(i+1).padStart(2,'0')}</span>{item.title}</a></li>)}</ol><div class="sidebar-progress"><span>YOUR PROGRESS</span><b data-progress-label>0 / {course.lessons.length} complete</b><div class="progress-track" role="progressbar" aria-label="Course lesson completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i data-progress-bar></i></div></div></details>
 
 <article class="lesson-article" data-lesson-content>
 <header class="lesson-heading"><p class="eyebrow">{course.title.toUpperCase()} / LESSON {String(index+1).padStart(2,'0')}</p><span class="lesson-duration">{lesson.minutes} MIN READ</span><h1>{lesson.title}</h1><p class="lesson-summary">{lesson.summary}</p><div class="objectives"><b>By the end, you can:</b><ul>{lesson.objectives.map((item)=><li>{item}</li>)}</ul></div><div class="lesson-tools">{course.categoryId==='web-development'&&<a href="/learn/paths/web-development/project/">↗ Continue building your connected project</a>}<a href="/learn/playground/">▶ Try code in the example playground</a></div></header>
@@ -53,8 +53,10 @@ const updateProgress = () => {
   const count = lessonIds.filter((id) => items.includes(id)).length;
   const label = document.querySelector<HTMLElement>('[data-progress-label]');
   const bar = document.querySelector<HTMLElement>('[data-progress-bar]');
+  const track = document.querySelector<HTMLElement>('.sidebar-progress .progress-track[role="progressbar"]');
   if (label) label.textContent = count + ' / ' + total + ' complete';
   if (bar) bar.style.width = (total ? Math.min(100, count / total * 100) : 0) + '%';
+  if (track) track.setAttribute('aria-valuenow', String(total ? Math.round(count / total * 100) : 0));
 };
 const updateButton = () => {
   if (!button) return;
