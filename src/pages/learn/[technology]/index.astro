@@ -51,13 +51,13 @@ const update = () => {
   if (bar) bar.style.width = (count / lessonIds.length * 100) + '%';
   document.querySelectorAll<HTMLAnchorElement>('[data-course-lesson]').forEach((link) => {
     const lessonId = courseId + ':' + (link.dataset.courseLesson || '');
-    const done = done.includes(lessonId);
+    const isComplete = done.includes(lessonId);
     const index = Number(link.dataset.courseIndex || 0);
     const status = link.querySelector<HTMLElement>('[data-lesson-status]');
-    link.classList.toggle('is-completed', done);
-    link.classList.toggle('is-recommended', !done && index === nextIndex);
-    link.setAttribute('aria-label', (link.querySelector('b')?.textContent || 'Lesson') + ' — ' + (done ? 'Completed' : index === nextIndex ? 'Suggested next lesson' : 'Available'));
-    if (status) status.textContent = done ? 'Completed ✓' : index === nextIndex ? 'Suggested next' : 'Available';
+    link.classList.toggle('is-completed', isComplete);
+    link.classList.toggle('is-recommended', !isComplete && index === nextIndex);
+    link.setAttribute('aria-label', (link.querySelector('b')?.textContent || 'Lesson') + ' — ' + (isComplete ? 'Completed' : index === nextIndex ? 'Suggested next lesson' : 'Available'));
+    if (status) status.textContent = isComplete ? 'Completed ✓' : index === nextIndex ? 'Suggested next' : 'Available';
   });
 };
 update();
