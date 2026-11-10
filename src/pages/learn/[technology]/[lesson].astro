@@ -29,7 +29,7 @@ const progressCourseMap = Object.fromEntries(courses.map((item) => [item.id, { i
 <script type="application/json" id="learnlab-course-map" set:html={JSON.stringify(progressCourseMap)}></script>
 <script type="application/json" id="learnlab-quiz" set:html={JSON.stringify(lesson.quiz)}></script>
 <script>
-import { readProgress, setLastLesson, markLessonComplete, writeProgress } from '../../../data/learn/progress';
+import { readProgress, setLastLesson, markLessonComplete, writeProgress, subscribeToProgress } from '../../../data/learn/progress';
 
 const root = document.querySelector<HTMLElement>('[data-course-id]');
 const courseId = root?.dataset.courseId || '';
@@ -64,6 +64,8 @@ const updateButton = () => {
 };
 updateButton();
 updateProgress();
+const unsubscribe = subscribeToProgress(() => { progress = readProgress(courseMap); updateButton(); updateProgress(); });
+window.addEventListener('pagehide', unsubscribe, { once: true });
 
 button?.addEventListener('click', () => {
   progress = markLessonComplete(progress, courseId, lessonId, lessonIds);
