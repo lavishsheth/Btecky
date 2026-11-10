@@ -1,50 +1,37 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { learnRegistry } from '../../data/learn/registry';
 import { courses } from '../../data/learn/courses';
-import { learningPaths } from '../../data/learn/paths';
-import { learningCategories } from '../../data/learn/categories';
 import { assertValidLearnLabCatalogue } from '../../data/learn/catalogue';
-
 assertValidLearnLabCatalogue();
-const webPath = learningPaths.find((path) => path.slug === 'web-development');
-const courseById = new Map(courses.map((course) => [course.id, course]));
-const firstStage = webPath?.stages.find((stage) => stage.status === 'available' && stage.courseId);
-const startCourse = firstStage?.courseId ? courseById.get(firstStage.courseId) : courses[0];
-const categories = learningCategories.filter((category) => courses.some((course) => course.categoryId === category.id)).sort((a, b) => a.sortOrder - b.sortOrder);
-const courseCards = courses.map((course) => ({
-  id: course.id,
-  slug: course.slug,
-  title: course.title,
-  category: course.category,
-  categoryId: course.categoryId,
-  level: course.level,
-  summary: course.summary,
-  lessons: course.lessons.length,
-}));
+const categories = learnRegistry.topics.filter((topic) => courses.some((course) => course.categoryId === topic.id));
+const roadmapCategories = learnRegistry.topics.filter((topic) => topic.availability === 'coming-soon');
+const courseCards = courses.map((course) => ({ id: course.id, slug: course.slug, title: course.title, category: course.category, categoryId: course.categoryId, level: course.level, summary: course.summary, lessons: course.lessons.length }));
+const pathCards = learnRegistry.paths.map((path) => ({ ...path, availableCount: path.stages.filter((stage) => stage.availability === 'available' && stage.courseId).length }));
 ---
 <BaseLayout
   title="LearnLab — Learn technology by building | B Tecky"
-  description="A free, beginner-friendly place to learn technology. Follow a clear learning path, practise one lesson at a time and build a real project with B Tecky LearnLab."
+  description="Explore free technology courses and guided learning paths. Learn at your own pace, practise each concept and build practical skills with B Tecky LearnLab."
 >
   <main class="learn-home" id="top">
     <section class="welcome">
       <div class="welcome-copy">
         <span class="eyebrow"><i></i> B TECKY LEARNLAB · FREE FOR EVERYONE</span>
-        <h1>Learn one step.<br /><em>Build something real.</em></h1>
-        <p>Not sure where to begin? That's okay. Choose a learning path and we'll guide you through each course and lesson, one step at a time.</p>
+        <h1>Explore technology.<br /><em>Learn by building.</em></h1>
+        <p>Choose a subject that interests you, follow a guided learning path, or open an individual course. Learn at your own pace and turn concepts into practical skills.</p>
         <div class="welcome-actions">
-          {startCourse && <a class="primary-action" href={'/learn/' + startCourse.slug + '/'}>Start learning <span>→</span></a>}
-          <a class="secondary-action" href="#courses">I know what I want to learn</a>
+          <a class="primary-action" href="/learn/courses/">Explore courses <span>→</span></a>
+          <a class="secondary-action" href="#paths">Explore learning paths</a>
         </div>
         <div class="welcome-trust"><span>✓ Free to access</span><span>✓ Beginner-friendly</span><span>✓ Learn at your own pace</span></div>
       </div>
       <aside class="start-card">
-        <span class="start-card-label">NEW TO LEARNLAB?</span>
-        <div class="start-number">01</div>
-        <h2>Start with HTML</h2>
-        <p>Learn how a website is structured. Then you'll use that same website to learn CSS, JavaScript and React.</p>
-        {startCourse && <a href={'/learn/' + startCourse.slug + '/'}>Start the first course <span>↗</span></a>}
-        <small>No experience needed · No account required to explore</small>
+        <span class="start-card-label">YOUR LEARNING SPACE</span>
+        <div class="start-number">✳</div>
+        <h2>Start with what interests you.</h2>
+        <p>Browse available subjects and choose the format that suits you: a standalone course or a connected learning journey.</p>
+        <a href="/learn/courses/">Find a course <span>↗</span></a>
+        <small>Free to access · No account required · Learn at your own pace</small>
       </aside>
     </section>
 
@@ -61,23 +48,19 @@ const courseCards = courses.map((course) => ({
       </div>
     </section>
 
-    {webPath && <section class="journey-section" aria-labelledby="journey-title">
+    <section class="journey-section" id="paths" aria-labelledby="journey-title">
       <div class="section-intro section-intro-row">
-        <div><span class="eyebrow">RECOMMENDED FOR BEGINNERS</span><h2 id="journey-title">Your web development journey.</h2><p>Build one website from beginning to end. You keep improving the same project as you learn new skills.</p></div>
-        <span class="journey-badge">4 connected courses</span>
+        <div><span class="eyebrow">LEARN WITH A CLEAR DIRECTION</span><h2 id="journey-title">Choose a learning path.</h2><p>Paths connect related courses into a sequence. Follow the suggested journey or explore any available course independently.</p></div>
+        <a class="all-courses-link" href="/learn/paths/">View all paths →</a>
       </div>
-      <div class="journey-flow">
-        {webPath.stages.map((stage, index) => {
-          const course = stage.courseId ? courseById.get(stage.courseId) : undefined;
-          return <article class:list={['journey-step', { 'is-available': stage.status === 'available' && course }]}>
-            <span class="journey-step-number">{String(index + 1).padStart(2, '0')}</span>
-            <div class="journey-step-copy"><span>{stage.status === 'available' && course ? 'COURSE AVAILABLE' : 'COMING LATER'}</span><h3>{stage.title}</h3><p>{stage.description}</p></div>
-            {stage.status === 'available' && course ? <a href={'/learn/' + course.slug + '/'} aria-label={'Open ' + course.title}>Open course <b>→</b></a> : <span class="coming-label">Coming soon</span>}
-          </article>;
-        })}
+      <div class="path-card-grid">
+        {pathCards.map((path) => <article class="path-card">
+          <span class="path-card-meta">{path.level} · {path.availableCount} available courses</span>
+          <h3>{path.title}</h3><p>{path.description}</p>
+          <div class="path-card-foot"><span>{path.stages.length} stages</span><a href={'/learn/paths/' + path.slug + '/'}>View path overview ↗</a></div>
+        </article>)}
       </div>
-      <p class="journey-note"><span>✦</span> Your project grows with you: HTML gives it structure, CSS gives it style, JavaScript adds interaction, and React organises it into components.</p>
-    </section>}
+    </section>
 
     <section class="course-section" id="courses" aria-labelledby="courses-title">
       <div class="section-intro section-intro-row">
@@ -101,13 +84,18 @@ const courseCards = courses.map((course) => ({
       <p class="no-results" id="no-results" hidden>No courses found. Try a different search.</p>
     </section>
 
+    {roadmapCategories.length > 0 && <section class="roadmap-section" aria-labelledby="roadmap-title">
+      <div><span class="eyebrow">GROWING LIBRARY</span><h2 id="roadmap-title">More subjects are on the way.</h2><p>We’re preparing structured courses for these areas. They’ll appear in the catalogue when the learning material is ready.</p></div>
+      <ul>{roadmapCategories.map((topic) => <li><b>{topic.title}</b><span>Coming soon</span></li>)}</ul>
+    </section>}
+
     <section class="reassurance">
       <div><span class="eyebrow">A FEW THINGS TO KNOW</span><h2>Learning should feel simple.</h2></div>
       <div class="reassurance-items">
         <details><summary>Is LearnLab free? <span>+</span></summary><p>Yes. LearnLab is free to access. You can explore the available courses without a subscription.</p></details>
         <details><summary>Do I need coding experience? <span>+</span></summary><p>No. Start with the beginner-friendly HTML course. It introduces the basics before moving forward.</p></details>
-        <details><summary>How do I know what to do next? <span>+</span></summary><p>Follow the lessons in order. Finish a lesson and mark it complete to unlock the next one. Your progress is saved in this browser on this device.</p></details>
-        <details><summary>Can I keep my project? <span>+</span></summary><p>The connected web development project is designed to grow across the courses. Use the project workspace to continue building and export your work when available.</p></details>
+        <details><summary>How do I know what to do next? <span>+</span></summary><p>You can open any published lesson. LearnLab suggests a next step, while your completed lessons are saved in this browser. Export a backup or import it on another device from a course page.</p></details>
+        <details><summary>Can I keep my project? <span>+</span></summary><p>Some paths include a connected project that grows as you complete related courses. Open the path overview to find its project workspace and course sequence.</p></details>
       </div>
     </section>
     <footer class="learn-footer"><p>One lesson at a time. One project at a time.</p><a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a></footer>
@@ -189,7 +177,7 @@ const courseCards = courses.map((course) => ({
 .coming-label{margin-top:auto;padding-top:18px;color:#929bad;font-size:.72rem;font-weight:750}
 .journey-note{display:flex;gap:10px;align-items:flex-start;margin:18px 0 0;padding:15px 17px;border-radius:10px;background:#f5f7ff;color:#52617d;font-size:.78rem;line-height:1.6}
 .journey-note span{color:var(--blue)}
-.course-section{border-top:1px solid var(--line)}
+.path-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.path-card{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff}.path-card-meta{color:var(--blue);font-size:.63rem;font-weight:900;letter-spacing:.07em}.path-card h3{margin:14px 0 8px;font-size:1.15rem;letter-spacing:-.04em}.path-card p{min-height:72px;color:var(--muted);font-size:.8rem;line-height:1.7}.path-card-foot{display:flex;justify-content:space-between;gap:12px;align-items:center;padding-top:14px;border-top:1px solid var(--line);font-size:.68rem;color:#8791a3}.path-card-foot a{color:var(--blue);font-weight:900}.roadmap-section{width:min(1160px,calc(100% - 44px));margin:0 auto;padding:55px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:40px}.roadmap-section h2{margin:10px 0;font-size:2rem;letter-spacing:-.05em}.roadmap-section p{max-width:520px;color:var(--muted);line-height:1.7;font-size:.86rem}.roadmap-section ul{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0;list-style:none}.roadmap-section li{display:flex;justify-content:space-between;gap:10px;padding:12px;border:1px solid var(--line);border-radius:9px;font-size:.72rem}.roadmap-section li span{color:#8993a5;font-size:.6rem;font-weight:800;white-space:nowrap}.course-section{border-top:1px solid var(--line)}
 .all-courses-link{white-space:nowrap;color:var(--blue)!important;font-size:.8rem;font-weight:850}
 .course-controls{display:flex;justify-content:space-between;align-items:center;gap:18px;margin:28px 0 20px}
 .course-search{display:flex;align-items:center;gap:9px;width:min(330px,100%);padding:11px 13px;border:1px solid var(--line);border-radius:9px;color:#7b879b}
@@ -220,6 +208,6 @@ const courseCards = courses.map((course) => ({
 .learn-footer{display:flex;justify-content:space-between;gap:15px;padding:24px max(22px,calc((100% - 1160px)/2));background:#f7f8fc;color:#667085;font-size:.75rem}
 .learn-footer p{margin:0}.learn-footer a{color:var(--blue);font-weight:800}
 @media(max-width:900px){.learn-home .welcome{grid-template-columns:1fr;gap:35px;padding-top:55px}.start-card{max-width:560px}.journey-flow{grid-template-columns:repeat(2,1fr)}.course-grid{grid-template-columns:repeat(2,1fr)}.reassurance{grid-template-columns:1fr;gap:25px}}
-@media(max-width:600px){.learn-home .welcome,.how-section,.journey-section,.course-section,.reassurance{width:calc(100% - 30px)}.learn-home .welcome{padding:44px 0}.welcome h1{font-size:clamp(2.8rem,13vw,4.3rem)}.welcome-actions{align-items:flex-start;flex-direction:column;gap:14px}.welcome-trust{gap:9px 14px}.how-section,.journey-section,.course-section,.reassurance{padding:46px 0}.how-grid,.journey-flow,.course-grid{grid-template-columns:1fr}.section-intro-row{align-items:flex-start;flex-direction:column;gap:8px}.journey-step{min-height:205px}.course-controls{align-items:stretch;flex-direction:column}.course-search{width:100%}.category-filters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}.category-filters button{white-space:nowrap}.learn-footer{padding:20px 15px}}
+@media(max-width:600px){.path-card-grid{grid-template-columns:1fr}.roadmap-section{width:calc(100% - 30px)}.roadmap-section ul{grid-template-columns:1fr}}@media(max-width:600px){.learn-home .welcome,.how-section,.journey-section,.course-section,.reassurance{width:calc(100% - 30px)}.learn-home .welcome{padding:44px 0}.welcome h1{font-size:clamp(2.8rem,13vw,4.3rem)}.welcome-actions{align-items:flex-start;flex-direction:column;gap:14px}.welcome-trust{gap:9px 14px}.how-section,.journey-section,.course-section,.reassurance{padding:46px 0}.how-grid,.journey-flow,.course-grid{grid-template-columns:1fr}.section-intro-row{align-items:flex-start;flex-direction:column;gap:8px}.journey-step{min-height:205px}.course-controls{align-items:stretch;flex-direction:column}.course-search{width:100%}.category-filters{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}.category-filters button{white-space:nowrap}.learn-footer{padding:20px 15px}}
 @media(prefers-reduced-motion:reduce){.course-card{transition:none}.primary-action:hover,.course-card:hover{transform:none}}
 </style>
