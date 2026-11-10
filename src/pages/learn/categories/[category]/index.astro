@@ -5,7 +5,7 @@ import { catalogueCourses, assertValidLearnLabCatalogue } from '../../../../data
 
 assertValidLearnLabCatalogue();
 export function getStaticPaths() {
-  return learningCategories.map((category) => ({
+  return learningCategories.filter((category) => catalogueCourses.some((course) => course.categoryId === category.id)).map((category) => ({
     params: { category: category.slug },
     props: { category, courses: catalogueCourses.filter((course) => course.categoryId === category.id) },
   }));
