@@ -138,6 +138,7 @@ export default function LessonWorkspace() {
       const next = snapshotLesson(workspaceRef.current, HTML_LESSON_ONE);
       persist(next);
       setNotice('All lesson tasks passed. Your HTML checkpoint is saved for the next lesson.');
+      document.querySelector<HTMLButtonElement>('[data-complete-lesson]')?.click();
       return;
     }
     setFailures(count => count + 1);
@@ -166,13 +167,13 @@ export default function LessonWorkspace() {
         <p className="ide-tip">Your preview updates automatically after you stop typing.</p>
         <button type="button" className="ide-primary" onClick={() => { setMobileTab('code'); loadEditor(); }}>Open the code editor</button>
         {checks.length>0&&<ul className="ide-checks">{checks.map((item,i)=><li key={i}>{item.passed?'✓':'○'} {item.passed?'Task passed':item.message}</li>)}</ul>}
-        <button type="button" className="ide-primary" onClick={checkTasks}>Check my work</button>
+        <button type="button" className="ide-primary" onClick={checkTasks}>Check my work</button><button type="button" className="ide-secondary" onClick={() => { const next = snapshotLesson(workspaceRef.current, HTML_LESSON_ONE); persist(next); document.querySelector<HTMLButtonElement>('[data-complete-lesson]')?.click(); setNotice('Lesson marked complete. You can keep experimenting with your project.'); }}>Mark complete anyway</button>
       </div>
       <div className={'ide-editor '+(mobileTab==='code'?'mobile-active':'')}>
         <div className="ide-heading"><b>Code editor</b><span>{saved?'All changes saved':'Saving…'}</span></div>
         <div className="ide-file-tabs" role="tablist" aria-label="Project files">{(['index.html','styles.css','script.js'] as FileName[]).map(file=><button key={file} role="tab" aria-selected={activeFile===file} onClick={()=>changeFile(file)}>{file}</button>)}</div>
         <div className="ide-symbols" aria-label="Code symbols">{symbols.map(symbol=><button key={symbol} type="button" onClick={()=>{loadEditor();editorView.current?.focus();editorView.current?.dispatch(editorView.current.state.changeByRange((range:any)=>({changes:{from:range.from,to:range.to,insert:symbol},range:{anchor:range.from+symbol.length}})));}}>{symbol}</button>)}</div>
-        <div className="ide-codemirror" ref={editorHost} onClick={loadEditor}><button type="button" className="ide-load" onClick={loadEditor}>Load editor</button></div>
+        <div className="ide-codemirror" ref={editorHost} onClick={loadEditor}>{!loaded && <button type="button" className="ide-load" onClick={loadEditor}>Load editor</button>}</div>
         <div className="ide-actions"><button type="button" onClick={resetLesson}>Reset this lesson</button><button type="button" onClick={restoreCheckpoint}>Restore official checkpoint</button><button type="button" onClick={downloadZip}>Download .zip</button></div>
         {failures>=2&&<button type="button" onClick={revealSolution}>Show solution</button>}
         {showSolution&&<div className="ide-solution"><b>Official solution</b><pre>{HTML_OFFICIAL_CHECKPOINT['index.html']}</pre><button type="button" onClick={()=>setDiffOpen(v=>!v)}>Toggle diff view</button>{diffOpen&&<pre>{'YOUR VERSION\n'+workspace.files['index.html']+'\n\nOFFICIAL CHECKPOINT\n'+HTML_OFFICIAL_CHECKPOINT['index.html']}</pre>}</div>}
