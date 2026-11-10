@@ -1,11 +1,12 @@
 import { learningCategories } from './categories';
 import { learningPaths } from './paths';
 import { courses } from './courses';
+import { validateLearnRegistry } from './registry';
 
 export const catalogueCourses = courses;
 
 export function validateLearnLabCatalogue(): string[] {
-  const errors: string[] = [];
+  const errors: string[] = [...validateLearnRegistry()];
   const unique = (values: string[], label: string) => {
     const seen = new Set<string>();
     for (const value of values) {
