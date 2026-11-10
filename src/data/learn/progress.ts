@@ -12,7 +12,11 @@ export type LearnLabProgress = {
   courses: Record<string, CourseProgress>;
 };
 
-export type ProgressCourseMap = Record<string, { id: string; lessonIds: string[]; lessonSlugs: string[] }>;
+export type ProgressCourseMap = Record<string, { id: string; slug: string; lessonIds: string[]; lessonSlugs: string[] }>;
+
+function findCourse(courseMap: ProgressCourseMap, identifier: string) {
+  return Object.values(courseMap).find((course) => course.id === identifier || course.slug === identifier);
+}
 
 export function createEmptyProgress(): LearnLabProgress {
   return { version: 2, lastPathId: null, courses: {} };
@@ -29,7 +33,70 @@ function normaliseProgress(value: unknown, courseMap: ProgressCourseMap): LearnL
 
   Object.entries(value.courses).forEach(([courseId, rawCourse]) => {
     if (!isRecord(rawCourse)) return;
-    const course = courseMap[courseId];
+    const course = findCourse(courseMap, courseId);
+    if (!course) return;
+    const allowed = new Set(course.lessonIds);
+    const completed = Array.isArray(rawCourse.completedLessonIds)
+      ? rawCourse.completedLessonIds.filter((id): id is string => typeof id === 'string' && allowed.has(id))
+      : [];
+    result.courses[courseId] = {
+      completedLessonIds: [...new Set(completed)],
+      ...(typeof rawCourse.lastLessonId === 'string' && allowed.has(rawCourse.lastLessonId) ? { lastLessonId: rawCourse.lastLessonId } : {}),
+      completedAt: typeof rawCourse.completedAt === 'string' ? rawCourse.completedAt : null,
+    };
+  });
+  return result;
+}
+
+export function migrateLegacyProgress(value: unknown, courseMap: ProgressCourseMap): LearnLabProgress {
+  const migrated = createEmptyProgress();
+  if (!isRecord(value)) return migrated;
+
+  Object.entries(value).forEach(([courseSlug, rawCompleted]) => {
+    const course = findCourse(courseMap, courseSlug);
+    if (!course || !Array.isArray(rawCompleted)) return;
+    const slugToId = new Map(course.lessonSlugs.map((slug, index) => [slug, course.lessonIds[index]]));
+    const completedLessonIds = rawCompleted
+      .filter((slug): slug is string => typeof slug === 'string')
+      .map((slug) => slugToId.get(slug))
+      .filter((id): id is string => Boolean(id));
+    migrated.courses[course.id] = { completedLessonIds: [...new Set(completedLessonIds)], completedAt: null };
+  });rt const LEARNLAB_PROGRESS_KEY = 'btecky.learnlab.progress.v2';
+export const LEGACY_LEARNLAB_PROGRESS_KEY = 'btecky.learnlab.progress.v1';
+
+export type CourseProgress = {
+  completedLessonIds: string[];
+  lastLessonId?: string;
+  completedAt: string | null;
+};
+export type LearnLabProgress = {
+  version: 2;
+  lastPathId: string | null;
+  courses: Record<string, CourseProgress>;
+};
+
+export type ProgressCourseMap = Record<string, { id: string; slug: string; lessonIds: string[]; lessonSlugs: string[] }>;
+
+function findCourse(courseMap: ProgressCourseMap, identifier: string) {
+  return Object.values(courseMap).find((course) => course.id === identifier || course.slug === identifier);
+}
+
+export function createEmptyProgress(): LearnLabProgress {
+  return { version: 2, lastPathId: null, courses: {} };
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+function normaliseProgress(value: unknown, courseMap: ProgressCourseMap): LearnLabProgress {
+  if (!isRecord(value) || !isRecord(value.courses)) return createEmptyProgress();
+  const result = createEmptyProgress();
+  result.lastPathId = typeof value.lastPathId === 'string' ? value.lastPathId : null;
+
+  Object.entries(value.courses).forEach(([courseId, rawCourse]) => {
+    if (!isRecord(rawCourse)) return;
+    const course = findCourse(courseMap, courseId);
     if (!course) return;
     const allowed = new Set(course.lessonIds);
     const completed = Array.isArray(rawCourse.completedLessonIds)
