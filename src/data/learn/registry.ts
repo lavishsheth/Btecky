@@ -69,15 +69,60 @@ const paths: LearnPath[] = [
   },
 ];
 
-const courseMetadata: LearnCourse[] = courses.map((course) => ({
-  id: course.id, slug: course.slug, title: course.title, topicId: course.categoryId,
-  level: course.level, summary: course.summary, description: course.description,
-  availability: 'available',
-  durationMinutes: course.lessons.reduce((total, lesson) => total + lesson.minutes, 0),
-  lessonIds: course.lessons.map((lesson) => course.id + ':' + lesson.slug),
-  prerequisites: course.prerequisites,
-  pathIds: paths.filter((path) => path.stages.some((stage) => stage.courseId === course.id)).map((path) => path.id),
-}));
+const courseDefinitions = [
+  {
+    id: 'html-foundations', slug: 'html', title: 'HTML Foundations', topicId: 'web-development', level: 'Beginner',
+    summary: 'Learn to structure clear, accessible web pages with semantic HTML.',
+    description: 'A practical introduction to HTML: how browsers interpret documents, how to organise content, how links and images work, and how to build meaningful page structure and forms.',
+    prerequisites: ['No programming experience required.', 'A modern browser and a code editor such as VS Code.'],
+  },
+  {
+    id: 'css-foundations', slug: 'css', title: 'CSS Foundations', topicId: 'web-development', level: 'Beginner',
+    summary: 'Turn the HTML website you already built into a clear, responsive and accessible design.',
+    description: 'Learn CSS by styling the same personal profile website you created in HTML Foundations. Start with selectors and the cascade, then build visual hierarchy, spacing, layouts and responsive behaviour. Every lesson changes the same project rather than starting an unrelated exercise.',
+    prerequisites: ['Complete the HTML Foundations course or understand basic HTML document structure.', 'Have your HTML profile page available in the shared Web Development project workspace.', 'No previous CSS experience is required.'],
+  },
+  {
+    id: 'javascript-foundations', slug: 'javascript', title: 'JavaScript Foundations', topicId: 'web-development', level: 'Beginner',
+    summary: 'Bring the HTML and CSS profile website to life with practical browser-side JavaScript.',
+    description: 'Continue the same personal profile website from HTML Foundations and CSS Foundations. Learn JavaScript fundamentals, connect scripts to the page, respond to user events, validate a contact form, update content safely and build useful interactions. Each lesson adds behaviour to the existing project.',
+    prerequisites: ['Complete HTML Foundations and understand semantic page structure.', 'Complete CSS Foundations or be comfortable styling the existing profile page.', 'Know how to use the shared Web Development project workspace.'],
+  },
+  {
+    id: 'react-foundations', slug: 'react', title: 'React Foundations', topicId: 'web-development', level: 'Beginner → Intermediate',
+    summary: 'Evolve your HTML, CSS and JavaScript profile website into a component-based React application.',
+    description: 'Continue the same personal profile website built through the Web Development path. Learn components, JSX, props, state, events, forms, lists and effects. Reuse the content, design and behaviour you already created instead of starting an unrelated project.',
+    prerequisites: ['Complete HTML, CSS and JavaScript Foundations.', 'Understand functions, arrays, objects, DOM events and browser debugging.', 'Have the profile website available in the shared Web Development project workspace.'],
+  },
+] as const;
+
+const courseMetadata: LearnCourse[] = courseDefinitions.map((definition) => {
+  const content = courses.find((course) => course.id === definition.id);
+  if (!content) throw new Error('Registry course "' + definition.id + '" has no lesson content module');
+  return {
+    ...definition,
+    availability: 'available',
+    durationMinutes: content.lessons.reduce((total, lesson) => total + lesson.minutes, 0),
+    lessonIds: content.lessons.map((lesson) => definition.id + ':' + lesson.slug),
+    pathIds: paths.filter((path) => path.stages.some((stage) => stage.courseId === definition.id)).map((path) => path.id),
+  };
+});
+const topicTitleById = new Map(topics.map((topic) => [topic.id, topic.title]));
+const courseContent = courseMetadata.map((metadata) => {
+  const content = courses.find((course) => course.id === metadata.id)!;
+  return {
+    ...content,
+    id: metadata.id,
+    slug: metadata.slug,
+    title: metadata.title,
+    categoryId: metadata.topicId,
+    category: topicTitleById.get(metadata.topicId) ?? metadata.topicId,
+    level: metadata.level,
+    summary: metadata.summary,
+    description: metadata.description,
+    prerequisites: [...metadata.prerequisites],
+  };
+});
 
 /** Legacy-compatible adapters below let existing templates migrate incrementally. */
 export const learningCategories = topics.map((topic) => ({
@@ -99,7 +144,7 @@ export const learnRegistry = {
   topics: [...topics].sort((a, b) => a.sortOrder - b.sortOrder),
   paths: [...paths].sort((a, b) => a.sortOrder - b.sortOrder),
   courses: courseMetadata,
-  courseContent: courses,
+  courseContent,
 };
 export const learnCourseById = new Map(learnRegistry.courses.map((course) => [course.id, course]));
 export const learnCourseBySlug = new Map(learnRegistry.courses.map((course) => [course.slug, course]));
