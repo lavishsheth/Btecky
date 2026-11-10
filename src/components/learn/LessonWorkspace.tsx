@@ -53,7 +53,7 @@ export default function LessonWorkspace({ lessonId, lessonIndex, previousLessonI
   const editorHost = useRef<HTMLDivElement>(null);
   const editorView = useRef<any>(null);
   const iframe = useRef<HTMLIFrameElement>(null);
-  const debounce = useRef<ReturnType<typeof setTimeout>>();
+  const debounce = useRef<ReturnType<typeof setTimeout> | null>(null);
   const workspaceRef = useRef(workspace);
   workspaceRef.current = workspace;
 
@@ -85,7 +85,7 @@ export default function LessonWorkspace({ lessonId, lessonIndex, previousLessonI
         if (!update.docChanged) return;
         const next = { ...workspaceRef.current, files: { ...workspaceRef.current.files, [activeFile]: update.state.doc.toString() } };
         setWorkspace(next); workspaceRef.current = next; setSaved(false);
-        clearTimeout(debounce.current);
+        if (debounce.current) clearTimeout(debounce.current);
         debounce.current = setTimeout(() => { const ok = saveWorkspace(next); setStorageAvailable(ok); setSaved(ok); if (!ok) setNotice('Progress won’t be saved in this browser.'); refreshPreview(next.files); setChecks(runChecks(new DOMParser().parseFromString(next.files['index.html'], 'text/html'), lessonIndex)); }, 300);
       })],
       parent: editorHost.current,
