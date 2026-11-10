@@ -137,6 +137,7 @@ export const learningCategories = topics.map((topic) => ({
 export const learningPaths = paths.map((path) => ({
   id: path.id, slug: path.slug, title: path.title, categoryId: path.topicId,
   level: path.level, description: path.description, sortOrder: path.sortOrder,
+  ...(path.projectHref ? { projectHref: path.projectHref } : {}),
   stages: path.stages.map((stage) => ({
     title: stage.title, description: stage.description,
     status: stage.availability === 'available' ? 'available' as const : 'planned' as const,
