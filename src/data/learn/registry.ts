@@ -16,7 +16,7 @@ export type LearnPath = {
 export type LearnCourse = {
   id: string; slug: string; title: string; topicId: string; level: string;
   summary: string; description: string; availability: LearnAvailability;
-  durationMinutes: number; lessonIds: string[]; prerequisites: string[]; pathIds: string[];
+  durationMinutes: number; lessonIds: string[]; prerequisites: string[]; pathIds: string[]; projectId?: string; stage?: 1 | 2 | 3 | 4;
 };
 
 /** Canonical subject taxonomy. Roadmap subjects stay visible without generating thin pages. */
@@ -75,6 +75,7 @@ const paths: LearnPath[] = [
 const courseDefinitions = [
   {
     id: 'html-foundations', slug: 'html', title: 'HTML Foundations', topicId: 'web-development', level: 'Beginner',
+    projectId: 'profile-website', stage: 1,
     summary: 'Learn to structure clear, accessible web pages with semantic HTML.',
     description: 'A practical introduction to HTML: how browsers interpret documents, how to organise content, how links and images work, and how to build meaningful page structure and forms.',
     prerequisites: ['No programming experience required.', 'A modern browser and a code editor such as VS Code.'],
@@ -109,6 +110,7 @@ const courseMetadata: LearnCourse[] = courseDefinitions.map((definition) => {
     durationMinutes: content.lessons.reduce((total, lesson) => total + lesson.minutes, 0),
     lessonIds: content.lessons.map((lesson) => definition.id + ':' + lesson.slug),
     pathIds: paths.filter((path) => path.stages.some((stage) => stage.courseId === definition.id)).map((path) => path.id),
+    ...( 'projectId' in definition ? { projectId: definition.projectId, stage: definition.stage } : {}),
   };
 });
 const topicTitleById = new Map(topics.map((topic) => [topic.id, topic.title]));
