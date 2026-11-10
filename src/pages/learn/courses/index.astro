@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { catalogueCourses, assertValidLearnLabCatalogue } from '../../../data/learn/catalogue';
+import { assertValidLearnLabCatalogue } from '../../../data/learn/catalogue';
+import { learnRegistry } from '../../../data/learn/registry';
 import { learningCategories } from '../../../data/learn/categories';
 
 assertValidLearnLabCatalogue();
-const courses = [...catalogueCourses].sort((a, b) => a.title.localeCompare(b.title));
+const courses = [...learnRegistry.courseContent].sort((a, b) => a.title.localeCompare(b.title));
 const publishedCategories = learningCategories.filter((category) => courses.some((course) => course.categoryId === category.id));
 ---
 <BaseLayout title="Explore courses — B Tecky LearnLab" description="Browse free, practical technology courses from B Tecky LearnLab. Search topics, compare levels and explore course curricula.">
