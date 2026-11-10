@@ -28,7 +28,7 @@ export const learningPaths: LearningPath[] = [
     stages: [
       { title: 'HTML — Build the structure', description: 'Create meaningful page content and the foundation of your website.', status: 'available', courseId: 'html-foundations' },
       { title: 'CSS — Design the website', description: 'Style the same website with layout, colour, typography and responsive design.', status: 'available', courseId: 'css-foundations' },
-      { title: 'JavaScript — Add behaviour', description: 'Make the same website interactive with browser-side programming.', status: 'planned' },
+      { title: 'JavaScript — Add behaviour', description: 'Make the same website interactive with browser-side programming.', status: 'available', courseId: 'javascript-foundations' },
       { title: 'React — Build reusable components', description: 'Evolve the same website into a component-based application while carrying your product forward.', status: 'planned' },
     ],
   },
