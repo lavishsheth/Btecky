@@ -26,7 +26,7 @@ const progressCourseMap = Object.fromEntries(courses.map((item) => [item.id, { i
 </article>
 
 </div></div></main>
-<script type="application/json" id="learnlab-course-map" set:html={JSON.stringify(progressCourseMap)} />\n<script>
+<script type="application/json" id="learnlab-course-map" set:html={JSON.stringify(progressCourseMap)} />\n<script type="application/json" id="learnlab-quiz" set:html={JSON.stringify(lesson.quiz)} />\n<script>
 import { readProgress, setLastLesson, markLessonComplete, writeProgress } from '../../../data/learn/progress';
 
 const root = document.querySelector<HTMLElement>('[data-course-id]');
@@ -35,7 +35,7 @@ const lessonSlug = root?.dataset.lessonSlug || '';
 const lessonIndex = Number(root?.dataset.lessonIndex || 0);
 const total = Number(root?.dataset.totalLessons || 0);
 const lessonIds: string[] = JSON.parse(root?.dataset.lessonIds || '[]');
-const lessonSlugs = lessonIds.map((id) => id.split(':').slice(1).join(':'));
+const quizElement = document.querySelector<HTMLScriptElement>('#learnlab-quiz');\nconst quiz = JSON.parse(quizElement?.textContent || '[]');
 const mapElement = document.querySelector<HTMLScriptElement>('#learnlab-course-map');
 const courseMap = JSON.parse(mapElement?.textContent || '{}');
 const lessonId = courseId + ':' + lessonSlug;
