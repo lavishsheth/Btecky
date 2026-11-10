@@ -1,55 +1,96 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { learnRegistry } from '../../../data/learn/registry';
 import { courses } from '../../../data/learn/courses';
-import { learningCategories } from '../../../data/learn/categories';
-import { learningPaths } from '../../../data/learn/paths';
-export function getStaticPaths() { return courses.map((course) => ({ params: { technology: course.slug }, props: { course } })); }
+export function getStaticPaths() { return learnRegistry.courseContent.map((course) => ({ params: { technology: course.slug }, props: { course } })); }
 const { course } = Astro.props;
-const category = learningCategories.find((item) => item.id === course.categoryId);
-const relatedPaths = learningPaths.filter((path) => path.stages.some((stage) => stage.courseId === course.id));
+const category = learnRegistry.topics.find((item) => item.id === course.categoryId);
+const relatedPaths = learnRegistry.paths.filter((path) => path.stages.some((stage) => stage.courseId === course.id));
+const progressCourseMap = Object.fromEntries(courses.map((item) => [item.id, { id: item.id, slug: item.slug, lessonIds: item.lessons.map((lesson) => item.id + ':' + lesson.slug), lessonSlugs: item.lessons.map((lesson) => lesson.slug) }]));
 ---
 <BaseLayout title={course.title + ' — B Tecky LearnLab'} description={course.description}>
-<main class="course-page"><div class="course-wrap">
+<script type="application/json" id="learnlab-course-map" set:html={JSON.stringify(progressCourseMap)} />\n<main class="course-page" data-course-id={course.id} data-course-slug={course.slug} data-lesson-ids={JSON.stringify(course.lessons.map((lesson) => course.id + ':' + lesson.slug))}><div class="course-wrap">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/learn/">LearnLab</a><span>/</span><a href={'/learn/categories/'+(category?.slug ?? course.categoryId)+'/'}>{course.category}</a><span>/</span><span>{course.title}</span></nav>
 <section class="course-hero"><div><p class="eyebrow">B TECKY LEARNLAB / {course.category.toUpperCase()}</p><span class="level">{course.level}</span><h1>{course.title}</h1><p class="lead">{course.description}</p><div class="course-meta"><span>{course.lessons.length} lessons</span><span>About {course.lessons.reduce((sum,lesson)=>sum+lesson.minutes,0)} minutes</span><span>Self-paced</span></div></div><aside class="outcome-card"><span>WHAT YOU'LL LEARN</span><ul>{course.outcomes.map((item)=><li>{item}</li>)}</ul></aside></section>
-<section class="course-content"><div>{relatedPaths.length>0&&<div class="path-membership"><span class="eyebrow">PART OF A LEARNING PATH</span>{relatedPaths.map((path)=><a href="/learn/paths/"><b>{path.title}</b><small>Explore the connected learning journey ↗</small></a>)}</div> }{course.categoryId==='web-development'&&<div class="course-project-link"><div><span class="eyebrow">BUILD WHILE YOU LEARN</span><b>Keep adding to your connected website</b><small>Use the same project across HTML, CSS, JavaScript and React.</small></div><a href="/learn/paths/web-development/project/">Open my project ↗</a></div>}<div class="section-title"><p class="eyebrow">THE CURRICULUM</p><h2>Learn step by step</h2><p>Follow the lessons in order. We’ll show you exactly where to continue.</p></div><div class="next-step-card" data-next-step><span class="eyebrow">YOUR NEXT STEP</span><div><b data-next-step-title>Start with lesson 1</b><p data-next-step-description>Your first lesson is ready. Learn the basics, then practise what you learned.</p></div><a data-next-step-link href={'/learn/'+course.slug+'/'+course.lessons[0].slug+'/'}>Start lesson ↗</a></div><div class="course-progress" data-course-progress><div><b data-course-progress-label>0 / {course.lessons.length} lessons complete</b><span data-course-progress-percent>0%</span></div><div class="course-progress-track"><i data-course-progress-bar></i></div><p>Complete each lesson to unlock the next one. Your progress is saved on this device.</p></div><div class="lesson-list">{course.lessons.map((lesson,index)=><a class="lesson-row" data-course-lesson={lesson.slug} data-course-index={index} href={'/learn/'+course.slug+'/'+lesson.slug+'/'}><span class="lesson-number">{String(index+1).padStart(2,'0')}</span><span class="lesson-copy"><b>{lesson.title}</b><small>{lesson.summary}</small></span><span class="lesson-status" data-lesson-status>Checking…</span><span class="lesson-time">{lesson.minutes} min</span><span class="lesson-arrow">↗</span></a>)}</div></div>
+<section class="course-content"><div>{relatedPaths.length>0&&<div class="path-membership"><span class="eyebrow">PART OF A LEARNING PATH</span>{relatedPaths.map((path)=><a href={'/learn/paths/'+path.slug+'/'}><b>{path.title}</b><small>Explore the connected learning journey ↗</small></a>)}</div> }{course.categoryId==='web-development'&&<div class="course-project-link"><div><span class="eyebrow">BUILD WHILE YOU LEARN</span><b>Keep adding to your connected website</b><small>Use the same project across HTML, CSS, JavaScript and React.</small></div><a href="/learn/paths/web-development/project/">Open my project ↗</a></div>}<div class="section-title"><p class="eyebrow">THE CURRICULUM</p><h2>Learn step by step</h2><p>Follow the lessons in order. We’ll show you exactly where to continue.</p></div><div class="next-step-card" data-next-step><span class="eyebrow">YOUR NEXT STEP</span><div><b data-next-step-title>Start with lesson 1</b><p data-next-step-description>Your first lesson is ready. Learn the basics, then practise what you learned.</p></div><a data-next-step-link href={'/learn/'+course.slug+'/'+course.lessons[0].slug+'/'}>Start lesson ↗</a></div><div class="course-progress" data-course-progress><div><b data-course-progress-label>0 / {course.lessons.length} lessons complete</b><span data-course-progress-percent>0%</span></div><div class="course-progress-track"><i data-course-progress-bar></i></div><p>Your progress is saved on this device. You can open lessons in any order and use the suggested next step as a guide.</p><details class="progress-tools"><summary>Back up or manage your progress</summary><div><button type="button" data-export-progress>Export progress</button><label class="import-progress">Import backup<input type="file" accept="application/json,.json" data-import-progress /></label><button type="button" data-reset-progress>Reset progress</button></div><p data-progress-tools-status aria-live="polite"></p></details></div><div class="lesson-list">{course.lessons.map((lesson,index)=><a class="lesson-row" data-course-lesson={lesson.slug} data-course-index={index} href={'/learn/'+course.slug+'/'+lesson.slug+'/'}><span class="lesson-number">{String(index+1).padStart(2,'0')}</span><span class="lesson-copy"><b>{lesson.title}</b><small>{lesson.summary}</small></span><span class="lesson-status" data-lesson-status>Checking…</span><span class="lesson-time">{lesson.minutes} min</span><span class="lesson-arrow">↗</span></a>)}</div></div>
 <aside class="course-side"><div class="side-card"><h3>Before you start</h3><ul>{course.prerequisites.map((item)=><li>{item}</li>)}</ul><p>No account required. Your lesson progress is saved locally on this device.</p></div>{course.categoryId==='web-development'?<div class="side-card project-card"><span class="eyebrow">ONE CONNECTED PROJECT</span><h3>Build the same website through every course</h3><p>Start with HTML, style it with CSS, add behaviour with JavaScript and evolve it with React.</p><a href="/learn/paths/web-development/project/">Open your shared project workspace ↗</a></div>:<div class="side-card project-card"><span class="eyebrow">PUT IT INTO PRACTICE</span><h3>{course.project.title}</h3><p>{course.project.brief}</p><ul>{course.project.requirements.map((item)=><li>{item}</li>)}</ul></div>}</aside></section>
 </div></main>
-<script define:vars={{courseSlug:course.slug,lessonSlugs:course.lessons.map((lesson)=>lesson.slug),total:course.lessons.length}}>
-const progressKey='btecky.learnlab.progress.v1';
-let saved={};
-try{saved=JSON.parse(localStorage.getItem(progressKey)||'{}')}catch{saved={}}
-const completed=Array.isArray(saved[courseSlug])?saved[courseSlug]:[];
-const count=lessonSlugs.filter((slug)=>completed.includes(slug)).length;
-const nextIndex=lessonSlugs.findIndex((slug)=>!completed.includes(slug));
-const nextCard=document.querySelector<HTMLElement>('[data-next-step]');
-const nextTitle=nextCard?.querySelector<HTMLElement>('[data-next-step-title]');
-const nextDescription=nextCard?.querySelector<HTMLElement>('[data-next-step-description]');
-const nextLink=nextCard?.querySelector<HTMLAnchorElement>('[data-next-step-link]');
-if(nextIndex>=0){if(nextTitle)nextTitle.textContent=count===0?'Start with lesson 1':'Continue with lesson '+(nextIndex+1);if(nextDescription)nextDescription.textContent=count===0?'Begin at the beginning. Each lesson builds on the one before it.':'You have completed '+count+' of '+total+' lessons. Pick up where you left off.';if(nextLink){nextLink.href='/learn/'+courseSlug+'/'+lessonSlugs[nextIndex]+'/';nextLink.textContent=count===0?'Start learning ↗':'Continue learning ↗';}}
-else{if(nextTitle)nextTitle.textContent='You completed this course';if(nextDescription)nextDescription.textContent='Great work. You can revisit any lesson or continue your learning journey.';if(nextLink){nextLink.href='/learn/';nextLink.textContent='Explore more courses ↗';}}
-const label=document.querySelector<HTMLElement>('[data-course-progress-label]');
-const percent=document.querySelector<HTMLElement>('[data-course-progress-percent]');
-const bar=document.querySelector<HTMLElement>('[data-course-progress-bar]');
-if(label)label.textContent=count+' / '+total+' lessons complete';
-if(percent)percent.textContent=Math.round(count/total*100)+'%';
-if(bar)bar.style.width=(count/total*100)+'%';
-document.querySelectorAll<HTMLAnchorElement>('[data-course-lesson]').forEach((link)=>{
- const slug=link.dataset.courseLesson||'';
- const index=Number(link.dataset.courseIndex||0);
- const done=completed.includes(slug);
- const unlocked=index===0||completed.includes(lessonSlugs[index-1]);
- const status=link.querySelector<HTMLElement>('[data-lesson-status]');
- link.classList.toggle('is-locked',!unlocked);
- link.classList.toggle('is-completed',done);
- link.setAttribute('aria-label',link.querySelector('b')?.textContent+' — '+(done?'Completed':unlocked?'Available':'Locked; complete the previous lesson first'));
- if(status)status.textContent=done?'Completed ✓':unlocked?(index===0?'Start here':'Ready next'):'Complete the lesson above first';
- link.setAttribute('aria-disabled',String(!unlocked));
- if(!unlocked)link.addEventListener('click',(event)=>event.preventDefault());
+<script>
+import { readProgress, writeProgress, subscribeToProgress, exportProgress, importProgress, resetProgress } from '../../../data/learn/progress';
+
+const root = document.querySelector<HTMLElement>('[data-course-id]');
+const courseId = root?.dataset.courseId || '';
+const courseSlug = root?.dataset.courseSlug || '';
+const lessonIds: string[] = JSON.parse(root?.dataset.lessonIds || '[]');
+const mapElement = document.querySelector<HTMLScriptElement>('#learnlab-course-map');
+const courseMap = JSON.parse(mapElement?.textContent || '{}');
+const progress = () => readProgress(courseMap);
+const completedIds = () => progress().courses[courseId]?.completedLessonIds ?? [];
+const update = () => {
+  const done = completedIds();
+  const count = lessonIds.filter((id) => done.includes(id)).length;
+  const nextIndex = lessonIds.findIndex((id) => !done.includes(id));
+  const nextCard = document.querySelector<HTMLElement>('[data-next-step]');
+  const nextTitle = nextCard?.querySelector<HTMLElement>('[data-next-step-title]');
+  const nextDescription = nextCard?.querySelector<HTMLElement>('[data-next-step-description]');
+  const nextLink = nextCard?.querySelector<HTMLAnchorElement>('[data-next-step-link]');
+  if (nextIndex >= 0) {
+    if (nextTitle) nextTitle.textContent = count === 0 ? 'Start with lesson 1' : 'Continue with lesson ' + (nextIndex + 1);
+    if (nextDescription) nextDescription.textContent = count === 0 ? 'Begin anywhere, or follow the recommended order to build your skills step by step.' : 'You have completed ' + count + ' of ' + lessonIds.length + ' lessons. Your next suggested lesson is ready.';
+    if (nextLink) { nextLink.href = '/learn/' + courseSlug + '/' + lessonIds[nextIndex].split(':').slice(1).join(':') + '/'; nextLink.textContent = count === 0 ? 'Start learning ↗' : 'Continue learning ↗'; }
+  } else {
+    if (nextTitle) nextTitle.textContent = 'You completed this course';
+    if (nextDescription) nextDescription.textContent = 'Great work. Revisit any lesson or continue your learning journey.';
+    if (nextLink) { nextLink.href = '/learn/'; nextLink.textContent = 'Explore more courses ↗'; }
+  }
+  const label = document.querySelector<HTMLElement>('[data-course-progress-label]');
+  const percent = document.querySelector<HTMLElement>('[data-course-progress-percent]');
+  const bar = document.querySelector<HTMLElement>('[data-course-progress-bar]');
+  if (label) label.textContent = count + ' / ' + lessonIds.length + ' lessons complete';
+  if (percent) percent.textContent = Math.round(count / lessonIds.length * 100) + '%';
+  if (bar) bar.style.width = (count / lessonIds.length * 100) + '%';
+  document.querySelectorAll<HTMLAnchorElement>('[data-course-lesson]').forEach((link) => {
+    const lessonId = courseId + ':' + (link.dataset.courseLesson || '');
+    const done = done.includes(lessonId);
+    const index = Number(link.dataset.courseIndex || 0);
+    const status = link.querySelector<HTMLElement>('[data-lesson-status]');
+    link.classList.toggle('is-completed', done);
+    link.classList.toggle('is-recommended', !done && index === nextIndex);
+    link.setAttribute('aria-label', (link.querySelector('b')?.textContent || 'Lesson') + ' — ' + (done ? 'Completed' : index === nextIndex ? 'Suggested next lesson' : 'Available'));
+    if (status) status.textContent = done ? 'Completed ✓' : index === nextIndex ? 'Suggested next' : 'Available';
+  });
+};
+update();
+const unsubscribe = subscribeToProgress(update);
+window.addEventListener('pagehide', unsubscribe, { once: true });
+
+const status = document.querySelector<HTMLElement>('[data-progress-tools-status]');
+document.querySelector<HTMLButtonElement>('[data-export-progress]')?.addEventListener('click', () => {
+  const blob = new Blob([exportProgress(progress())], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url; anchor.download = 'btecky-learnlab-progress.json'; anchor.click();
+  URL.revokeObjectURL(url);
+  if (status) status.textContent = 'Your progress backup has been exported.';
+});
+document.querySelector<HTMLInputElement>('[data-import-progress]')?.addEventListener('change', async (event) => {
+  const input = event.currentTarget as HTMLInputElement;
+  const file = input.files?.[0];
+  if (!file) return;
+  const imported = importProgress(await file.text(), courseMap);
+  if (!imported) { if (status) status.textContent = 'That file is not a valid LearnLab progress backup.'; input.value = ''; return; }
+  if (writeProgress(imported)) { if (status) status.textContent = 'Progress restored from your backup.'; update(); }
+  else if (status) status.textContent = 'Your browser could not save the imported progress.';
+  input.value = '';
+});
+document.querySelector<HTMLButtonElement>('[data-reset-progress]')?.addEventListener('click', () => {
+  if (!window.confirm('Reset all LearnLab lesson progress on this device? This cannot be undone unless you exported a backup.')) return;
+  if (resetProgress()) { if (status) status.textContent = 'All LearnLab progress on this device has been reset.'; update(); }
+  else if (status) status.textContent = 'Your browser could not reset saved progress.';
 });
 </script>
 </BaseLayout>
 <style>
-.course-page{background:#f8f9fc;min-height:70vh;padding:30px 0 90px;color:#17213b}.course-wrap{width:min(1120px,calc(100% - 40px));margin:auto}.crumbs{display:flex;gap:10px;flex-wrap:wrap;color:#7b8498;font-size:.78rem}.crumbs a{color:#315efb;font-weight:700}.path-membership{display:grid;gap:10px;margin:0 0 28px;padding:17px;border:1px solid #dfe7ff;border-radius:13px;background:#f5f7ff}.path-membership>a{display:grid;gap:4px;color:#17213b}.path-membership>a b{font-size:.88rem}.path-membership>a small{color:#315efb;font-size:.7rem}.course-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:68px 0 55px}.eyebrow{color:#315efb;font-size:.68rem;letter-spacing:.13em;font-weight:900}.level{display:inline-block;margin-top:16px;padding:6px 10px;border-radius:20px;background:#e8edff;color:#315efb;font-size:.7rem;font-weight:800}.course-hero h1{font-size:clamp(2.8rem,6vw,5rem);letter-spacing:-.07em;line-height:.98;margin:18px 0}.lead{max-width:600px;color:#667085;font-size:1.05rem;line-height:1.8}.course-meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:24px;color:#68738a;font-size:.78rem;font-weight:700}.outcome-card,.side-card{background:#fff;border:1px solid #e7eaf2;border-radius:18px;padding:25px;box-shadow:0 12px 40px #17213b08}.outcome-card>span{font-size:.65rem;letter-spacing:.12em;color:#315efb;font-weight:900}.outcome-card ul,.side-card ul{padding-left:19px;margin:17px 0 0}.outcome-card li,.side-card li{padding:5px 0;color:#59657a;font-size:.85rem;line-height:1.6}.course-content{display:grid;grid-template-columns:1.35fr .65fr;gap:34px;align-items:start}.course-project-link{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:0 0 25px;padding:17px;border:1px solid #dfe6ff;border-radius:13px;background:#f5f7ff}.course-project-link>div{display:grid;gap:5px}.course-project-link .eyebrow{font-size:.58rem;margin:0}.course-project-link b{font-size:.82rem}.course-project-link small{color:#6d788b;font-size:.68rem}.course-project-link>a{color:#315efb;font-size:.7rem;font-weight:900;white-space:nowrap}.section-title h2{font-size:2.2rem;letter-spacing:-.05em;margin:8px 0}.section-title>p:last-child{max-width:650px;color:#667085;line-height:1.7}.next-step-card{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;margin:22px 0 14px;padding:19px 20px;border:1px solid #dce5ff;border-radius:14px;background:#f4f7ff}.next-step-card>.eyebrow{grid-column:1/-1;font-size:.59rem}.next-step-card>div{display:grid;gap:5px}.next-step-card b{font-size:.93rem}.next-step-card p{margin:0;color:#69758a;font-size:.74rem;line-height:1.5}.next-step-card>a{padding:11px 14px;border-radius:9px;background:#315efb;color:#fff;font-size:.72rem;font-weight:900;white-space:nowrap}.lesson-list{margin-top:24px;border-top:1px solid #e1e5ee}.lesson-row{display:grid;grid-template-columns:42px 1fr auto 18px;gap:15px;align-items:center;padding:19px 10px;border-bottom:1px solid #e1e5ee;color:inherit}.lesson-row:hover{background:#fff}.lesson-row.is-locked{opacity:.55;cursor:not-allowed;background:#f8f9fc}.lesson-row.is-locked .lesson-status{color:#9aa3b4}.lesson-row.is-completed .lesson-status{color:#16834d}.lesson-status{font-size:.65rem;font-weight:900;color:#315efb;white-space:nowrap}.course-progress{margin:20px 0 12px;padding:17px 18px;border:1px solid #e3e8f3;border-radius:13px;background:#fff}.course-progress>div:first-child{display:flex;justify-content:space-between;gap:15px;color:#17213b;font-size:.76rem}.course-progress>div:first-child span{color:#315efb;font-weight:900}.course-progress-track{height:6px;margin-top:12px;border-radius:9px;background:#edf0f6;overflow:hidden}.course-progress-track i{display:block;width:0;height:100%;border-radius:9px;background:#315efb;transition:width .25s}.course-progress p{margin:9px 0 0;color:#7b8498;font-size:.68rem}.lesson-number{color:#315efb;font-weight:900;font-size:.78rem}.lesson-copy{display:flex;flex-direction:column;gap:5px}.lesson-copy b{font-size:.95rem}.lesson-copy small{font-size:.76rem;color:#7b8498;line-height:1.5}.lesson-time{font-size:.72rem;color:#7b8498;white-space:nowrap}.lesson-arrow{color:#315efb}.course-side{display:grid;gap:16px}.side-card h3{margin:0;font-size:1.1rem}.side-card p{font-size:.78rem;line-height:1.65;color:#778196}.project-card{background:#142653;color:#fff}.project-card p,.project-card li{color:#d1daf0}.project-card .eyebrow{color:#a9bcff}.project-card ul{padding-left:18px}.project-card>a{display:inline-block;margin-top:12px;color:#b9c8ff;font-size:.75rem;font-weight:900}.project-card li{font-size:.75rem}
+.course-page{background:#f8f9fc;min-height:70vh;padding:30px 0 90px;color:#17213b}.course-wrap{width:min(1120px,calc(100% - 40px));margin:auto}.crumbs{display:flex;gap:10px;flex-wrap:wrap;color:#7b8498;font-size:.78rem}.crumbs a{color:#315efb;font-weight:700}.path-membership{display:grid;gap:10px;margin:0 0 28px;padding:17px;border:1px solid #dfe7ff;border-radius:13px;background:#f5f7ff}.path-membership>a{display:grid;gap:4px;color:#17213b}.path-membership>a b{font-size:.88rem}.path-membership>a small{color:#315efb;font-size:.7rem}.course-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:68px 0 55px}.eyebrow{color:#315efb;font-size:.68rem;letter-spacing:.13em;font-weight:900}.level{display:inline-block;margin-top:16px;padding:6px 10px;border-radius:20px;background:#e8edff;color:#315efb;font-size:.7rem;font-weight:800}.course-hero h1{font-size:clamp(2.8rem,6vw,5rem);letter-spacing:-.07em;line-height:.98;margin:18px 0}.lead{max-width:600px;color:#667085;font-size:1.05rem;line-height:1.8}.course-meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:24px;color:#68738a;font-size:.78rem;font-weight:700}.outcome-card,.side-card{background:#fff;border:1px solid #e7eaf2;border-radius:18px;padding:25px;box-shadow:0 12px 40px #17213b08}.outcome-card>span{font-size:.65rem;letter-spacing:.12em;color:#315efb;font-weight:900}.outcome-card ul,.side-card ul{padding-left:19px;margin:17px 0 0}.outcome-card li,.side-card li{padding:5px 0;color:#59657a;font-size:.85rem;line-height:1.6}.course-content{display:grid;grid-template-columns:1.35fr .65fr;gap:34px;align-items:start}.course-project-link{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:0 0 25px;padding:17px;border:1px solid #dfe6ff;border-radius:13px;background:#f5f7ff}.course-project-link>div{display:grid;gap:5px}.course-project-link .eyebrow{font-size:.58rem;margin:0}.course-project-link b{font-size:.82rem}.course-project-link small{color:#6d788b;font-size:.68rem}.course-project-link>a{color:#315efb;font-size:.7rem;font-weight:900;white-space:nowrap}.section-title h2{font-size:2.2rem;letter-spacing:-.05em;margin:8px 0}.section-title>p:last-child{max-width:650px;color:#667085;line-height:1.7}.next-step-card{display:grid;grid-template-columns:1fr auto;gap:8px 18px;align-items:center;margin:22px 0 14px;padding:19px 20px;border:1px solid #dce5ff;border-radius:14px;background:#f4f7ff}.next-step-card>.eyebrow{grid-column:1/-1;font-size:.59rem}.next-step-card>div{display:grid;gap:5px}.next-step-card b{font-size:.93rem}.next-step-card p{margin:0;color:#69758a;font-size:.74rem;line-height:1.5}.next-step-card>a{padding:11px 14px;border-radius:9px;background:#315efb;color:#fff;font-size:.72rem;font-weight:900;white-space:nowrap}.lesson-list{margin-top:24px;border-top:1px solid #e1e5ee}.lesson-row{display:grid;grid-template-columns:42px 1fr auto 18px;gap:15px;align-items:center;padding:19px 10px;border-bottom:1px solid #e1e5ee;color:inherit}.lesson-row:hover{background:#fff}.lesson-row.is-recommended{border-left:3px solid #315efb;padding-left:7px}.lesson-row.is-completed .lesson-status{color:#16834d}.lesson-row.is-completed .lesson-status{color:#16834d}.lesson-status{font-size:.65rem;font-weight:900;color:#315efb;white-space:nowrap}.course-progress{margin:20px 0 12px;padding:17px 18px;border:1px solid #e3e8f3;border-radius:13px;background:#fff}.course-progress>div:first-child{display:flex;justify-content:space-between;gap:15px;color:#17213b;font-size:.76rem}.course-progress>div:first-child span{color:#315efb;font-weight:900}.course-progress-track{height:6px;margin-top:12px;border-radius:9px;background:#edf0f6;overflow:hidden}.course-progress-track i{display:block;width:0;height:100%;border-radius:9px;background:#315efb;transition:width .25s}.course-progress p{margin:9px 0 0;color:#7b8498;font-size:.68rem}.progress-tools{margin-top:12px;border-top:1px solid #edf0f5;padding-top:10px}.progress-tools summary{cursor:pointer;color:#315efb;font-size:.7rem;font-weight:800}.progress-tools>div{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.progress-tools button,.import-progress{border:1px solid #dfe5f2;border-radius:7px;padding:7px 9px;background:#fff;color:#315efb;font:inherit;font-size:.65rem;font-weight:800;cursor:pointer}.import-progress input{display:none}.progress-tools p{margin:8px 0 0;color:#68738a;font-size:.66rem}.lesson-number{color:#315efb;font-weight:900;font-size:.78rem}.lesson-copy{display:flex;flex-direction:column;gap:5px}.lesson-copy b{font-size:.95rem}.lesson-copy small{font-size:.76rem;color:#7b8498;line-height:1.5}.lesson-time{font-size:.72rem;color:#7b8498;white-space:nowrap}.lesson-arrow{color:#315efb}.course-side{display:grid;gap:16px}.side-card h3{margin:0;font-size:1.1rem}.side-card p{font-size:.78rem;line-height:1.65;color:#778196}.project-card{background:#142653;color:#fff}.project-card p,.project-card li{color:#d1daf0}.project-card .eyebrow{color:#a9bcff}.project-card ul{padding-left:18px}.project-card>a{display:inline-block;margin-top:12px;color:#b9c8ff;font-size:.75rem;font-weight:900}.project-card li{font-size:.75rem}
 @media(max-width:820px){.course-hero,.course-content{grid-template-columns:1fr}.course-hero{padding:45px 0}.course-side{grid-template-columns:1fr 1fr}}@media(max-width:600px){.course-wrap{width:calc(100% - 30px)}.next-step-card{grid-template-columns:1fr}.next-step-card>.eyebrow{grid-column:auto}.next-step-card>a{justify-self:start}.course-side{grid-template-columns:1fr}.lesson-row{grid-template-columns:30px 1fr 16px}.lesson-time{display:none}}
 </style>
