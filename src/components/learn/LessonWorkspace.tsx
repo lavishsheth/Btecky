@@ -23,17 +23,20 @@ function makePreviewDocument(files: ProjectFiles, runId: string) {
   </script><script>${safeScript}</script></body></html>`;
 }
 
-function runChecks(doc: Document): CheckResult[] {
+function runChecks(doc: Document, lessonIndex: number): CheckResult[] {
   const heading = doc.querySelector('h1');
-  const paragraph = doc.querySelector('main p');
-  return [
+  if (lessonIndex === 0) return [
     { passed: Boolean(heading && heading.textContent?.trim() && heading.textContent.trim() !== 'Hello, web!'), message: 'Change the h1 heading so it says something about your website.' },
-    { passed: Boolean(paragraph && paragraph.textContent?.trim()), message: 'Add a paragraph inside main to introduce your website.' },
+    { passed: Boolean(doc.querySelector('main p')?.textContent?.trim()), message: 'Add a paragraph inside main to introduce your website.' },
     { passed: Boolean(doc.querySelector('title')?.textContent?.trim()), message: 'Give your page a descriptive title in the document head.' },
   ];
+  if (lessonIndex === 1) return [{ passed: Boolean(heading), message: 'Add one main h1 heading.' }, { passed: Boolean(doc.querySelector('h2')), message: 'Add section headings using h2.' }, { passed: Boolean(doc.querySelector('ul li') && doc.querySelector('ol li')), message: 'Include both an unordered and an ordered list.' }];
+  if (lessonIndex === 2) return [{ passed: Boolean(doc.querySelector('a[href]')), message: 'Add a link with an href attribute.' }, { passed: Boolean(doc.querySelector('img[alt]')), message: 'Add an image with an alt attribute.' }];
+  if (lessonIndex === 3) return [{ passed: Boolean(doc.querySelector('header') && doc.querySelector('nav') && doc.querySelector('main') && doc.querySelector('footer')), message: 'Use header, nav, main and footer landmarks.' }];
+  return [{ passed: Boolean(doc.querySelector('form')), message: 'Add a contact form.' }, { passed: Boolean(doc.querySelector('label[for]')), message: 'Associate a label with a form field.' }, { passed: Boolean(doc.querySelector('input[type=email]') && doc.querySelector('button[type=submit]')), message: 'Add an email input and submit button.' }];
 }
 
-export default function LessonWorkspace() {
+export default function LessonWorkspace({ lessonId, lessonIndex }: { lessonId: string; lessonIndex: number }) {
   const [workspace, setWorkspace] = useState<ProjectWorkspace>(() => createWorkspace());
   const [activeFile, setActiveFile] = useState<FileName>('index.html');
   const [mobileTab, setMobileTab] = useState<'learn'|'code'|'preview'>('code');
@@ -56,10 +59,13 @@ export default function LessonWorkspace() {
 
   useEffect(() => {
     const result = readWorkspace();
-    setWorkspace(result.workspace);
-    workspaceRef.current = result.workspace;
+    const previousId = lessonIndex > 0 ? 'html:' + ['html-document-structure','headings-paragraphs-lists','links-images','semantic-html','html-forms'][lessonIndex - 1] : '';
+    const startingFiles = previousId && result.workspace.snapshots[previousId] ? result.workspace.snapshots[previousId] : result.workspace.files;
+    const initial = { ...result.workspace, files: { ...startingFiles }, activeLesson: lessonId };
+    setWorkspace(initial);
+    workspaceRef.current = initial;
     setStorageAvailable(result.persisted);
-  }, []);
+  }, [lessonId, lessonIndex]);
 
   const persist = useCallback((next: ProjectWorkspace) => {
     setWorkspace(next); workspaceRef.current = next;
@@ -80,7 +86,7 @@ export default function LessonWorkspace() {
         const next = { ...workspaceRef.current, files: { ...workspaceRef.current.files, [activeFile]: update.state.doc.toString() } };
         setWorkspace(next); workspaceRef.current = next; setSaved(false);
         clearTimeout(debounce.current);
-        debounce.current = setTimeout(() => { const ok = saveWorkspace(next); setStorageAvailable(ok); setSaved(ok); if (!ok) setNotice('Progress won’t be saved in this browser.'); refreshPreview(next.files); }, 300);
+        debounce.current = setTimeout(() => { const ok = saveWorkspace(next); setStorageAvailable(ok); setSaved(ok); if (!ok) setNotice('Progress won’t be saved in this browser.'); refreshPreview(next.files); setChecks(runChecks(new DOMParser().parseFromString(next.files['index.html'], 'text/html'), lessonIndex)); }, 300);
       })],
       parent: editorHost.current,
     });
@@ -101,7 +107,7 @@ export default function LessonWorkspace() {
       if (!data || data.channel !== 'btecky-learn-preview' || data.runId !== runId) return;
       if (data.type === 'console') setConsoleLines(lines => [...lines.slice(-49), '[' + data.payload.level + '] ' + data.payload.message]);
       if (data.type === 'error') setConsoleLines(lines => [...lines.slice(-49), 'Error: ' + data.payload.message + (data.payload.line ? ' (line ' + data.payload.line + ')' : '')]);
-      if (data.type === 'ready') setChecks([{ passed: data.payload.heading && data.payload.headingText !== 'Hello, web!', message: 'Change the h1 heading so it says something about your website.' }, { passed: data.payload.paragraph, message: 'Add a paragraph inside main to introduce your website.' }, { passed: data.payload.title, message: 'Give your page a descriptive title in the document head.' }]);
+      if (data.type === 'ready') setChecks(runChecks(new DOMParser().parseFromString(workspaceRef.current.files['index.html'], 'text/html'), lessonIndex));
     };
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
@@ -132,10 +138,10 @@ export default function LessonWorkspace() {
   const checkTasks = () => {
     const htmlText = workspaceRef.current.files['index.html'];
     const parsed = new DOMParser().parseFromString(htmlText, 'text/html');
-    const result = runChecks(parsed);
+    const result = runChecks(parsed, lessonIndex);
     setChecks(result);
     if (result.every(item => item.passed)) {
-      const next = snapshotLesson(workspaceRef.current, HTML_LESSON_ONE);
+      const next = snapshotLesson(workspaceRef.current, lessonId);
       persist(next);
       setNotice('All lesson tasks passed. Your HTML checkpoint is saved for the next lesson.');
       document.querySelector<HTMLButtonElement>('[data-complete-lesson]')?.click();
@@ -167,7 +173,7 @@ export default function LessonWorkspace() {
         <p className="ide-tip">Your preview updates automatically after you stop typing.</p>
         <button type="button" className="ide-primary" onClick={() => { setMobileTab('code'); loadEditor(); }}>Open the code editor</button>
         {checks.length>0&&<ul className="ide-checks">{checks.map((item,i)=><li key={i}>{item.passed?'✓':'○'} {item.passed?'Task passed':item.message}</li>)}</ul>}
-        <button type="button" className="ide-primary" onClick={checkTasks}>Check my work</button><button type="button" className="ide-secondary" onClick={() => { const next = snapshotLesson(workspaceRef.current, HTML_LESSON_ONE); persist(next); document.querySelector<HTMLButtonElement>('[data-complete-lesson]')?.click(); setNotice('Lesson marked complete. You can keep experimenting with your project.'); }}>Mark complete anyway</button>
+        <button type="button" className="ide-primary" onClick={checkTasks}>Check my work</button><button type="button" className="ide-secondary" onClick={() => { const next = snapshotLesson(workspaceRef.current, lessonId); persist(next); document.querySelector<HTMLButtonElement>('[data-complete-lesson]')?.click(); setNotice('Lesson marked complete. You can keep experimenting with your project.'); }}>Mark complete anyway</button>
       </div>
       <div className={'ide-editor '+(mobileTab==='code'?'mobile-active':'')}>
         <div className="ide-heading"><b>Code editor</b><span>{saved?'All changes saved':'Saving…'}</span></div>
