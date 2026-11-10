@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { createWorkspace, filesEqual, HTML_LESSON_ONE, HTML_OFFICIAL_CHECKPOINT, HTML_OFFICIAL_STARTER, readWorkspace, saveWorkspace, snapshotLesson, type ProjectFiles, type ProjectWorkspace } from '../../data/learn/workspace';
+import { createWorkspace, HTML_LESSON_ONE, HTML_OFFICIAL_CHECKPOINT, HTML_OFFICIAL_STARTER, readWorkspace, saveWorkspace, snapshotLesson, type ProjectFiles, type ProjectWorkspace } from '../../data/learn/workspace';
 
 type FileName = keyof ProjectFiles;
 type CheckResult = { passed: boolean; message: string };
@@ -18,7 +18,7 @@ function makePreviewDocument(files: ProjectFiles, runId: string) {
     });
     addEventListener('error', event => send('error', { message: event.message || 'A script error occurred.', line: event.lineno || 0 }));
     addEventListener('unhandledrejection', event => send('error', { message: String(event.reason || 'An asynchronous error occurred.') }));
-    send('ready', {});
+    addEventListener('DOMContentLoaded', () => send('ready', { heading: Boolean(document.querySelector('h1')?.textContent?.trim()), paragraph: Boolean(document.querySelector('main p')?.textContent?.trim()), title: Boolean(document.querySelector('title')?.textContent?.trim()), headingText: document.querySelector('h1')?.textContent?.trim() || '' }));
   })();
   </script><script>${safeScript}</script></body></html>`;
 }
@@ -39,8 +39,7 @@ export default function LessonWorkspace() {
   const [mobileTab, setMobileTab] = useState<'learn'|'code'|'preview'>('code');
   const [loaded, setLoaded] = useState(false);
   const [saved, setSaved] = useState(true);
-  const [previewKey, setPreviewKey] = useState(0);
-  const [runId, setRunId] = useState('initial');
+    const [runId, setRunId] = useState('initial');
   const [checks, setChecks] = useState<CheckResult[]>([]);
   const [failures, setFailures] = useState(0);
   const [showSolution, setShowSolution] = useState(false);
@@ -70,13 +69,13 @@ export default function LessonWorkspace() {
 
   const loadEditor = useCallback(async () => {
     if (loaded || !editorHost.current) { setLoaded(true); return; }
-    const [{ EditorView, basicSetup }, { html }] = await Promise.all([
-      import('codemirror'), import('@codemirror/lang-html')
+    const [{ EditorView, basicSetup }, { html }, { css }, { javascript }] = await Promise.all([
+      import('codemirror'), import('@codemirror/lang-html'), import('@codemirror/lang-css'), import('@codemirror/lang-javascript')
     ]);
     if (!editorHost.current || editorView.current) { setLoaded(true); return; }
     editorView.current = new EditorView({
       doc: workspaceRef.current.files[activeFile],
-      extensions: [basicSetup, html(), EditorView.updateListener.of((update: any) => {
+      extensions: [basicSetup, activeFile === 'index.html' ? html() : activeFile === 'styles.css' ? css() : javascript(), EditorView.updateListener.of((update: any) => {
         if (!update.docChanged) return;
         const next = { ...workspaceRef.current, files: { ...workspaceRef.current.files, [activeFile]: update.state.doc.toString() } };
         setWorkspace(next); workspaceRef.current = next; setSaved(false);
@@ -102,9 +101,7 @@ export default function LessonWorkspace() {
       if (!data || data.channel !== 'btecky-learn-preview' || data.runId !== runId) return;
       if (data.type === 'console') setConsoleLines(lines => [...lines.slice(-49), '[' + data.payload.level + '] ' + data.payload.message]);
       if (data.type === 'error') setConsoleLines(lines => [...lines.slice(-49), 'Error: ' + data.payload.message + (data.payload.line ? ' (line ' + data.payload.line + ')' : '')]);
-      if (data.type === 'ready') {
-        try { setChecks(runChecks(iframe.current!.contentDocument!)); } catch { /* opaque sandbox: checks are requested via preview message below */ }
-      }
+      if (data.type === 'ready') setChecks([{ passed: data.payload.heading && data.payload.headingText !== 'Hello, web!', message: 'Change the h1 heading so it says something about your website.' }, { passed: data.payload.paragraph, message: 'Add a paragraph inside main to introduce your website.' }, { passed: data.payload.title, message: 'Give your page a descriptive title in the document head.' }]);
     };
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
@@ -129,7 +126,7 @@ export default function LessonWorkspace() {
     setActiveFile(file);
     setLoaded(false);
     if (file === 'index.html') setTimeout(() => loadEditor(), 0);
-    else setNotice('HTML editing is enabled in this first lesson. CSS and JavaScript tabs are ready for the next stages.');
+    else { setNotice('You can prepare your CSS and JavaScript files here. This HTML-first lesson checks the HTML tasks.'); setTimeout(() => loadEditor(), 0); }
   };
 
   const checkTasks = () => {
@@ -157,8 +154,7 @@ export default function LessonWorkspace() {
     const link = document.createElement('a'); link.href = url; link.download = 'btecky-profile-website.zip'; link.click(); URL.revokeObjectURL(url);
   };
 
-  const currentCode = workspace.files[activeFile];
-  return <section className="lesson-ide" aria-label="Interactive HTML lesson workspace">
+    return <section className="lesson-ide" aria-label="Interactive HTML lesson workspace">
     <div className="ide-mobile-tabs" role="tablist" aria-label="Lesson workspace views">
       {(['learn','code','preview'] as const).map(tab => <button key={tab} role="tab" aria-selected={mobileTab===tab} onClick={() => setMobileTab(tab)}>{tab==='learn'?'Learn':tab==='code'?'Code':'Preview'}</button>)}
     </div>
