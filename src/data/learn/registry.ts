@@ -167,6 +167,9 @@ export function validateLearnRegistry(): string[] {
   checkUnique(learnRegistry.paths.map((path) => path.slug), 'path slug');
   checkUnique(learnRegistry.courses.map((course) => course.id), 'course id');
   checkUnique(learnRegistry.courses.map((course) => course.slug), 'course slug');
+  checkUnique(learnRegistry.courses.flatMap((course) => course.lessonIds), 'lesson id');
+  const registryCourseIds = new Set(learnRegistry.courses.map((course) => course.id));
+  courses.forEach((course) => { if (!registryCourseIds.has(course.id)) errors.push('Course content "' + course.id + '" is missing registry metadata'); });
   const topicIds = new Set(learnRegistry.topics.map((topic) => topic.id));
   const courseIds = new Set(learnRegistry.courses.map((course) => course.id));
   learnRegistry.paths.forEach((path) => {
