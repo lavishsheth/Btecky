@@ -2,7 +2,9 @@ export type LessonSection = { title: string; body: string; code?: string; note?:
 export type Lesson = { slug: string; title: string; summary: string; minutes: number; objectives: string[]; sections: LessonSection[]; exercise: { prompt: string; requirements: string[]; solution: string }; quiz: { question: string; options: string[]; answer: number; explanation: string }[]; references: { label: string; url: string }[] };
 export type Course = { id: string; categoryId: string; slug: string; title: string; category: string; level: string; summary: string; description: string; prerequisites: string[]; outcomes: string[]; lessons: Lesson[]; project: { title: string; brief: string; requirements: string[] } };
 
-export const courses: Course[] = [{
+import { cssFoundationsCourse } from './css-course';
+
+const htmlFoundationsCourse: Course = {
 id:"html-foundations",categoryId:"web-development",slug:"html",title:"HTML Foundations",category:"Web development",level:"Beginner",
 summary:"Learn to structure clear, accessible web pages with semantic HTML.",
 description:"A practical introduction to HTML: how browsers interpret documents, how to organise content, how links and images work, and how to build meaningful page structure and forms.",
@@ -50,6 +52,8 @@ references:[{label:"MDN: HTML semantics",url:"https://developer.mozilla.org/en-U
 exercise:{prompt:"Create a feedback form for a learning lesson.",requirements:["Add a form with a POST method and a clearly described action.","Include a required name field with a matching label.","Include a required email field using type email.","Include a textarea with a matching label.","Add a submit button."],solution:'<form action="/feedback" method="post">\n  <label for="learner-name">Name</label>\n  <input id="learner-name" name="name" required>\n  <label for="learner-email">Email</label>\n  <input id="learner-email" name="email" type="email" required>\n  <label for="feedback">Your feedback</label>\n  <textarea id="feedback" name="feedback" rows="4"></textarea>\n  <button type="submit">Send feedback</button>\n</form>'},
 quiz:[{question:"How should a label be associated with an input?",options:["Give both the same name attribute","Match the label for value to the input id","Put the label after the form","Use placeholder text only"],answer:1,explanation:"The label's for attribute must match the form control's id. This creates a programmatic association and makes the label clickable."},{question:"Why is browser-side validation not enough to secure a form?",options:["It only works on desktop","Users can bypass or modify client-side checks","It changes the page title","It prevents keyboard use"],answer:1,explanation:"Client-side checks can be bypassed. The receiving server must validate and safely handle all submitted data."}],
 references:[{label:"MDN: Your first form",url:"https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Your_first_form"},{label:"W3C WAI: Forms concepts",url:"https://www.w3.org/WAI/tutorials/forms/"}]}
-]}];
+]};
+
+export const courses: Course[] = [htmlFoundationsCourse, cssFoundationsCourse];
 
 export const findCourse = (slug: string) => courses.find((course) => course.slug === slug);
