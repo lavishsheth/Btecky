@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { createWorkspace, HTML_LESSON_ONE, HTML_OFFICIAL_CHECKPOINT, HTML_OFFICIAL_STARTER, readWorkspace, saveWorkspace, snapshotLesson, type ProjectFiles, type ProjectWorkspace } from '../../data/learn/workspace';
+import { createWorkspace, HTML_OFFICIAL_CHECKPOINT, HTML_OFFICIAL_STARTER, readWorkspace, saveWorkspace, snapshotLesson, type ProjectFiles, type ProjectWorkspace } from '../../data/learn/workspace';
 
 type FileName = keyof ProjectFiles;
 type CheckResult = { passed: boolean; message: string };
@@ -36,7 +36,7 @@ function runChecks(doc: Document, lessonIndex: number): CheckResult[] {
   return [{ passed: Boolean(doc.querySelector('form')), message: 'Add a contact form.' }, { passed: Boolean(doc.querySelector('label[for]')), message: 'Associate a label with a form field.' }, { passed: Boolean(doc.querySelector('input[type=email]') && doc.querySelector('button[type=submit]')), message: 'Add an email input and submit button.' }];
 }
 
-export default function LessonWorkspace({ lessonId, lessonIndex }: { lessonId: string; lessonIndex: number }) {
+export default function LessonWorkspace({ lessonId, lessonIndex, previousLessonId }: { lessonId: string; lessonIndex: number; previousLessonId?: string }) {
   const [workspace, setWorkspace] = useState<ProjectWorkspace>(() => createWorkspace());
   const [activeFile, setActiveFile] = useState<FileName>('index.html');
   const [mobileTab, setMobileTab] = useState<'learn'|'code'|'preview'>('code');
@@ -59,13 +59,13 @@ export default function LessonWorkspace({ lessonId, lessonIndex }: { lessonId: s
 
   useEffect(() => {
     const result = readWorkspace();
-    const previousId = lessonIndex > 0 ? 'html:' + ['html-document-structure','headings-paragraphs-lists','links-images','semantic-html','html-forms'][lessonIndex - 1] : '';
-    const startingFiles = previousId && result.workspace.snapshots[previousId] ? result.workspace.snapshots[previousId] : result.workspace.files;
+    const previousSnapshot = previousLessonId ? result.workspace.snapshots[previousLessonId] : undefined;
+    const startingFiles = previousSnapshot ?? result.workspace.files;
     const initial = { ...result.workspace, files: { ...startingFiles }, activeLesson: lessonId };
     setWorkspace(initial);
     workspaceRef.current = initial;
     setStorageAvailable(result.persisted);
-  }, [lessonId, lessonIndex]);
+  }, [lessonId, lessonIndex, previousLessonId]);
 
   const persist = useCallback((next: ProjectWorkspace) => {
     setWorkspace(next); workspaceRef.current = next;
