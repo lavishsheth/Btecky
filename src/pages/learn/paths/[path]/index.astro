@@ -23,8 +23,8 @@ const structuredData = {
 };
 ---
 <BaseLayout title={path.title + ' — B Tecky LearnLab'} description={path.description} noindex={availableCount === 0}>
-<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-<script type="application/json" id="learnlab-course-map" set:html={JSON.stringify(progressCourseMap)} />
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+<script type="application/json" id="learnlab-course-map" set:html={JSON.stringify(progressCourseMap)}></script>
 <main class="path-detail-page" data-path-id={path.id}><div class="path-detail-wrap">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/learn/">LearnLab</a><span>/</span><a href="/learn/paths/">Learning paths</a><span>/</span><span>{path.title}</span></nav>
 <header class="path-hero"><p class="eyebrow">{topic?.title ?? 'LEARNING PATH'} / GUIDED JOURNEY</p><span class="level">{path.level}</span><h1>{path.title}</h1><p>{path.description}</p><div class="path-meta"><span>{stages.length} stages</span><span>{availableCount} courses available</span><span>Free · Self-paced · No account</span></div>{path.slug === 'web-development' && <a class="project-link" href="/learn/paths/web-development/project/">Open your connected website project ↗</a>}</header>
