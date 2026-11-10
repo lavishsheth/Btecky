@@ -18,7 +18,8 @@
     "codemirror": "^6.0.1",
     "@codemirror/lang-html": "^6.4.9",
     "@codemirror/lang-css": "^6.3.1",
-    "@codemirror/lang-javascript": "^6.2.2"
+    "@codemirror/lang-javascript": "^6.2.2",
+    "jszip": "^3.10.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
