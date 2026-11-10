@@ -10,7 +10,7 @@ const progressCourseMap = Object.fromEntries(courses.map((item) => [item.id, { i
 const courseStructuredData = { '@context': 'https://schema.org', '@type': 'Course', name: course.title, description: course.description, provider: { '@type': 'Organization', name: 'B Tecky', sameAs: 'https://www.btecky.tech/' }, educationalLevel: course.level, isAccessibleForFree: true, teaches: course.outcomes, timeRequired: 'PT' + course.lessons.reduce((sum, lesson) => sum + lesson.minutes, 0) + 'M' };
 ---
 <BaseLayout title={course.title + ' — B Tecky LearnLab'} description={course.description}>
-<script type="application/ld+json" set:html={JSON.stringify(courseStructuredData)} />
+<script type="application/ld+json" set:html={JSON.stringify(courseStructuredData)}></script>
 <script type="application/json" id="learnlab-course-map" set:html={JSON.stringify(progressCourseMap)}></script>
 <main class="course-page" data-course-id={course.id} data-course-slug={course.slug} data-lesson-ids={JSON.stringify(course.lessons.map((lesson) => course.id + ':' + lesson.slug))}><div class="course-wrap">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/learn/">LearnLab</a><span>/</span><a href={'/learn/categories/'+(category?.slug ?? course.categoryId)+'/'}>{course.category}</a><span>/</span><span>{course.title}</span></nav>
