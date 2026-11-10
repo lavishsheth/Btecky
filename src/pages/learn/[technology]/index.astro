@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { learnRegistry } from '../../../data/learn/registry';
-import { courses } from '../../../data/learn/courses';
+const courses = learnRegistry.courseContent;
 export function getStaticPaths() { return learnRegistry.courseContent.map((course) => ({ params: { technology: course.slug }, props: { course } })); }
 const { course } = Astro.props;
 const category = learnRegistry.topics.find((item) => item.id === course.categoryId);
