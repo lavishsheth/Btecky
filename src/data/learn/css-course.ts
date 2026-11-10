@@ -273,7 +273,7 @@ export const cssFoundationsCourse: Course = {
         {
           title: 'Let content determine height',
           body: 'Fixed heights can clip text when a user zooms, changes font size or has longer content. Prefer natural content height, min-height when a minimum is needed, and max-width to keep long lines comfortable. Use overflow intentionally and test the page with larger text and narrow viewports.',
-          note: 'Inspect a content card in developer tools and toggle padding, border and margin. Watch how the element's outer dimensions change.'
+          note: "Inspect a content card in developer tools and toggle padding, border and margin. Watch how the element's outer dimensions change."
         }
       ],
       exercise: {
@@ -360,7 +360,7 @@ export const cssFoundationsCourse: Course = {
       sections: [
         {
           title: 'Grid handles rows and columns together',
-          body: 'CSS Grid is a two-dimensional layout system. Set display: grid on a container and its direct children become grid items. Grid tracks are rows or columns. You can define explicit tracks, allow implicit tracks to be created, and control spacing with row-gap, column-gap or gap. Grid is useful for a profile page's interests, project cards or a structured content area.'
+          body: "CSS Grid is a two-dimensional layout system. Set display: grid on a container and its direct children become grid items. Grid tracks are rows or columns. You can define explicit tracks, allow implicit tracks to be created, and control spacing with row-gap, column-gap or gap. Grid is useful for a profile page's interests, project cards or a structured content area."
         },
         {
           title: 'Flexible tracks with fr',
@@ -477,7 +477,7 @@ export const cssFoundationsCourse: Course = {
         {
           title: 'Debug with a repeatable method',
           body: 'When a layout breaks, inspect the element and identify its containing block, computed dimensions and matching rules. Check whether a parent has unexpected display, width, overflow or positioning. Temporarily disable declarations to isolate the cause, then make the smallest clear change in the stylesheet. Test the result at more than one viewport width and with keyboard navigation.',
-          note: 'Use the browser's accessibility and contrast tools as helpers, not as a replacement for testing the page with a keyboard and real content.'
+          note: "Use the browser's accessibility and contrast tools as helpers, not as a replacement for testing the page with a keyboard and real content."
         }
       ],
       exercise: {
