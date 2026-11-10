@@ -74,7 +74,7 @@ export default function LessonWorkspace({ lessonId, lessonIndex, previousLessonI
   }, []);
 
   const loadEditor = useCallback(async () => {
-    if (loaded || !editorHost.current) { setLoaded(true); return; }
+    if (!editorHost.current || editorView.current) { setLoaded(true); return; }
     const [{ EditorView, basicSetup }, { html }, { css }, { javascript }] = await Promise.all([
       import('codemirror'), import('@codemirror/lang-html'), import('@codemirror/lang-css'), import('@codemirror/lang-javascript')
     ]);
@@ -114,7 +114,7 @@ export default function LessonWorkspace({ lessonId, lessonIndex, previousLessonI
   }, [runId]);
 
   useEffect(() => {
-    if (loaded && editorView.current && activeFile === 'index.html') {
+    if (loaded && editorView.current) {
       const current = editorView.current.state.doc.toString();
       if (current !== workspace.files[activeFile]) editorView.current.dispatch({ changes: { from: 0, to: current.length, insert: workspace.files[activeFile] } });
     }
@@ -131,8 +131,8 @@ export default function LessonWorkspace({ lessonId, lessonIndex, previousLessonI
     }
     setActiveFile(file);
     setLoaded(false);
-    if (file === 'index.html') setTimeout(() => loadEditor(), 0);
-    else { setNotice('You can prepare your CSS and JavaScript files here. This HTML-first lesson checks the HTML tasks.'); setTimeout(() => loadEditor(), 0); }
+    if (file !== 'index.html') setNotice('You can prepare your CSS and JavaScript files here. This HTML-first lesson checks the HTML tasks.');
+    setTimeout(() => setLoaded(true), 0);
   };
 
   const checkTasks = () => {
