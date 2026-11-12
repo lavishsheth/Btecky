@@ -47,19 +47,11 @@
   header.querySelectorAll('.site-nav__chevron').forEach((button) => {
     const item = button.closest('.site-nav__item');
     button.addEventListener('click', () => toggleMenu(item));
-    if (finePointer) {
-      item.addEventListener('mouseenter', () => {
-        if (window.innerWidth > 980) toggleMenu(item, true);
-      });
-      item.addEventListener('mouseleave', () => {
-        if (window.innerWidth > 980) toggleMenu(item, false);
-      });
-    }
   });
   header.querySelectorAll('[data-menu-toggle]').forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
-      toggleMenu(link.closest('.site-nav__item'), true);
+      toggleMenu(link.closest('.site-nav__item'));
     });
   });
 

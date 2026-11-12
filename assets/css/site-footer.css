@@ -14,3 +14,14 @@
 @media(max-width:980px){.site-footer>.container.footer-inner{grid-template-columns:repeat(3,minmax(0,1fr))!important;}}
 @media(max-width:760px){.site-footer>.container.footer-inner{width:calc(100% - 36px)!important;grid-template-columns:1fr 1fr!important;}}
 @media(max-width:440px){.site-footer>.container.footer-inner{grid-template-columns:1fr!important;}}
+
+/* Enforce shared footer layout after legacy page stylesheets. */
+.site-footer .footer-brand-block,.site-footer .footer-column{min-width:0!important}
+.site-footer .footer-social{display:flex!important;flex-direction:row!important;align-items:center!important;flex-wrap:wrap!important;gap:9px!important;margin:18px 0 0!important;line-height:1.4!important}
+.site-footer .footer-social a{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;width:auto!important;margin:0!important;padding:9px 13px!important;border:1px solid rgba(255,255,255,.10)!important;border-radius:999px!important;background:rgba(255,255,255,.09)!important;color:#fff!important;line-height:1.25!important;white-space:normal!important;text-decoration:none!important}
+.site-footer .footer-social a:hover{background:rgba(255,255,255,.17)!important;color:#fff!important}
+.site-footer .footer-column{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:12px!important}
+.site-footer .footer-column a{display:block!important;width:auto!important;margin:0!important;padding:0!important;color:#c3cbd9!important;line-height:1.45!important;text-decoration:none!important}
+.site-footer .footer-column a:hover{color:#fff!important}
+.site-footer .footer-bottom{display:flex!important;align-items:center!important;justify-content:space-between!important;flex-wrap:wrap!important;gap:18px!important}
+@media(max-width:760px){.site-footer .footer-social{gap:8px!important}.site-footer .footer-social a{font-size:.74rem!important}.site-footer .footer-bottom{align-items:flex-start!important;flex-direction:column!important}}
