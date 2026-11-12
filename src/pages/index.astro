@@ -37,12 +37,12 @@ const thumbnail=(p:Post)=>p.videoThumbnail || p.cover || '';
 </section>
 
 <section id="explore" class="explore-section container"><div class="section-top"><div><p class="eyebrow">THE B TECKY ECOSYSTEM</p><h2 class="display">A better starting point<br>for your next idea.</h2></div><p>Whether you're building, learning or looking for your next opportunity, start here.</p></div><div class="ecosystem-grid">
-<a class="eco-card eco-feature" href="/arcade"><div class="eco-visual arcade-visual"><span class="visual-index">01 / PROGRESS TRACKING</span><div class="score-window"><small>YOUR PROGRESS</small><b>+128</b><span>POINTS TRACKED <i>↗</i></span><div class="score-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div><div class="eco-copy"><span class="eco-tag">ARCADE TOOL</span><h3>Arcade Score Checker</h3><p>Check your Google Cloud Arcade progress, points, milestones and rank using the latest supported report.</p><span class="text-link">Open the score checker ↗</span></div></a>
-<a class="eco-card" href="/arcade-calculator.html"><div class="eco-visual calc-visual"><span class="visual-index">02 / FULL POINTS TOOL</span><div class="calc-window"><span>SEASON TOTAL</span><strong>Points + bonuses</strong><b>Prize-tier progress ↗</b><hr/><span>FULL ARCADE CALCULATOR</span></div></div><div class="eco-copy"><span class="eco-tag">FULL POINTS CALCULATOR</span><h3>Arcade Points Calculator</h3><p>Combine games, skill badges and eligible bonuses to estimate your full season total and progress towards prize tiers.</p><span class="text-link">Open the full calculator ↗</span></div></a>
-<a class="eco-card" href="/playlists"><div class="eco-visual video-visual"><span class="visual-index">03 / VIDEO LEARNING</span><div class="play-orb"><span>▶</span></div><div class="video-lines"><i></i><i></i><i></i></div></div><div class="eco-copy"><span class="eco-tag">B TECKY LEARNING</span><h3>Learning Playlists</h3><p>Follow curated video paths for cloud, AI, developer tools and practical technology, alongside the wider B Tecky blog.</p><span class="text-link">Browse playlists ↗</span></div></a>
+<a class="eco-card eco-feature" href="/arcade"><div class="eco-card-heading"><span>01</span><div><b>PROGRESS TRACKING</b><small>Monitor your Arcade journey</small></div></div><div class="eco-visual arcade-visual"><div class="score-window"><small>YOUR PROGRESS</small><b>+128</b><span>POINTS TRACKED <i>↗</i></span><div class="score-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div><div class="eco-copy"><span class="eco-tag">ARCADE TOOL</span><h3>Arcade Score Checker</h3><p>Check your Google Cloud Arcade progress, points, milestones and rank using the latest supported report.</p><span class="text-link">Open the score checker ↗</span></div></a>
+<a class="eco-card" href="/arcade-calculator.html"><div class="eco-card-heading"><span>02</span><div><b>FULL POINTS TOOL</b><small>Plan your season total</small></div></div><div class="eco-visual calc-visual"><div class="calc-window"><span>SEASON TOTAL</span><strong>Points + bonuses</strong><b>Prize-tier progress ↗</b><hr/><span>FULL ARCADE CALCULATOR</span></div></div><div class="eco-copy"><span class="eco-tag">FULL POINTS CALCULATOR</span><h3>Arcade Points Calculator</h3><p>Combine games, skill badges and eligible bonuses to estimate your full season total and progress towards prize tiers.</p><span class="text-link">Open the full calculator ↗</span></div></a>
+<a class="eco-card" href="/playlists"><div class="eco-card-heading"><span>03</span><div><b>VIDEO LEARNING</b><small>Learn through curated playlists</small></div></div><div class="eco-visual video-visual"><div class="play-orb"><span>▶</span></div><div class="video-lines"><i></i><i></i><i></i></div></div><div class="eco-copy"><span class="eco-tag">B TECKY LEARNING</span><h3>Learning Playlists</h3><p>Follow curated video paths for cloud, AI, developer tools and practical technology, alongside the wider B Tecky blog.</p><span class="text-link">Browse playlists ↗</span></div></a>
 <a class="eco-card learnlab-eco-card" href="/learn/">
+  <div class="eco-card-heading"><span>04</span><div><b>HANDS-ON LEARNING</b><small>Build skills through real projects</small></div></div>
   <div class="eco-visual learnlab-eco-visual">
-    <span class="visual-index">04 / HANDS-ON LEARNING</span>
     <div class="learnlab-mini-window">
       <span>YOUR LEARNING PATH</span>
       <div><b>HTML</b><i>01</i></div>
@@ -152,5 +152,21 @@ document.querySelectorAll<HTMLImageElement>('.home-story-thumb').forEach(img=>im
 .eco-card:hover .text-link{gap:12px}
 @media(max-width:950px){.eco-visual{height:235px}}
 @media(max-width:650px){.ecosystem-grid{gap:18px}.eco-visual,.eco-card:first-child .eco-visual{height:225px}.eco-copy{padding:23px}.eco-copy p{min-height:0}.score-window,.calc-window{width:78%}.learnlab-mini-window{width:82%}}
+
+
+/* Ecosystem section backdrop and clear card headings */
+.explore-section{position:relative;isolation:isolate}
+.explore-section:before{content:"";position:absolute;z-index:-1;top:35px;bottom:25px;left:50%;width:100vw;transform:translateX(-50%);background:radial-gradient(ellipse at 12% 12%,rgba(79,112,255,.10),transparent 35%),radial-gradient(ellipse at 88% 78%,rgba(105,83,235,.09),transparent 34%),linear-gradient(135deg,#f5f7ff 0%,#f8faff 48%,#f2f5ff 100%)}
+.ecosystem-grid{gap:24px}
+.eco-card{overflow:hidden}
+.eco-card-heading{min-height:78px;padding:16px 23px;display:flex;align-items:center;gap:14px;background:linear-gradient(110deg,#fff,rgba(255,255,255,.88));border-bottom:1px solid rgba(216,225,245,.8)}
+.eco-card-heading>span{width:39px;height:39px;flex:0 0 39px;display:grid;place-items:center;border-radius:12px;background:color-mix(in srgb,var(--eco-accent) 12%,white);color:var(--eco-accent);font:800 1rem var(--font-display);letter-spacing:-.04em}
+.eco-card-heading>div{display:flex;flex-direction:column;gap:4px}
+.eco-card-heading b{font-size:.69rem;letter-spacing:.12em;color:#273552}
+.eco-card-heading small{font-size:.76rem;color:#7b879e}
+.eco-visual{height:225px}
+.visual-index{display:none}
+.eco-copy{padding-top:24px}
+@media(max-width:650px){.eco-card-heading{min-height:72px;padding:14px 18px}.eco-card-heading>span{width:35px;height:35px;flex-basis:35px}.eco-visual,.eco-card:first-child .eco-visual{height:205px}.explore-section:before{top:20px;bottom:15px}}
 
 </style>
