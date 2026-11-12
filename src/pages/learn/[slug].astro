@@ -1,0 +1,91 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+const catalog = {
+  python: { title:'Python Programming', subtitle:'From first script to useful automation.', description:'Learn Python step by step: understand the language, write clean programs, work with files and data, and build practical tools you can use.', skills:['Python syntax','Problem solving','Files & APIs','Automation'], outcome:'A command-line productivity toolkit', modules:[
+    {title:'Start with Python',summary:'Get comfortable with the language and write your first programs.',lessons:['What Python is used for','Install Python and choose an editor','print(), comments and input()','Variables, values and basic types'],task:'Build a personal introduction program that asks questions and prints a formatted profile.'},
+    {title:'Logic and reusable code',summary:'Make decisions, repeat work and organise code into functions.',lessons:['Comparisons and Boolean logic','if, elif and else','for and while loops','Functions, parameters and return values'],task:'Create a quiz that asks questions, checks answers and calculates a score.'},
+    {title:'Work with real information',summary:'Handle collections, files, errors and structured data.',lessons:['Lists, tuples, sets and dictionaries','Read and write text files','Handle errors with try and except','Use modules and packages'],task:'Build a small expense tracker that saves entries to a local file.'},
+    {title:'Build useful automations',summary:'Connect your Python knowledge to practical everyday workflows.',lessons:['Work with CSV and JSON','Make HTTP requests and use APIs','Organise a multi-file project','Test, debug and document your program'],task:'Build a report generator that reads a data file and produces a useful summary.'}
+  ],final:'A command-line productivity toolkit with a quiz, expense tracker and automated report generator.' },
+  'artificial-intelligence': { title:'Artificial Intelligence', subtitle:'Understand AI. Build with it responsibly.', description:'Explore how modern AI works, learn the foundations of machine learning and generative AI, and create small applications that use AI capabilities thoughtfully.', skills:['AI foundations','Machine learning','Prompt design','AI applications'], outcome:'A responsible AI-powered assistant prototype', modules:[
+    {title:'Understand artificial intelligence',summary:'Build a clear mental model of AI and where it is useful.',lessons:['What AI is and what it is not','AI, machine learning and deep learning','Training data, models and predictions','Everyday AI use cases and limitations'],task:'Choose a real-world problem and map where AI could help—and where a simple rule-based solution is better.'},
+    {title:'Machine learning foundations',summary:'Learn the basic workflow behind models that learn from data.',lessons:['Features, labels and datasets','Supervised and unsupervised learning','Training, validation and testing','Accuracy, bias and overfitting'],task:'Design a small classification experiment: define the data, target, evaluation and possible sources of bias.'},
+    {title:'Generative AI and prompt design',summary:'Understand language models and communicate with them more effectively.',lessons:['How large language models generate text','Tokens, context and model limitations','Write clear prompts with constraints','Evaluate outputs and reduce hallucinations'],task:'Create and compare prompts for a study helper; score responses for accuracy, clarity and usefulness.'},
+    {title:'Build responsible AI experiences',summary:'Plan a useful AI-powered workflow with privacy and safety in mind.',lessons:['Use an AI API conceptually','Design inputs, outputs and user feedback','Protect private and sensitive data','Human review, transparency and evaluation'],task:'Prototype an AI study assistant workflow with source checking and human review.'}
+  ],final:'An AI study assistant prototype with a defined use case, prompt workflow, output evaluation and responsible-use safeguards.' },
+  'cloud-computing': { title:'Cloud Computing', subtitle:'Understand the cloud. Deploy with confidence.', description:'Learn the building blocks of cloud platforms, from compute and storage to networking, identity, deployment and cost-aware architecture.', skills:['Cloud foundations','Compute & storage','Networking','Security & deployment'], outcome:'A deployed cloud-ready application plan', modules:[
+    {title:'Cloud foundations',summary:'Understand what cloud computing provides and how services are organised.',lessons:['What cloud computing means','Public, private and hybrid cloud','IaaS, PaaS and SaaS','Regions, availability zones and shared responsibility'],task:'Choose an example application and map which parts could run in the cloud and why.'},
+    {title:'Core cloud building blocks',summary:'Explore the services that power everyday cloud applications.',lessons:['Virtual machines and containers','Object, block and file storage','Managed databases','Serverless functions and event-driven work'],task:'Design a simple architecture for a photo-sharing app using compute, storage and a database.'},
+    {title:'Networking and deployment',summary:'Learn how applications connect and reach their users.',lessons:['IP addresses, DNS and HTTP/HTTPS','Virtual networks, subnets and firewalls','Deploy an application workflow','Logs, monitoring and basic troubleshooting'],task:'Draw a deployment flow from a code repository to a public application endpoint.'},
+    {title:'Secure and operate cloud systems',summary:'Build operational habits for reliable, secure and cost-aware services.',lessons:['Identity and access management','Secrets and data protection','Backups, availability and recovery','Budgets, usage and cost optimisation'],task:'Create a security and cost checklist for the application architecture you designed.'}
+  ],final:'A cloud deployment blueprint for a small web application, including architecture, network flow, security controls, monitoring and cost considerations.' },
+  'data-science': { title:'Data Science', subtitle:'Turn raw data into clear decisions.', description:'Learn how to ask useful questions, prepare datasets, analyse patterns and communicate findings through meaningful visualisations.', skills:['Data literacy','Python analysis','Visualisation','Statistics'], outcome:'An end-to-end data analysis report', modules:[
+    {title:'Think with data',summary:'Learn how data is collected, described and used to answer questions.',lessons:['What data science involves','Types of data and measurement','Ask a clear, answerable question','Data quality, privacy and ethics'],task:'Write three questions that could be answered with a public dataset and identify the fields each question needs.'},
+    {title:'Prepare and explore data',summary:'Learn to inspect datasets and make them ready for analysis.',lessons:['Rows, columns and data formats','Missing values and duplicates','Explore data with Python and pandas','Summaries, grouping and filtering'],task:'Take a small CSV dataset, document its quality issues and create a cleaned version.'},
+    {title:'Find patterns and explain them',summary:'Use visualisation and introductory statistics to understand what data says.',lessons:['Mean, median, mode and spread','Distributions and outliers','Choose the right chart','Correlation is not causation'],task:'Create three charts that answer a question and write a short interpretation for each.'},
+    {title:'Communicate an analysis',summary:'Turn your work into a transparent, useful report.',lessons:['Build a reproducible analysis notebook','State assumptions and limitations','Summarise findings for an audience','Make recommendations without overstating evidence'],task:'Prepare a concise data story with a question, method, charts, findings and limitations.'}
+  ],final:'An end-to-end analysis report using a public dataset, with documented cleaning, exploratory analysis, visualisations and evidence-based conclusions.' },
+  cybersecurity: { title:'Cybersecurity', subtitle:'Think defensively. Build safer systems.', description:'Develop practical security awareness, understand how systems are attacked and learn how to reduce risk through defensive and ethical security practices.', skills:['Security fundamentals','Networking','Threat awareness','Defensive practice'], outcome:'A security assessment and defence plan', modules:[
+    {title:'Security foundations',summary:'Understand the goals and language of information security.',lessons:['Confidentiality, integrity and availability','Threats, vulnerabilities and risk','Authentication and multi-factor security','Social engineering and phishing awareness'],task:'Create a personal threat model for an online account and list practical controls that reduce its risk.'},
+    {title:'Networks and systems',summary:'Learn the basic technologies that defenders need to understand.',lessons:['How the internet and DNS work','Ports, protocols and common services','Operating system and account basics','Firewalls and network segmentation'],task:'Map the devices and trust boundaries in a small home or lab network.'},
+    {title:'Common weaknesses and defence',summary:'Recognise common security mistakes and how to prevent them.',lessons:['Web security concepts and common risks','Secure passwords and secret handling','Updates, backups and endpoint protection','Least privilege and secure configuration'],task:'Review a fictional application checklist and prioritise the highest-impact defensive fixes.'},
+    {title:'Ethical security practice',summary:'Learn safe assessment habits and how to communicate findings.',lessons:['Permission, scope and rules of engagement','Use isolated practice labs legally','Document evidence and severity','Responsible disclosure and remediation'],task:'Write a sample security finding with impact, evidence, remediation and a safe retest plan.'}
+  ],final:'A defensive security assessment for a fictional small organisation, including an asset list, risk register, prioritised controls and incident-response checklist.' }
+};
+export function getStaticPaths(){return Object.entries(catalog).map(([slug,path])=>({params:{slug},props:{path}}));}
+const {path}=Astro.props;
+---
+<BaseLayout title={path.title + ' Learning Path | B Tecky LearnLab'} description={path.description}>
+<main class="pathway-page">
+<section class="pathway-hero"><div class="container">
+<a class="back-link" href="/learn/">← All learning paths</a>
+<p class="eyebrow">B TECKY LEARNLAB · LEARNING PATH</p>
+<span class="pathway-level">BEGINNER FRIENDLY · STRUCTURED ROADMAP</span>
+<h1>{path.title}<br/><span>{path.subtitle}</span></h1>
+<p class="pathway-lead">{path.description}</p>
+<div class="pathway-chips">{path.skills.map(skill=><span>{skill}</span>)}</div>
+</div></section>
+<section class="container pathway-content">
+<div class="roadmap-heading"><div><p class="eyebrow">YOUR LEARNING ROADMAP</p><h2>Learn in stages.<br/><span>Apply as you go.</span></h2></div><div class="roadmap-counter"><strong id="path-progress-count">0 / 4</strong><span>modules completed</span></div></div>
+<div class="path-progress"><span id="path-progress-bar"></span></div>
+<div class="module-list">
+{path.modules.map((module,i)=><article class="module-card">
+<div class="module-number">{String(i+1).padStart(2,'0')}</div>
+<div class="module-body"><p class="module-kicker">MODULE {String(i+1).padStart(2,'0')}</p><h3>{module.title}</h3><p class="module-summary">{module.summary}</p>
+<h4>What you'll learn</h4><ul>{module.lessons.map(lesson=><li>{lesson}</li>)}</ul>
+<div class="practice-task"><b>PUT IT INTO PRACTICE</b><p>{module.task}</p></div>
+<label class="module-complete"><input type="checkbox" data-module={i}/> <span>Mark this module complete</span></label>
+</div></article>)}
+</div>
+<section class="capstone-card"><p class="eyebrow">YOUR CAPSTONE PROJECT</p><h2>Bring it all together.</h2><p>{path.final}</p><div class="capstone-outcome"><span>YOUR OUTCOME</span><strong>{path.outcome}</strong></div></section>
+<p class="roadmap-note">This is the learning roadmap. Detailed lesson walkthroughs and interactive practice experiences will be added progressively. Module completion is saved in this browser on this device.</p>
+</section></main></BaseLayout>
+<style>
+.pathway-page{overflow:hidden}.pathway-hero{padding:70px 0 75px;background:radial-gradient(ellipse at 85% 18%,rgba(69,104,255,.15),transparent 38%),linear-gradient(135deg,#f4f7ff,#fff 65%,#f5f7ff)}
+.back-link{display:inline-block;margin-bottom:30px;color:var(--color-brand);font-weight:800;font-size:.83rem}.pathway-level{display:inline-flex;margin:15px 0 0;padding:8px 12px;border-radius:30px;background:#edf1ff;color:var(--color-brand);font-size:.7rem;font-weight:800}
+.pathway-hero h1{max-width:950px;margin:20px 0;font-size:clamp(3rem,6vw,5.6rem);line-height:.98;letter-spacing:-.075em}.pathway-hero h1 span{color:var(--color-brand)}
+.pathway-lead{max-width:720px;color:var(--color-muted);font-size:1.05rem;line-height:1.8}.pathway-chips{display:flex;gap:9px;flex-wrap:wrap;margin-top:25px}.pathway-chips span{padding:9px 12px;border:1px solid var(--color-border);border-radius:9px;background:#fff;font-size:.76rem;font-weight:750}
+.pathway-content{padding-block:75px}.roadmap-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}.roadmap-heading h2{font-size:clamp(2.3rem,4vw,3.5rem);line-height:1;letter-spacing:-.06em;margin:14px 0}.roadmap-heading h2 span{color:var(--color-brand)}
+.roadmap-counter{display:flex;flex-direction:column;align-items:flex-end;gap:4px;color:var(--color-muted);font-size:.75rem}.roadmap-counter strong{font-size:1.7rem;color:var(--color-ink)}
+.path-progress{height:9px;border-radius:20px;background:#e9edf6;overflow:hidden;margin-bottom:25px}#path-progress-bar{display:block;width:0;height:100%;background:var(--color-brand);border-radius:20px;transition:width .25s}
+.module-list{display:grid;gap:16px}.module-card{display:grid;grid-template-columns:66px 1fr;gap:15px;padding:25px;border:1px solid var(--color-border);border-radius:20px;background:#fff}
+.module-number{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:#edf1ff;color:var(--color-brand);font-weight:900}.module-kicker{font-size:.64rem;letter-spacing:.13em;color:var(--color-brand);font-weight:900}
+.module-body h3{font-size:1.45rem;letter-spacing:-.04em;margin:8px 0}.module-summary{color:var(--color-muted);line-height:1.7}.module-body h4{margin:20px 0 10px;font-size:.82rem}
+.module-body ul{display:grid;grid-template-columns:1fr 1fr;gap:9px 22px;padding-left:19px;color:#596780;font-size:.84rem;line-height:1.55}
+.practice-task{margin-top:20px;padding:17px;border-radius:13px;background:#f5f7ff}.practice-task b,.capstone-outcome span{font-size:.62rem;letter-spacing:.12em;color:var(--color-brand)}.practice-task p{margin-top:7px;color:#52617c;font-size:.87rem;line-height:1.65}
+.module-complete{display:inline-flex;align-items:center;gap:9px;margin-top:18px;font-size:.8rem;font-weight:800;cursor:pointer}.module-complete input{width:17px;height:17px;accent-color:var(--color-brand)}
+.capstone-card{margin-top:28px;padding:30px;border-radius:20px;background:linear-gradient(130deg,#101d3b,#2448aa 72%,#315efb);color:#fff}.capstone-card h2{font-size:2rem;letter-spacing:-.05em;margin:12px 0}.capstone-card>p:not(.eyebrow){max-width:780px;color:#d5def6;line-height:1.75}
+.capstone-outcome{display:flex;flex-direction:column;gap:7px;margin-top:22px;padding-top:18px;border-top:1px solid #ffffff30}.capstone-outcome span{color:#b8c9ff}.capstone-outcome strong{font-size:1.1rem}
+.roadmap-note{margin-top:20px;color:var(--color-muted);font-size:.77rem;line-height:1.65}
+@media(max-width:650px){.pathway-hero{padding:55px 0}.pathway-content{padding-block:55px}.roadmap-heading{align-items:flex-start;flex-direction:column}.roadmap-counter{align-items:flex-start}.module-card{grid-template-columns:1fr;padding:20px}.module-body ul{grid-template-columns:1fr}.capstone-card{padding:23px}}
+</style>
+<script>
+const slug=location.pathname.split('/').filter(Boolean).pop() || 'path';
+const key='btecky-learnlab-'+slug+'-module-';
+const checks=Array.from(document.querySelectorAll('[data-module]'));
+const bar=document.querySelector('#path-progress-bar');
+const count=document.querySelector('#path-progress-count');
+function updateProgress(){const done=checks.filter(input=>input.checked).length;if(bar)bar.style.width=(done/checks.length*100)+'%';if(count)count.textContent=done+' / '+checks.length;}
+checks.forEach(input=>{const index=Number(input.dataset.module);input.checked=localStorage.getItem(key+index)==='true';input.addEventListener('change',()=>{localStorage.setItem(key+index,String(input.checked));updateProgress();});});
+updateProgress();
+</script>
