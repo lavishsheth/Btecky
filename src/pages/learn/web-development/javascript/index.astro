@@ -1,0 +1,326 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const lessons = [
+  {title:'JavaScript fundamentals',detail:'Understand JavaScript, variables, data types and how scripts make websites interactive.',code:'const learner = "B Tecky student";\nlet score = 0;\n\nconsole.log("Welcome, " + learner);\nconsole.log("Your starting score: " + score);'},
+  {title:'Functions and events',detail:'Create reusable functions and respond to user actions such as button clicks.',code:'function showMessage() {\n  alert("You clicked the button!");\n}\n\ndocument.querySelector("#action-button")\n  .addEventListener("click", showMessage);'},
+  {title:'DOM manipulation',detail:'Select HTML elements and change their text, styles and content using JavaScript.',code:'const heading = document.querySelector("h1");\n\nif (heading) {\n  heading.textContent = "My interactive website";\n  heading.style.color = "#4f46e5";\n}'},
+  {title:'Forms and validation',detail:'Read form values, check user input and give helpful feedback without reloading the page.',code:'const form = document.querySelector("#contact-form");\n\nform?.addEventListener("submit", (event) => {\n  event.preventDefault();\n  const name = document.querySelector("#visitor-name");\n  alert("Thanks, " + name.value + "!");\n});'},
+  {title:'Build an interactive project',detail:'Combine HTML, CSS and JavaScript to create a complete interactive website.',code:'let count = 0;\nconst button = document.querySelector("#counter-button");\nconst output = document.querySelector("#counter-value");\n\nbutton?.addEventListener("click", () => {\n  count++;\n  if (output) output.textContent = String(count);\n});'}
+];
+---
+<BaseLayout title="JavaScript Essentials | B Tecky LearnLab" description="Make your HTML and CSS project interactive with JavaScript.">
+<main class="js-course">
+  <section class="course-top">
+    <div class="container">
+      <a href="/learn/web-development">← Web Development Path</a>
+      <p class="eyebrow">WEB DEVELOPMENT / JAVASCRIPT</p>
+      <h1>Make your website <span>interactive.</span></h1>
+      <p>You have built the structure with HTML and designed it with CSS. Now add functionality with JavaScript. Continue working on the same website and turn it into an interactive project.</p>
+      <div class="course-meta"><span>Beginner</span><span>5 learning modules</span><span>Final project stage</span></div>
+    </div>
+  </section>
+
+  <div class="container workspace">
+    <aside class="lesson-list">
+      <h2>JavaScript curriculum</h2>
+      {lessons.map((lesson,i)=><button class:list={['lesson-choice',i===0?'active':'']} data-lesson={i}>
+        <span>{String(i+1).padStart(2,'0')}</span><span>{lesson.title}</span>
+      </button>)}
+      <div class="next-stage">
+        <b>Web Development project</b>
+        <p>HTML + CSS + JavaScript combine to create your complete website.</p>
+        <span>Final learning stage</span>
+      </div>
+    </aside>
+
+    <section class="lesson-content">
+      <p class="eyebrow" id="module-label">MODULE 01 · JAVASCRIPT ESSENTIALS</p>
+      <h2 id="module-title">JavaScript fundamentals</h2>
+      <p id="module-description">JavaScript is a programming language that adds behaviour to web pages. It can respond to clicks, update content, validate forms, calculate values and communicate with services. HTML provides structure, CSS controls presentation, and JavaScript adds behaviour.</p>
+
+      <div class="concept-card">
+        <b>Your complete website project</b>
+        <p>This stage loads your saved HTML and CSS project. Your JavaScript runs on top of that same website, just as it would in a real web development project.</p>
+        <span id="project-status">Loading your saved project…</span>
+      </div>
+
+      <h3>Write JavaScript and run it</h3>
+      <p>Choose a module, study its example, edit the JavaScript and select Run JavaScript. The preview below executes your code with the HTML and CSS you created earlier.</p>
+
+      <div class="editor">
+        <div class="editor-bar"><span>script.js</span><button id="run-js">▶ Run JavaScript</button></div>
+        <textarea id="js-code" spellcheck="false" aria-label="JavaScript code editor"></textarea>
+        <div class="preview-heading">LIVE WEBSITE PREVIEW</div>
+        <iframe id="website-preview" title="Your interactive website preview" sandbox="allow-scripts"></iframe>
+        <div class="console-heading">CONSOLE OUTPUT</div>
+        <pre id="console-output" aria-live="polite">Your console output will appear here.</pre>
+      </div>
+
+      <div class="challenge">
+        <p class="eyebrow">FINAL PRACTICE CHALLENGE</p>
+        <h3>Bring your website to life</h3>
+        <p>Add a button to your HTML project, style it with CSS, and use JavaScript to make it respond to a click. Try changing the heading or updating a counter.</p>
+        <button id="complete-lesson">Complete JavaScript stage ✓</button>
+        <div class="module-progress">
+          <div class="module-progress-track"><span id="module-progress-bar"></span></div>
+          <p id="module-progress">0 of 5 modules completed</p>
+        </div>
+        <span id="completion-status" aria-live="polite"></span>
+      </div>
+
+      <div class="module-navigation">
+        <a href="/learn/web-development/css/">← Previous: CSS</a>
+        <a href="/learn/web-development">← Web Development pathway</a>
+      </div>
+    </section>
+  </div>
+</main>
+</BaseLayout>
+
+<style>
+.js-course{padding-bottom:70px}
+.course-top{padding:55px 0;background:linear-gradient(125deg,#f2f5ff,#fff)}
+.course-top a{font-size:.82rem;font-weight:700;color:var(--color-brand)}
+.course-top h1{font-size:clamp(2.6rem,5vw,4.5rem);letter-spacing:-.07em;line-height:1.05;margin:22px 0}
+.course-top h1 span{color:var(--color-brand)}
+.course-top p:not(.eyebrow){max-width:680px;color:var(--color-muted);line-height:1.8}
+.course-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.course-meta span{padding:8px 11px;border:1px solid var(--color-border);border-radius:8px;background:white;font-size:.72rem;font-weight:700}
+.workspace{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;padding-top:45px}
+.lesson-list{align-self:start;position:sticky;top:20px;border:1px solid var(--color-border);border-radius:14px;padding:16px}
+.lesson-list h2{font-size:1rem;margin:5px 0 15px}
+.lesson-choice{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:13px 8px;border:0;border-radius:8px;background:white;color:inherit;font-size:.8rem;cursor:pointer}
+.lesson-choice:hover,.lesson-choice.active{background:#edf1ff;color:var(--color-brand)}
+.lesson-choice span:first-child{font-size:.68rem;font-weight:900}
+.next-stage{margin-top:20px;padding:14px;background:#f5f7ff;border-radius:10px;font-size:.78rem}
+.next-stage p{color:var(--color-muted);line-height:1.5}
+.next-stage span{font-size:.68rem;color:var(--color-brand);font-weight:800}
+.lesson-content{min-width:0;max-width:850px}
+.lesson-content h2{font-size:2.3rem;letter-spacing:-.06em;margin:12px 0}
+.lesson-content>p:not(.eyebrow){line-height:1.85;color:var(--color-muted)}
+.lesson-content h3{font-size:1.35rem;margin:32px 0 8px}
+.concept-card,.challenge{padding:20px;border:1px solid var(--color-border);border-radius:13px;margin:25px 0;background:#f8f9ff}
+.concept-card p,.challenge p{color:var(--color-muted);line-height:1.7;margin-bottom:0}
+#project-status{display:block;margin-top:10px;font-size:.75rem;font-weight:700;color:var(--color-brand)}
+.editor{overflow:hidden;border-radius:13px;background:#111d3a;color:white;margin-top:18px}
+.editor-bar,.preview-heading,.console-heading{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#1b2a4e;font-size:.76rem}
+.editor-bar button,.challenge button{border:0;border-radius:7px;background:var(--color-brand);color:white;padding:9px 13px;font-weight:800;cursor:pointer}
+#js-code{display:block;width:100%;height:270px;resize:vertical;border:0;outline:0;padding:17px;background:#111d3a;color:#d9e5ff;font:13px/1.8 monospace;tab-size:2}
+.preview-heading,.console-heading{font-size:.68rem;font-weight:800;letter-spacing:.1em}
+#website-preview{display:block;width:100%;height:320px;background:white;border:0}
+#console-output{min-height:65px;max-height:180px;overflow:auto;margin:0;padding:15px;background:#111d3a;color:#b8f7d2;font:12px/1.7 monospace;white-space:pre-wrap}
+.challenge button{margin-top:15px}
+.challenge #completion-status{display:block;margin-top:10px;color:#18794e;font-size:.8rem}
+.module-navigation{display:flex;justify-content:space-between;gap:15px;margin-top:30px}
+.module-navigation a{font-size:.8rem;font-weight:800;color:var(--color-brand)}
+@media(max-width:750px){.workspace{grid-template-columns:1fr;gap:25px}.lesson-list{position:static}.lesson-content h2{font-size:1.9rem}}
+</style>
+
+<script>
+const modules = [
+  {title:'JavaScript fundamentals',detail:'JavaScript adds behaviour to web pages. Learn variables, values, data types and how to inspect output using the console.',code:'const learner = "B Tecky student";\nlet score = 0;\n\nconsole.log("Welcome, " + learner);\nconsole.log("Your starting score: " + score);'},
+  {title:'Functions and events',detail:'Functions group instructions into reusable actions. Events let your website respond to clicks, keyboard input and other user activity.',code:'function showMessage() {\n  alert("You clicked the button!");\n}\n\ndocument.querySelector("#action-button")\n  ?.addEventListener("click", showMessage);'},
+  {title:'DOM manipulation',detail:'The Document Object Model represents your HTML as elements JavaScript can find and update. Change text, attributes and styles dynamically.',code:'const heading = document.querySelector("h1");\n\nif (heading) {\n  heading.textContent = "My interactive website";\n  heading.style.color = "#4f46e5";\n}'},
+  {title:'Forms and validation',detail:'JavaScript can read form values, check whether input is valid and show helpful feedback without reloading the page.',code:'const form = document.querySelector("#contact-form");\n\nform?.addEventListener("submit", (event) => {\n  event.preventDefault();\n  const name = document.querySelector("#visitor-name");\n  alert("Thanks, " + (name?.value || "visitor") + "!");\n});'},
+  {title:'Build an interactive project',detail:'Combine your HTML structure, CSS design and JavaScript behaviour. Build a small interactive feature and test it in your website.',code:'let count = 0;\nconst button = document.querySelector("#counter-button");\nconst output = document.querySelector("#counter-value");\n\nbutton?.addEventListener("click", () => {\n  count++;\n  if (output) output.textContent = String(count);\n});'}
+];
+
+const code = document.querySelector<HTMLTextAreaElement>('#js-code');
+const preview = document.querySelector<HTMLIFrameElement>('#website-preview');
+const output = document.querySelector<HTMLElement>('#console-output');
+const projectStatus = document.querySelector<HTMLElement>('#project-status');
+const status = document.querySelector<HTMLElement>('#completion-status');
+const complete = document.querySelector<HTMLButtonElement>('#complete-lesson');
+const run = document.querySelector<HTMLButtonElement>('#run-js');
+const choices = document.querySelectorAll<HTMLButtonElement>('[data-lesson]');
+
+const savedHTML = localStorage.getItem('btecky-html-project');
+const savedCSS = localStorage.getItem('btecky-css-project');
+
+const currentHTML = savedHTML || `<!DOCTYPE html>
+<html>
+<head><title>My website</title></head>
+<body>
+  <h1>Welcome to my website!</h1>
+  <p>I am learning web development with B Tecky.</p>
+  <button id="action-button">Click me</button>
+</body>
+</html>`;
+
+const currentCSS = savedCSS || 'body { font-family: Arial, sans-serif; padding: 24px; }';
+
+if (projectStatus) {
+  projectStatus.textContent = savedHTML && savedCSS
+    ? '✓ Your saved HTML and CSS projects have been loaded.'
+    : 'A starter project is loaded. Complete HTML and CSS in this browser to continue with your own website.';
+}
+
+function selectModule(index: number) {
+  const module = modules[index];
+  if (!module || !code) return;
+  code.value = module.code;
+  choices.forEach((choice,i)=>choice.classList.toggle('active',i===index));
+  const label = document.querySelector<HTMLElement>('#module-label');
+  const title = document.querySelector<HTMLElement>('#module-title');
+  const description = document.querySelector<HTMLElement>('#module-description');
+  if (label) label.textContent = `MODULE ${String(index+1).padStart(2,'0')} · JAVASCRIPT ESSENTIALS`;
+  if (title) title.textContent = module.title;
+  if (description) description.textContent = module.detail;
+  localStorage.setItem('btecky-js-project',code.value);
+}
+
+function renderProject() {
+  if (!preview || !code) return;
+
+  const safeCSS = currentCSS.replace(/<\/style/gi,'<\\/style');
+  const safeJS = code.value.replace(/<\/script/gi,'<\\/script');
+
+  const style = `<style>${safeCSS}</style>`;
+  const script = `<script>
+    const originalLog = console.log.bind(console);
+    console.log = (...args) => {
+      parent.postMessage({type:'btecky-console',message:args.map(String).join(' ')}, '*');
+      originalLog(...args);
+    };
+    window.onerror = (message) => {
+      parent.postMessage({type:'btecky-console-error',message:String(message)}, '*');
+    };
+    try {
+      ${safeJS}
+    } catch(error) {
+      parent.postMessage({type:'btecky-console-error',message:error.message}, '*');
+    }
+  <\/script>`;
+
+  const html = /<\/head>/i.test(currentHTML)
+    ? currentHTML.replace(/<\/head>/i,`${style}</head>`)
+    : `${style}${currentHTML}`;
+
+  preview.srcdoc = html.replace(/<\/body>/i,`${script}</body>`);
+  localStorage.setItem('btecky-js-project',code.value);
+  if (output) output.textContent = 'JavaScript executed. Console messages will appear here.';
+}
+
+window.addEventListener('message',(event)=>{
+  if (!preview || event.source !== preview.contentWindow) return;
+  if (event.data?.type === 'btecky-console' && output) {
+    output.textContent += '\n' + event.data.message;
+  }
+  if (event.data?.type === 'btecky-console-error' && output) {
+    output.textContent += '\nError: ' + event.data.message;
+  }
+});
+
+function loadModule(index:number) {
+  const module = modules[index];
+  if (!module || !code) return;
+  code.value = module.code;
+  choices.forEach((choice,i)=>choice.classList.toggle('active',i===index));
+  const label = document.querySelector<HTMLElement>('#module-label');
+  const title = document.querySelector<HTMLElement>('#module-title');
+  const description = document.querySelector<HTMLElement>('#module-description');
+  if (label) label.textContent = `MODULE ${String(index+1).padStart(2,'0')} · JAVASCRIPT ESSENTIALS`;
+  if (title) title.textContent = module.title;
+  if (description) description.textContent = module.detail;
+  localStorage.setItem('btecky-js-project',code.value);
+  renderProject();
+}
+
+choices.forEach(choice=>choice.addEventListener('click',()=>loadModule(Number(choice.dataset.lesson))));
+
+if (code) {
+  code.value = localStorage.getItem('btecky-js-project') || modules[0].code;
+  code.addEventListener('input',()=>{
+    localStorage.setItem('btecky-js-project',code.value);
+  });
+}
+
+run?.addEventListener('click',renderProject);
+renderProject();
+
+
+const moduleNames = ['JavaScript fundamentals', 'Functions and events', 'DOM manipulation', 'Forms and validation', 'Build an interactive project'];
+const moduleDescriptions = ['Learn variables, data types and JavaScript fundamentals.', 'Create functions and respond to user events.', 'Find and update HTML elements using the DOM.', 'Read form values and validate user input.', 'Combine HTML, CSS and JavaScript into a project.'];
+const moduleKey = "btecky-javascript-module-";
+const legacyKey = "btecky-js-complete";
+const progressLabel = document.querySelector<HTMLElement>("#module-progress");
+const progressBar = document.querySelector<HTMLElement>("#module-progress-bar");
+const moduleButtons = document.querySelectorAll<HTMLButtonElement>("[data-lesson]");
+let activeModule = 0;
+
+function updateModuleProgress() {
+  const done = moduleNames.filter((_,i) =>
+    localStorage.getItem(moduleKey + i) === "true"
+  ).length;
+
+  if (progressLabel) progressLabel.textContent =
+    done + " of 5 modules completed";
+  if (progressBar) progressBar.style.width = (done * 20) + "%";
+
+  moduleButtons.forEach((button,i) => {
+    const finished = localStorage.getItem(moduleKey + i) === "true";
+    button.classList.toggle("is-complete", finished);
+    button.setAttribute("aria-label",
+      moduleNames[i] + (finished ? ", completed" : "")
+    );
+  });
+
+  const allDone = done === 5;
+  if (allDone) {
+    localStorage.setItem(legacyKey, "true");
+  } else {
+    localStorage.removeItem(legacyKey);
+  }
+
+  if (complete) {
+    complete.textContent = allDone
+      ? "All 5 modules completed ✓"
+      : "Mark JavaScript module complete ✓";
+    complete.disabled = localStorage.getItem(moduleKey + activeModule) === "true";
+    if (!complete.disabled) complete.textContent = "Mark JavaScript module complete ✓";
+  }
+
+  if (status) {
+    status.textContent = allDone
+      ? "✓ All five modules completed! This learning stage is complete."
+      : done + " of 5 modules completed. Keep learning!";
+  }
+}
+
+moduleButtons.forEach((button,i) => {
+  button.addEventListener("click", () => {
+    activeModule = i;
+    moduleButtons.forEach((item,j) =>
+      item.classList.toggle("active",i===j)
+    );
+
+    const label = document.querySelector<HTMLElement>("#module-label");
+    const title = document.querySelector<HTMLElement>("#module-title");
+    const description = document.querySelector<HTMLElement>("#module-description");
+
+    if (label) label.textContent =
+      `MODULE ${String(i+1).padStart(2,"0")} · JAVASCRIPT FOUNDATIONS`;
+    if (title) title.textContent = moduleNames[i];
+    if (description) description.textContent = moduleDescriptions[i];
+
+    updateModuleProgress();
+  });
+});
+
+complete?.addEventListener("click", () => {
+  localStorage.setItem(moduleKey + activeModule, "true");
+  updateModuleProgress();
+});
+
+updateModuleProgress();
+</script>
+
+<style>
+.module-progress{margin-top:16px}
+.module-progress-track{height:8px;background:#e4e9f5;border-radius:20px;overflow:hidden}
+#module-progress-bar{display:block;width:0;height:100%;background:var(--color-brand);transition:width .25s}
+#module-progress{font-size:.78rem;color:var(--color-muted);margin-top:8px}
+.lesson-choice.is-complete{background:#eaf8ef;color:#18794e}
+.lesson-choice.is-complete span:first-child::after{content:" ✓"}
+</style>

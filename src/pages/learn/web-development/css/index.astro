@@ -1,0 +1,275 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const lessons = [
+  { title: 'What is CSS?', detail: 'Understand how CSS controls the appearance of HTML and how styles are applied to a web page.', code: 'body {\n  font-family: Arial, sans-serif;\n  background: #f4f6ff;\n  color: #172554;\n}' },
+  { title: 'Selectors and colours', detail: 'Select HTML elements using element, class and ID selectors. Apply foreground and background colours.', code: 'h1 {\n  color: #4f46e5;\n}\n\np {\n  color: #475569;\n}' },
+  { title: 'Typography and spacing', detail: 'Improve readability using font sizes, font weights, line height, margin and padding.', code: 'h1 {\n  font-size: 36px;\n  margin-bottom: 16px;\n}\n\np {\n  line-height: 1.8;\n  margin-bottom: 18px;\n}' },
+  { title: 'The box model and layouts', detail: 'Understand content, padding, borders and margins. Explore Flexbox to arrange page elements.', code: 'body {\n  padding: 30px;\n}\n\nh1 {\n  padding: 16px;\n  border-radius: 12px;\n  background: #e0e7ff;\n}' },
+  { title: 'Responsive website design', detail: 'Use flexible layouts and media queries to make your website work on mobile, tablet and desktop.', code: 'body {\n  max-width: 900px;\n  margin: auto;\n  padding: 24px;\n}\n\n@media (max-width: 600px) {\n  body { padding: 12px; }\n  h1 { font-size: 26px; }\n}' }
+];
+---
+<BaseLayout title="CSS Foundations | B Tecky LearnLab" description="Learn CSS by styling the HTML website you created in B Tecky LearnLab.">
+<main class="css-course">
+  <section class="course-top">
+    <div class="container">
+      <a href="/learn/web-development">← Web Development Path</a>
+      <p class="eyebrow">WEB DEVELOPMENT / CSS</p>
+      <h1>Bring your website to life with <span>CSS.</span></h1>
+      <p>Your HTML structure is ready. Now style that same website with colours, typography, spacing, layouts and responsive design. Every change appears in your live preview.</p>
+      <div class="course-meta"><span>Beginner</span><span>5 learning modules</span><span>Continued HTML project</span></div>
+    </div>
+  </section>
+
+  <div class="container workspace">
+    <aside class="lesson-list">
+      <h2>CSS curriculum</h2>
+      {lessons.map((lesson,i)=><button class:list={['lesson-choice',i===0?'active':'']} data-lesson={i}>
+        <span>{String(i+1).padStart(2,'0')}</span><span>{lesson.title}</span>
+      </button>)}
+      <div class="next-stage"><b>Next: JavaScript</b><p>Make your styled website interactive.</p><span>Complete CSS to continue</span></div>
+    </aside>
+
+    <section class="lesson-content">
+      <p class="eyebrow" id="module-label">MODULE 01 · CSS FOUNDATIONS</p>
+      <h2 id="module-title">What is CSS?</h2>
+      <p id="module-description">CSS stands for Cascading Style Sheets. HTML gives a web page its structure; CSS controls how that structure looks. You can change colours, fonts, spacing, layouts and how a page responds to different screen sizes.</p>
+
+      <div class="concept-card">
+        <b>Your HTML project continues here</b>
+        <p>The HTML you created in the previous lesson is loaded into this workspace. You are adding a stylesheet to the same website, just as developers do in a real project.</p>
+        <span id="project-status">Checking your saved HTML project…</span>
+      </div>
+
+      <h3>Learn by changing the design</h3>
+      <p>Select a module to load a practical CSS example. Edit the code and press Run CSS to see your stylesheet applied to your HTML website.</p>
+
+      <div class="editor">
+        <div class="editor-bar"><span>style.css</span><button id="run-css">▶ Run CSS</button></div>
+        <textarea id="css-code" spellcheck="false" aria-label="CSS code editor"></textarea>
+        <div class="preview-heading"><span>LIVE WEBSITE PREVIEW</span><button id="reset-css">Reset CSS</button></div>
+        <iframe id="website-preview" title="Your styled HTML website preview" sandbox="allow-scripts"></iframe>
+      </div>
+
+      <div class="challenge">
+        <p class="eyebrow">PRACTICE CHALLENGE</p>
+        <h3>Design your own website</h3>
+        <p>Change the heading colour, give the page a background colour, and add spacing around the content. Try resizing your browser to see how the design behaves.</p>
+        <button id="complete-lesson">Mark CSS complete ✓</button>
+        <div class="module-progress">
+          <div class="module-progress-track"><span id="module-progress-bar"></span></div>
+          <p id="module-progress">0 of 5 modules completed</p>
+        </div>
+        <span id="completion-status" aria-live="polite"></span>
+      </div>
+
+      <div class="module-navigation">
+        <a href="/learn/web-development/html/">← Previous: HTML</a>
+        <a href="/learn/web-development">Learning pathway →</a>
+      </div>
+    </section>
+  </div>
+</main>
+</BaseLayout>
+
+<style>
+.css-course{padding-bottom:70px}
+.course-top{padding:55px 0;background:linear-gradient(125deg,#f2f5ff,#fff)}
+.course-top a{font-size:.82rem;font-weight:700;color:var(--color-brand)}
+.course-top h1{font-size:clamp(2.6rem,5vw,4.5rem);letter-spacing:-.07em;line-height:1.05;margin:22px 0}
+.course-top h1 span{color:var(--color-brand)}
+.course-top p:not(.eyebrow){max-width:680px;color:var(--color-muted);line-height:1.8}
+.course-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.course-meta span{padding:8px 11px;border:1px solid var(--color-border);border-radius:8px;background:white;font-size:.72rem;font-weight:700}
+.workspace{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;padding-top:45px}
+.lesson-list{align-self:start;position:sticky;top:20px;border:1px solid var(--color-border);border-radius:14px;padding:16px}
+.lesson-list h2{font-size:1rem;margin:5px 0 15px}
+.lesson-choice{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:13px 8px;border:0;border-radius:8px;background:white;color:inherit;font-size:.8rem;cursor:pointer}
+.lesson-choice:hover,.lesson-choice.active{background:#edf1ff;color:var(--color-brand)}
+.lesson-choice span:first-child{font-size:.68rem;font-weight:900}
+.next-stage{margin-top:20px;padding:14px;background:#f5f7ff;border-radius:10px;font-size:.78rem}
+.next-stage p{color:var(--color-muted);line-height:1.5}
+.next-stage span{font-size:.68rem;color:var(--color-brand);font-weight:800}
+.lesson-content{min-width:0;max-width:850px}
+.lesson-content h2{font-size:2.3rem;letter-spacing:-.06em;margin:12px 0}
+.lesson-content>p:not(.eyebrow){line-height:1.85;color:var(--color-muted)}
+.lesson-content h3{font-size:1.35rem;margin:32px 0 8px}
+.concept-card,.challenge{padding:20px;border:1px solid var(--color-border);border-radius:13px;margin:25px 0;background:#f8f9ff}
+.concept-card p,.challenge p{color:var(--color-muted);line-height:1.7;margin-bottom:0}
+#project-status{display:block;margin-top:10px;font-size:.75rem;font-weight:700;color:var(--color-brand)}
+.editor{overflow:hidden;border-radius:13px;background:#111d3a;color:white;margin-top:18px}
+.editor-bar,.preview-heading{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#1b2a4e;font-size:.76rem}
+.editor-bar button,.challenge button,.preview-heading button{border:0;border-radius:7px;background:var(--color-brand);color:white;padding:9px 13px;font-weight:800;cursor:pointer}
+#css-code{display:block;width:100%;height:260px;resize:vertical;border:0;outline:0;padding:17px;background:#111d3a;color:#d9e5ff;font:13px/1.8 monospace;tab-size:2}
+.preview-heading{font-size:.68rem;font-weight:800;letter-spacing:.1em}
+.preview-heading button{font-size:.68rem;padding:7px 10px;letter-spacing:0}
+#website-preview{display:block;width:100%;height:300px;background:white;border:0}
+.challenge button{margin-top:15px}
+.challenge #completion-status{display:block;margin-top:10px;color:#18794e;font-size:.8rem}
+.module-navigation{display:flex;justify-content:space-between;gap:15px;margin-top:30px}
+.module-navigation a{font-size:.8rem;font-weight:800;color:var(--color-brand)}
+@media(max-width:750px){.workspace{grid-template-columns:1fr;gap:25px}.lesson-list{position:static}.lesson-content h2{font-size:1.9rem}}
+</style>
+
+<script>
+const modules = [
+  {title:'What is CSS?',detail:'CSS stands for Cascading Style Sheets. HTML gives a web page its structure; CSS controls how that structure looks. You can change colours, fonts, spacing, layouts and how a page responds to different screen sizes.',code:'body {\n  font-family: Arial, sans-serif;\n  background: #f4f6ff;\n  color: #172554;\n}'},
+  {title:'Selectors and colours',detail:'Selectors tell CSS which HTML elements to style. Select elements by their tag, class or ID. Then use colour properties to create a visual identity for your website.',code:'h1 {\n  color: #4f46e5;\n}\n\np {\n  color: #475569;\n}\n\nbody {\n  background: #eef2ff;\n}'},
+  {title:'Typography and spacing',detail:'Good typography makes content easier to read. Font size, font weight and line height control text. Margins and padding create space between and inside elements.',code:'body {\n  font-family: Arial, sans-serif;\n  padding: 30px;\n}\n\nh1 {\n  font-size: 36px;\n  margin-bottom: 16px;\n}\n\np {\n  line-height: 1.8;\n  margin-bottom: 18px;\n}'},
+  {title:'The box model and layouts',detail:'Every HTML element is a box. The CSS box model includes content, padding, border and margin. Flexbox helps arrange elements in flexible rows or columns.',code:'body {\n  padding: 30px;\n}\n\nh1 {\n  padding: 16px;\n  border: 2px solid #c7d2fe;\n  border-radius: 12px;\n  background: #e0e7ff;\n}'},
+  {title:'Responsive website design',detail:'Responsive design adapts a website to different screen sizes. Flexible widths and media queries help your project work on phones, tablets and desktops.',code:'body {\n  max-width: 900px;\n  margin: auto;\n  padding: 24px;\n}\n\n@media (max-width: 600px) {\n  body { padding: 12px; }\n  h1 { font-size: 26px; }\n}'}
+];
+
+const code = document.querySelector<HTMLTextAreaElement>('#css-code');
+const preview = document.querySelector<HTMLIFrameElement>('#website-preview');
+const status = document.querySelector<HTMLElement>('#completion-status');
+const projectStatus = document.querySelector<HTMLElement>('#project-status');
+const complete = document.querySelector<HTMLButtonElement>('#complete-lesson');
+const run = document.querySelector<HTMLButtonElement>('#run-css');
+const reset = document.querySelector<HTMLButtonElement>('#reset-css');
+const choices = document.querySelectorAll<HTMLButtonElement>('[data-lesson]');
+
+let currentHTML = localStorage.getItem('btecky-html-project') || `<!DOCTYPE html>
+<html>
+<head><title>My website</title></head>
+<body>
+  <h1>Welcome to my website!</h1>
+  <p>I am learning web development with B Tecky.</p>
+  <h2>About me</h2>
+  <p>This is my first project.</p>
+</body>
+</html>`;
+
+if (projectStatus) {
+  projectStatus.textContent = localStorage.getItem('btecky-html-project')
+    ? '✓ Your saved HTML project has been loaded.'
+    : 'A starter HTML project is loaded. Complete the HTML lesson in this browser to continue with your own saved project.';
+}
+
+function renderProject() {
+  if (!preview || !code) return;
+  const style = `<style>${code.value.replace(/<\/style/gi, '<\\/style')}</style>`;
+  const documentHTML = /<\/head>/i.test(currentHTML)
+    ? currentHTML.replace(/<\/head>/i, `${style}</head>`)
+    : `${style}${currentHTML}`;
+  preview.srcdoc = documentHTML;
+  localStorage.setItem('btecky-css-project', code.value);
+}
+
+function selectModule(index: number) {
+  const module = modules[index];
+  if (!module || !code) return;
+  code.value = module.code;
+  choices.forEach((choice,i)=>choice.classList.toggle('active',i===index));
+  const label = document.querySelector<HTMLElement>('#module-label');
+  const title = document.querySelector<HTMLElement>('#module-title');
+  const description = document.querySelector<HTMLElement>('#module-description');
+  if (label) label.textContent = `MODULE ${String(index+1).padStart(2,'0')} · CSS FOUNDATIONS`;
+  if (title) title.textContent = module.title;
+  if (description) description.textContent = module.detail;
+  renderProject();
+}
+
+choices.forEach(choice => choice.addEventListener('click',()=>{
+  selectModule(Number(choice.dataset.lesson));
+}));
+
+if (code) {
+  const savedCSS = localStorage.getItem('btecky-css-project');
+  code.value = savedCSS || modules[0].code;
+  code.addEventListener('input',renderProject);
+}
+
+run?.addEventListener('click',renderProject);
+reset?.addEventListener('click',()=>{
+  if (code) code.value = modules[0].code;
+  renderProject();
+});
+
+renderProject();
+
+
+const moduleNames = ['What is CSS?', 'Selectors and colours', 'Typography and spacing', 'The box model and layouts', 'Responsive website design'];
+const moduleDescriptions = ['Understand how CSS controls the appearance of HTML.', 'Use selectors and colours to style page elements.', 'Improve readability with typography and spacing.', 'Understand the box model and create layouts.', 'Make your website adapt to different screen sizes.'];
+const moduleKey = "btecky-css-module-";
+const legacyKey = "btecky-css-complete";
+const progressLabel = document.querySelector<HTMLElement>("#module-progress");
+const progressBar = document.querySelector<HTMLElement>("#module-progress-bar");
+const moduleButtons = document.querySelectorAll<HTMLButtonElement>("[data-lesson]");
+let activeModule = 0;
+
+function updateModuleProgress() {
+  const done = moduleNames.filter((_,i) =>
+    localStorage.getItem(moduleKey + i) === "true"
+  ).length;
+
+  if (progressLabel) progressLabel.textContent =
+    done + " of 5 modules completed";
+  if (progressBar) progressBar.style.width = (done * 20) + "%";
+
+  moduleButtons.forEach((button,i) => {
+    const finished = localStorage.getItem(moduleKey + i) === "true";
+    button.classList.toggle("is-complete", finished);
+    button.setAttribute("aria-label",
+      moduleNames[i] + (finished ? ", completed" : "")
+    );
+  });
+
+  const allDone = done === 5;
+  if (allDone) {
+    localStorage.setItem(legacyKey, "true");
+  } else {
+    localStorage.removeItem(legacyKey);
+  }
+
+  if (complete) {
+    complete.textContent = allDone
+      ? "All 5 modules completed ✓"
+      : "Mark CSS module complete ✓";
+    complete.disabled = localStorage.getItem(moduleKey + activeModule) === "true";
+    if (!complete.disabled) complete.textContent = "Mark CSS module complete ✓";
+  }
+
+  if (status) {
+    status.textContent = allDone
+      ? "✓ All five modules completed! This learning stage is complete."
+      : done + " of 5 modules completed. Keep learning!";
+  }
+}
+
+moduleButtons.forEach((button,i) => {
+  button.addEventListener("click", () => {
+    activeModule = i;
+    moduleButtons.forEach((item,j) =>
+      item.classList.toggle("active",i===j)
+    );
+
+    const label = document.querySelector<HTMLElement>("#module-label");
+    const title = document.querySelector<HTMLElement>("#module-title");
+    const description = document.querySelector<HTMLElement>("#module-description");
+
+    if (label) label.textContent =
+      `MODULE ${String(i+1).padStart(2,"0")} · CSS FOUNDATIONS`;
+    if (title) title.textContent = moduleNames[i];
+    if (description) description.textContent = moduleDescriptions[i];
+
+    updateModuleProgress();
+  });
+});
+
+complete?.addEventListener("click", () => {
+  localStorage.setItem(moduleKey + activeModule, "true");
+  updateModuleProgress();
+});
+
+updateModuleProgress();
+</script>
+
+<style>
+.module-progress{margin-top:16px}
+.module-progress-track{height:8px;background:#e4e9f5;border-radius:20px;overflow:hidden}
+#module-progress-bar{display:block;width:0;height:100%;background:var(--color-brand);transition:width .25s}
+#module-progress{font-size:.78rem;color:var(--color-muted);margin-top:8px}
+.lesson-choice.is-complete{background:#eaf8ef;color:#18794e}
+.lesson-choice.is-complete span:first-child::after{content:" ✓"}
+</style>
