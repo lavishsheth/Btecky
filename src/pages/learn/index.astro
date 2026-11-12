@@ -1,19 +1,22 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 const paths = [
-  { number: '01', title: 'Web Development', description: 'Build a complete website by learning HTML, styling it with CSS, and adding JavaScript interactions.', href: '/learn/web-development', tags: ['HTML', 'CSS', 'JavaScript'], level: 'Beginner' },
-  { number: '02', title: 'Programming Fundamentals', description: 'Understand programming logic, variables, conditions, loops and functions through practical exercises.', href: '/learn/web-development', tags: ['Logic', 'Functions', 'Practice'], level: 'Beginner' },
-  { number: '03', title: 'Modern Frontend Development', description: 'Continue from the fundamentals into components, React and modern frontend workflows.', href: '/learn/web-development', tags: ['React', 'Components', 'Projects'], level: 'Intermediate' }
+  { number: '01', title: 'Web Development', description: 'Create a complete website, from semantic HTML to responsive design and JavaScript interactions.', href: '/learn/web-development', tags: ['HTML', 'CSS', 'JavaScript'], level: 'Beginner', status: 'Available' },
+  { number: '02', title: 'Python Programming', description: 'Learn Python from the foundations and use it to automate tasks, work with data and build useful programs.', href: '/learn/python', tags: ['Python', 'Logic', 'Automation'], level: 'Beginner', status: 'New path' },
+  { number: '03', title: 'Artificial Intelligence', description: 'Understand AI and machine learning concepts, explore responsible AI and build your first intelligent applications.', href: '/learn/artificial-intelligence', tags: ['AI', 'Machine Learning', 'LLMs'], level: 'Beginner', status: 'New path' },
+  { number: '04', title: 'Cloud Computing', description: 'Explore cloud fundamentals, core services, deployment, security and scalable cloud architecture.', href: '/learn/cloud-computing', tags: ['Cloud', 'Deployment', 'Architecture'], level: 'Beginner', status: 'New path' },
+  { number: '05', title: 'Data Science', description: 'Turn raw data into useful insights with Python, data analysis, visualisation and introductory statistics.', href: '/learn/data-science', tags: ['Python', 'Analysis', 'Visualisation'], level: 'Beginner', status: 'New path' },
+  { number: '06', title: 'Cybersecurity', description: 'Build security awareness and learn networking, common vulnerabilities, defensive practices and ethical testing.', href: '/learn/cybersecurity', tags: ['Security', 'Networking', 'Defence'], level: 'Beginner', status: 'New path' }
 ];
 ---
-<BaseLayout title="LearnLab — Learn Technology by Building | B Tecky" description="Learn web development through structured lessons, hands-on practice and real projects.">
+<BaseLayout title="LearnLab — Learn Technology by Building | B Tecky" description="Explore six technology learning paths with structured roadmaps, practical exercises and real-world projects.">
 <main class="learn-page">
   <section class="learn-hero">
     <div class="container learn-hero-grid">
       <div>
         <p class="eyebrow">B TECKY · LEARNING LAB</p>
         <h1>Learn by doing.<br/><span>Build by learning.</span></h1>
-        <p class="learn-lead">Go beyond watching tutorials. Understand concepts, practise your skills and build real projects one step at a time.</p>
+        <p class="learn-lead">Go beyond watching tutorials. Explore six learning paths across web development, Python, AI, cloud, data science and cybersecurity. Understand concepts, practise your skills and build real projects one step at a time.</p>
         <div class="learn-actions">
           <a class="learn-primary" href="/learn/web-development">Explore learning paths ↗</a>
           <a class="learn-secondary" href="#learning-paths">Discover LearnLab ↓</a>
@@ -43,9 +46,9 @@ const paths = [
     <div>
       <p class="eyebrow">YOUR LEARNING PROGRESS</p>
       <h2 id="resume-title">Ready to build something?</h2>
-      <p id="resume-description">Your Web Development journey starts with HTML.</p>
+      <p id="resume-description">Your Web Development progress is tracked here. Choose any learning path below to get started.</p>
       <div class="resume-progress"><span id="resume-progress-bar"></span></div>
-      <strong id="resume-progress-label">0 of 3 stages completed</strong>
+      <strong id="resume-progress-label">Web Development · 0 of 3 stages completed</strong>
     </div>
     <a id="resume-button" href="/learn/web-development/html/">Start learning ↗</a>
   </section>
@@ -63,11 +66,11 @@ const paths = [
   <section class="learn-paths" id="learning-paths">
     <div class="container">
       <p class="eyebrow">CHOOSE YOUR LEARNING PATH</p>
-      <h2>Start with a skill.<br/><span>Finish with something real.</span></h2>
+      <h2>Choose a path.<br/><span>Build something real.</span></h2>
       <div class="path-grid">
         {paths.map(path => <a class="path-card" href={path.href}>
           <div class="path-number">{path.number}</div>
-          <span class="path-level">{path.level}</span>
+          <span class="path-level">{path.level} · {path.status}</span>
           <h3>{path.title}</h3>
           <p>{path.description}</p>
           <div class="path-tags">{path.tags.map(tag => <span>{tag}</span>)}</div>
