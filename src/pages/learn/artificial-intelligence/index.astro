@@ -1,0 +1,290 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const modules = [
+  {
+    title: 'Understand Artificial Intelligence',
+    summary: 'Build a clear mental model of AI, its history, capabilities and limitations.',
+    lessons: [
+      { title: 'What AI is and what it is not', intro: 'Artificial intelligence (AI) is a broad field focused on building computer systems that perform tasks that usually require aspects of human intelligence. These tasks can include recognising patterns, understanding language, making predictions and helping people make decisions.', sections: [{ heading: 'AI is a field, not one product', body: 'A spam filter, a voice assistant, a recommendation engine and an image classifier can all use AI, but they solve different problems. Some systems follow hand-written rules; others learn patterns from examples. The label AI does not tell you exactly how a system works.' }, { heading: 'Match the tool to the problem', body: 'AI can be useful when a task involves patterns in large or complex data. It is not automatically the best choice. A simple calculator, database query or clear set of rules may be cheaper, faster and easier to explain.' }], code: 'problem = "Sort incoming support messages"
+
+if problem == "Sort incoming support messages":
+    print("Possible approach: classify messages by topic")
+    print("Keep a human review path for uncertain cases")', task: 'Write down one repetitive task you encounter. Explain whether it needs AI, ordinary automation, or a combination—and why.' },
+      { title: 'AI, machine learning and deep learning', intro: 'The terms AI, machine learning and deep learning are related, but they do not mean the same thing. Understanding the relationship helps you describe systems accurately.', sections: [{ heading: 'A nested relationship', body: 'AI is the broadest idea. Machine learning (ML) is a way to build AI systems by learning patterns from data rather than specifying every rule. Deep learning is a family of ML methods that uses multi-layer neural networks.' }, { heading: 'Different approaches suit different tasks', body: 'A rule-based system may be appropriate when requirements are fixed and explicit. Traditional ML can work well with structured data such as tables. Deep learning is widely used for complex data such as images, audio and language, often requiring substantial data and computing resources.' }], code: 'approaches = {
+    "rule_based": "Human-written conditions",
+    "machine_learning": "Patterns learned from examples",
+    "deep_learning": "Machine learning with multi-layer neural networks",
+}
+
+for name, description in approaches.items():
+    print(name, ":", description)', task: 'Create a simple diagram or written hierarchy showing AI, machine learning and deep learning. Add one example of a system for each approach.' },
+      { title: 'Data, models and predictions', intro: 'Many AI systems learn from examples. Data is used to train a model, and the trained model can then produce a prediction or output for new inputs.', sections: [{ heading: 'From examples to a model', body: 'A dataset contains examples. During training, a learning algorithm adjusts a model so its outputs better match the examples or learning objective. The resulting model is not a database of guaranteed facts; it represents patterns learned from the training process.' }, { heading: 'Inference and uncertainty', body: 'When a trained model receives new input, it performs inference. Its output may be a category, score, generated text or another result. Predictions can be wrong, especially when inputs differ from the data or conditions seen during training.' }], code: 'training_examples = [
+    {"message": "Where is my order?", "label": "delivery"},
+    {"message": "I need a refund", "label": "billing"},
+]
+
+new_message = "My parcel has not arrived"
+print("A trained classifier could predict a topic for:", new_message)', task: 'Describe a small prediction problem. Identify the input data, the pattern a model might learn and the output it would produce.' },
+      { title: 'Everyday AI use cases and limitations', intro: 'AI already supports many everyday services. Knowing where it is used is useful, but knowing its limitations is essential before relying on its output.', sections: [{ heading: 'Common applications', body: 'Examples include recommendations, fraud detection, speech recognition, translation, image search, forecasting and assistance with drafting or summarising. Each application has a specific goal and should be evaluated against that goal.' }, { heading: 'Limitations to recognise', body: 'AI systems can make mistakes, reflect biases in their data, behave unpredictably on unfamiliar inputs and provide explanations that sound more certain than the evidence supports. Important decisions need suitable checks, accountability and human oversight.' }], code: 'ai_output = "The system recommends approving this request."
+confidence = 0.62
+
+if confidence < 0.80:
+    print("Send for human review")
+else:
+    print("Continue with the approved review process")', task: 'Choose an AI feature you use. List what it does well, one way it could fail and a check that would help catch that failure.' }
+    ],
+    quiz: { question: 'Which statement best describes deep learning?', options: ['Any program with an if statement', 'A type of machine learning using multi-layer neural networks', 'A database that stores every answer', 'A synonym for the entire field of AI'], answer: 1, explanation: 'Deep learning is a branch of machine learning that uses neural networks with multiple layers to learn representations from data.' }
+  },
+  {
+    title: 'Machine Learning Foundations',
+    summary: 'Understand datasets, learning approaches, model evaluation and common pitfalls.',
+    lessons: [
+      { title: 'Features, labels and datasets', intro: 'A machine learning dataset is often organised into examples. Features describe each example, while a label is the target a supervised model is trained to predict.', sections: [{ heading: 'Identify the parts', body: 'For a house-price dataset, features might include floor area, location and number of bedrooms. The label could be the sale price. For an email classifier, the message text is input and the category may be the label.' }, { heading: 'Data quality matters', body: 'Incorrect labels, missing values, duplicates and unrepresentative examples can undermine a model. Data preparation should include understanding where information came from, what it represents and whether its use is appropriate.' }], code: 'example = {
+    "features": {
+        "floor_area_m2": 85,
+        "bedrooms": 2,
+        "near_transit": True,
+    },
+    "label": 12500000,
+}
+print("Inputs:", example["features"])
+print("Target:", example["label"])', task: 'Design a tiny dataset for predicting whether a learner may need help with a topic. List three possible features and one label. Avoid using sensitive personal information.' },
+      { title: 'Supervised and unsupervised learning', intro: 'Machine learning methods are often grouped by the kind of feedback available during learning. Two foundational categories are supervised and unsupervised learning.', sections: [{ heading: 'Supervised learning', body: 'Supervised learning uses examples paired with target labels. Classification predicts a category, such as a message topic. Regression predicts a numeric value, such as estimated delivery time.' }, { heading: 'Unsupervised learning', body: 'Unsupervised learning looks for structure in data without supplied target labels. Clustering can group similar items, while dimensionality reduction can represent complex data with fewer variables. The groups still need interpretation.' }], code: 'tasks = {
+    "supervised": ["predict spam or not spam", "estimate a home price"],
+    "unsupervised": ["group similar news articles", "explore customer behaviour patterns"],
+}
+
+for learning_type, examples in tasks.items():
+    print(learning_type, ":", ", ".join(examples))', task: 'Classify four ideas as supervised or unsupervised: predicting exam scores, grouping similar photos, detecting spam from labelled emails, and exploring customer segments.' },
+      { title: 'Training, validation and testing', intro: 'A model should be evaluated on examples that were not used to fit it. Splitting data helps estimate how well it may perform on new cases.', sections: [{ heading: 'Three useful datasets', body: 'The training set is used to fit the model. A validation set helps compare approaches and tune settings. A test set is held back for a final, less-biased evaluation after choices are made.' }, { heading: 'Avoid data leakage', body: 'Data leakage happens when information unavailable at prediction time—or information from the test set—finds its way into training or model selection. It can make evaluation look much better than real-world performance.' }], code: 'from sklearn.model_selection import train_test_split
+
+# First hold out a final test set
+X_train, X_test, y_train, y_test = train_test_split(
+    features, labels, test_size=0.2, random_state=42
+)
+# Fit and tune using training/validation data.
+# Use the test set only for final evaluation.', task: 'Draw a dataset split showing training, validation and test data. Explain why the test set should not guide repeated model tuning.' },
+      { title: 'Accuracy, bias and overfitting', intro: 'A model’s score is only one part of its quality. Evaluation should consider the task, the cost of different mistakes and whether performance is fair across relevant groups.', sections: [{ heading: 'Read metrics in context', body: 'Accuracy is the share of predictions that are correct. Precision asks how many predicted positives were truly positive; recall asks how many actual positives were found. For imbalanced datasets, accuracy alone can hide poor performance.' }, { heading: 'Recognise overfitting and bias', body: 'Overfitting occurs when a model learns details of training examples that do not generalise. Bias can enter through data collection, labels, features or deployment. Check performance on appropriate data and investigate differences that could cause harm.' }], code: 'correct_predictions = 86
+total_predictions = 100
+accuracy = correct_predictions / total_predictions
+print(f"Accuracy: {accuracy:.0%}")
+
+# Always inspect more than one metric when the task needs it.', task: 'Imagine a medical alert model where missing a true case is especially costly. Explain why accuracy alone may be insufficient and which error you would investigate closely.' }
+    ],
+    quiz: { question: 'What is the main purpose of a held-out test set?', options: ['To make the training set larger', 'To store model instructions', 'To estimate performance on unseen examples after model choices are made', 'To guarantee that a model is unbiased'], answer: 2, explanation: 'A separate test set provides a final evaluation on data not used for fitting or repeated tuning. It does not guarantee fairness or perfect generalisation.' }
+  },
+  {
+    title: 'Generative AI and Prompt Design',
+    summary: 'Explore language models, prompt structure, evaluation and reliable use of generated outputs.',
+    lessons: [
+      { title: 'How large language models generate text', intro: 'Large language models (LLMs) are trained on large collections of text and other data. They learn statistical patterns that help them generate a sequence of tokens in response to context.', sections: [{ heading: 'Tokens and next-token prediction', body: 'Text is processed as tokens, which may be whole words, parts of words or punctuation. During generation, a model repeatedly estimates likely next tokens based on the preceding context and its learned parameters.' }, { heading: 'Fluent does not mean verified', body: 'An LLM can produce clear, natural-sounding language without checking whether every claim is true. It may invent details, misunderstand the task or rely on outdated information. Treat generated answers as drafts or suggestions until verified.' }], code: 'prompt = "Explain photosynthesis to a beginner in three steps."
+
+# Conceptual flow:
+# prompt + conversation context -> language model
+# language model -> generated sequence of tokens
+print("Review generated content before relying on it.")', task: 'Explain in your own words why a language model can produce a convincing answer that is still incorrect.' },
+      { title: 'Tokens, context and model limitations', intro: 'A model can only use the information available to it through its training and the current context provided to the system. Context limits and missing evidence affect the answer.', sections: [{ heading: 'Context window', body: 'The context window is the amount of tokenised information a model can consider in one interaction. Very long documents or conversations may need to be shortened, split or summarised carefully.' }, { heading: 'Knowledge and tools', body: 'A model’s built-in knowledge may not include recent events or private information. Some applications connect models to search, databases or other tools. Tool results should still be checked for relevance, source quality and freshness.' }], code: 'source_notes = [
+    "Use the supplied course notes as the source.",
+    "If the notes do not answer a question, say so.",
+    "Do not invent missing details.",
+]
+print("\\n".join(source_notes))', task: 'Take a broad question and rewrite it so the model has a clear scope, a defined source and an instruction to say when information is missing.' },
+      { title: 'Write clear prompts with constraints', intro: 'A useful prompt gives the model enough context to understand the task and enough constraints to produce an answer that can be reviewed.', sections: [{ heading: 'A practical prompt structure', body: 'State the goal, provide relevant context, describe the expected audience, specify the output format and add constraints. Include an example when the required style or structure is difficult to describe.' }, { heading: 'Iterate deliberately', body: 'If the first result misses the mark, identify the specific gap and revise the prompt. Change one or two elements at a time so you can understand what improved the response.' }], code: 'prompt = """
+Task: Explain what an API is.
+Audience: A beginner learning web development.
+Format: 4 numbered steps and one simple analogy.
+Constraints: Use plain language. Keep it under 180 words.
+If a detail is uncertain, state that clearly.
+""" 
+print(prompt)', task: 'Write a prompt for a beginner study helper. Include its role, learner context, output format and at least two constraints.' },
+      { title: 'Evaluate outputs and reduce hallucinations', intro: 'Generated content should be evaluated against evidence and the intended use. A confident tone is not a quality metric.', sections: [{ heading: 'Use a verification workflow', body: 'Break an answer into factual claims. Check important claims against reliable primary sources, confirm dates and figures, and test code before using it. For summaries, compare the output with the original source to make sure key qualifications were not lost.' }, { heading: 'Design for uncertainty', body: 'Ask for sources when appropriate, provide source material, require the system to distinguish facts from assumptions and allow it to say that evidence is insufficient. These steps reduce risk but do not eliminate errors.' }], code: 'claims = [
+    {"claim": "A library supports a feature", "verified": False},
+    {"claim": "The release date is 2025", "verified": True},
+]
+
+for item in claims:
+    status = "verified" if item["verified"] else "needs checking"
+    print(item["claim"], "->", status)', task: 'Create a three-step checklist for checking an AI-generated answer before sharing it with classmates or using it in a project.' }
+    ],
+    quiz: { question: 'Which prompt is most likely to produce a useful, reviewable result?', options: ['Do everything for me', 'Write something interesting', 'Explain APIs', 'Explain APIs to a beginner in five steps, with one example and no unsupported claims'], answer: 3, explanation: 'A clear audience, task and output structure give the model useful direction and make the result easier to evaluate.' }
+  },
+  {
+    title: 'Build Responsible AI Experiences',
+    summary: 'Plan an AI-powered workflow with privacy, security, transparency and human review.',
+    lessons: [
+      { title: 'Use an AI API conceptually', intro: 'An AI application often sends an input to a model through an application programming interface (API) and receives a response. The surrounding application is responsible for safe handling and useful presentation.', sections: [{ heading: 'The request-response flow', body: 'A client gathers an input, a server checks permissions and prepares a request, and an AI service returns an output. The application may then validate, format or route that output before showing it to a user.' }, { heading: 'Protect credentials', body: 'API keys are secrets. Keep them on a trusted server or in a secure secret manager, not in browser code or a public repository. Apply access controls, usage limits and monitoring, and avoid sending information the model does not need.' }], code: 'import os
+
+api_key = os.environ.get("AI_API_KEY")
+if not api_key:
+    raise RuntimeError("Configure AI_API_KEY securely")
+
+# Send requests from a protected server-side environment.
+# Never expose the secret in public client-side code.', task: 'Draw a simple browser → application server → AI service flow. Mark where the API key belongs and where user input should be checked.' },
+      { title: 'Design inputs, outputs and user feedback', intro: 'A useful AI feature is a complete user experience, not just a model call. It should make clear what users can provide, what the system returns and what happens when the result is uncertain or unavailable.', sections: [{ heading: 'Define boundaries', body: 'Specify the intended use, acceptable inputs, output format and situations where the system should decline or ask for clarification. Keep the feature focused on a problem it can reasonably help with.' }, { heading: 'Make the experience understandable', body: 'Show loading and error states, explain that content is AI-generated when relevant, and give users a way to correct or report poor results. Do not imply that generated suggestions are guaranteed facts.' }], code: 'response = {
+    "status": "needs_review",
+    "suggestion": "Group these notes by topic",
+    "notice": "AI-generated suggestion; check before applying",
+}
+print(response["status"])
+print(response["notice"])', task: 'Sketch the main states for an AI study helper: empty input, loading, successful suggestion, uncertain answer and service error.' },
+      { title: 'Protect private and sensitive data', intro: 'AI features can process personal information, confidential documents or account data. Collect and share only what is necessary, and explain how information is handled.', sections: [{ heading: 'Minimise data', body: 'Avoid collecting information that is not needed for the feature. Remove or mask identifiers where possible, set sensible retention rules and restrict access to stored prompts and outputs.' }, { heading: 'Check providers and permissions', body: 'Understand the service’s data handling terms, access controls and retention options before sending user content. Do not paste passwords, private keys, confidential records or sensitive personal details into tools without explicit authorisation and an appropriate approved process.' }], code: 'def prepare_for_ai(text, contains_private_data):
+    if contains_private_data:
+        raise ValueError("Remove or protect private data first")
+    return text
+
+safe_input = prepare_for_ai("Explain this public concept", False)
+print(safe_input)', task: 'List the minimum information an AI study assistant needs. Identify two kinds of data it should avoid collecting and one way to protect stored information.' },
+      { title: 'Human review, transparency and evaluation', intro: 'Responsible AI design includes people, processes and ongoing evaluation. Human review is especially important when an output could affect someone’s rights, safety, finances or opportunities.', sections: [{ heading: 'Keep people accountable', body: 'Define who reviews important outputs, who can override a recommendation and how users can appeal or report problems. A human reviewer needs enough information and authority to make a meaningful decision—not just approve every suggestion.' }, { heading: 'Monitor after launch', body: 'Evaluate quality with representative test cases, monitor errors and user feedback, document limitations and revisit the system when data or use changes. A one-time test cannot establish that a system will remain safe and useful.' }], code: 'review = {
+    "ai_suggestion": "Recommend a study topic",
+    "evidence_checked": False,
+    "human_approved": False,
+}
+
+if not review["evidence_checked"]:
+    print("Check the evidence before presenting this as advice")', task: 'Write a short responsible-use plan for your capstone. Include what the assistant may do, what it must not do, how outputs are checked and how users can report a problem.' }
+    ],
+    quiz: { question: 'Where should a private AI API key normally be stored?', options: ['In public browser JavaScript', 'In a public GitHub repository', 'In a protected server-side environment or secret manager', 'Inside a screenshot shared with users'], answer: 2, explanation: 'Keep credentials out of public client code and repositories. Use protected server-side configuration or a suitable secret manager with limited access.' }
+  }
+];
+
+const totalLessons = modules.reduce((total, module) => total + module.lessons.length, 0);
+---
+<BaseLayout title="Artificial Intelligence Course | B Tecky LearnLab" description="Learn AI foundations, machine learning, generative AI, prompt design and responsible AI through detailed lessons and practical activities.">
+<main class="ai-course">
+  <section class="course-hero"><div class="container">
+    <a class="back-link" href="/learn/">← All learning paths</a>
+    <p class="eyebrow">B TECKY LEARNLAB · ARTIFICIAL INTELLIGENCE</p>
+    <span class="level-pill">BEGINNER · 4 MODULES · 16 LESSONS</span>
+    <h1>Understand AI.<br/><span>Build responsibly.</span></h1>
+    <p class="hero-copy">Explore how AI systems work, learn the foundations of machine learning, practise writing better prompts and plan an AI-powered experience with privacy and human review built in.</p>
+    <div class="hero-points"><span>✓ Clear beginner explanations</span><span>✓ Practical examples and activities</span><span>✓ Progress saved in this browser</span></div>
+  </div></section>
+  <section class="container course-layout">
+    <aside class="course-sidebar">
+      <div class="sidebar-heading"><p class="eyebrow">YOUR CURRICULUM</p><strong id="course-progress-count">0 / {totalLessons} lessons</strong></div>
+      <div class="progress-track"><span id="course-progress-bar"></span></div>
+      {modules.map((module, mi) => <section class="module-nav-group">
+        <h2>{String(mi+1).padStart(2,'0')} · {module.title}</h2>
+        {module.lessons.map((lesson, li) => <button class="lesson-nav" type="button" data-lesson={mi * 4 + li}><span>{String(li+1).padStart(2,'0')}</span><span>{lesson.title}</span><i aria-hidden="true">○</i></button>)}
+      </section>)}
+      <div class="sidebar-project"><b>FINAL PROJECT</b><p>Responsible AI study assistant</p><span>Plan a useful workflow with review and safeguards.</span></div>
+    </aside>
+    <div class="lesson-content">
+      <div class="lesson-topline"><span id="lesson-module-label">MODULE 01</span><span id="lesson-number-label">LESSON 01 / {totalLessons}</span></div>
+      {modules.map((module, mi) => module.lessons.map((lesson, li) => {
+        const index = mi * 4 + li;
+        return <article class:list={['lesson-panel', index === 0 && 'active']} data-panel={index} hidden={index !== 0}>
+          <p class="eyebrow">{module.title}</p><h2>{lesson.title}</h2><p class="lesson-intro">{lesson.intro}</p>
+          {lesson.sections.map(section => <section class="lesson-section"><h3>{section.heading}</h3><p>{section.body}</p></section>)}
+          <section class="example-card"><div class="example-heading"><div><span>LEARN BY EXAMPLE</span><h3>Try understanding this snippet</h3></div><button class="copy-code" type="button">Copy code</button></div><pre><code>{lesson.code}</code></pre></section>
+          <section class="task-card"><span>PRACTICE TASK</span><h3>Now you try</h3><p>{lesson.task}</p></section>
+          <label class="lesson-complete"><input type="checkbox" data-complete-lesson={index}/> <span>I've completed this lesson</span></label>
+          <div class="lesson-navigation"><button type="button" data-previous>← Previous lesson</button><button type="button" data-next>Next lesson →</button></div>
+        </article>;
+      }))}
+      {modules.map((module, mi) => <section class="knowledge-check" data-quiz={mi} hidden={mi !== 0}>
+        <div class="quiz-heading"><span>MODULE {String(mi+1).padStart(2,'0')} CHECK</span><h3>Check your understanding</h3><p>{module.quiz.question}</p></div>
+        <div class="quiz-options">{module.quiz.options.map((option, oi) => <button type="button" data-option={oi} data-quiz-module={mi}>{String.fromCharCode(65+oi)}. {option}</button>)}</div>
+        <p class="quiz-feedback" data-feedback={mi} aria-live="polite"></p>
+      </section>)}
+    </div>
+  </section>
+  <section class="container capstone-wrap"><div class="capstone-card"><p class="eyebrow">YOUR CAPSTONE PROJECT</p><h2>Design a responsible AI study assistant.</h2><p>Plan an assistant that helps learners organise notes and create revision questions. Define the user journey, the information it needs, the prompts it uses, how answers are checked and when a human should review the result.</p><div class="capstone-steps"><div><b>01 · DEFINE</b><span>Choose a focused learner problem.</span></div><div><b>02 · DESIGN</b><span>Map inputs, prompts and outputs.</span></div><div><b>03 · PROTECT</b><span>Set privacy and safety boundaries.</span></div><div><b>04 · EVALUATE</b><span>Test examples and add human review.</span></div></div></div></section>
+</main>
+</BaseLayout>
+<style>
+.ai-course{overflow:hidden;background:#fff;color:var(--color-ink)}.course-hero{padding:68px 0 72px;background:radial-gradient(ellipse at 86% 12%,rgba(83,105,255,.18),transparent 38%),linear-gradient(135deg,#f3f5ff,#fff 65%,#f5f7ff)}.back-link{display:inline-block;margin-bottom:28px;color:var(--color-brand);font-weight:800;font-size:.83rem}.eyebrow{font-size:.66rem;letter-spacing:.14em;font-weight:900;color:var(--color-brand)}.level-pill{display:inline-flex;margin-top:15px;padding:8px 12px;border-radius:30px;background:#e9edff;color:var(--color-brand);font-size:.68rem;font-weight:900}.course-hero h1{max-width:950px;margin:20px 0;font-size:clamp(3rem,6vw,5.6rem);line-height:.98;letter-spacing:-.075em}.course-hero h1 span{color:var(--color-brand)}.hero-copy{max-width:730px;color:var(--color-muted);font-size:1.04rem;line-height:1.8}.hero-points{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:25px;color:#53617b;font-size:.78rem;font-weight:750}.course-layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:45px;padding-block:65px}.course-sidebar{align-self:start;position:sticky;top:25px;max-height:calc(100vh - 50px);overflow:auto;padding-right:8px}.sidebar-heading{display:flex;justify-content:space-between;align-items:center;gap:8px}.sidebar-heading strong{font-size:.75rem}.progress-track{height:7px;margin:13px 0 24px;border-radius:20px;background:#e9edf6;overflow:hidden}.progress-track span{display:block;width:0;height:100%;background:var(--color-brand);transition:width .25s}.module-nav-group{margin:0 0 22px}.module-nav-group h2{margin-bottom:8px;font-size:.72rem;line-height:1.5}.lesson-nav{display:grid;grid-template-columns:25px 1fr 15px;align-items:center;gap:7px;width:100%;padding:9px 8px;border:0;border-radius:8px;background:transparent;text-align:left;color:#65718a;font:inherit;font-size:.72rem;cursor:pointer}.lesson-nav>span:first-child{font-size:.64rem;color:#98a2b6}.lesson-nav i{font-style:normal}.lesson-nav.active{background:#eef1ff;color:var(--color-brand);font-weight:800}.lesson-nav.completed i{color:#16834c}.sidebar-project{padding:15px;border-radius:12px;background:#f1f4ff}.sidebar-project b,.task-card>span,.example-heading>div>span,.quiz-heading>span{font-size:.62rem;letter-spacing:.12em;color:var(--color-brand);font-weight:900}.sidebar-project p{margin:8px 0 4px;font-size:.85rem;font-weight:850}.sidebar-project span{font-size:.72rem;line-height:1.5;color:var(--color-muted)}.lesson-content{min-width:0}.lesson-topline{display:flex;justify-content:space-between;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--color-border);color:var(--color-muted);font-size:.67rem;font-weight:850;letter-spacing:.1em}.lesson-panel{padding-top:28px}.lesson-panel[hidden],.knowledge-check[hidden]{display:none}.lesson-panel h2{margin:12px 0;font-size:clamp(2rem,4vw,3.1rem);line-height:1.08;letter-spacing:-.06em}.lesson-intro{font-size:1.05rem;line-height:1.85;color:#53617b}.lesson-section{margin-top:27px}.lesson-section h3{margin-bottom:8px;font-size:1.12rem;letter-spacing:-.025em}.lesson-section p{margin:0;color:#596780;line-height:1.85;font-size:.91rem}.example-card{margin-top:30px;padding:20px;border:1px solid var(--color-border);border-radius:16px;background:#fafbff}.example-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.example-heading h3{margin:6px 0;font-size:1rem}.copy-code{padding:8px 11px;border:1px solid #dce2f0;border-radius:8px;background:#fff;color:var(--color-brand);font-size:.72rem;font-weight:800;cursor:pointer}.example-card pre{margin:15px 0 0;padding:17px;overflow:auto;border-radius:10px;background:#111a2d;color:#e7edff;font-size:.78rem;line-height:1.75;white-space:pre}.task-card{margin-top:17px;padding:20px;border-radius:14px;background:#f0f4ff}.task-card h3{margin:7px 0;font-size:1.05rem}.task-card p{margin:0;color:#53617b;line-height:1.75;font-size:.88rem}.lesson-complete{display:flex;align-items:center;gap:9px;margin-top:23px;font-size:.82rem;font-weight:800;cursor:pointer}.lesson-complete input{width:17px;height:17px;accent-color:var(--color-brand)}.lesson-navigation{display:flex;justify-content:space-between;gap:12px;margin-top:27px;padding-top:18px;border-top:1px solid var(--color-border)}.lesson-navigation button{padding:11px 14px;border:1px solid var(--color-border);border-radius:9px;background:#fff;color:var(--color-brand);font-size:.78rem;font-weight:850;cursor:pointer}.lesson-navigation button:disabled{opacity:.4;cursor:not-allowed}.knowledge-check{margin-top:25px;padding:22px;border:1px solid #dfe5f4;border-radius:16px;background:#fbfcff}.quiz-heading h3{margin:8px 0;font-size:1.1rem}.quiz-heading p{margin:0;color:#53617b;line-height:1.65;font-size:.88rem}.quiz-options{display:grid;gap:8px;margin-top:15px}.quiz-options button{padding:12px 14px;border:1px solid #dce2f0;border-radius:9px;background:#fff;text-align:left;color:#33415d;font-size:.8rem;line-height:1.5;cursor:pointer}.quiz-options button:hover{border-color:var(--color-brand)}.quiz-options button.correct{border-color:#24945d;background:#effaf4}.quiz-options button.incorrect{border-color:#d45b5b;background:#fff3f3}.quiz-options button:disabled{cursor:default}.quiz-feedback{min-height:1.4em;margin:12px 0 0;color:#53617b;font-size:.8rem;line-height:1.6}.capstone-wrap{padding-bottom:70px}.capstone-card{padding:32px;border-radius:20px;background:linear-gradient(130deg,#101d3b,#2448aa 72%,#315efb);color:#fff}.capstone-card h2{margin:12px 0;font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.055em}.capstone-card>p:not(.eyebrow){max-width:820px;color:#d5def6;line-height:1.8;font-size:.9rem}.capstone-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:25px}.capstone-steps div{display:flex;flex-direction:column;gap:8px;padding:14px;border:1px solid #ffffff35;border-radius:12px;background:#ffffff0b}.capstone-steps b{font-size:.63rem;color:#c5d2ff;letter-spacing:.1em}.capstone-steps span{font-size:.77rem;line-height:1.5;color:#fff}
+@media(max-width:900px){.course-layout{grid-template-columns:1fr;gap:28px}.course-sidebar{position:static;max-height:none;display:grid;grid-template-columns:1fr 1fr;gap:0 18px}.sidebar-heading,.progress-track,.sidebar-project{grid-column:1/-1}.module-nav-group{margin-bottom:12px}}@media(max-width:600px){.course-hero{padding:52px 0}.course-layout{padding-block:42px}.course-sidebar{display:block}.capstone-card{padding:23px}.capstone-steps{grid-template-columns:1fr 1fr}.lesson-navigation button{font-size:.7rem}}
+</style>
+<script>
+const storagePrefix = 'btecky-ai-lesson-';
+const panels = Array.from(document.querySelectorAll<HTMLElement>('[data-panel]'));
+const navButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-lesson]'));
+const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('[data-complete-lesson]'));
+const quizzes = Array.from(document.querySelectorAll<HTMLElement>('[data-quiz]'));
+const progressBar = document.querySelector<HTMLElement>('#course-progress-bar');
+const progressCount = document.querySelector<HTMLElement>('#course-progress-count');
+const moduleLabel = document.querySelector<HTMLElement>('#lesson-module-label');
+const lessonLabel = document.querySelector<HTMLElement>('#lesson-number-label');
+const moduleNames = ['Understand Artificial Intelligence', 'Machine Learning Foundations', 'Generative AI and Prompt Design', 'Build Responsible AI Experiences'];
+let activeLesson = 0;
+
+function isComplete(index: number) {
+  return localStorage.getItem(storagePrefix + index) === 'true';
+}
+function updateProgress() {
+  const done = checkboxes.filter(box => box.checked).length;
+  if (progressBar) progressBar.style.width = (done / panels.length * 100) + '%';
+  if (progressCount) progressCount.textContent = done + ' / ' + panels.length + ' lessons';
+  checkboxes.forEach((box, index) => {
+    const nav = navButtons[index];
+    nav?.classList.toggle('completed', box.checked);
+    const marker = nav?.querySelector('i');
+    if (marker) marker.textContent = box.checked ? '✓' : '○';
+  });
+}
+function showLesson(index: number) {
+  if (index < 0 || index >= panels.length) return;
+  activeLesson = index;
+  const moduleIndex = Math.floor(index / 4);
+  panels.forEach((panel, i) => { panel.hidden = i !== index; });
+  quizzes.forEach((quiz, i) => { quiz.hidden = i !== moduleIndex || index % 4 !== 3; });
+  navButtons.forEach((button, i) => button.classList.toggle('active', i === index));
+  if (moduleLabel) moduleLabel.textContent = 'MODULE ' + String(moduleIndex + 1).padStart(2, '0') + ' · ' + moduleNames[moduleIndex].toUpperCase();
+  if (lessonLabel) lessonLabel.textContent = 'LESSON ' + String(index + 1).padStart(2, '0') + ' / ' + panels.length;
+  const current = panels[index];
+  const previous = current.querySelector<HTMLButtonElement>('[data-previous]');
+  const next = current.querySelector<HTMLButtonElement>('[data-next]');
+  if (previous) previous.disabled = index === 0;
+  if (next) next.disabled = index === panels.length - 1;
+}
+navButtons.forEach(button => button.addEventListener('click', () => showLesson(Number(button.dataset.lesson))));
+checkboxes.forEach(box => {
+  const index = Number(box.dataset.completeLesson);
+  box.checked = isComplete(index);
+  box.addEventListener('change', () => {
+    localStorage.setItem(storagePrefix + index, String(box.checked));
+    updateProgress();
+  });
+});
+panels.forEach((panel, index) => {
+  panel.querySelector('[data-previous]')?.addEventListener('click', () => showLesson(index - 1));
+  panel.querySelector('[data-next]')?.addEventListener('click', () => showLesson(index + 1));
+  panel.querySelector<HTMLButtonElement>('.copy-code')?.addEventListener('click', async event => {
+    const button = event.currentTarget as HTMLButtonElement;
+    const text = panel.querySelector('code')?.textContent || '';
+    try {
+      await navigator.clipboard.writeText(text);
+      button.textContent = 'Copied ✓';
+    } catch {
+      button.textContent = 'Select and copy the code';
+    }
+  });
+});
+const correctAnswers = [1, 2, 3, 2];
+const explanations = [
+  'Deep learning is a branch of machine learning that uses neural networks with multiple layers.',
+  'A separate test set estimates performance on examples not used for fitting or repeated tuning.',
+  'A specific audience, task and output structure make a prompt easier to follow and review.',
+  'Keep API credentials in protected server-side configuration or a suitable secret manager.'
+];
+document.querySelectorAll<HTMLButtonElement>('[data-option]').forEach(button => {
+  button.addEventListener('click', () => {
+    const moduleIndex = Number(button.dataset.quizModule);
+    const selected = Number(button.dataset.option);
+    const quiz = document.querySelector<HTMLElement>('[data-quiz="' + moduleIndex + '"]');
+    const feedback = quiz?.querySelector<HTMLElement>('[data-feedback="' + moduleIndex + '"]');
+    const options = Array.from(quiz?.querySelectorAll<HTMLButtonElement>('[data-option]') || []);
+    options.forEach(option => {
+      const choice = Number(option.dataset.option);
+      option.disabled = true;
+      option.classList.toggle('correct', choice === correctAnswers[moduleIndex]);
+      option.classList.toggle('incorrect', choice === selected && selected !== correctAnswers[moduleIndex]);
+    });
+    if (feedback) feedback.textContent = (selected === correctAnswers[moduleIndex] ? 'Correct! ' : 'Not quite. ') + explanations[moduleIndex];
+  });
+});
+updateProgress();
+showLesson(0);
+</script>
