@@ -1,0 +1,230 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const modules = [
+  {
+    title: 'Start with Python',
+    summary: 'Understand the language, set up your workspace and write your first programs.',
+    lessons: [
+      { title: 'What Python is and where it is used', intro: 'Python is a general-purpose programming language. Its readable syntax makes it approachable for beginners, while its libraries make it useful in automation, websites, data analysis, artificial intelligence and everyday scripting.', sections: [{ heading: 'How a Python program works', body: 'You write instructions in a text file, usually ending in .py. The Python interpreter reads those instructions and executes them. Unlike a web page, a Python script normally runs in a Python environment on your computer or server.' }, { heading: 'Where you will see Python', body: 'A small script can rename files or organise folders. A web application can use Python on its server. Data teams use it to clean and analyse information, and AI teams use it to prepare data and work with models.' }], code: 'print("Hello, B Tecky!")\nprint("I am learning Python.")', task: 'In your own words, write down two tasks Python could help you with. Choose one small task that you would like to automate.' },
+      { title: 'Install Python and choose an editor', intro: 'A useful setup has two parts: the Python interpreter, which runs your code, and a code editor, where you write and organise it.', sections: [{ heading: 'Check your installation', body: 'After installing Python from the official Python website, open a terminal and try python --version. On some systems the command is python3 --version. A version number means the interpreter is available in that terminal.' }, { heading: 'Choose a workspace', body: 'You can begin with a simple editor or use an IDE such as Visual Studio Code. Create a folder for your experiments and save your first file as hello.py. Keeping projects in separate folders makes files easier to find later.' }], code: 'python --version\n# If your system uses python3:\npython3 --version', task: 'Create a folder named python-practice and save a file named hello.py inside it. Run the file from your terminal.' },
+      { title: 'print(), comments and input()', intro: 'Programs become useful when they can display information and receive information from people. Python provides simple built-in tools for both.', sections: [{ heading: 'Display information with print()', body: 'print() sends text or values to the output. Text is written inside quotation marks. You can print several values by separating them with commas.' }, { heading: 'Add notes with comments', body: 'A hash symbol (#) starts a comment. Python ignores the comment when it runs your program. Comments should explain why something is happening when the code is not already clear.' }, { heading: 'Ask a question with input()', body: 'input() displays a prompt and waits for the user to type a response. It returns that response as text, even if the person types digits.' }], code: 'name = input("What is your name? ")\n# Greet the person who is using the program\nprint("Welcome to Python,", name)', task: 'Ask for a person’s name and favourite technology, then print a friendly two-line introduction.' },
+      { title: 'Variables, values and basic types', intro: 'A variable is a name that refers to a value. Variables let a program remember information and use it again.', sections: [{ heading: 'Choose clear variable names', body: 'Names such as learner_name and course_count explain what a value represents. Python variable names are case-sensitive, cannot start with a digit and should not contain spaces.' }, { heading: 'Know the common types', body: 'str stores text, int stores whole numbers, float stores decimal numbers and bool stores True or False. Use type(value) when you want to inspect a value’s type.' }, { heading: 'Convert input when doing maths', body: 'Because input() returns text, convert numeric input with int() or float() before arithmetic. Conversion only works when the text represents a valid number.' }], code: 'learner_name = "Aarav"\nlessons_completed = 3\nhours_studied = 2.5\nis_learning = True\n\nprint(type(learner_name))\nprint(lessons_completed + 1)', task: 'Build a learner profile with a name, age, hours studied and a Boolean value that records whether the learner is active.' }
+    ],
+    quiz: { question: 'What type of value does input() return by default?', options: ['An integer', 'A string (text)', 'A Boolean', 'A list'], answer: 1, explanation: 'input() returns text. Convert it with int() or float() when you need to perform numeric calculations.' }
+  },
+  {
+    title: 'Logic and reusable code',
+    summary: 'Make decisions, repeat instructions and organise programs into functions.',
+    lessons: [
+      { title: 'Comparisons and Boolean logic', intro: 'Programs often need to compare values before deciding what to do. A comparison produces a Boolean result: True or False.', sections: [{ heading: 'Comparison operators', body: 'Use == to test equality, != for inequality, > and < for greater or less than, and >= or <= for inclusive comparisons. A single = assigns a value; it does not test equality.' }, { heading: 'Combine conditions', body: 'and requires both conditions to be true, or requires at least one, and not reverses a Boolean value. Use parentheses when they make a complex condition easier to understand.' }], code: 'score = 82\npassed = score >= 50\nhonours = score >= 80 and score <= 100\n\nprint(passed)\nprint(honours)', task: 'Create two conditions for a course: one that checks whether a learner passed and another that checks whether they earned a distinction.' },
+      { title: 'Make decisions with if, elif and else', intro: 'Conditional statements let a program choose which instructions to run. Python uses indentation to show which instructions belong to each branch.', sections: [{ heading: 'Build a decision', body: 'Start with if and a condition. Add elif for another condition and else for the fallback case. The first matching branch runs; the remaining branches are skipped.' }, { heading: 'Keep conditions readable', body: 'Use clear comparisons and avoid deeply nested decisions when a simple sequence of elif branches will do. Consistent four-space indentation is the common Python convention.' }], code: 'score = int(input("Enter your score: "))\n\nif score >= 80:\n    print("Excellent work!")\nelif score >= 50:\n    print("You passed.")\nelse:\n    print("Keep practising.")', task: 'Write a grade checker with at least three outcomes. Decide what should happen for scores below 40, from 40 to 69, and 70 or above.' },
+      { title: 'Repeat work with for and while loops', intro: 'Loops repeat a block of code. Use a for loop when you are going through a sequence, and a while loop when repetition depends on a condition.', sections: [{ heading: 'The for loop', body: 'for item in sequence visits each item. range(5) produces five numbers starting at zero: 0 through 4. The ending value is not included.' }, { heading: 'The while loop', body: 'A while loop continues while its condition is true. Make sure something inside the loop can eventually make the condition false, otherwise the loop may never stop.' }, { heading: 'Control a loop', body: 'break exits a loop early. continue skips the rest of the current iteration and moves to the next one. Use these sparingly so the flow stays easy to follow.' }], code: 'for number in range(1, 6):\n    print("Number:", number)\n\ncountdown = 3\nwhile countdown > 0:\n    print(countdown)\n    countdown -= 1\nprint("Go!")', task: 'Print the numbers from 1 to 10, then write a countdown that ends with the message “Ready!”' },
+      { title: 'Create functions and return values', intro: 'Functions package instructions into reusable units. They help you avoid repetition and give meaningful names to steps in a program.', sections: [{ heading: 'Define and call a function', body: 'Use def followed by a function name and parentheses. The indented body contains its instructions. Calling the function runs that body.' }, { heading: 'Parameters and return', body: 'Parameters are inputs a function receives. return sends a result back to the caller. A function that only prints a value does not automatically return that value.' }], code: 'def calculate_total(price, quantity):\n    return price * quantity\n\nsubtotal = calculate_total(12.5, 3)\nprint("Subtotal:", subtotal)', task: 'Create a function that accepts a quiz score and returns whether the learner passed. Call it with at least two different scores.' }
+    ],
+    quiz: { question: 'Which keyword sends a result back from a function?', options: ['print', 'break', 'return', 'input'], answer: 2, explanation: 'return gives a value back to the code that called the function. print() only displays information.' }
+  },
+  {
+    title: 'Work with real information',
+    summary: 'Store collections of values, work with files and handle errors safely.',
+    lessons: [
+      { title: 'Lists, tuples, sets and dictionaries', intro: 'Collections let you keep related values together instead of creating a separate variable for every item.', sections: [{ heading: 'Choose the right collection', body: 'A list is ordered and changeable. A tuple is ordered and cannot be changed after creation. A set stores unique values. A dictionary stores key-value pairs so you can look up a value using a meaningful key.' }, { heading: 'Access and update values', body: 'List positions start at zero. Dictionaries are accessed by key. Use methods such as append() to add to a list and get() to safely read a dictionary value that may not exist.' }], code: 'topics = ["variables", "loops", "functions"]\ntopics.append("files")\n\nlearner = {"name": "Aarav", "level": "beginner"}\nprint(topics[0])\nprint(learner.get("name"))', task: 'Create a list of five learning topics and a dictionary describing a learner. Read and update at least one value in each.' },
+      { title: 'Read and write text files', intro: 'Files allow a program to keep information after it finishes running. Python’s with statement helps close files safely.', sections: [{ heading: 'Open a file', body: 'Use open() with a mode such as r to read, w to write (replacing existing content), or a to append. The with statement manages closing the file even if an error occurs.' }, { heading: 'Read and write content', body: 'write() stores text. read() reads the content, while readline() reads one line. For everyday text files, specify encoding="utf-8" to handle a broad range of characters consistently.' }], code: 'with open("notes.txt", "w", encoding="utf-8") as file:\n    file.write("My Python learning notes\\n")\n\nwith open("notes.txt", "r", encoding="utf-8") as file:\n    notes = file.read()\n\nprint(notes)', task: 'Write three study notes to a text file, then read the file and display its contents.' },
+      { title: 'Handle errors with try and except', intro: 'Errors are a normal part of programming. Handling expected problems helps your program respond clearly instead of stopping unexpectedly.', sections: [{ heading: 'Catch specific errors', body: 'Place code that may fail inside try. Use except with a specific exception such as ValueError when a text-to-number conversion fails. Avoid catching every possible error without a reason.' }, { heading: 'Use else and finally', body: 'An optional else block runs when the try block succeeds. finally runs whether an exception happened or not, making it useful for cleanup tasks.' }], code: 'value = input("Enter a whole number: ")\n\ntry:\n    number = int(value)\nexcept ValueError:\n    print("Please enter digits such as 12.")\nelse:\n    print("Double:", number * 2)', task: 'Ask for an amount and convert it to a number. Show a helpful message when the person enters invalid text.' },
+      { title: 'Use modules and packages', intro: 'Modules let you reuse code from Python’s standard library or from packages you install. This keeps projects smaller and better organised.', sections: [{ heading: 'Import standard tools', body: 'import math makes the math module available. You can use a specific function with from math import sqrt. Prefer clear imports so readers can see where a function comes from.' }, { heading: 'Organise your own code', body: 'A Python file can be imported as a module by another file. Keep related functions together and choose filenames that do not conflict with standard-library module names.' }], code: 'import random\nfrom math import sqrt\n\nsecret_number = random.randint(1, 10)\nprint("A square root example:", sqrt(81))\nprint("Your practice number:", secret_number)', task: 'Use the random module to select a number and the math module to calculate a square root. Explain what each import provides.' }
+    ],
+    quiz: { question: 'Which collection stores key-value pairs?', options: ['List', 'Tuple', 'Set', 'Dictionary'], answer: 3, explanation: 'A dictionary maps keys to values, for example {"name": "Aarav"}. It is useful when each value has a meaningful label.' }
+  },
+  {
+    title: 'Build useful automations',
+    summary: 'Work with structured data, APIs, project structure and testing habits.',
+    lessons: [
+      { title: 'Work with CSV and JSON', intro: 'CSV and JSON are common formats for exchanging structured information. Python includes standard-library modules to read and write both.', sections: [{ heading: 'CSV tables', body: 'CSV stores rows and columns as text. The csv module can read each row and write new rows. Use newline="" when opening CSV files for writing to avoid extra blank lines on some platforms.' }, { heading: 'JSON data', body: 'JSON represents objects, arrays, strings, numbers and Boolean values. json.load() reads JSON from a file, while json.dump() writes Python data to a file.' }], code: 'import json\n\nlearner = {"name": "Aarav", "completed": 4}\nwith open("learner.json", "w", encoding="utf-8") as file:\n    json.dump(learner, file, indent=2)\n\nwith open("learner.json", encoding="utf-8") as file:\n    saved_learner = json.load(file)\nprint(saved_learner["name"])', task: 'Save a small learner record as JSON, load it again and display two fields from the saved record.' },
+      { title: 'Make HTTP requests and understand APIs', intro: 'An API is a defined way for software systems to exchange information. Many web APIs use HTTP requests and return JSON responses.', sections: [{ heading: 'Understand a request', body: 'A client sends a request to an endpoint. The server responds with a status code and, often, data. A 200-level status usually indicates success; 400-level responses indicate a client-side problem and 500-level responses indicate a server-side problem.' }, { heading: 'Use requests carefully', body: 'The popular requests package can send HTTP requests. Check the response status, handle network errors and respect the API’s usage rules. Never place private API keys directly in code that you publish.' }], code: 'import requests\n\nresponse = requests.get(\n    "https://api.github.com",\n    timeout=10\n)\nresponse.raise_for_status()\ndata = response.json()\nprint(data["current_user_url"])', task: 'Describe an API you might use in a project. Identify its endpoint, the information you would request and how your program should handle a failed request.' },
+      { title: 'Organise a multi-file Python project', intro: 'As a program grows, splitting it into focused files makes it easier to understand, test and maintain.', sections: [{ heading: 'A simple project layout', body: 'Keep the main entry point separate from reusable functions. A small project might contain main.py, helpers.py, a data folder and a README.md file explaining how to run it.' }, { heading: 'Use a virtual environment', body: 'A virtual environment isolates packages for one project. Create it with python -m venv .venv, activate it using the command for your operating system, and install project dependencies inside it.' }], code: 'python -m venv .venv\n# macOS / Linux activation:\nsource .venv/bin/activate\n# Windows PowerShell activation:\n.venv\\Scripts\\Activate.ps1\n\npython -m pip install requests', task: 'Plan a folder structure for your report generator. Separate the main program, reusable calculations, input data and documentation.' },
+      { title: 'Test, debug and document your program', intro: 'Reliable programs are built through small checks, clear error messages and documentation that helps another person use the project.', sections: [{ heading: 'Debug systematically', body: 'Read the full error message and identify the file and line where it occurred. Reproduce the problem with a small input, inspect relevant values and change one thing at a time.' }, { heading: 'Write tests', body: 'A test checks whether code behaves as expected. Python’s unittest module is included with Python. Test normal inputs, boundary values and invalid inputs rather than checking only one happy path.' }, { heading: 'Document how to run it', body: 'A README should explain the project purpose, setup, dependencies, run command, example input and known limitations. Good documentation makes a project easier to share and maintain.' }], code: 'def calculate_total(price, quantity):\n    if price < 0 or quantity < 0:\n        raise ValueError("Values cannot be negative")\n    return price * quantity\n\nassert calculate_total(10, 3) == 30\nprint("Basic check passed")', task: 'Write a README outline for your final project and list three test cases: a normal case, a boundary case and an invalid-input case.' }
+    ],
+    quiz: { question: 'Why should you set a timeout on an HTTP request?', options: ['To change the response format', 'To prevent waiting indefinitely for a response', 'To hide the API endpoint', 'To make every request succeed'], answer: 1, explanation: 'A timeout limits how long your program waits. Your code should still handle timeout and connection errors because a timeout cannot guarantee success.' }
+  }
+];
+
+---
+<BaseLayout title="Python Programming Course | B Tecky LearnLab" description="Learn Python with detailed beginner lessons, examples, practical challenges and knowledge checks.">
+<main class="python-course">
+  <section class="course-hero">
+    <div class="container">
+      <a class="back-link" href="/learn/">← All learning paths</a>
+      <p class="eyebrow">B TECKY LEARNLAB · PYTHON PROGRAMMING</p>
+      <span class="level-pill">BEGINNER · 4 MODULES · 16 LESSONS</span>
+      <h1>Learn Python.<br/><span>Build useful things.</span></h1>
+      <p class="hero-copy">Start with your first line of code, understand how programs make decisions, work with real information and finish by planning a practical automation project. Every lesson includes an explanation, an example and something to try.</p>
+      <div class="hero-points"><span>✓ Beginner-friendly explanations</span><span>✓ Practical examples</span><span>✓ Progress saved in this browser</span></div>
+    </div>
+  </section>
+
+  <section class="container course-layout">
+    <aside class="course-sidebar">
+      <div class="sidebar-heading"><p class="eyebrow">YOUR CURRICULUM</p><strong id="course-progress-count">0 / 16 lessons</strong></div>
+      <div class="progress-track"><span id="course-progress-bar"></span></div>
+      {modules.map((module, mi) => <section class="module-nav-group">
+        <h2>{String(mi+1).padStart(2,'0')} · {module.title}</h2>
+        {module.lessons.map((lesson, li) => <button class="lesson-nav" type="button" data-lesson={mi * 4 + li}><span>{String(li+1).padStart(2,'0')}</span><span>{lesson.title}</span><i aria-hidden="true">○</i></button>)}
+      </section>)}
+      <div class="sidebar-project"><b>FINAL PROJECT</b><p>Command-line productivity toolkit</p><span>Bring all four modules together.</span></div>
+    </aside>
+
+    <div class="lesson-area">
+      {modules.map((module, mi) => <section class="module-content" data-module-content={mi}>
+        <div class="module-intro"><p class="eyebrow">MODULE {String(mi+1).padStart(2,'0')} · {module.lessons.length} LESSONS</p><h2>{module.title}</h2><p>{module.summary}</p></div>
+        {module.lessons.map((lesson, li) => <article class="lesson-panel" data-lesson-panel={mi * 4 + li} hidden>
+          <p class="lesson-index">LESSON {String(li+1).padStart(2,'0')} OF 04</p>
+          <h3>{lesson.title}</h3>
+          <p class="lesson-intro">{lesson.intro}</p>
+          {lesson.sections.map(section => <div class="lesson-section"><h4>{section.heading}</h4><p>{section.body}</p></div>)}
+          <div class="example-card"><div class="example-top"><b>CODE EXAMPLE</b><span>Python</span></div><pre><code>{lesson.code}</code></pre><button class="copy-code" type="button">Copy example</button></div>
+          <div class="task-card"><p class="eyebrow">YOUR PRACTICE TASK</p><h4>Try it yourself</h4><p>{lesson.task}</p></div>
+          <label class="lesson-done"><input type="checkbox" data-complete-lesson={mi * 4 + li}/> <span>I've completed this lesson</span></label>
+          <div class="lesson-switch"><button type="button" data-previous>← Previous lesson</button><button type="button" data-next>Next lesson →</button></div>
+        </article>)}
+        <section class="knowledge-check" data-quiz={mi}>
+          <p class="eyebrow">MODULE {String(mi+1).padStart(2,'0')} · KNOWLEDGE CHECK</p><h3>Check your understanding</h3><p>{module.quiz.question}</p>
+          <div class="quiz-options">{module.quiz.options.map((option, oi) => <button type="button" data-option={oi} data-quiz-module={mi}>{String.fromCharCode(65+oi)}. {option}</button>)}</div>
+          <p class="quiz-feedback" data-feedback={mi} aria-live="polite"></p>
+        </section>
+      </section>)}
+      <section class="capstone">
+        <p class="eyebrow">YOUR PYTHON CAPSTONE</p><h2>Build a productivity toolkit.</h2>
+        <p>Bring your skills together in a command-line toolkit that includes a quiz, an expense tracker that saves information to a file, and a report generator that reads structured data and produces a useful summary.</p>
+        <ol><li>Plan the tools and decide what information each one needs.</li><li>Use functions and conditions to organise the program.</li><li>Save and load information with files, CSV or JSON.</li><li>Handle invalid input, test important cases and document how to run it.</li></ol>
+        <div class="capstone-note"><b>What you should be able to explain</b><span>How your program receives input, makes decisions, stores information, handles errors and produces an output.</span></div>
+      </section>
+    </div>
+  </section>
+</main>
+</BaseLayout>
+
+<style>
+.python-course{overflow:hidden}.course-hero{padding:65px 0 60px;background:radial-gradient(ellipse at 85% 20%,rgba(69,104,255,.16),transparent 38%),linear-gradient(135deg,#f3f6ff,#fff 65%,#f4f7ff)}
+.back-link{display:inline-block;margin-bottom:28px;color:var(--color-brand);font-size:.82rem;font-weight:800}.level-pill{display:inline-block;padding:8px 12px;border-radius:30px;background:#edf1ff;color:var(--color-brand);font-size:.68rem;font-weight:900;letter-spacing:.06em}
+.course-hero h1{margin:22px 0;font-size:clamp(3rem,6vw,5.3rem);line-height:.98;letter-spacing:-.075em}.course-hero h1 span{color:var(--color-brand)}
+.hero-copy{max-width:760px;color:var(--color-muted);font-size:1.02rem;line-height:1.85}.hero-points{display:flex;gap:17px;flex-wrap:wrap;margin-top:24px;color:#42516d;font-size:.76rem;font-weight:750}
+.course-layout{display:grid;grid-template-columns:285px minmax(0,1fr);gap:38px;padding-block:55px 85px;align-items:start}
+.course-sidebar{position:sticky;top:18px;max-height:calc(100vh - 36px);overflow:auto;padding:18px;border:1px solid var(--color-border);border-radius:16px;background:#fff}
+.sidebar-heading{display:flex;justify-content:space-between;align-items:center;gap:8px}.sidebar-heading strong{font-size:.72rem;color:var(--color-brand)}
+.progress-track{height:8px;background:#e8edf7;border-radius:20px;overflow:hidden;margin:13px 0 20px}.progress-track span{display:block;width:0;height:100%;background:var(--color-brand);transition:width .2s}
+.module-nav-group{padding-top:14px;margin-top:13px;border-top:1px solid var(--color-border)}.module-nav-group h2{font-size:.76rem;line-height:1.5;margin-bottom:7px}
+.lesson-nav{width:100%;display:grid;grid-template-columns:25px 1fr 15px;gap:7px;align-items:center;text-align:left;padding:9px 7px;border:0;border-radius:8px;background:white;color:#53617a;font-size:.72rem;cursor:pointer}
+.lesson-nav:hover,.lesson-nav.active{background:#edf1ff;color:var(--color-brand)}.lesson-nav span:first-child{font-size:.65rem;font-weight:900}.lesson-nav i{font-style:normal}.lesson-nav.is-complete i{color:#16834b;font-weight:900}.lesson-nav.is-complete i:after{content:"✓"}
+.sidebar-project{margin-top:20px;padding:14px;border-radius:10px;background:#f4f6ff}.sidebar-project b{font-size:.62rem;color:var(--color-brand);letter-spacing:.1em}.sidebar-project p{margin:7px 0;font-size:.82rem;font-weight:850}.sidebar-project span{font-size:.7rem;color:var(--color-muted)}
+.lesson-area{min-width:0}.module-content[hidden],.lesson-panel[hidden]{display:none}
+.module-intro{padding:5px 0 24px;border-bottom:1px solid var(--color-border);margin-bottom:22px}.module-intro h2{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.06em;margin:9px 0}.module-intro>p:last-child{color:var(--color-muted);line-height:1.7}
+.lesson-panel{padding:24px;border:1px solid var(--color-border);border-radius:17px;background:#fff}.lesson-index{font-size:.64rem;font-weight:900;letter-spacing:.12em;color:var(--color-brand)}.lesson-panel h3{font-size:clamp(1.55rem,3vw,2.1rem);letter-spacing:-.05em;margin:10px 0 14px}.lesson-intro{font-size:.96rem;line-height:1.85;color:#4f5e78}
+.lesson-section{margin-top:23px}.lesson-section h4{font-size:1rem;margin-bottom:7px}.lesson-section p{color:#596780;font-size:.88rem;line-height:1.85}
+.example-card{margin-top:25px;overflow:hidden;border-radius:13px;background:#111d3a;color:#e6edff}.example-top{display:flex;justify-content:space-between;padding:13px 16px;background:#1b2a4e;font-size:.65rem;letter-spacing:.08em}.example-top span{color:#aebfe7}.example-card pre{overflow:auto;padding:19px;margin:0;font: .8rem/1.85 monospace;white-space:pre}
+.copy-code{margin:0 16px 15px;padding:8px 11px;border:1px solid #60739b;border-radius:7px;background:#24385f;color:white;font-size:.7rem;cursor:pointer}
+.task-card{margin-top:22px;padding:19px;border-radius:12px;background:#f4f6ff}.task-card h4{margin:7px 0}.task-card>p:last-child{font-size:.86rem;line-height:1.75;color:#52617c}
+.lesson-done{display:flex;align-items:center;gap:9px;margin-top:20px;font-size:.8rem;font-weight:800;cursor:pointer}.lesson-done input{width:17px;height:17px;accent-color:var(--color-brand)}
+.lesson-switch{display:flex;justify-content:space-between;gap:12px;margin-top:23px;padding-top:18px;border-top:1px solid var(--color-border)}.lesson-switch button{padding:10px 13px;border:1px solid var(--color-border);border-radius:8px;background:white;color:var(--color-brand);font-size:.75rem;font-weight:800;cursor:pointer}.lesson-switch button:disabled{opacity:.35;cursor:not-allowed}
+.knowledge-check{margin-top:22px;padding:22px;border:1px solid var(--color-border);border-radius:15px}.knowledge-check h3{font-size:1.2rem;margin:8px 0}.knowledge-check>p:not(.eyebrow){font-size:.88rem;line-height:1.65}.quiz-options{display:grid;gap:9px;margin-top:15px}.quiz-options button{padding:12px 14px;text-align:left;border:1px solid var(--color-border);border-radius:9px;background:#fff;color:inherit;font-size:.8rem;cursor:pointer}.quiz-options button:hover{border-color:var(--color-brand);background:#f5f7ff}.quiz-options button.correct{border-color:#16834b;background:#edfaf2}.quiz-options button.incorrect{border-color:#c64b4b;background:#fff2f2}.quiz-feedback{min-height:20px;margin-top:12px;font-size:.78rem;line-height:1.6;color:#52617c}
+.capstone{margin-top:25px;padding:27px;border-radius:17px;background:linear-gradient(130deg,#101d3b,#2448aa 72%,#315efb);color:#fff}.capstone h2{font-size:2rem;letter-spacing:-.05em;margin:10px 0}.capstone>p:not(.eyebrow){color:#d5def6;font-size:.88rem;line-height:1.8}.capstone ol{padding-left:20px;color:#edf1ff;font-size:.82rem;line-height:1.9}.capstone-note{display:grid;gap:6px;margin-top:20px;padding-top:17px;border-top:1px solid #ffffff35}.capstone-note b{font-size:.78rem}.capstone-note span{font-size:.78rem;color:#d5def6;line-height:1.6}
+@media(max-width:850px){.course-layout{grid-template-columns:1fr;gap:22px}.course-sidebar{position:static;max-height:none}.module-nav-group{display:inline-block;vertical-align:top;width:100%}}
+@media(max-width:600px){.course-hero{padding:48px 0}.course-layout{padding-block:35px 60px}.lesson-panel{padding:18px}.lesson-switch button{font-size:.68rem;padding:9px}.hero-points{display:grid;gap:9px}}
+</style>
+
+<script>
+const slug = 'python';
+const storagePrefix = 'btecky-python-lesson-';
+const navButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-lesson]'));
+const panels = Array.from(document.querySelectorAll<HTMLElement>('[data-lesson-panel]'));
+const moduleSections = Array.from(document.querySelectorAll<HTMLElement>('[data-module-content]'));
+const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('[data-complete-lesson]'));
+const progressBar = document.querySelector<HTMLElement>('#course-progress-bar');
+const progressCount = document.querySelector<HTMLElement>('#course-progress-count');
+let activeLesson = 0;
+
+function isComplete(index: number) {
+  return localStorage.getItem(storagePrefix + index) === 'true';
+}
+
+function updateProgress() {
+  const done = checkboxes.filter(box => box.checked).length;
+  if (progressBar) progressBar.style.width = (done / 16 * 100) + '%';
+  if (progressCount) progressCount.textContent = done + ' / 16 lessons';
+  navButtons.forEach((button, index) => {
+    button.classList.toggle('is-complete', isComplete(index));
+    const marker = button.querySelector('i');
+    if (marker) marker.textContent = isComplete(index) ? '✓' : '○';
+  });
+}
+
+function showLesson(index: number) {
+  activeLesson = Math.max(0, Math.min(15, index));
+  const moduleIndex = Math.floor(activeLesson / 4);
+  moduleSections.forEach((section, i) => section.hidden = i !== moduleIndex);
+  panels.forEach((panel, i) => panel.hidden = i !== activeLesson);
+  navButtons.forEach((button, i) => button.classList.toggle('active', i === activeLesson));
+  const current = panels[activeLesson];
+  const previous = current?.querySelector<HTMLButtonElement>('[data-previous]');
+  const next = current?.querySelector<HTMLButtonElement>('[data-next]');
+  if (previous) previous.disabled = activeLesson === 0;
+  if (next) next.disabled = activeLesson === 15;
+}
+
+navButtons.forEach(button => button.addEventListener('click', () => {
+  showLesson(Number(button.dataset.lesson));
+}));
+
+checkboxes.forEach(box => {
+  const index = Number(box.dataset.completeLesson);
+  box.checked = isComplete(index);
+  box.addEventListener('change', () => {
+    localStorage.setItem(storagePrefix + index, String(box.checked));
+    updateProgress();
+  });
+});
+
+panels.forEach((panel, index) => {
+  panel.querySelector('[data-previous]')?.addEventListener('click', () => showLesson(index - 1));
+  panel.querySelector('[data-next]')?.addEventListener('click', () => showLesson(index + 1));
+  panel.querySelector<HTMLButtonElement>('.copy-code')?.addEventListener('click', async event => {
+    const button = event.currentTarget as HTMLButtonElement;
+    const text = panel.querySelector('code')?.textContent || '';
+    try {
+      await navigator.clipboard.writeText(text);
+      button.textContent = 'Copied ✓';
+    } catch {
+      button.textContent = 'Select and copy the code';
+    }
+  });
+});
+
+document.querySelectorAll<HTMLButtonElement>('[data-option]').forEach(button => {
+  button.addEventListener('click', () => {
+    const moduleIndex = Number(button.dataset.quizModule);
+    const selected = Number(button.dataset.option);
+    const quiz = document.querySelector<HTMLElement>('[data-quiz="' + moduleIndex + '"]');
+    const feedback = quiz?.querySelector<HTMLElement>('[data-feedback="' + moduleIndex + '"]');
+    const options = Array.from(quiz?.querySelectorAll<HTMLButtonElement>('[data-option]') || []);
+    const correctAnswers = [1, 2, 3, 1];
+    const explanations = [
+      'input() returns text. Convert it with int() or float() when you need numeric calculations.',
+      'return gives a value back to the code that called the function. print() only displays information.',
+      'A dictionary maps keys to values, making it useful when each value has a meaningful label.',
+      'A timeout limits how long your program waits. Your code should still handle network errors.'
+    ];
+    options.forEach((option, index) => {
+      option.disabled = true;
+      option.classList.toggle('correct', index === correctAnswers[moduleIndex]);
+      option.classList.toggle('incorrect', index === selected && selected !== correctAnswers[moduleIndex]);
+    });
+    if (feedback) {
+      feedback.textContent = selected === correctAnswers[moduleIndex]
+        ? 'Correct! ' + explanations[moduleIndex]
+        : 'Not quite. ' + explanations[moduleIndex];
+    }
+  });
+});
+
+updateProgress();
+showLesson(0);
+</script>
