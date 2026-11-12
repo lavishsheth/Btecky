@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+export function getStaticPaths(){
 const catalog = {
   python: { title:'Python Programming', subtitle:'From first script to useful automation.', description:'Learn Python step by step: understand the language, write clean programs, work with files and data, and build practical tools you can use.', skills:['Python syntax','Problem solving','Files & APIs','Automation'], outcome:'A command-line productivity toolkit', modules:[
     {title:'Start with Python',summary:'Get comfortable with the language and write your first programs.',lessons:['What Python is used for','Install Python and choose an editor','print(), comments and input()','Variables, values and basic types'],task:'Build a personal introduction program that asks questions and prints a formatted profile.'},
@@ -32,7 +33,8 @@ const catalog = {
     {title:'Ethical security practice',summary:'Learn safe assessment habits and how to communicate findings.',lessons:['Permission, scope and rules of engagement','Use isolated practice labs legally','Document evidence and severity','Responsible disclosure and remediation'],task:'Write a sample security finding with impact, evidence, remediation and a safe retest plan.'}
   ],final:'A defensive security assessment for a fictional small organisation, including an asset list, risk register, prioritised controls and incident-response checklist.' }
 };
-export function getStaticPaths(){return Object.entries(catalog).map(([slug,path])=>({params:{slug},props:{path}}));}
+return Object.entries(catalog).map(([slug,path])=>({params:{slug},props:{path}}));
+}
 const {path}=Astro.props;
 ---
 <BaseLayout title={path.title + ' Learning Path | B Tecky LearnLab'} description={path.description}>
@@ -80,12 +82,38 @@ const {path}=Astro.props;
 @media(max-width:650px){.pathway-hero{padding:55px 0}.pathway-content{padding-block:55px}.roadmap-heading{align-items:flex-start;flex-direction:column}.roadmap-counter{align-items:flex-start}.module-card{grid-template-columns:1fr;padding:20px}.module-body ul{grid-template-columns:1fr}.capstone-card{padding:23px}}
 </style>
 <script>
-const slug=location.pathname.split('/').filter(Boolean).pop() || 'path';
-const key='btecky-learnlab-'+slug+'-module-';
-const checks=Array.from(document.querySelectorAll('[data-module]'));
-const bar=document.querySelector('#path-progress-bar');
-const count=document.querySelector('#path-progress-count');
-function updateProgress(){const done=checks.filter(input=>input.checked).length;if(bar)bar.style.width=(done/checks.length*100)+'%';if(count)count.textContent=done+' / '+checks.length;}
-checks.forEach(input=>{const index=Number(input.dataset.module);input.checked=localStorage.getItem(key+index)==='true';input.addEventListener('change',()=>{localStorage.setItem(key+index,String(input.checked));updateProgress();});});
+const slug = location.pathname.split('/').filter(Boolean).pop() || 'path';
+const key = 'btecky-learnlab-' + slug + '-module-';
+
+const checks = Array.from(
+  document.querySelectorAll<HTMLInputElement>('input[data-module]')
+);
+
+const bar = document.querySelector<HTMLElement>('#path-progress-bar');
+const count = document.querySelector<HTMLElement>('#path-progress-count');
+
+function updateProgress() {
+  const done = checks.filter(input => input.checked).length;
+
+  if (bar) {
+    bar.style.width = (done / checks.length * 100) + '%';
+  }
+
+  if (count) {
+    count.textContent = done + ' / ' + checks.length;
+  }
+}
+
+checks.forEach(input => {
+  const index = Number(input.dataset.module);
+
+  input.checked = localStorage.getItem(key + index) === 'true';
+
+  input.addEventListener('change', () => {
+    localStorage.setItem(key + index, String(input.checked));
+    updateProgress();
+  });
+});
+
 updateProgress();
 </script>
