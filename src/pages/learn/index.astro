@@ -1,0 +1,161 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+const paths = [
+  { number: '01', title: 'Web Development', description: 'Build a complete website by learning HTML, styling it with CSS, and adding JavaScript interactions.', href: '/learn/web-development', tags: ['HTML', 'CSS', 'JavaScript'], level: 'Beginner' },
+  { number: '02', title: 'Programming Fundamentals', description: 'Understand programming logic, variables, conditions, loops and functions through practical exercises.', href: '/learn/web-development', tags: ['Logic', 'Functions', 'Practice'], level: 'Beginner' },
+  { number: '03', title: 'Modern Frontend Development', description: 'Continue from the fundamentals into components, React and modern frontend workflows.', href: '/learn/web-development', tags: ['React', 'Components', 'Projects'], level: 'Intermediate' }
+];
+---
+<BaseLayout title="LearnLab — Learn Technology by Building | B Tecky" description="Learn web development through structured lessons, hands-on practice and real projects.">
+<main class="learn-page">
+  <section class="learn-hero">
+    <div class="container learn-hero-grid">
+      <div>
+        <p class="eyebrow">B TECKY · LEARNING LAB</p>
+        <h1>Learn by doing.<br/><span>Build by learning.</span></h1>
+        <p class="learn-lead">Go beyond watching tutorials. Understand concepts, practise your skills and build real projects one step at a time.</p>
+        <div class="learn-actions">
+          <a class="learn-primary" href="/learn/web-development">Explore learning paths ↗</a>
+          <a class="learn-secondary" href="#learning-paths">Discover LearnLab ↓</a>
+        </div>
+        <div class="learn-proof">Structured lessons · Practical exercises · Project-based learning</div>
+      </div>
+      <div class="learn-visual">
+        <div class="learn-code">
+          <div class="code-top"><span>● ● ●</span><span>your-first-website.html</span></div>
+          <pre><span>&lt;!DOCTYPE html&gt;</span>
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My Website&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    <b>&lt;h1&gt;Hello, world!&lt;/h1&gt;</b>
+    &lt;p&gt;I am building something.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+          <div class="code-bottom">HTML <span>● Ready to build</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container resume-dashboard" id="resume-dashboard">
+    <div>
+      <p class="eyebrow">YOUR LEARNING PROGRESS</p>
+      <h2 id="resume-title">Ready to build something?</h2>
+      <p id="resume-description">Your Web Development journey starts with HTML.</p>
+      <div class="resume-progress"><span id="resume-progress-bar"></span></div>
+      <strong id="resume-progress-label">0 of 3 stages completed</strong>
+    </div>
+    <a id="resume-button" href="/learn/web-development/html/">Start learning ↗</a>
+  </section>
+
+  <section class="learn-intro container">
+    <p class="eyebrow">A BETTER WAY TO LEARN</p>
+    <h2>Understand it. Practise it. <span>Build with it.</span></h2>
+    <div class="learn-benefits">
+      <article><b>01</b><h3>Learn the concept</h3><p>Clear explanations and examples that help you understand why and how things work.</p></article>
+      <article><b>02</b><h3>Practise as you go</h3><p>Apply each concept through small exercises and hands-on challenges.</p></article>
+      <article><b>03</b><h3>Build real projects</h3><p>Bring your skills together in projects that grow as you complete lessons.</p></article>
+    </div>
+  </section>
+
+  <section class="learn-paths" id="learning-paths">
+    <div class="container">
+      <p class="eyebrow">CHOOSE YOUR LEARNING PATH</p>
+      <h2>Start with a skill.<br/><span>Finish with something real.</span></h2>
+      <div class="path-grid">
+        {paths.map(path => <a class="path-card" href={path.href}>
+          <div class="path-number">{path.number}</div>
+          <span class="path-level">{path.level}</span>
+          <h3>{path.title}</h3>
+          <p>{path.description}</p>
+          <div class="path-tags">{path.tags.map(tag => <span>{tag}</span>)}</div>
+          <b>Explore pathway ↗</b>
+        </a>)}
+      </div>
+    </div>
+  </section>
+</main>
+</BaseLayout>
+
+<style>
+.learn-page{overflow:hidden}
+.learn-hero{padding:85px 0 65px;background:radial-gradient(ellipse at 80% 25%,rgba(72,105,255,.14),transparent 38%),linear-gradient(135deg,#f5f7ff,#fff 60%,#f5f8ff)}
+.learn-hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:50px;min-height:440px}
+.learn-hero h1{font-size:clamp(3.4rem,6.5vw,6rem);line-height:.98;letter-spacing:-.075em;margin:24px 0}
+.learn-hero h1 span,.learn-intro h2 span,.learn-paths h2 span{color:var(--color-brand)}
+.learn-lead{max-width:530px;color:var(--color-muted);font-size:1.08rem;line-height:1.8}
+.learn-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.learn-primary,.learn-secondary{padding:15px 19px;border-radius:11px;font-weight:800;font-size:.86rem}
+.learn-primary{background:var(--color-brand);color:white}
+.learn-secondary{background:white;border:1px solid var(--color-border)}
+.learn-proof{font-size:.76rem;color:var(--color-muted);margin-top:26px}
+.learn-code{background:#111d3a;color:#e6edff;border-radius:19px;padding:20px;box-shadow:0 25px 65px #243e8a30;transform:rotate(-2deg)}
+.code-top,.code-bottom{display:flex;justify-content:space-between;font-size:.67rem;color:#aebfe7}
+.code-top{padding-bottom:18px;border-bottom:1px solid #33456e}
+.learn-code pre{white-space:pre-wrap;font-size:clamp(.68rem,1vw,.85rem);line-height:2.1;padding:15px 0}
+.learn-code pre span{color:#c2a8ff}.learn-code pre b{color:#78c7ff}
+.code-bottom{padding-top:12px;border-top:1px solid #33456e}.code-bottom span{color:#65dca7}
+.learn-intro{padding-block:85px}
+.learn-intro h2,.learn-paths h2{font-size:clamp(2.4rem,4.7vw,4rem);letter-spacing:-.065em;line-height:1.05;margin:15px 0 35px}
+.learn-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.learn-benefits article,.path-card{padding:25px;border:1px solid var(--color-border);border-radius:18px;background:white}
+.learn-benefits article>b{display:grid;place-items:center;width:43px;height:43px;border-radius:12px;background:#edf1ff;color:var(--color-brand)}
+.learn-benefits h3{margin:22px 0 9px;font-size:1.2rem}
+.learn-benefits p,.path-card p{color:var(--color-muted);line-height:1.7;font-size:.88rem}
+.learn-paths{padding:85px 0;background:#f6f8ff}
+.path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.path-card{display:flex;flex-direction:column;align-items:flex-start;transition:.2s}
+.path-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px #17213b12}
+.path-number{font-size:2rem;font-weight:900;color:var(--color-brand)}
+.path-level{font-size:.65rem;color:var(--color-brand);font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-top:18px}
+.path-card h3{font-size:1.35rem;letter-spacing:-.04em;margin:10px 0 0}
+.path-tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 22px}
+.path-tags span{padding:6px 9px;border-radius:7px;background:#edf1ff;color:#315efb;font-size:.68rem;font-weight:700}
+.path-card>b{color:var(--color-brand);font-size:.82rem;margin-top:auto}
+@media(max-width:750px){.learn-hero-grid{grid-template-columns:1fr;gap:30px}.learn-code{transform:none}.learn-benefits,.path-grid{grid-template-columns:1fr}.learn-hero{padding-top:60px}}
+</style>
+
+<script>
+const stages = [
+  {key:'btecky-html-intro-complete',url:'/learn/web-development/html/'},
+  {key:'btecky-css-complete',url:'/learn/web-development/css/'},
+  {key:'btecky-js-complete',url:'/learn/web-development/javascript/'}
+];
+
+const finished = stages.map(stage=>localStorage.getItem(stage.key)==='true');
+const total = finished.filter(Boolean).length;
+const next = finished.findIndex(value=>!value);
+const percentage = Math.round(total/3*100);
+
+const title = document.querySelector<HTMLElement>('#resume-title');
+const description = document.querySelector<HTMLElement>('#resume-description');
+const progress = document.querySelector<HTMLElement>('#resume-progress-bar');
+const label = document.querySelector<HTMLElement>('#resume-progress-label');
+const button = document.querySelector<HTMLAnchorElement>('#resume-button');
+
+if (title) title.textContent = total===3 ? 'Your website journey is complete!' : total===0 ? 'Ready to build something?' : 'Keep building your website.';
+if (description) description.textContent = total===3
+  ? 'You have completed HTML, CSS and JavaScript. Revisit your project whenever you like.'
+  : total===0
+    ? 'Begin with HTML, then style your website and add JavaScript functionality.'
+    : 'Pick up where you left off and continue developing your project.';
+if (progress) progress.style.width=percentage+'%';
+if (label) label.textContent=total+' of 3 stages completed · '+percentage+'%';
+if (button) {
+  button.href=next===-1?'/learn/web-development/':stages[next].url;
+  button.textContent=next===-1?'View completed pathway ↗':'Resume learning ↗';
+}
+</script>
+
+<style>
+.resume-dashboard{display:flex;align-items:center;justify-content:space-between;gap:25px;padding:28px;margin-top:35px;margin-bottom:20px;border:1px solid var(--color-border);border-radius:18px;background:#f8f9ff}
+.resume-dashboard h2{font-size:1.65rem;letter-spacing:-.05em;margin:8px 0}
+.resume-dashboard p:not(.eyebrow){color:var(--color-muted);line-height:1.6}
+.resume-progress{height:9px;max-width:440px;background:#e4e9f5;border-radius:20px;overflow:hidden;margin:17px 0 9px}
+#resume-progress-bar{display:block;height:100%;width:0;background:var(--color-brand);border-radius:20px;transition:width .3s}
+#resume-progress-label{font-size:.75rem}
+#resume-button{flex-shrink:0;padding:13px 17px;border-radius:9px;background:var(--color-brand);color:white;font-weight:800;font-size:.82rem}
+@media(max-width:600px){.resume-dashboard{align-items:flex-start;flex-direction:column}}
+</style>

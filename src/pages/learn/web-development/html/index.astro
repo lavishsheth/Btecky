@@ -1,0 +1,222 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+const lessons = [
+  { title: 'What is HTML?', detail: 'Understand how HTML defines the structure and meaning of a web page.' },
+  { title: 'Headings and paragraphs', detail: 'Organise content using headings and readable paragraphs.' },
+  { title: 'Links and images', detail: 'Connect pages and add meaningful images.' },
+  { title: 'Lists and tables', detail: 'Present related information in structured formats.' },
+  { title: 'Forms and semantic HTML', detail: 'Build forms and use meaningful page elements.' }
+];
+---
+<BaseLayout title="HTML Fundamentals | B Tecky LearnLab" description="Learn HTML step by step and build your first website.">
+<main class="html-course">
+  <div class="course-top">
+    <div class="container">
+      <a href="/learn/web-development">← Web Development Path</a>
+      <p class="eyebrow">WEB DEVELOPMENT / HTML</p>
+      <h1>Build your website with <span>HTML.</span></h1>
+      <p>Start with the structure. Learn how web pages are built, practise each concept and create the first version of your own website.</p>
+      <div class="course-meta"><span>Beginner</span><span>5 learning modules</span><span>Project based</span></div>
+    </div>
+  </div>
+
+  <div class="container workspace">
+    <aside class="lesson-list">
+      <h2>HTML curriculum</h2>
+      {lessons.map((lesson,i)=><button class="lesson-choice" data-lesson={i}>
+        <span>{String(i+1).padStart(2,'0')}</span><span>{lesson.title}</span>
+      </button>)}
+      <div class="next-stage"><b>Next: CSS Foundations</b><p>Style the same website after completing HTML.</p><span>Complete HTML to continue</span></div>
+    </aside>
+
+    <section class="lesson-content">
+      <p class="eyebrow" id="module-label">MODULE 01 · HTML FUNDAMENTALS</p>
+      <h2 id="module-title">What is HTML?</h2>
+      <p id="module-description">HTML stands for HyperText Markup Language. It describes the structure and meaning of content on a web page. Browsers read HTML and use it to display headings, paragraphs, images, links and other elements.</p>
+      <div class="concept-card">
+        <b>Think of a website like a house</b>
+        <p>HTML creates the structure: rooms, doors and walls. CSS will design how the house looks. JavaScript will make parts of it interactive.</p>
+      </div>
+      <h3>Try it yourself</h3>
+      <p>Edit the HTML below and select Run to see your changes. This is the beginning of the website you will continue building in the CSS and JavaScript stages.</p>
+      <div class="editor">
+        <div class="editor-bar"><span>index.html</span><button id="run-code">▶ Run code</button></div>
+        <textarea id="html-code" spellcheck="false" aria-label="HTML code editor"></textarea>
+        <div class="preview-heading">LIVE WEBSITE PREVIEW</div>
+        <iframe id="website-preview" title="Your HTML website preview" sandbox="allow-scripts"></iframe>
+      </div>
+      <div class="challenge">
+        <p class="eyebrow">PRACTICE CHALLENGE</p>
+        <h3>Make the website yours</h3>
+        <p>Change the main heading to your name and add one more paragraph describing the website you want to build.</p>
+        <button id="complete-lesson">Mark lesson complete ✓</button>
+        <div class="module-progress">
+          <div class="module-progress-track"><span id="module-progress-bar"></span></div>
+          <p id="module-progress">0 of 5 modules completed</p>
+        </div>
+        <span id="completion-status" aria-live="polite"></span>
+      </div>
+      <div class="module-navigation">
+        <a href="/learn/web-development">← Learning pathway</a>
+        <a href="/learn/web-development">Continue to pathway →</a>
+      </div>
+    </section>
+  </div>
+</main>
+</BaseLayout>
+
+<style>
+.html-course{padding-bottom:70px}.course-top{padding:55px 0;background:linear-gradient(125deg,#f2f5ff,#fff)}
+.course-top a{font-size:.82rem;font-weight:700;color:var(--color-brand)}
+.course-top h1{font-size:clamp(2.6rem,5vw,4.5rem);letter-spacing:-.07em;line-height:1.05;margin:22px 0}
+.course-top h1 span{color:var(--color-brand)}.course-top p:not(.eyebrow){max-width:680px;color:var(--color-muted);line-height:1.8}
+.course-meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.course-meta span{padding:8px 11px;border:1px solid var(--color-border);border-radius:8px;background:white;font-size:.72rem;font-weight:700}
+.workspace{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;padding-top:45px}
+.lesson-list{align-self:start;position:sticky;top:20px;border:1px solid var(--color-border);border-radius:14px;padding:16px}
+.lesson-list h2{font-size:1rem;margin:5px 0 15px}
+.lesson-choice{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:13px 8px;border:0;border-radius:8px;background:white;color:inherit;font-size:.8rem;cursor:pointer}
+.lesson-choice:hover,.lesson-choice.active{background:#edf1ff;color:var(--color-brand)}
+.lesson-choice span:first-child{font-size:.68rem;font-weight:900}
+.next-stage{margin-top:20px;padding:14px;background:#f5f7ff;border-radius:10px;font-size:.78rem}
+.next-stage p{color:var(--color-muted);line-height:1.5}.next-stage span{font-size:.68rem;color:var(--color-brand);font-weight:800}
+.lesson-content{min-width:0;max-width:850px}.lesson-content h2{font-size:2.3rem;letter-spacing:-.06em;margin:12px 0}
+.lesson-content>p:not(.eyebrow){line-height:1.85;color:var(--color-muted)}
+.lesson-content h3{font-size:1.35rem;margin:32px 0 8px}
+.concept-card,.challenge{padding:20px;border:1px solid var(--color-border);border-radius:13px;margin:25px 0;background:#f8f9ff}
+.concept-card p,.challenge p{color:var(--color-muted);line-height:1.7;margin-bottom:0}
+.editor{overflow:hidden;border-radius:13px;background:#111d3a;color:white;margin-top:18px}
+.editor-bar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#1b2a4e;font-size:.76rem}
+.editor-bar button,.challenge button{border:0;border-radius:7px;background:var(--color-brand);color:white;padding:9px 13px;font-weight:800;cursor:pointer}
+#html-code{display:block;width:100%;height:260px;resize:vertical;border:0;outline:0;padding:17px;background:#111d3a;color:#d9e5ff;font:13px/1.8 monospace;tab-size:2}
+.preview-heading{padding:11px 16px;background:#1b2a4e;font-size:.68rem;font-weight:800;letter-spacing:.1em}
+#website-preview{display:block;width:100%;height:260px;background:white;border:0}
+.challenge button{margin-top:15px}.challenge #completion-status{display:block;margin-top:10px;color:#18794e;font-size:.8rem}
+.module-navigation{display:flex;justify-content:space-between;gap:15px;margin-top:30px}
+.module-navigation a{font-size:.8rem;font-weight:800;color:var(--color-brand)}
+@media(max-width:750px){.workspace{grid-template-columns:1fr;gap:25px}.lesson-list{position:static}.lesson-content h2{font-size:1.9rem}}
+</style>
+
+<script>
+const initialCode = `<!DOCTYPE html>
+<html>
+<head>
+  <title>My first website</title>
+</head>
+<body>
+  <h1>Welcome to my website!</h1>
+  <p>I am learning HTML with B Tecky.</p>
+  <h2>About me</h2>
+  <p>This is my first project.</p>
+</body>
+</html>`;
+
+
+const code = document.querySelector<HTMLTextAreaElement>('#html-code');
+const preview = document.querySelector<HTMLIFrameElement>('#website-preview');
+if (code) code.value = initialCode;
+const run = document.querySelector('#run-code');
+const complete = document.querySelector<HTMLButtonElement>('#complete-lesson');
+const status = document.querySelector('#completion-status');
+
+if (code) {
+  const savedHTML = localStorage.getItem('btecky-html-project');
+  if (savedHTML) code.value = savedHTML;
+  code.addEventListener('input', () => {
+    localStorage.setItem('btecky-html-project', code.value);
+  });
+}
+
+function renderProject(){
+  if (preview && code) {
+    preview.srcdoc = code.value;
+    localStorage.setItem('btecky-html-project', code.value);
+  }
+}
+run?.addEventListener('click',renderProject);
+renderProject();
+
+
+const moduleNames = ['What is HTML?', 'Headings and paragraphs', 'Links and images', 'Lists and tables', 'Forms and semantic HTML'];
+const moduleDescriptions = ['Understand HTML and how browsers interpret page structure.', 'Organise content using headings and readable paragraphs.', 'Connect pages and add meaningful images.', 'Present related information using lists and tables.', 'Build forms and use semantic page elements.'];
+const moduleKey = "btecky-html-module-";
+const legacyKey = "btecky-html-intro-complete";
+const progressLabel = document.querySelector<HTMLElement>("#module-progress");
+const progressBar = document.querySelector<HTMLElement>("#module-progress-bar");
+const moduleButtons = document.querySelectorAll<HTMLButtonElement>("[data-lesson]");
+let activeModule = 0;
+
+function updateModuleProgress() {
+  const done = moduleNames.filter((_,i) =>
+    localStorage.getItem(moduleKey + i) === "true"
+  ).length;
+
+  if (progressLabel) progressLabel.textContent =
+    done + " of 5 modules completed";
+  if (progressBar) progressBar.style.width = (done * 20) + "%";
+
+  moduleButtons.forEach((button,i) => {
+    const finished = localStorage.getItem(moduleKey + i) === "true";
+    button.classList.toggle("is-complete", finished);
+    button.setAttribute("aria-label",
+      moduleNames[i] + (finished ? ", completed" : "")
+    );
+  });
+
+  const allDone = done === 5;
+  if (allDone) {
+    localStorage.setItem(legacyKey, "true");
+  } else {
+    localStorage.removeItem(legacyKey);
+  }
+
+  if (complete) {
+    complete.textContent = allDone
+      ? "All 5 modules completed ✓"
+      : "Mark HTML module complete ✓";
+    complete.disabled = localStorage.getItem(moduleKey + activeModule) === "true";
+    if (!complete.disabled) complete.textContent = "Mark HTML module complete ✓";
+  }
+
+  if (status) {
+    status.textContent = allDone
+      ? "✓ All five modules completed! This learning stage is complete."
+      : done + " of 5 modules completed. Keep learning!";
+  }
+}
+
+moduleButtons.forEach((button,i) => {
+  button.addEventListener("click", () => {
+    activeModule = i;
+    moduleButtons.forEach((item,j) =>
+      item.classList.toggle("active",i===j)
+    );
+
+    const label = document.querySelector<HTMLElement>("#module-label");
+    const title = document.querySelector<HTMLElement>("#module-title");
+    const description = document.querySelector<HTMLElement>("#module-description");
+
+    if (label) label.textContent =
+      `MODULE ${String(i+1).padStart(2,"0")} · HTML FOUNDATIONS`;
+    if (title) title.textContent = moduleNames[i];
+    if (description) description.textContent = moduleDescriptions[i];
+
+    updateModuleProgress();
+  });
+});
+
+complete?.addEventListener("click", () => {
+  localStorage.setItem(moduleKey + activeModule, "true");
+  updateModuleProgress();
+});
+
+updateModuleProgress();
+</script>
+
+<style>
+.module-progress{margin-top:16px}
+.module-progress-track{height:8px;background:#e4e9f5;border-radius:20px;overflow:hidden}
+#module-progress-bar{display:block;width:0;height:100%;background:var(--color-brand);transition:width .25s}
+#module-progress{font-size:.78rem;color:var(--color-muted);margin-top:8px}
+.lesson-choice.is-complete{background:#eaf8ef;color:#18794e}
+.lesson-choice.is-complete span:first-child::after{content:" ✓"}
+</style>

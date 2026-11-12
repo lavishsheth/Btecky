@@ -1,0 +1,129 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+const stages = [
+  { n:'01', name:'HTML', title:'Build the structure', description:'Learn headings, paragraphs, links, images, forms and semantic page structure.', lessons:['Introduction to HTML','Headings and paragraphs','Links and images','Lists and tables','Forms and semantic HTML'], color:'html' },
+  { n:'02', name:'CSS', title:'Design the same website', description:'Take the website you created with HTML and style it with colours, spacing, typography and responsive layouts.', lessons:['CSS selectors','Colours and typography','Box model and spacing','Flexbox and Grid','Responsive website design'], color:'css' },
+  { n:'03', name:'JavaScript', title:'Make your website interactive', description:'Bring your existing project to life with events, DOM manipulation, forms and interactive behaviour.', lessons:['JavaScript fundamentals','Variables and functions','DOM manipulation','Events and interactions','Build a complete website'], color:'js' }
+];
+---
+<BaseLayout title="Web Development Learning Path | B Tecky LearnLab" description="Learn HTML, CSS and JavaScript in sequence by building one complete website project.">
+<main class="web-path">
+  <section class="web-hero"><div class="container">
+    <a href="/learn" class="back-link">← All learning paths</a>
+    <p class="eyebrow">LEARNING PATH · BEGINNER</p>
+    <h1>From your first line<br/><span>to your first website.</span></h1>
+    <p>Learn HTML, CSS and JavaScript in the right order. Each stage builds on the same project, so you finish with a complete website you understand.</p>
+    <div class="web-stats"><span>3 technologies</span><span>15 guided topics</span><span>1 connected project</span></div>
+  </div></section>
+  <section class="container stages">
+    <div class="stages-heading"><p class="eyebrow">YOUR PROJECT JOURNEY</p><h2>One website. Built step by step.</h2></div>
+    {stages.map((stage,i)=><article class={`stage ${stage.color}`}>
+      <div class="stage-head"><span>{stage.n} / TECHNOLOGY</span><span>{stage.name}</span></div>
+      <h2>{stage.title}</h2><p>{stage.description}</p>
+      <ol>{stage.lessons.map((lesson,j)=><li><span>{String(j+1).padStart(2,'0')}</span>{lesson}<span class="lesson-state">{i===0&&j===0?'START HERE':'LESSON'}</span></li>)}</ol>
+      <div class="stage-actions">
+        <a class="stage-cta" data-stage-link={stage.color} href={i===0?'/learn/web-development/html/':i===1?'/learn/web-development/css/':'/learn/web-development/javascript/'}>{i===0?'Start HTML lessons ↗':i===1?'Continue to CSS ↗':'Continue to JavaScript ↗'}</a>
+        <span class="stage-locked" data-stage-locked={stage.color}>{i===0?'Start your learning journey':`Unlock after completing ${stages[i-1].name}`}</span>
+        <span class="stage-complete" data-stage-complete={stage.color}>✓ Completed</span>
+      </div>
+    </article>)}
+  </section>
+</main>
+</BaseLayout>
+<style>
+.web-hero{padding:75px 0;background:linear-gradient(130deg,#f3f6ff,#fff 70%)}
+.back-link{display:inline-block;color:var(--color-brand);font-weight:700;font-size:.82rem;margin-bottom:35px}
+.web-hero h1{font-size:clamp(3rem,6vw,5.5rem);letter-spacing:-.075em;line-height:1;margin:20px 0}
+.web-hero h1 span{color:var(--color-brand)}
+.web-hero p:not(.eyebrow){max-width:650px;color:var(--color-muted);font-size:1.05rem;line-height:1.8}
+.web-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}
+.web-stats span{padding:9px 12px;border:1px solid var(--color-border);border-radius:8px;background:white;font-size:.75rem;font-weight:700}
+.stages{padding-block:75px}.stages-heading{margin-bottom:30px}.stages-heading h2{font-size:2rem;letter-spacing:-.05em}
+.stage{padding:28px;margin-bottom:20px;border:1px solid var(--color-border);border-radius:20px;background:white}
+.stage-head{display:flex;justify-content:space-between;color:var(--color-brand);font-size:.7rem;font-weight:900;letter-spacing:.12em}
+.stage h2{font-size:1.8rem;letter-spacing:-.05em;margin:18px 0 8px}
+.stage>p{color:var(--color-muted);line-height:1.7;max-width:700px}
+.stage ol{list-style:none;padding:0;margin:25px 0}
+.stage li{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #edf0f5;font-size:.9rem;font-weight:700}
+.stage li>span:first-child{color:var(--color-brand);font-size:.75rem}
+.lesson-state{margin-left:auto;color:#98a2b3;font-size:.62rem;letter-spacing:.08em}
+.stage-cta{display:inline-block;background:var(--color-brand);color:white;padding:13px 17px;border-radius:9px;font-weight:800;font-size:.83rem}
+.stage-locked{font-size:.8rem;color:#8a94a6}
+.css .stage-head{color:#2874df}.js .stage-head{color:#a47a13}
+@media(max-width:600px){.stage{padding:20px}.stage li{font-size:.8rem;gap:9px}.lesson-state{font-size:.53rem}}
+</style>
+
+<script>
+const learningStages = [
+  {id:'html',key:'btecky-html-intro-complete',url:'/learn/web-development/html/'},
+  {id:'css',key:'btecky-css-complete',url:'/learn/web-development/css/'},
+  {id:'js',key:'btecky-js-complete',url:'/learn/web-development/javascript/'}
+];
+
+const completed = learningStages.map(stage =>
+  localStorage.getItem(stage.key) === 'true'
+);
+
+const count = completed.filter(Boolean).length;
+const percent = Math.round(count / learningStages.length * 100);
+const next = learningStages.findIndex((stage,i)=>!completed[i]);
+
+const bar = document.querySelector<HTMLElement>('#learning-progress-bar');
+const countText = document.querySelector<HTMLElement>('#learning-progress-count');
+const percentText = document.querySelector<HTMLElement>('#learning-progress-percent');
+const summary = document.querySelector<HTMLElement>('#learning-summary');
+const resume = document.querySelector<HTMLAnchorElement>('#resume-learning');
+
+if (bar) bar.style.width = percent + '%';
+if (countText) countText.textContent = count + ' of 3 stages completed';
+if (percentText) percentText.textContent = percent + '%';
+if (summary) summary.textContent = count === 3
+  ? 'Congratulations! You completed your Web Development learning journey.'
+  : count === 0
+    ? 'Start with HTML and work towards your complete website.'
+    : 'Great progress! Continue with the next stage to build your complete website.';
+
+if (resume) {
+  resume.href = next === -1
+    ? '/learn/web-development/javascript/'
+    : learningStages[next].url;
+  resume.textContent = next === -1 ? 'Review completed project ↗' : 'Resume learning ↗';
+}
+
+learningStages.forEach((stage,i)=>{
+  const link = document.querySelector<HTMLAnchorElement>(
+    `[data-stage-link="${stage.id}"]`
+  );
+  const locked = document.querySelector<HTMLElement>(
+    `[data-stage-locked="${stage.id}"]`
+  );
+  const done = document.querySelector<HTMLElement>(
+    `[data-stage-complete="${stage.id}"]`
+  );
+
+  const unlocked = i === 0 || completed[i-1];
+
+  if (link) {
+    link.hidden = !unlocked;
+    link.setAttribute('aria-disabled',String(!unlocked));
+    if (!unlocked) link.removeAttribute('href');
+  }
+
+  if (locked) locked.hidden = unlocked || completed[i];
+  if (done) done.hidden = !completed[i];
+});
+</script>
+
+<style>
+.progress-dashboard{padding:35px;margin-top:35px;margin-bottom:15px;border:1px solid var(--color-border);border-radius:18px;background:#f8f9ff}
+.progress-dashboard h2{font-size:1.7rem;letter-spacing:-.05em;margin:8px 0}
+.progress-dashboard p:not(.eyebrow){color:var(--color-muted);line-height:1.6}
+.progress-track{height:10px;background:#e4e9f5;border-radius:20px;overflow:hidden;margin-top:22px}
+#learning-progress-bar{height:100%;width:0;background:var(--color-brand);border-radius:20px;transition:width .3s}
+.progress-numbers{display:flex;justify-content:space-between;margin:12px 0 18px;font-size:.8rem}
+.stage-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.stage-complete{font-size:.8rem;font-weight:800;color:#18794e}
+.stage-locked[hidden],.stage-complete[hidden],.stage-cta[hidden]{display:none}
+.stage-cta[aria-disabled="true"]{pointer-events:none}
+@media(max-width:600px){.progress-dashboard{padding:22px}}
+</style>
