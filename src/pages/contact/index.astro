@@ -1,0 +1,186 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Contact B Tecky | Let's talk"
+  description="Contact B Tecky for collaborations, sponsorships, feedback, corrections, technical questions, or support."
+>
+  <main class="contact-page" id="top">
+    <section class="contact-hero">
+      <div class="container">
+        <p class="contact-eyebrow"><span></span> CONTACT B TECKY</p>
+        <h1>Let's make<br /><em>something useful.</em></h1>
+        <p class="contact-intro">Have a question, an idea, feedback, or a project in mind? Choose what best describes your message and tell me a little about it. I'll get back to you by email.</p>
+      </div>
+    </section>
+
+    <section class="contact-content container" aria-label="Contact options">
+      <div class="contact-form-card">
+        <div class="contact-card-heading">
+          <div><p class="contact-kicker">SEND A MESSAGE</p><h2>How can I help?</h2></div>
+          <span class="contact-card-icon" aria-hidden="true">✉</span>
+        </div>
+        <p class="contact-form-note">Fields marked <span aria-hidden="true">*</span> are required. Your message will be sent directly to the B Tecky inbox.</p>
+
+        <form id="contact-form" class="contact-form">
+          <div class="contact-field">
+            <label for="contact-name">Your name <span>*</span></label>
+            <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="e.g. Rahul Sharma" minlength="2" maxlength="100" required />
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-email">Your email address <span>*</span></label>
+            <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required />
+            <small>I'll use this address to reply. Please double-check that it is correct.</small>
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-topic">What would you like to discuss? <span>*</span></label>
+            <select id="contact-topic" name="topic" required>
+              <option value="" selected disabled>Choose the closest option</option>
+              <option value="Project or business enquiry">Project or business enquiry</option>
+              <option value="Sponsorship or collaboration">Sponsorship or collaboration</option>
+              <option value="Website or tool support">Website or tool support</option>
+              <option value="Blog correction or suggestion">Blog correction or suggestion</option>
+              <option value="Learning or mentorship question">Learning or mentorship question</option>
+              <option value="Feedback or general question">Feedback or general question</option>
+              <option value="Something else">Something else</option>
+            </select>
+            <small>Not sure? Choose “Something else”.</small>
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-organization">Company, college or organization <span class="optional">(optional)</span></label>
+            <input id="contact-organization" name="organization" type="text" autocomplete="organization" maxlength="120" placeholder="e.g. ABC Technologies" />
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-subject">Short subject <span class="optional">(optional)</span></label>
+            <input id="contact-subject" name="subject" type="text" maxlength="140" placeholder="e.g. Collaboration for a developer event" />
+          </div>
+
+          <div class="contact-field">
+            <label for="contact-message">Your message <span>*</span></label>
+            <textarea id="contact-message" name="message" rows="6" minlength="10" maxlength="5000" placeholder="Hi Lavish,&#10;&#10;I'm reaching out because...&#10;A little more detail about my question or idea...&#10;&#10;Thank you!" required></textarea>
+            <small>Tell me what you need, a little background, and any useful links. Please don't include passwords or private account details.</small>
+          </div>
+
+          <div class="contact-honeypot" aria-hidden="true">
+            <label for="contact-website">Leave this field empty</label>
+            <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <button class="contact-submit" type="submit">
+            <span class="contact-submit-label">Send message</span><span aria-hidden="true">↗</span>
+          </button>
+          <p class="contact-status" id="contact-status" role="status" aria-live="polite"></p>
+          <p class="contact-privacy">By sending this form, you agree that the information you provide may be used to respond to your enquiry. See our <a href="/privacy/">Privacy Policy</a>.</p>
+        </form>
+      </div>
+
+      <aside class="contact-aside">
+        <div class="contact-aside-card contact-email-card">
+          <p class="contact-kicker">PREFER EMAIL?</p>
+          <h2>Reach me directly.</h2>
+          <p>You can also email me directly. If you use the form, your message goes to this same inbox.</p>
+          <a class="contact-email-link" href="mailto:lavishsheth122@gmail.com"><span>✉</span> lavishsheth122@gmail.com</a>
+        </div>
+
+        <div class="contact-aside-card">
+          <p class="contact-kicker">CONNECT ELSEWHERE</p>
+          <h2>Find B Tecky online.</h2>
+          <div class="contact-social-links">
+            <a href="https://www.linkedin.com/in/lavish-sheth-163844215/" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><b>↗</b></a>
+            <a href="https://t.me/bteckyls" target="_blank" rel="noopener noreferrer"><span>Telegram</span><b>↗</b></a>
+            <a href="https://whatsapp.com/channel/0029Va7uSWT7oQhlRVJKka1Q" target="_blank" rel="noopener noreferrer"><span>WhatsApp Channel</span><b>↗</b></a>
+            <a href="https://www.youtube.com/@btecky" target="_blank" rel="noopener noreferrer"><span>YouTube</span><b>↗</b></a>
+          </div>
+        </div>
+
+        <div class="contact-aside-card contact-mentor">
+          <p class="contact-kicker">LOOKING FOR MENTORSHIP?</p>
+          <h2>Let's work through it.</h2>
+          <p>For a dedicated mentorship session, you can book a time through Unstop.</p>
+          <a href="https://unstop.com/mentor/lavish?ref=wyOK0QY" target="_blank" rel="noopener noreferrer">Book a mentorship session ↗</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <style>
+    .contact-page{background:#f7f8fc;color:#101828;min-height:70vh;padding-bottom:clamp(64px,8vw,110px)}
+    .contact-page .container{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+    .contact-hero{padding:clamp(54px,8vw,100px) 0 46px;background:radial-gradient(ellipse at 78% 20%,rgba(49,94,251,.12),transparent 36%),linear-gradient(135deg,#f4f6ff,#fff 58%,#f8f9ff)}
+    .contact-eyebrow,.contact-kicker{margin:0 0 14px;color:#315efb;font-size:.72rem;font-weight:800;letter-spacing:.15em}
+    .contact-eyebrow{display:flex;align-items:center;gap:10px}.contact-eyebrow span{width:9px;height:9px;border-radius:3px;background:#ffcf3d}
+    .contact-hero h1{max-width:850px;margin:0;font-family:var(--font-display);font-size:clamp(3rem,7vw,5.8rem);line-height:.98;letter-spacing:-.065em;font-weight:800}
+    .contact-hero h1 em{color:#315efb;font-style:normal}
+    .contact-intro{max-width:650px;margin:22px 0 0;color:#596579;font-size:1.08rem;line-height:1.75}
+    .contact-content{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.8fr);gap:24px;align-items:start;margin-top:0}
+    .contact-form-card,.contact-aside-card{background:#fff;border:1px solid #e2e7f1;border-radius:22px;box-shadow:0 14px 45px rgba(30,52,104,.055)}
+    .contact-form-card{padding:clamp(22px,4vw,38px)}
+    .contact-card-heading{display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .contact-card-heading .contact-kicker{margin-bottom:7px}.contact-card-heading h2,.contact-aside-card h2{margin:0;font-family:var(--font-display);font-size:clamp(1.35rem,2.4vw,1.8rem);letter-spacing:-.04em}
+    .contact-card-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;background:#edf2ff;color:#315efb;font-size:1.35rem}
+    .contact-form-note{margin:12px 0 26px;color:#667085;font-size:.9rem}.contact-form-note span,.contact-field label>span:not(.optional){color:#315efb}
+    .contact-form{display:grid;gap:19px}
+    .contact-field{display:grid;gap:7px}.contact-field label{font-size:.9rem;font-weight:750;color:#25304a}.contact-field label .optional{font-size:.78rem;font-weight:500;color:#8490a3}
+    .contact-field input,.contact-field select,.contact-field textarea{width:100%;min-width:0;border:1px solid #d9e0ed;border-radius:11px;background:#fff;color:#172033;padding:13px 14px;font-size:.96rem;line-height:1.5;transition:border-color .18s,box-shadow .18s}
+    .contact-field textarea{min-height:155px;resize:vertical}.contact-field input::placeholder,.contact-field textarea::placeholder{color:#9aa4b5}
+    .contact-field input:focus,.contact-field select:focus,.contact-field textarea:focus{outline:0;border-color:#315efb;box-shadow:0 0 0 4px rgba(49,94,251,.1)}
+    .contact-field small{color:#7a8497;font-size:.78rem;line-height:1.5}
+    .contact-submit{display:inline-flex;justify-content:center;align-items:center;gap:13px;min-height:50px;padding:0 22px;border:0;border-radius:12px;background:#315efb;color:#fff;font-weight:800;cursor:pointer;box-shadow:0 9px 20px rgba(49,94,251,.2);transition:transform .18s,background .18s;justify-self:start}
+    .contact-submit:hover{background:#2349d8;transform:translateY(-1px)}.contact-submit:disabled{opacity:.65;cursor:wait;transform:none}
+    .contact-status{display:none;margin:0;padding:13px 15px;border-radius:11px;font-size:.9rem;line-height:1.5}.contact-status.is-visible{display:block}.contact-status.is-success{background:#ecfdf3;border:1px solid #abefc6;color:#067647}.contact-status.is-error{background:#fff1f0;border:1px solid #fecdca;color:#b42318}
+    .contact-privacy{margin:0;color:#8791a3;font-size:.76rem;line-height:1.6}.contact-privacy a{color:#315efb;text-decoration:underline;text-underline-offset:3px}
+    .contact-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+    .contact-aside{display:grid;gap:18px}.contact-aside-card{padding:25px}.contact-aside-card .contact-kicker{margin-bottom:9px}.contact-aside-card>p:not(.contact-kicker){margin:12px 0 0;color:#667085;font-size:.92rem;line-height:1.7}
+    .contact-email-link{display:flex;align-items:center;gap:10px;margin-top:19px;padding:13px 14px;border:1px solid #dce4f2;border-radius:12px;color:#244bd8;font-size:.9rem;font-weight:750;overflow-wrap:anywhere}.contact-email-link span{font-size:1.1rem}
+    .contact-social-links{display:grid;gap:8px;margin-top:18px}.contact-social-links a{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border:1px solid #e3e8f2;border-radius:10px;color:#344054;font-size:.9rem;font-weight:650;transition:border-color .18s,color .18s}.contact-social-links a:hover{border-color:#315efb;color:#315efb}.contact-social-links b{color:#315efb}
+    .contact-mentor{background:linear-gradient(145deg,#111d3b,#1c3472);border-color:#1c3472;color:#fff}.contact-mentor .contact-kicker{color:#9db4ff}.contact-mentor h2{color:#fff}.contact-mentor>p:not(.contact-kicker){color:#c5d0e8}.contact-mentor>a{display:inline-flex;margin-top:17px;color:#fff;font-size:.88rem;font-weight:800;text-decoration:underline;text-underline-offset:4px}
+    @media(max-width:820px){.contact-content{grid-template-columns:1fr}.contact-aside{grid-template-columns:repeat(2,minmax(0,1fr))}.contact-mentor{grid-column:1/-1}}
+    @media(max-width:560px){.contact-page .container{width:calc(100% - 32px)}.contact-hero{padding-top:48px}.contact-aside{grid-template-columns:1fr}.contact-mentor{grid-column:auto}.contact-form-card{border-radius:17px}.contact-aside-card{padding:22px}}
+  </style>
+  <script>
+    const form = document.querySelector<HTMLFormElement>('#contact-form');
+    const status = document.querySelector<HTMLElement>('#contact-status');
+    const submitButton = form?.querySelector<HTMLButtonElement>('button[type="submit"]') ?? null;
+    const submitLabel = form?.querySelector<HTMLElement>('.contact-submit-label') ?? null;
+
+    if (form && status && submitButton && submitLabel) {
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+        submitButton.disabled = true;
+        submitLabel.textContent = 'Sending…';
+        status.className = 'contact-status';
+        status.textContent = '';
+
+        try {
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok || !result.ok) {
+            throw new Error(result.error || 'Your message could not be sent. Please try again or email me directly.');
+          }
+          form.reset();
+          status.textContent = 'Thanks for reaching out! Your message has been sent successfully. I’ll reply to the email address you provided.';
+          status.className = 'contact-status is-visible is-success';
+        } catch (error) {
+          status.textContent = error instanceof Error
+            ? error.message
+            : 'Something went wrong. Please try again or email lavishsheth122@gmail.com directly.';
+          status.className = 'contact-status is-visible is-error';
+        } finally {
+          submitButton.disabled = false;
+          submitLabel.textContent = 'Send message';
+        }
+      });
+    }
+  </script>
+</BaseLayout>
