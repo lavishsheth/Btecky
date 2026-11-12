@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const course = {"slug": "cybersecurity", "name": "Cybersecurity", "short": "Build defensive security skills through risk thinking, safe labs, and practical controls.", "modules": [{"title": "Security foundations", "summary": "Understand threats, assets, risk, and ethical boundaries.", "lessons": [{"title": "The security mindset", "body": "Cybersecurity protects the confidentiality, integrity, and availability of information and systems. Start by identifying assets, likely threats, weaknesses, impact, and controls. Security is a continuous risk-management process, not a one-time product purchase.", "task": "Choose a personal or small-business asset. Describe what confidentiality, integrity, and availability mean for it."}, {"title": "Threats, vulnerabilities, and risk", "body": "A threat is something that could cause harm; a vulnerability is a weakness that could be exploited; risk combines likelihood and impact. A control reduces likelihood, impact, or both. Prioritize based on context rather than dramatic headlines.", "task": "For an outdated public website, identify one threat, one vulnerability, possible impact, and a practical control."}, {"title": "Ethics, authorization, and scope", "body": "Only test systems you own or have explicit written permission to assess. Define scope, allowed techniques, timing, contacts, and stop conditions before testing. Never scan, access, or disrupt a third-party system without authorization.", "task": "Draft a permission checklist for a security assessment of your own local test application. Include scope, dates, allowed tests, and emergency contact."}, {"title": "The attack surface", "body": "An attack surface includes exposed services, accounts, devices, applications, APIs, and human processes. Reduce it by removing unused services, limiting access, patching, and monitoring. Inventory is essential because unknown assets cannot be managed reliably.", "task": "Create an inventory for a small business with laptops, a website, cloud storage, Wi-Fi, and employee accounts. Mark the most exposed assets."}]}, {"title": "Protect systems and applications", "summary": "Apply practical defensive controls.", "lessons": [{"title": "Authentication and MFA", "body": "Authentication verifies identity. Multi-factor authentication combines different factor types, making stolen passwords less useful. Prefer phishing-resistant methods where available, unique passwords, secure recovery, and protection of administrator accounts.", "task": "Create an account-protection policy covering MFA, password managers, recovery codes, and privileged accounts."}, {"title": "Access control and least privilege", "body": "Authorization determines what an authenticated identity may do. Use role-based access where appropriate, review permissions regularly, remove access promptly when roles change, and separate administrator accounts from everyday accounts.", "task": "Design three roles for a learning platform: learner, instructor, and administrator. List the minimum permissions each needs."}, {"title": "Secure web application basics", "body": "Validate input on the server, encode output for its context, use parameterized database queries, protect sessions, and configure security headers. Client-side validation improves usability but cannot replace server-side checks.", "task": "Review a login form design. Identify where server-side validation, password hashing, session protection, and rate limiting belong."}, {"title": "Patching and secure configuration", "body": "Updates fix known vulnerabilities and bugs. Maintain an asset inventory, prioritize internet-facing and actively exploited systems, test important changes, and remove default credentials and unnecessary services. Record exceptions with owners and deadlines.", "task": "Write a monthly patch process with inventory, risk-based prioritization, testing, deployment, verification, and exception handling."}]}, {"title": "Detection and incident response", "summary": "Recognize suspicious activity and respond methodically.", "lessons": [{"title": "Logs and monitoring", "body": "Logs record events such as authentication, application errors, and administrative changes. Centralize important logs, protect them from tampering, synchronize time, and define retention. Monitor for meaningful patterns while respecting privacy and access controls.", "task": "Choose five events worth logging for a small web application. Explain who should access the logs and how long they should be retained."}, {"title": "Phishing and social engineering", "body": "Social engineering manipulates people into revealing information or taking unsafe actions. Verify unusual requests through a separate trusted channel, inspect sender details and destinations, and report suspicious messages. Training should make reporting easy rather than blame users.", "task": "Create a safe response checklist for an employee who receives an unexpected password-reset link."}, {"title": "Incident response lifecycle", "body": "A practical incident process includes preparation, identification, containment, eradication, recovery, and lessons learned. Preserve evidence, document decisions, communicate through agreed channels, and avoid actions that destroy useful forensic information.", "task": "A staff account shows suspicious sign-ins. Outline the first containment steps, evidence to preserve, people to notify, and recovery checks."}, {"title": "Backups and recovery", "body": "Backups should be protected from the systems they protect, access-controlled, monitored, and tested through restoration. Consider offline or immutable copies to reduce ransomware impact. Define recovery priorities and verify restored data before returning to service.", "task": "Create a backup plan for a small business. Include frequency, separate storage, encryption, access, retention, and a restore test."}]}, {"title": "Secure practice and capstone", "summary": "Apply defensive methods in an authorized learning environment.", "lessons": [{"title": "Network security fundamentals", "body": "Firewalls restrict traffic according to policy; segmentation limits movement between systems; secure Wi-Fi uses modern encryption and strong administration. Expose only necessary services and review rules as applications change.", "task": "Design a small office network with separate staff, guest, and server segments. State which communication should be allowed between them."}, {"title": "Vulnerability management", "body": "A vulnerability scan can identify outdated software or insecure configurations, but findings need validation and prioritization. Consider exploitability, exposure, asset importance, and available mitigations. Scanning is appropriate only within authorized scope.", "task": "Build a remediation table with finding, affected asset, severity, owner, due date, mitigation, and verification evidence."}, {"title": "Safe security lab practice", "body": "Use intentionally vulnerable applications, local virtual machines, or training platforms designed for practice. Keep labs isolated, use synthetic data, snapshot before experiments, and never reuse techniques against systems outside the authorized scope.", "task": "Plan a local-only lab with a test web app and isolated network. Describe how you will reset it and prevent exposure to the public internet."}, {"title": "Capstone: defensive security review", "body": "Perform a permission-based review of a local demo application or your own project. Document assets, scope, access controls, configuration, logging, backup readiness, prioritized findings, and remediation evidence. Do not test systems without authorization.", "task": "Deliver a scoped assessment report with an asset list, threat model, control review, risk-ranked findings, remediation plan, and retest checklist."}]}], "quiz": [["What are the three classic security objectives?", ["Speed, scale, storage", "Confidentiality, integrity, availability", "Login, logout, backup", "Privacy, profit, performance"], 1, "The CIA triad describes confidentiality, integrity, and availability."], ["When may you test a third-party system?", ["Whenever it is online", "Only with explicit authorization and defined scope", "If the scan is brief", "If you hide your IP"], 1, "Security testing must be authorized and bounded by scope."], ["What does MFA add?", ["A second or additional factor type", "A longer username", "A public admin account", "Automatic patching"], 0, "MFA requires more than one factor, ideally from different categories."], ["Which is a useful incident-response action?", ["Delete all logs immediately", "Preserve evidence and follow the response plan", "Post credentials in chat", "Ignore suspicious sign-ins"], 1, "Preserving evidence and using a prepared response process supports investigation and recovery."]], "capstone": "Complete an authorized defensive review of a local or owned application. Include scope, assets, risk assessment, controls, logging, backup readiness, prioritized fixes, and retest evidence."};
+const storagePrefix = `btecky-${course.slug}-`;
+---
+
+<BaseLayout title={`${course.name} | B Tecky LearnLab`} description={course.short}>
+  <main class="course-shell">
+    <a class="back-link" href="/learn/">← All learning paths</a>
+    <header class="hero">
+      <p class="eyebrow">B TECKY · LEARNLAB</p>
+      <h1>{course.name}</h1>
+      <p class="intro">{course.short}</p>
+      <div class="progress-wrap">
+        <div class="progress-copy"><span>Your course progress</span><strong id="progress-label">0% complete</strong></div>
+        <div class="progress-track"><div id="progress-fill"></div></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="sidebar">
+        <h2>Course roadmap</h2>
+        <nav id="lesson-nav" aria-label="Course lessons">
+          {course.modules.map((module, mi) => <section class="nav-module">
+            <h3>{mi + 1}. {module.title}</h3>
+            {module.lessons.map((lesson, li) => <button class="nav-lesson" data-lesson={`${mi}-${li}`} type="button">{li + 1}. {lesson.title}</button>)}
+          </section>)}
+          <button class="nav-lesson quiz-link" data-quiz="true" type="button">Knowledge checks</button>
+          <button class="nav-lesson quiz-link" data-capstone="true" type="button">Final capstone</button>
+        </nav>
+      </aside>
+      <section class="lesson-panel" aria-live="polite">
+        <div id="lesson-content">
+          <p class="eyebrow">START HERE</p>
+          <h2>Welcome to {course.name}</h2>
+          <p>Work through the lessons in order. Each lesson includes an explanation and a practical task. Your progress is saved in this browser.</p>
+          <button id="start-button" class="primary" type="button">Start first lesson</button>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+:global(body){background:#f6f8fc;color:#172033}.course-shell{max-width:1180px;margin:0 auto;padding:34px 22px 80px}.back-link{color:#3156a5;text-decoration:none;font-weight:650}.hero{padding:34px 0 28px}.eyebrow{font-size:.76rem;letter-spacing:.14em;font-weight:800;color:#5570aa}.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.05;margin:10px 0}.intro{font-size:1.1rem;color:#596579;max-width:680px}.progress-wrap{max-width:580px;margin-top:28px}.progress-copy{display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:9px}.progress-track{height:9px;background:#e1e7f1;border-radius:20px;overflow:hidden}.progress-track div{height:100%;width:0;background:#4169d8;border-radius:20px;transition:width .2s}.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:22px;align-items:start}.sidebar,.lesson-panel{background:white;border:1px solid #e5eaf2;border-radius:18px;box-shadow:0 8px 28px #1c31500b}.sidebar{padding:20px;position:sticky;top:18px;max-height:calc(100vh - 36px);overflow:auto}.sidebar h2{font-size:1.05rem;margin:0 0 16px}.nav-module{margin:0 0 18px}.nav-module h3{font-size:.88rem;margin:0 0 8px;color:#34415a}.nav-lesson{display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:8px;padding:9px 10px;color:#58657a;cursor:pointer;font:inherit;font-size:.87rem}.nav-lesson:hover,.nav-lesson.active{background:#edf2ff;color:#254caa}.nav-lesson.done:after{content:' ✓';color:#16804a;font-weight:800}.lesson-panel{padding:clamp(22px,4vw,44px);min-height:480px}.lesson-panel h2{font-size:clamp(1.6rem,3vw,2.25rem);margin:8px 0 16px}.lesson-panel p{line-height:1.8;color:#4c596d}.task{background:#f1f5ff;border-left:4px solid #5577d6;padding:18px 20px;border-radius:10px;margin:24px 0}.task strong{display:block;color:#243c7b;margin-bottom:6px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.primary,.secondary{border:0;border-radius:9px;padding:12px 17px;font-weight:700;cursor:pointer}.primary{background:#315bd1;color:white}.secondary{background:#edf1f7;color:#27344b}.code-sample{background:#111827;color:#e5edff;padding:16px;border-radius:10px;overflow:auto;white-space:pre-wrap}.quiz-option{display:block;width:100%;text-align:left;padding:13px;margin:9px 0;border:1px solid #dce3ef;border-radius:9px;background:white;cursor:pointer}.quiz-option.selected{border-color:#4169d8;background:#eff3ff}.feedback{padding:13px;border-radius:9px;margin-top:14px;background:#f0f7f2;color:#205b37}.muted{color:#6b778b!important}@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{position:static;max-height:none}.lesson-panel{min-height:400px}}
+
+/* Styling for dynamically rendered lesson content */
+:global(.lesson-panel h2) {
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  margin: 10px 0 18px;
+  color: #172033;
+}
+:global(.lesson-panel p) {
+  line-height: 1.8;
+  color: #4c596d;
+  margin: 12px 0;
+}
+:global(.lesson-panel .task) {
+  background: #f1f5ff;
+  border-left: 4px solid #5577d6;
+  padding: 20px 22px;
+  border-radius: 10px;
+  margin: 26px 0;
+  line-height: 1.7;
+  color: #34415a;
+}
+:global(.lesson-panel .task strong) {
+  display: block;
+  color: #243c7b;
+  margin-bottom: 8px;
+}
+:global(.lesson-panel .actions) {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+:global(.lesson-panel .primary),
+:global(.lesson-panel .secondary) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 9px;
+  padding: 12px 19px;
+  min-height: 44px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+:global(.lesson-panel .primary) {
+  background: #315bd1;
+  color: white;
+}
+:global(.lesson-panel .secondary) {
+  background: #edf1f7;
+  color: #27344b;
+}
+:global(.lesson-panel .quiz-option) {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  margin: 10px 0;
+  border: 1px solid #dce3ef;
+  border-radius: 9px;
+  background: white;
+  color: #27344b;
+  font: inherit;
+  cursor: pointer;
+}
+:global(.lesson-panel .quiz-option:hover),
+:global(.lesson-panel .quiz-option.selected) {
+  border-color: #4169d8;
+  background: #eff3ff;
+}
+:global(.lesson-panel .feedback) {
+  padding: 15px 18px;
+  border-radius: 9px;
+  margin-top: 16px;
+  background: #f0f7f2;
+  color: #205b37;
+  line-height: 1.7;
+}
+:global(.lesson-panel .muted) {
+  color: #6b778b;
+  font-size: .9rem;
+}
+
+</style>
+
+<script define:vars={{ course, storagePrefix }}>
+const content = document.getElementById('lesson-content');
+const nav = document.getElementById('lesson-nav');
+const fill = document.getElementById('progress-fill');
+const label = document.getElementById('progress-label');
+const totalLessons = course.modules.reduce((sum, module) => sum + module.lessons.length, 0);
+const key = (mi, li) => `${storagePrefix}lesson-${mi}-${li}`;
+const isDone = (mi, li) => localStorage.getItem(key(mi, li)) === 'true';
+function updateProgress() {
+  const done = course.modules.reduce((sum, module, mi) => sum + module.lessons.filter((_, li) => isDone(mi, li)).length, 0);
+  const percent = Math.round(done / totalLessons * 100);
+  fill.style.width = `${percent}%`;
+  label.textContent = `${percent}% complete`;
+  nav.querySelectorAll('[data-lesson]').forEach(button => {
+    const [mi, li] = button.dataset.lesson.split('-').map(Number);
+    button.classList.toggle('done', isDone(mi, li));
+  });
+}
+function showLesson(mi, li) {
+  const module = course.modules[mi], lesson = module.lessons[li];
+  nav.querySelectorAll('.nav-lesson').forEach(b => b.classList.toggle('active', b.dataset.lesson === `${mi}-${li}`));
+  content.innerHTML = `<p class="eyebrow">MODULE ${mi + 1} · LESSON ${li + 1}</p><h2>${lesson.title}</h2><p>${lesson.body}</p><div class="task"><strong>Practical task</strong>${lesson.task}</div><p class="muted">${isDone(mi,li) ? 'You have completed this lesson.' : 'Mark this lesson complete when you are ready to continue.'}</p><div class="actions"><button class="primary" id="complete-button" type="button">${isDone(mi,li) ? 'Completed ✓' : 'Mark complete'}</button>${li < module.lessons.length - 1 ? '<button class="secondary" id="next-button" type="button">Next lesson →</button>' : mi < course.modules.length - 1 ? '<button class="secondary" id="next-button" type="button">Next module →</button>' : '<button class="secondary" id="quiz-button" type="button">Knowledge checks →</button>'}</div>`;
+  document.getElementById('complete-button').addEventListener('click', () => { localStorage.setItem(key(mi,li),'true'); updateProgress(); showLesson(mi,li); });
+  document.getElementById('next-button')?.addEventListener('click', () => li < module.lessons.length - 1 ? showLesson(mi,li+1) : showLesson(mi+1,0));
+  document.getElementById('quiz-button')?.addEventListener('click', showQuiz);
+}
+function showQuiz() {
+  nav.querySelectorAll('.nav-lesson').forEach(b => b.classList.toggle('active', b.dataset.quiz === 'true'));
+  let index = 0;
+  function renderQuestion() {
+    const q = course.quiz[index];
+    content.innerHTML = `<p class="eyebrow">KNOWLEDGE CHECK ${index+1} OF ${course.quiz.length}</p><h2>${q[0]}</h2><div id="options"></div><div id="quiz-feedback"></div><div class="actions"><button class="secondary" id="quiz-next" type="button" disabled>${index === course.quiz.length-1 ? 'Finish quiz' : 'Next question →'}</button></div>`;
+    const options = document.getElementById('options');
+    q[1].forEach((option, oi) => {
+      const button = document.createElement('button'); button.className='quiz-option'; button.type='button'; button.textContent=option;
+      button.addEventListener('click', () => {
+        if (options.dataset.answered) return;
+        options.dataset.answered='true';
+        const correct = oi === q[2];
+        button.classList.add('selected');
+        document.getElementById('quiz-feedback').innerHTML = `<p class="feedback">${correct ? 'Correct. ' : 'Not quite. '}${q[3]}</p>`;
+        document.getElementById('quiz-next').disabled=false;
+      });
+      options.appendChild(button);
+    });
+    document.getElementById('quiz-next').addEventListener('click', () => { if(index < course.quiz.length-1){index++;renderQuestion();} else showCapstone(); });
+  }
+  renderQuestion();
+}
+function showCapstone() {
+  nav.querySelectorAll('.nav-lesson').forEach(b => b.classList.toggle('active', b.dataset.capstone === 'true'));
+  content.innerHTML = `<p class="eyebrow">FINAL PROJECT</p><h2>Course capstone</h2><p>${course.capstone}</p><div class="task"><strong>Submission checklist</strong>Document your goal, approach, decisions, evidence, limitations, and what you would improve next.</div><p class="muted">You have reached the end of the course pathway. Review any lesson again from the roadmap whenever you need.</p><button class="primary" id="review-button" type="button">Review first lesson</button>`;
+  document.getElementById('review-button').addEventListener('click',()=>showLesson(0,0));
+}
+nav.querySelectorAll('[data-lesson]').forEach(button => button.addEventListener('click',()=>{const [mi,li]=button.dataset.lesson.split('-').map(Number);showLesson(mi,li);}));
+nav.querySelector('[data-quiz]').addEventListener('click',showQuiz);
+nav.querySelector('[data-capstone]').addEventListener('click',showCapstone);
+document.getElementById('start-button')?.addEventListener('click',()=>showLesson(0,0));
+updateProgress();
+</script>

@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const course = {"slug": "data-science", "name": "Data Science", "short": "Turn raw data into reliable analysis, visualizations, and decisions.", "modules": [{"title": "Data science foundations", "summary": "Frame questions and understand the data lifecycle.", "lessons": [{"title": "What data science does", "body": "Data science combines domain knowledge, statistics, programming, and communication to extract useful insight from data. A typical workflow moves from a question to collection, cleaning, exploration, modeling, evaluation, and communication. The goal is a defensible decision, not merely a complicated model.", "task": "Choose a real question such as reducing delivery delays. State the decision-maker, the outcome you want to improve, and what data could help."}, {"title": "Types of data and measurement", "body": "Data may be structured, semi-structured, or unstructured. Variables can be numerical or categorical; numerical data may be discrete or continuous. Measurement scales affect which summaries and statistical operations make sense.", "task": "Classify age, customer region, number of purchases, and product review text. Explain which variables can be averaged meaningfully."}, {"title": "Asking answerable questions", "body": "A good analytical question defines a population, time period, outcome, and comparison. Avoid vague goals such as 'understand customers'. Define what evidence would change a decision and consider alternative explanations.", "task": "Rewrite 'Why are sales bad?' as a measurable question with a defined time range, segment, and outcome."}, {"title": "Data collection and ethics", "body": "Data quality begins at collection. Check consent, purpose limitation, provenance, representativeness, and retention. Sensitive information should be minimized and protected. A large dataset can still be biased or unsuitable for the question.", "task": "Create a short collection plan for a customer feedback survey. Include consent, fields collected, retention, and one likely sampling bias."}]}, {"title": "Python, cleaning, and exploration", "summary": "Prepare datasets and inspect patterns before modeling.", "lessons": [{"title": "Python data workflow", "body": "Python is widely used for data work because its ecosystem supports tabular data, numerical computing, visualization, and machine learning. Notebooks help exploration, while reusable scripts and version control help make analysis repeatable.", "task": "Set up a project with a data folder, notebook, requirements file, and README. Record where the source data came from."}, {"title": "Working with pandas", "body": "A pandas DataFrame represents tabular data with labeled rows and columns. You can inspect shape and types, select columns, filter rows, group records, and summarize values. Understand each operation before chaining many transformations.", "task": "Example: `df.groupby('region')['revenue'].mean()` calculates mean revenue by region. Adapt it to calculate order counts by product category."}, {"title": "Cleaning missing and duplicate data", "body": "Missing values can indicate failed collection, inapplicability, or meaningful absence. Duplicates may be genuine repeated events or accidental copies. Do not automatically drop rows: inspect patterns and document decisions because cleaning can change conclusions.", "task": "Inspect missingness by column, check duplicate identifiers, and decide whether to impute, retain, or exclude each case. Explain your reasoning."}, {"title": "Exploratory data analysis", "body": "EDA uses summaries and visualizations to understand distributions, relationships, outliers, and data quality. Start with simple plots and descriptive statistics. Look for skew, seasonality, subgroup differences, and suspicious values before selecting a model.", "task": "For monthly sales, create a line chart and a histogram. Write three observations and one question the charts cannot answer."}]}, {"title": "Statistics and machine learning", "summary": "Use appropriate methods and evaluate them honestly.", "lessons": [{"title": "Descriptive statistics", "body": "Mean is sensitive to extreme values; median is more robust for skewed distributions. Standard deviation describes spread around the mean. Percentiles and interquartile range help describe distributions without assuming symmetry.", "task": "For incomes with a few very high earners, compare mean and median. Explain which better represents a typical person and why."}, {"title": "Sampling and uncertainty", "body": "A sample is used to learn about a population, but sampling variability means estimates differ from sample to sample. Confidence intervals communicate uncertainty under stated assumptions. Biased sampling cannot be repaired simply by collecting more of the same biased data.", "task": "Plan a survey sample for a city-wide service. Identify the sampling frame and explain how nonresponse could distort results."}, {"title": "Regression and classification", "body": "Regression predicts a numerical outcome, such as delivery time. Classification predicts a category, such as whether an order will be late. Establish a simple baseline first and ensure features would actually be available at prediction time.", "task": "Choose regression or classification for predicting house price, spam email, and customer churn. State a sensible baseline for one task."}, {"title": "Model evaluation and leakage", "body": "Split data into training and test sets to estimate generalization. Choose metrics that match the problem: accuracy can mislead on imbalanced classes, while precision, recall, and F1 reveal different trade-offs. Leakage occurs when information unavailable at prediction time enters training.", "task": "For fraud detection, explain why recall matters and why false positives still have a cost. Give one example of target leakage."}]}, {"title": "Communication and capstone", "summary": "Present evidence with caveats and actionable recommendations.", "lessons": [{"title": "Data visualization choices", "body": "Use bars to compare categories, lines for change over time, histograms for distributions, and scatter plots for relationships. Label axes, include units, avoid misleading scales, and keep visual emphasis aligned with the question.", "task": "Choose a chart for category revenue, daily active users, and the relationship between advertising spend and sales. Explain each choice."}, {"title": "Correlation and causation", "body": "Correlation describes association, not proof that one variable causes another. Confounding, reverse causality, selection effects, and coincidence can produce misleading relationships. Causal claims require a suitable design and assumptions.", "task": "A cafe sees ice-cream sales and swimming attendance rise together. Identify a plausible confounder and propose a stronger way to investigate causality."}, {"title": "Reproducibility and communication", "body": "A trustworthy analysis records data sources, assumptions, transformations, code versions, and limitations. Communicate the question, method, result, uncertainty, and recommended action in language suited to the audience.", "task": "Write a one-page analysis summary for a nontechnical manager. Include one chart, one caveat, and a recommendation linked to evidence."}, {"title": "Capstone: analyze a real-world dataset", "body": "Select a suitable public or approved dataset. Define a question, inspect and clean the data, perform EDA, apply an appropriate statistical or machine-learning method, evaluate it, and communicate limitations. Protect privacy and respect dataset licensing.", "task": "Submit a reproducible notebook, cleaned-data notes, charts, evaluation results, and a concise decision-focused report."}]}], "quiz": [["Which pandas object is commonly used for tabular data?", ["DataFrame", "Socket", "Thread", "TensorFlow session"], 0, "A DataFrame stores labeled rows and columns."], ["Which summary is often more robust to extreme values?", ["Mean", "Median", "Maximum", "Range"], 1, "The median depends on order and is less affected by very large or small observations."], ["Predicting a numeric house price is usually which task?", ["Classification", "Clustering", "Regression", "Sorting"], 2, "Regression predicts a numerical target."], ["Why is correlation not enough to prove causation?", ["It never measures association", "Confounding and other explanations may exist", "It only works on text", "It requires a neural network"], 1, "An observed association may be explained by confounders, reverse causality, or selection effects."]], "capstone": "Complete an end-to-end analysis: question, data provenance, cleaning, EDA, method, evaluation, visualization, limitations, and a clear recommendation."};
+const storagePrefix = `btecky-${course.slug}-`;
+---
+
+<BaseLayout title={`${course.name} | B Tecky LearnLab`} description={course.short}>
+  <main class="course-shell">
+    <a class="back-link" href="/learn/">← All learning paths</a>
+    <header class="hero">
+      <p class="eyebrow">B TECKY · LEARNLAB</p>
+      <h1>{course.name}</h1>
+      <p class="intro">{course.short}</p>
+      <div class="progress-wrap">
+        <div class="progress-copy"><span>Your course progress</span><strong id="progress-label">0% complete</strong></div>
+        <div class="progress-track"><div id="progress-fill"></div></div>
+      </div>
+    </header>
+    <div class="layout">
+      <aside class="sidebar">
+        <h2>Course roadmap</h2>
+        <nav id="lesson-nav" aria-label="Course lessons">
+          {course.modules.map((module, mi) => <section class="nav-module">
+            <h3>{mi + 1}. {module.title}</h3>
+            {module.lessons.map((lesson, li) => <button class="nav-lesson" data-lesson={`${mi}-${li}`} type="button">{li + 1}. {lesson.title}</button>)}
+          </section>)}
+          <button class="nav-lesson quiz-link" data-quiz="true" type="button">Knowledge checks</button>
+          <button class="nav-lesson quiz-link" data-capstone="true" type="button">Final capstone</button>
+        </nav>
+      </aside>
+      <section class="lesson-panel" aria-live="polite">
+        <div id="lesson-content">
+          <p class="eyebrow">START HERE</p>
+          <h2>Welcome to {course.name}</h2>
+          <p>Work through the lessons in order. Each lesson includes an explanation and a practical task. Your progress is saved in this browser.</p>
+          <button id="start-button" class="primary" type="button">Start first lesson</button>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+:global(body){background:#f6f8fc;color:#172033}.course-shell{max-width:1180px;margin:0 auto;padding:34px 22px 80px}.back-link{color:#3156a5;text-decoration:none;font-weight:650}.hero{padding:34px 0 28px}.eyebrow{font-size:.76rem;letter-spacing:.14em;font-weight:800;color:#5570aa}.hero h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.05;margin:10px 0}.intro{font-size:1.1rem;color:#596579;max-width:680px}.progress-wrap{max-width:580px;margin-top:28px}.progress-copy{display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:9px}.progress-track{height:9px;background:#e1e7f1;border-radius:20px;overflow:hidden}.progress-track div{height:100%;width:0;background:#4169d8;border-radius:20px;transition:width .2s}.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:22px;align-items:start}.sidebar,.lesson-panel{background:white;border:1px solid #e5eaf2;border-radius:18px;box-shadow:0 8px 28px #1c31500b}.sidebar{padding:20px;position:sticky;top:18px;max-height:calc(100vh - 36px);overflow:auto}.sidebar h2{font-size:1.05rem;margin:0 0 16px}.nav-module{margin:0 0 18px}.nav-module h3{font-size:.88rem;margin:0 0 8px;color:#34415a}.nav-lesson{display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:8px;padding:9px 10px;color:#58657a;cursor:pointer;font:inherit;font-size:.87rem}.nav-lesson:hover,.nav-lesson.active{background:#edf2ff;color:#254caa}.nav-lesson.done:after{content:' ✓';color:#16804a;font-weight:800}.lesson-panel{padding:clamp(22px,4vw,44px);min-height:480px}.lesson-panel h2{font-size:clamp(1.6rem,3vw,2.25rem);margin:8px 0 16px}.lesson-panel p{line-height:1.8;color:#4c596d}.task{background:#f1f5ff;border-left:4px solid #5577d6;padding:18px 20px;border-radius:10px;margin:24px 0}.task strong{display:block;color:#243c7b;margin-bottom:6px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.primary,.secondary{border:0;border-radius:9px;padding:12px 17px;font-weight:700;cursor:pointer}.primary{background:#315bd1;color:white}.secondary{background:#edf1f7;color:#27344b}.code-sample{background:#111827;color:#e5edff;padding:16px;border-radius:10px;overflow:auto;white-space:pre-wrap}.quiz-option{display:block;width:100%;text-align:left;padding:13px;margin:9px 0;border:1px solid #dce3ef;border-radius:9px;background:white;cursor:pointer}.quiz-option.selected{border-color:#4169d8;background:#eff3ff}.feedback{padding:13px;border-radius:9px;margin-top:14px;background:#f0f7f2;color:#205b37}.muted{color:#6b778b!important}@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{position:static;max-height:none}.lesson-panel{min-height:400px}}
+
+/* Styling for dynamically rendered lesson content */
+:global(.lesson-panel h2) {
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  margin: 10px 0 18px;
+  color: #172033;
+}
+:global(.lesson-panel p) {
+  line-height: 1.8;
+  color: #4c596d;
+  margin: 12px 0;
+}
+:global(.lesson-panel .task) {
+  background: #f1f5ff;
+  border-left: 4px solid #5577d6;
+  padding: 20px 22px;
+  border-radius: 10px;
+  margin: 26px 0;
+  line-height: 1.7;
+  color: #34415a;
+}
+:global(.lesson-panel .task strong) {
+  display: block;
+  color: #243c7b;
+  margin-bottom: 8px;
+}
+:global(.lesson-panel .actions) {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+:global(.lesson-panel .primary),
+:global(.lesson-panel .secondary) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 9px;
+  padding: 12px 19px;
+  min-height: 44px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+:global(.lesson-panel .primary) {
+  background: #315bd1;
+  color: white;
+}
+:global(.lesson-panel .secondary) {
+  background: #edf1f7;
+  color: #27344b;
+}
+:global(.lesson-panel .quiz-option) {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 14px 16px;
+  margin: 10px 0;
+  border: 1px solid #dce3ef;
+  border-radius: 9px;
+  background: white;
+  color: #27344b;
+  font: inherit;
+  cursor: pointer;
+}
+:global(.lesson-panel .quiz-option:hover),
+:global(.lesson-panel .quiz-option.selected) {
+  border-color: #4169d8;
+  background: #eff3ff;
+}
+:global(.lesson-panel .feedback) {
+  padding: 15px 18px;
+  border-radius: 9px;
+  margin-top: 16px;
+  background: #f0f7f2;
+  color: #205b37;
+  line-height: 1.7;
+}
+:global(.lesson-panel .muted) {
+  color: #6b778b;
+  font-size: .9rem;
+}
+
+</style>
+
+<script define:vars={{ course, storagePrefix }}>
+const content = document.getElementById('lesson-content');
+const nav = document.getElementById('lesson-nav');
+const fill = document.getElementById('progress-fill');
+const label = document.getElementById('progress-label');
+const totalLessons = course.modules.reduce((sum, module) => sum + module.lessons.length, 0);
+const key = (mi, li) => `${storagePrefix}lesson-${mi}-${li}`;
+const isDone = (mi, li) => localStorage.getItem(key(mi, li)) === 'true';
+function updateProgress() {
+  const done = course.modules.reduce((sum, module, mi) => sum + module.lessons.filter((_, li) => isDone(mi, li)).length, 0);
+  const percent = Math.round(done / totalLessons * 100);
+  fill.style.width = `${percent}%`;
+  label.textContent = `${percent}% complete`;
+  nav.querySelectorAll('[data-lesson]').forEach(button => {
+    const [mi, li] = button.dataset.lesson.split('-').map(Number);
+    button.classList.toggle('done', isDone(mi, li));
+  });
+}
+function showLesson(mi, li) {
+  const module = course.modules[mi], lesson = module.lessons[li];
+  nav.querySelectorAll('.nav-lesson').forEach(b => b.classList.toggle('active', b.dataset.lesson === `${mi}-${li}`));
+  content.innerHTML = `<p class="eyebrow">MODULE ${mi + 1} · LESSON ${li + 1}</p><h2>${lesson.title}</h2><p>${lesson.body}</p><div class="task"><strong>Practical task</strong>${lesson.task}</div><p class="muted">${isDone(mi,li) ? 'You have completed this lesson.' : 'Mark this lesson complete when you are ready to continue.'}</p><div class="actions"><button class="primary" id="complete-button" type="button">${isDone(mi,li) ? 'Completed ✓' : 'Mark complete'}</button>${li < module.lessons.length - 1 ? '<button class="secondary" id="next-button" type="button">Next lesson →</button>' : mi < course.modules.length - 1 ? '<button class="secondary" id="next-button" type="button">Next module →</button>' : '<button class="secondary" id="quiz-button" type="button">Knowledge checks →</button>'}</div>`;
+  document.getElementById('complete-button').addEventListener('click', () => { localStorage.setItem(key(mi,li),'true'); updateProgress(); showLesson(mi,li); });
+  document.getElementById('next-button')?.addEventListener('click', () => li < module.lessons.length - 1 ? showLesson(mi,li+1) : showLesson(mi+1,0));
+  document.getElementById('quiz-button')?.addEventListener('click', showQuiz);
+}
+function showQuiz() {
+  nav.querySelectorAll('.nav-lesson').forEach(b => b.classList.toggle('active', b.dataset.quiz === 'true'));
+  let index = 0;
+  function renderQuestion() {
+    const q = course.quiz[index];
+    content.innerHTML = `<p class="eyebrow">KNOWLEDGE CHECK ${index+1} OF ${course.quiz.length}</p><h2>${q[0]}</h2><div id="options"></div><div id="quiz-feedback"></div><div class="actions"><button class="secondary" id="quiz-next" type="button" disabled>${index === course.quiz.length-1 ? 'Finish quiz' : 'Next question →'}</button></div>`;
+    const options = document.getElementById('options');
+    q[1].forEach((option, oi) => {
+      const button = document.createElement('button'); button.className='quiz-option'; button.type='button'; button.textContent=option;
+      button.addEventListener('click', () => {
+        if (options.dataset.answered) return;
+        options.dataset.answered='true';
+        const correct = oi === q[2];
+        button.classList.add('selected');
+        document.getElementById('quiz-feedback').innerHTML = `<p class="feedback">${correct ? 'Correct. ' : 'Not quite. '}${q[3]}</p>`;
+        document.getElementById('quiz-next').disabled=false;
+      });
+      options.appendChild(button);
+    });
+    document.getElementById('quiz-next').addEventListener('click', () => { if(index < course.quiz.length-1){index++;renderQuestion();} else showCapstone(); });
+  }
+  renderQuestion();
+}
+function showCapstone() {
+  nav.querySelectorAll('.nav-lesson').forEach(b => b.classList.toggle('active', b.dataset.capstone === 'true'));
+  content.innerHTML = `<p class="eyebrow">FINAL PROJECT</p><h2>Course capstone</h2><p>${course.capstone}</p><div class="task"><strong>Submission checklist</strong>Document your goal, approach, decisions, evidence, limitations, and what you would improve next.</div><p class="muted">You have reached the end of the course pathway. Review any lesson again from the roadmap whenever you need.</p><button class="primary" id="review-button" type="button">Review first lesson</button>`;
+  document.getElementById('review-button').addEventListener('click',()=>showLesson(0,0));
+}
+nav.querySelectorAll('[data-lesson]').forEach(button => button.addEventListener('click',()=>{const [mi,li]=button.dataset.lesson.split('-').map(Number);showLesson(mi,li);}));
+nav.querySelector('[data-quiz]').addEventListener('click',showQuiz);
+nav.querySelector('[data-capstone]').addEventListener('click',showCapstone);
+document.getElementById('start-button')?.addEventListener('click',()=>showLesson(0,0));
+updateProgress();
+</script>
