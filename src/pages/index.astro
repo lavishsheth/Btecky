@@ -196,18 +196,19 @@ document.querySelectorAll<HTMLImageElement>('.home-story-thumb').forEach(img=>im
    banner's right-hand column on desktop, tablet and mobile. */
 .learnlab-banner-inner{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
 .learnlab-banner-copy,.learnlab-banner-visual{min-width:0}
-.learnlab-banner-visual{width:100%;max-width:520px;margin-inline:auto;overflow:visible}
+.learnlab-banner-visual{width:100%;max-width:520px;min-height:340px;margin-inline:auto;padding:12px 0 34px;overflow:visible}
 .learnlab-code-card{width:min(390px,calc(100% - 34px));max-width:100%}
-.learnlab-floating-label{right:2%;bottom:0;max-width:calc(100% - 24px)}
+.learnlab-floating-label{right:2%;bottom:-18px;max-width:calc(100% - 24px);z-index:3}
 @media(max-width:950px) and (min-width:651px){
   .learnlab-banner-inner{gap:28px}
+  .learnlab-banner-visual{min-height:330px;padding-bottom:34px}
   .learnlab-code-card{width:calc(100% - 24px);padding:18px}
-  .learnlab-floating-label{right:0;bottom:-4px}
+  .learnlab-floating-label{right:0;bottom:-18px}
 }
 @media(max-width:650px){
-  .learnlab-banner-visual{max-width:460px;padding:8px 0 18px}
+  .learnlab-banner-visual{max-width:460px;min-height:290px;padding:8px 0 34px}
   .learnlab-code-card{width:calc(100% - 24px)}
-  .learnlab-floating-label{right:0;bottom:0}
+  .learnlab-floating-label{right:0;bottom:-16px}
 }
 
 </style>
